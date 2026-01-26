@@ -1,0 +1,92 @@
+[gd_scene load_steps=15 format=3 uid="uid://cqrenk8ue8j8v"]
+
+[ext_resource type="Script" uid="uid://dqvwobvui5k2b" path="res://Player/player.gd" id="1_l8h54"]
+[ext_resource type="AudioStream" uid="uid://ctepy7hf0c1dv" path="res://Player/Audio/step.wav" id="2_4ntmi"]
+[ext_resource type="Shader" uid="uid://di4xxgrjrbt6l" path="res://Shaders/quantize.gdshader" id="2_gwnis"]
+
+[sub_resource type="CapsuleShape3D" id="CapsuleShape3D_4ntmi"]
+
+[sub_resource type="FastNoiseLite" id="FastNoiseLite_btcbx"]
+
+[sub_resource type="NoiseTexture2D" id="NoiseTexture2D_gwnis"]
+width = 32
+height = 32
+noise = SubResource("FastNoiseLite_btcbx")
+
+[sub_resource type="ShaderMaterial" id="ShaderMaterial_gwnis"]
+render_priority = 0
+shader = ExtResource("2_gwnis")
+shader_parameter/posterize_levels = 12
+shader_parameter/albedo_map = SubResource("NoiseTexture2D_gwnis")
+shader_parameter/roughness = 1.0
+shader_parameter/metallic = 0.0
+shader_parameter/uv_tiling = Vector2(1, 1)
+shader_parameter/uv_offset = Vector2(0, 0)
+
+[sub_resource type="CapsuleMesh" id="CapsuleMesh_l8h54"]
+material = SubResource("ShaderMaterial_gwnis")
+radial_segments = 8
+rings = 4
+
+[sub_resource type="Curve" id="Curve_btcbx"]
+_data = [Vector2(0, 1), 0.0, 0.0, 0, 0, Vector2(0.4966216, 0), 0.0, 0.0, 0, 0]
+point_count = 2
+
+[sub_resource type="CurveTexture" id="CurveTexture_gwnis"]
+curve = SubResource("Curve_btcbx")
+
+[sub_resource type="ParticleProcessMaterial" id="ParticleProcessMaterial_k53q1"]
+particle_flag_align_y = true
+direction = Vector3(0, 0, -1)
+initial_velocity_min = 8.0
+initial_velocity_max = 12.0
+gravity = Vector3(0, 0, 0)
+scale_min = 0.5
+scale_curve = SubResource("CurveTexture_gwnis")
+
+[sub_resource type="StandardMaterial3D" id="StandardMaterial3D_fhl08"]
+shading_mode = 0
+
+[sub_resource type="CapsuleMesh" id="CapsuleMesh_vtle1"]
+material = SubResource("StandardMaterial3D_fhl08")
+radius = 0.1
+height = 1.0
+radial_segments = 4
+rings = 0
+
+[sub_resource type="CapsuleMesh" id="CapsuleMesh_4ntmi"]
+radius = 0.1
+height = 1.0
+
+[node name="Player" type="CharacterBody3D"]
+script = ExtResource("1_l8h54")
+
+[node name="CollisionShape3D" type="CollisionShape3D" parent="."]
+shape = SubResource("CapsuleShape3D_4ntmi")
+
+[node name="MeshInstance3D" type="MeshInstance3D" parent="."]
+mesh = SubResource("CapsuleMesh_l8h54")
+
+[node name="Head" type="Node3D" parent="."]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 0.5, 0)
+
+[node name="Camera3D" type="Camera3D" parent="Head"]
+
+[node name="shootPoint" type="Marker3D" parent="Head"]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, -0.29121658, -0.80566555)
+
+[node name="ShootParticles" type="GPUParticles3D" parent="Head"]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, -0.009634256, -0.5, -1)
+cast_shadow = 0
+lifetime = 0.5
+explosiveness = 1.0
+randomness = 0.2
+process_material = SubResource("ParticleProcessMaterial_k53q1")
+draw_pass_1 = SubResource("CapsuleMesh_vtle1")
+
+[node name="Cord" type="MeshInstance3D" parent="."]
+mesh = SubResource("CapsuleMesh_4ntmi")
+
+[node name="StepSound" type="AudioStreamPlayer3D" parent="."]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, -0.8, 0)
+stream = ExtResource("2_4ntmi")

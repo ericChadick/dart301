@@ -1,0 +1,213 @@
+[gd_scene load_steps=12 format=3 uid="uid://dckfnquaidfil"]
+
+[ext_resource type="Texture2D" uid="uid://fcmbc0c6wtwk" path="res://UI/power.png" id="1_kwigr"]
+[ext_resource type="Material" uid="uid://f4lyx4wwc4mt" path="res://Shaders/circleBar.tres" id="2_b8q8m"]
+[ext_resource type="Texture2D" uid="uid://bqtmruylxcp8e" path="res://UI/gear.png" id="2_ccqt3"]
+[ext_resource type="Texture2D" uid="uid://diu4t01qg1wt5" path="res://UI/battery.png" id="2_xmsn8"]
+[ext_resource type="Texture2D" uid="uid://gvddmejx417l" path="res://Player/Images/hand.png" id="3_xmsn8"]
+[ext_resource type="Shader" uid="uid://drc60ttp56cn4" path="res://Shaders/screen.gdshader" id="4_b8q8m"]
+
+[sub_resource type="StyleBoxFlat" id="StyleBoxFlat_8w2om"]
+bg_color = Color(0, 0, 0, 0.39215687)
+corner_radius_top_left = 2
+corner_radius_top_right = 2
+corner_radius_bottom_right = 2
+corner_radius_bottom_left = 6
+expand_margin_left = 8.0
+expand_margin_top = 8.0
+expand_margin_right = 8.0
+expand_margin_bottom = 8.0
+
+[sub_resource type="StyleBoxFlat" id="StyleBoxFlat_xmsn8"]
+bg_color = Color(1, 1, 1, 1)
+border_blend = true
+corner_radius_top_left = 4
+corner_radius_top_right = 4
+corner_radius_bottom_right = 4
+corner_radius_bottom_left = 4
+
+[sub_resource type="StyleBoxFlat" id="StyleBoxFlat_b8q8m"]
+bg_color = Color(0, 0, 0, 0.39215687)
+corner_radius_top_left = 12
+corner_radius_top_right = 12
+corner_radius_bottom_right = 12
+corner_radius_bottom_left = 12
+
+[sub_resource type="StyleBoxFlat" id="StyleBoxFlat_ccqt3"]
+bg_color = Color(1, 1, 1, 1)
+corner_radius_top_left = 12
+corner_radius_top_right = 12
+corner_radius_bottom_right = 12
+corner_radius_bottom_left = 12
+
+[sub_resource type="ShaderMaterial" id="ShaderMaterial_ccqt3"]
+shader = ExtResource("4_b8q8m")
+shader_parameter/grain_intensity = 0.150000007125
+shader_parameter/min_lum = 0.0
+shader_parameter/max_lum = 1.0
+shader_parameter/time_scale = 0.5
+shader_parameter/vignette_darkness = 0.5
+shader_parameter/vignette_outer_radius = 2.0
+shader_parameter/vignette_inner_radius = 1.0000000475
+shader_parameter/scanline_intensity = 0.2
+shader_parameter/barrel_distortion = 0.2000000095
+shader_parameter/chromatic_aberration = 0.0010000000475
+shader_parameter/crt_vignette_power = 0.50000002375
+shader_parameter/pixel_resolution_x = 640
+shader_parameter/pixel_resolution_y = 480
+shader_parameter/enable_color_quantization = false
+shader_parameter/color_quant_steps = 32.0
+shader_parameter/warble_amount = 0.0010000000475
+shader_parameter/warble_speed = 2.000000095
+
+[node name="PlayerUI" type="CanvasLayer"]
+
+[node name="Control" type="Control" parent="."]
+layout_mode = 3
+anchors_preset = 15
+anchor_right = 1.0
+anchor_bottom = 1.0
+grow_horizontal = 2
+grow_vertical = 2
+mouse_filter = 2
+
+[node name="LeftHand" type="TextureRect" parent="Control"]
+modulate = Color(0.3604, 0.48194665, 0.53, 1)
+custom_minimum_size = Vector2(640, 640)
+layout_mode = 1
+anchors_preset = 2
+anchor_top = 1.0
+anchor_bottom = 1.0
+offset_top = -640.0
+offset_right = 640.0
+grow_vertical = 0
+texture = ExtResource("3_xmsn8")
+expand_mode = 2
+stretch_mode = 6
+flip_h = true
+
+[node name="RightHand" type="TextureRect" parent="Control"]
+modulate = Color(0.36078432, 0.48235294, 0.5294118, 1)
+custom_minimum_size = Vector2(640, 640)
+layout_mode = 1
+anchors_preset = 3
+anchor_left = 1.0
+anchor_top = 1.0
+anchor_right = 1.0
+anchor_bottom = 1.0
+offset_left = -640.0
+offset_top = -640.0
+grow_horizontal = 0
+grow_vertical = 0
+texture = ExtResource("3_xmsn8")
+expand_mode = 2
+stretch_mode = 6
+
+[node name="MarginContainer" type="MarginContainer" parent="Control"]
+layout_mode = 1
+anchors_preset = 15
+anchor_right = 1.0
+anchor_bottom = 1.0
+grow_horizontal = 2
+grow_vertical = 2
+theme_override_constants/margin_left = 32
+theme_override_constants/margin_top = 32
+theme_override_constants/margin_right = 32
+theme_override_constants/margin_bottom = 32
+
+[node name="StatBars" type="VBoxContainer" parent="Control/MarginContainer"]
+layout_mode = 2
+size_flags_vertical = 8
+theme_override_constants/separation = 48
+
+[node name="BatteryBar" type="ProgressBar" parent="Control/MarginContainer/StatBars"]
+custom_minimum_size = Vector2(320, 36)
+layout_mode = 2
+size_flags_horizontal = 4
+size_flags_vertical = 8
+mouse_filter = 1
+theme_override_styles/background = SubResource("StyleBoxFlat_8w2om")
+theme_override_styles/fill = SubResource("StyleBoxFlat_xmsn8")
+max_value = 1.0
+step = 0.005
+value = 1.0
+show_percentage = false
+
+[node name="NinePatchRect" type="NinePatchRect" parent="Control/MarginContainer/StatBars/BatteryBar"]
+custom_minimum_size = Vector2(360, 81.515)
+layout_mode = 1
+offset_left = -19.0
+offset_top = -20.0
+offset_right = 351.0
+offset_bottom = 67.0
+size_flags_horizontal = 4
+texture = ExtResource("2_xmsn8")
+patch_margin_left = 20
+patch_margin_top = 20
+patch_margin_right = 31
+patch_margin_bottom = 31
+
+[node name="HealthBar" type="ProgressBar" parent="Control/MarginContainer/StatBars"]
+custom_minimum_size = Vector2(250, 36)
+layout_mode = 2
+size_flags_horizontal = 4
+size_flags_vertical = 8
+mouse_filter = 1
+theme_override_styles/background = SubResource("StyleBoxFlat_b8q8m")
+theme_override_styles/fill = SubResource("StyleBoxFlat_ccqt3")
+max_value = 1.0
+step = 0.005
+value = 0.5
+show_percentage = false
+
+[node name="Crosshair" type="TextureRect" parent="Control/MarginContainer"]
+custom_minimum_size = Vector2(86, 86)
+layout_mode = 2
+size_flags_horizontal = 4
+size_flags_vertical = 4
+texture = ExtResource("1_kwigr")
+expand_mode = 1
+stretch_mode = 5
+
+[node name="CircleBar" type="ColorRect" parent="Control/MarginContainer/Crosshair"]
+material = ExtResource("2_b8q8m")
+layout_mode = 1
+anchors_preset = 15
+anchor_right = 1.0
+anchor_bottom = 1.0
+grow_horizontal = 2
+grow_vertical = 2
+mouse_filter = 1
+
+[node name="GearIcon" type="TextureRect" parent="."]
+custom_minimum_size = Vector2(86, 86)
+offset_left = 456.0
+offset_top = 767.0
+offset_right = 542.0
+offset_bottom = 853.0
+size_flags_horizontal = 0
+size_flags_vertical = 8
+texture = ExtResource("2_ccqt3")
+expand_mode = 1
+
+[node name="GearIconBG" type="TextureRect" parent="GearIcon"]
+modulate = Color(0, 0, 0, 0.3137255)
+z_index = -1
+custom_minimum_size = Vector2(86, 86)
+layout_mode = 0
+offset_left = 4.0
+offset_top = 3.0
+offset_right = 90.0
+offset_bottom = 89.0
+size_flags_horizontal = 0
+size_flags_vertical = 8
+texture = ExtResource("2_ccqt3")
+expand_mode = 1
+
+[node name="Screen" type="ColorRect" parent="."]
+material = SubResource("ShaderMaterial_ccqt3")
+anchors_preset = 15
+anchor_right = 1.0
+anchor_bottom = 1.0
+grow_horizontal = 2
+grow_vertical = 2
