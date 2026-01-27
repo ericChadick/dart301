@@ -18,8 +18,8 @@ uniform float barrel_distortion : hint_range(0.0, 0.5) = 0.15;
 uniform float chromatic_aberration : hint_range(0.0, 0.01) = 0.005;
 uniform float crt_vignette_power : hint_range(0.0, 5.0) = 2.0; 
 
-uniform int pixel_resolution_x : hint_range(32, 640) = 320;
-uniform int pixel_resolution_y : hint_range(24, 480) = 240;
+uniform int pixel_resolution_x : hint_range(32, 1280) = 320;
+uniform int pixel_resolution_y : hint_range(24, 960) = 240;
 uniform bool enable_color_quantization = true;
 uniform float color_quant_steps : hint_range(2.0, 64.0) = 32.0;
 
