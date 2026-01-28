@@ -1,6 +1,7 @@
-[gd_scene load_steps=4 format=3 uid="uid://bxgwgbkpugt5j"]
+[gd_scene format=3 uid="uid://bxgwgbkpugt5j"]
 
 [sub_resource type="SphereShape3D" id="SphereShape3D_qknly"]
+radius = 2.0
 
 [sub_resource type="StandardMaterial3D" id="StandardMaterial3D_qknly"]
 vertex_color_use_as_albedo = true
@@ -11,11 +12,11 @@ emission_energy_multiplier = 16.0
 
 [sub_resource type="SphereMesh" id="SphereMesh_uxtxx"]
 
-[node name="Outlet" type="Area3D" groups=["outlet"]]
+[node name="Outlet" type="Area3D" unique_id=220038749 groups=["outlet"]]
 
-[node name="CollisionShape3D" type="CollisionShape3D" parent="."]
+[node name="CollisionShape3D" type="CollisionShape3D" parent="." unique_id=593381698]
 shape = SubResource("SphereShape3D_qknly")
 
-[node name="MeshInstance3D" type="MeshInstance3D" parent="."]
+[node name="MeshInstance3D" type="MeshInstance3D" parent="." unique_id=391716278]
 material_override = SubResource("StandardMaterial3D_qknly")
 mesh = SubResource("SphereMesh_uxtxx")
