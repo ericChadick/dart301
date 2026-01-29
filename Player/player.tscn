@@ -83,6 +83,7 @@ transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, -0.29121658, -0.80566555)
 
 [node name="ShootParticles" type="GPUParticles3D" parent="Head" unique_id=2105224296]
 transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, -0.009634256, -0.5, -1)
+visible = false
 cast_shadow = 0
 lifetime = 0.5
 explosiveness = 1.0

@@ -10,6 +10,7 @@ var progress_bar: ProgressBar;
 var crosshair: TextureRect;
 var circle_bar: ColorRect;
 var outlet_crosshair: TextureRect;
+var currency_text: RichTextLabel;
 
 @export var playerUI : CanvasLayer;
 @export var baseSpd := 15.0;
@@ -56,7 +57,7 @@ var invertCamMov := true;
 @export var cvAccel := 3;
 #fov variables
 const BASE_FOV := 75.0
-const FOV_CHANGE := .8
+const FOV_CHANGE := .4
 #bob variables
 const BOB_FREQ := 2.0
 const BOB_AMP := 0.06
@@ -82,7 +83,7 @@ func _ready() -> void:
 	crosshair = playerUI.get_node("Control/MarginContainer/Crosshair");
 	circle_bar = playerUI.get_node("Control/MarginContainer/Crosshair/CircleBar");
 	outlet_crosshair = playerUI.get_node("Control/OutletCrosshair");
-	
+	currency_text = playerUI.get_node("$Control/MarginContainer/Currency");
 	
 
 #move camera with controller r stick
@@ -184,6 +185,7 @@ func _physics_process(delta: float) -> void:
 			velocity.y = jumpSpd;
 			jumpBuffer = 0.0;
 			groundBuffer = 0.0;
+			shake = .4;
 		#set accelerations ground
 		if input_dir.length() < .5:
 			inc = groundFric;
