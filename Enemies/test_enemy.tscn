@@ -1,3 +1,139 @@
 [gd_scene format=3 uid="uid://hyeh47v46j86"]
 
+[ext_resource type="PackedScene" uid="uid://dckfnquaidfil" path="res://UI/player_ui.tscn" id="1_tsyqh"]
+[ext_resource type="PackedScene" uid="uid://cqrenk8ue8j8v" path="res://Player/player.tscn" id="2_8fnaj"]
+[ext_resource type="PackedScene" uid="uid://bxgwgbkpugt5j" path="res://World/Outlet/outlet.tscn" id="3_ffrie"]
+[ext_resource type="Script" uid="uid://bl44lp1yridj8" path="res://Enemies/enemy.gd" id="4_55wc7"]
+[ext_resource type="PackedScene" uid="uid://balgpgdnfqd4g" path="res://Enemies/Enemie1/Drone.fbx" id="4_bghym"]
+[ext_resource type="Script" uid="uid://bb0t2ovl7wifo" path="res://addons/beehave/nodes/beehave_tree.gd" id="6_j0tst"]
+[ext_resource type="Script" uid="uid://cv74jjdrwevpr" path="res://addons/beehave/nodes/leaves/action.gd" id="7_bghym"]
+[ext_resource type="Script" uid="uid://8hn4kne15ac5" path="res://addons/beehave/nodes/composites/selector.gd" id="7_efyi5"]
+
+[sub_resource type="Environment" id="Environment_br3nj"]
+background_mode = 1
+background_color = Color(0.6006, 0.66, 0.66, 1)
+glow_enabled = true
+fog_light_color = Color(0, 0, 0, 1)
+volumetric_fog_enabled = true
+volumetric_fog_albedo = Color(0.24299997, 0.40514997, 0.45, 1)
+volumetric_fog_length = 86.0
+
+[sub_resource type="GDScript" id="GDScript_xn6gn"]
+script/source = "@tool
+extends ConditionLeaf
+
+@export_range(0, 100, 1, \"suffix:%\") var health_percentage: int = 0
+
+func tick(actor: Node, _blackboard: Blackboard) -> int:
+	if not actor:
+		return FAILURE
+	var actor_health_percent: float = float(actor.health)/float(actor.max_health)
+	if actor_health_percent < health_percentage:
+		return SUCCESS
+	else:
+		return FAILURE
+"
+
 [node name="TestEnemy_tscn" type="Node3D" unique_id=1924405938]
+
+[node name="PlayerUI" parent="." unique_id=883918654 instance=ExtResource("1_tsyqh")]
+
+[node name="SubViewportContainer" type="SubViewportContainer" parent="PlayerUI" unique_id=1488802912]
+anchors_preset = 15
+anchor_right = 1.0
+anchor_bottom = 1.0
+grow_horizontal = 2
+grow_vertical = 2
+mouse_filter = 2
+stretch = true
+stretch_shrink = 4
+
+[node name="SubViewport" type="SubViewport" parent="PlayerUI/SubViewportContainer" unique_id=1046679752]
+handle_input_locally = false
+audio_listener_enable_3d = true
+size = Vector2i(320, 215)
+size_2d_override_stretch = true
+render_target_update_mode = 4
+
+[node name="CSGBox3D" type="CSGBox3D" parent="PlayerUI/SubViewportContainer/SubViewport" unique_id=825956912]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, -9.136589, -3.163, -98.35701)
+use_collision = true
+size = Vector3(38.63057, 5.0889893, 219.60583)
+
+[node name="CSGBox3D8" type="CSGBox3D" parent="PlayerUI/SubViewportContainer/SubViewport" unique_id=2040221876]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 78.558334, 18.124975, -98.35701)
+use_collision = true
+size = Vector3(38.63057, 5.0889893, 219.60583)
+
+[node name="CSGBox3D6" type="CSGBox3D" parent="PlayerUI/SubViewportContainer/SubViewport" unique_id=1858358373]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 14.424938, 10.274113, -98.35701)
+use_collision = true
+size = Vector3(13.911476, 32, 219.60583)
+
+[node name="CSGBox3D7" type="CSGBox3D" parent="PlayerUI/SubViewportContainer/SubViewport" unique_id=1807742946]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, -31.490223, 10.566074, -98.35701)
+use_collision = true
+size = Vector3(13.911476, 32.583923, 219.60583)
+
+[node name="CSGBox3D2" type="CSGBox3D" parent="PlayerUI/SubViewportContainer/SubViewport" unique_id=48048741]
+transform = Transform3D(0.29964027, 0, -0.9540523, 0, 1, 0, 0.9540523, 0, 0.29964027, 3.671226, 2.4992502, -48.092133)
+use_collision = true
+size = Vector3(8.831219, 7.5484314, 17.591831)
+
+[node name="CSGBox3D5" type="CSGBox3D" parent="PlayerUI/SubViewportContainer/SubViewport" unique_id=1753900644]
+transform = Transform3D(0.85919213, 0, -0.51165307, 0, 1, 0, 0.51165307, 0, 0.85919213, -26.949791, 1.5899942, -35.579586)
+use_collision = true
+size = Vector3(20.473919, 5.7299194, 6.6466236)
+
+[node name="Player" parent="PlayerUI/SubViewportContainer/SubViewport" unique_id=1517765959 instance=ExtResource("2_8fnaj")]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, -7.9193344, 1.5280628, -2.4022925)
+
+[node name="WorldEnvironment" type="WorldEnvironment" parent="PlayerUI/SubViewportContainer/SubViewport" unique_id=1547834592]
+environment = SubResource("Environment_br3nj")
+
+[node name="DirectionalLight3D" type="DirectionalLight3D" parent="PlayerUI/SubViewportContainer/SubViewport" unique_id=1518879193]
+transform = Transform3D(0.9153607, 0.12700464, 0.3820794, -0.40263486, 0.2887357, 0.86862934, 0, -0.9489476, 0.31543377, 0, 7.3581166, 0)
+shadow_enabled = true
+
+[node name="CSGBox3D3" type="CSGBox3D" parent="PlayerUI/SubViewportContainer/SubViewport" unique_id=1324758803]
+transform = Transform3D(0.018534422, 0, 0.9998282, 0, 1, 0, -0.9998282, 0, 0.018534422, -13.847928, 1.3077011, -85.65367)
+use_collision = true
+size = Vector3(8.309418, 6.057556, 11.516392)
+
+[node name="Outlet" parent="PlayerUI/SubViewportContainer/SubViewport" unique_id=220038749 instance=ExtResource("3_ffrie")]
+transform = Transform3D(0.7857922, 0, 0.61849064, 0, 1, 0, -0.61849064, 0, 0.7857922, -4.8091483, 4.0179935, -45.29271)
+
+[node name="CSGBox3D4" type="CSGBox3D" parent="PlayerUI/SubViewportContainer/SubViewport" unique_id=1083920867]
+transform = Transform3D(0.3969877, 0, -0.9178239, 0, 1, 0, 0.9178239, 0, 0.3969877, -15.816255, 0.67638874, -15.914407)
+use_collision = true
+size = Vector3(1.5280151, 2.7254639, 2.0904007)
+
+[node name="Outlet2" parent="PlayerUI/SubViewportContainer/SubViewport" unique_id=1931095423 instance=ExtResource("3_ffrie")]
+transform = Transform3D(0.3969877, 0, -0.9178239, 0, 1, 0, 0.9178239, 0, 0.3969877, -15.544044, 0.8243972, -15.222859)
+
+[node name="Outlet3" parent="PlayerUI/SubViewportContainer/SubViewport" unique_id=864816755 instance=ExtResource("3_ffrie")]
+transform = Transform3D(-0.64685625, 0, -0.76261187, 0, 1, 0, 0.76261187, 0, -0.64685625, -7.947236, 1.1420511, -85.423836)
+
+[node name="Enemy" type="Node" parent="." unique_id=433773733]
+script = ExtResource("4_55wc7")
+
+[node name="Visual" type="Node" parent="Enemy" unique_id=907123010]
+
+[node name="Drone" parent="Enemy/Visual" unique_id=1041426428 instance=ExtResource("4_bghym")]
+transform = Transform3D(-0.037603013, 0, -0.9992927, 0, 1, 0, 0.9992927, 0, -0.037603013, -8.201086, 3.3661146, -17.39819)
+
+[node name="BeehaveTree" type="Node" parent="Enemy" unique_id=2021997188 node_paths=PackedStringArray("actor")]
+script = ExtResource("6_j0tst")
+actor_node_path = NodePath("../Visual/Drone")
+actor = NodePath(".")
+
+[node name="SelectorComposite" type="Node" parent="Enemy/BeehaveTree" unique_id=1974725233]
+script = ExtResource("7_efyi5")
+
+[node name="HealthLess30Percent" type="Node" parent="Enemy/BeehaveTree/SelectorComposite" unique_id=704449503]
+script = SubResource("GDScript_xn6gn")
+health_percentage = 30
+
+[node name="RetreatFromPlayer" type="Node" parent="Enemy/BeehaveTree/SelectorComposite" unique_id=1263759097]
+script = ExtResource("7_bghym")
+metadata/_custom_type_script = "uid://cv74jjdrwevpr"

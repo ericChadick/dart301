@@ -1,7 +1,7 @@
 [gd_scene format=3 uid="uid://cqrenk8ue8j8v"]
 
 [ext_resource type="Script" uid="uid://dqvwobvui5k2b" path="res://Player/player.gd" id="1_l8h54"]
-[ext_resource type="AudioStream" uid="uid://ctepy7hf0c1dv" path="res://Audio/Player/step.wav" id="2_4ntmi"]
+[ext_resource type="AudioStream" uid="uid://ctepy7hf0c1dv" path="res://step.wav" id="2_4ntmi"]
 [ext_resource type="Shader" uid="uid://di4xxgrjrbt6l" path="res://Shaders/quantize.gdshader" id="2_gwnis"]
 
 [sub_resource type="CapsuleShape3D" id="CapsuleShape3D_4ntmi"]
