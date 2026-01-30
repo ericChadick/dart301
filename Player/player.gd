@@ -83,7 +83,7 @@ func _ready() -> void:
 	crosshair = playerUI.get_node("Control/MarginContainer/Crosshair");
 	circle_bar = playerUI.get_node("Control/MarginContainer/Crosshair/CircleBar");
 	outlet_crosshair = playerUI.get_node("Control/OutletCrosshair");
-	currency_text = playerUI.get_node("$Control/MarginContainer/Currency");
+	currency_text = playerUI.get_node("Control/MarginContainer/Currency");
 	
 
 #move camera with controller r stick

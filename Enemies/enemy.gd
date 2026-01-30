@@ -3,7 +3,7 @@ extends Node3D
 
 @export var health_bar: ProgressBar
 @export var max_health: int = 100
-@export var speed: float = 8.0
+@export var speed: float = 1.0
 
 var health: int = 100:
 	set(value):

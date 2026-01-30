@@ -5,6 +5,9 @@
 [ext_resource type="PackedScene" uid="uid://bxgwgbkpugt5j" path="res://World/Outlet/outlet.tscn" id="3_ffrie"]
 [ext_resource type="Script" uid="uid://bl44lp1yridj8" path="res://Enemies/enemy.gd" id="4_55wc7"]
 [ext_resource type="PackedScene" uid="uid://balgpgdnfqd4g" path="res://Enemies/Enemie1/Drone.fbx" id="4_bghym"]
+[ext_resource type="Script" uid="uid://bb0t2ovl7wifo" path="res://addons/beehave/nodes/beehave_tree.gd" id="6_55wc7"]
+[ext_resource type="Script" uid="uid://cg016dbe7gs1x" path="res://addons/beehave/nodes/composites/sequence.gd" id="6_br3nj"]
+[ext_resource type="Script" uid="uid://8hn4kne15ac5" path="res://addons/beehave/nodes/composites/selector.gd" id="7_j0tst"]
 
 [sub_resource type="Environment" id="Environment_br3nj"]
 background_mode = 1
@@ -14,434 +17,6 @@ fog_light_color = Color(0, 0, 0, 1)
 volumetric_fog_enabled = true
 volumetric_fog_albedo = Color(0.24299997, 0.40514997, 0.45, 1)
 volumetric_fog_length = 86.0
-
-[sub_resource type="GDScript" id="GDScript_ffrie"]
-script/source = "## Controls the flow of execution of the entire behavior tree.
-@tool
-@icon(\"../icons/tree.svg\")
-class_name BeehaveTree extends Node
-
-enum { SUCCESS, FAILURE, RUNNING }
-
-enum ProcessThread { IDLE, PHYSICS, MANUAL }
-
-signal tree_enabled
-signal tree_disabled
-
-## Whether this behavior tree should be enabled or not.
-@export var enabled: bool = true:
-	set(value):
-		enabled = value
-		set_physics_process(enabled and process_thread == ProcessThread.PHYSICS)
-		set_process(enabled and process_thread == ProcessThread.IDLE)
-		if value:
-			tree_enabled.emit()
-		else:
-			interrupt()
-			tree_disabled.emit()
-
-	get:
-		return enabled
-
-## How often the tree should tick, in frames. The default value of 1 means
-## tick() runs every frame.
-@export var tick_rate: int = 1
-
-## An optional node path this behavior tree should apply to.
-@export_node_path var actor_node_path: NodePath:
-	set(anp):
-		actor_node_path = anp
-		if actor_node_path != null and str(actor_node_path) != \"..\":
-			actor = get_node(actor_node_path.get_as_property_path())
-		else:
-			actor = get_parent()
-		if Engine.is_editor_hint():
-			update_configuration_warnings()
-
-## Whether to run this tree in a physics or idle thread.
-@export var process_thread: ProcessThread = ProcessThread.PHYSICS:
-	set(value):
-		process_thread = value
-		self.enabled = self.enabled and process_thread != ProcessThread.MANUAL
-		set_physics_process(enabled and process_thread == ProcessThread.PHYSICS)
-		set_process(enabled and process_thread == ProcessThread.IDLE)
-
-## Custom blackboard node. An internal blackboard will be used
-## if no blackboard is provided explicitly.
-@export var blackboard: Blackboard:
-	set(b):
-		blackboard = b
-		if blackboard and _internal_blackboard:
-			remove_child(_internal_blackboard)
-			_internal_blackboard.free()
-			_internal_blackboard = null
-		elif not blackboard and not _internal_blackboard:
-			_internal_blackboard = Blackboard.new()
-			add_child(_internal_blackboard, false, Node.INTERNAL_MODE_BACK)
-	get:
-		# in case blackboard is accessed before this node is,
-		# we need to ensure that the internal blackboard is used.
-		if not blackboard and not _internal_blackboard:
-			_internal_blackboard = Blackboard.new()
-			add_child(_internal_blackboard, false, Node.INTERNAL_MODE_BACK)
-		return blackboard if blackboard else _internal_blackboard
-
-## When enabled, this tree is tracked individually
-## as a custom monitor.
-@export var custom_monitor = false:
-	set(b):
-		custom_monitor = b
-		if custom_monitor and _process_time_metric_name != \"\":
-			Performance.add_custom_monitor(
-				_process_time_metric_name, _get_process_time_metric_value
-			)
-			_get_global_metrics().register_tree(self)
-		else:
-			if _process_time_metric_name != \"\":
-				# Remove tree metric from the engine
-				Performance.remove_custom_monitor(_process_time_metric_name)
-				_get_global_metrics().unregister_tree(self)
-
-			BeehaveDebuggerMessages.unregister_tree(get_instance_id())
-
-@export var actor: Node:
-	set(a):
-		actor = a
-		if actor == null:
-			actor = get_parent()
-		if Engine.is_editor_hint():
-			update_configuration_warnings()
-
-var status: int = -1
-var last_tick: int = -1
-
-var _internal_blackboard: Blackboard
-var _process_time_metric_name: String
-var _process_time_metric_value: float = 0.0
-var _can_send_message: bool = false
-
-
-func _ready() -> void:
-	var connect_scene_tree_signal = func(signal_name: String, is_added: bool):
-		if not get_tree().is_connected(signal_name, _on_scene_tree_node_added_removed.bind(is_added)):
-			get_tree().connect(signal_name, _on_scene_tree_node_added_removed.bind(is_added))
-	connect_scene_tree_signal.call(\"node_added\", true)
-	connect_scene_tree_signal.call(\"node_removed\", false)
-
-	if not process_thread:
-		process_thread = ProcessThread.PHYSICS
-
-	if not actor:
-		if actor_node_path:
-			actor = get_node(actor_node_path)
-		else:
-			actor = get_parent()
-
-	if not blackboard:
-		# invoke setter to auto-initialise the blackboard.
-		self.blackboard = null
-
-	# Get the name of the parent node name for metric
-	_process_time_metric_name = (
-		\"beehave [microseconds]/process_time_%s-%s\" % [actor.name, get_instance_id()]
-	)
-
-	set_physics_process(enabled and process_thread == ProcessThread.PHYSICS)
-	set_process(enabled and process_thread == ProcessThread.IDLE)
-
-	# Register custom metric to the engine
-	if custom_monitor and not Engine.is_editor_hint():
-		Performance.add_custom_monitor(_process_time_metric_name, _get_process_time_metric_value)
-		_get_global_metrics().register_tree(self)
-
-	if Engine.is_editor_hint():
-		update_configuration_warnings.call_deferred()
-	else:
-		# Ensure the local debugger knows about the tree *before* telling the editor.
-		_get_global_debugger().register_tree(self)
-		BeehaveDebuggerMessages.register_tree(_get_debugger_data(self))
-
-
-func _on_scene_tree_node_added_removed(node: Node, is_added: bool) -> void:
-	if Engine.is_editor_hint():
-		return
-
-	if node is BeehaveNode and is_ancestor_of(node):
-		var sgnal := node.ready if is_added else node.tree_exited
-		if is_added:
-			sgnal.connect(
-				func() -> void: BeehaveDebuggerMessages.register_tree(_get_debugger_data(self)),
-				CONNECT_ONE_SHOT
-			)
-		else:
-			sgnal.connect(
-				func() -> void:
-					BeehaveDebuggerMessages.unregister_tree(get_instance_id())
-					request_ready()
-			)
-
-
-func _physics_process(_delta: float) -> void:
-	tick()
-
-
-func _process(_delta: float) -> void:
-	tick()
-
-
-func tick() -> int:
-	if Engine.is_editor_hint():
-		return -1
-	if last_tick != -1 and last_tick < tick_rate - 1:
-		last_tick += 1
-		return -1
-
-	last_tick = 0
-
-	# Start timing for metric
-	var start_time = Time.get_ticks_usec()
-	blackboard.set_value(\"can_send_message\", _can_send_message)
-
-	if _can_send_message and not Engine.is_editor_hint():
-		BeehaveDebuggerMessages.process_begin(get_instance_id(), blackboard.get_debug_data())
-
-	if actor == null or get_child_count() == 0:
-		return FAILURE
-	var child := self.get_child(0)
-	if status != RUNNING:
-		child.before_run(actor, blackboard)
-
-	status = child.tick(actor, blackboard)
-	if _can_send_message:
-		BeehaveDebuggerMessages.process_tick(child.get_instance_id(), status, blackboard.get_debug_data())
-		BeehaveDebuggerMessages.process_tick(get_instance_id(), status, blackboard.get_debug_data())
-
-	# Clear running action if nothing is running
-	if status != RUNNING:
-		blackboard.set_value(\"running_action\", null, str(actor.get_instance_id()))
-		child.after_run(actor, blackboard)
-		
-	if _can_send_message and not Engine.is_editor_hint():
-		BeehaveDebuggerMessages.process_end(get_instance_id(), blackboard.get_debug_data())
-
-	# Check the cost for this frame and save it for metric report
-	_process_time_metric_value = Time.get_ticks_usec() - start_time
-	
-	return status
-
-
-func _get_configuration_warnings() -> PackedStringArray:
-	var warnings: PackedStringArray = []
-
-	if actor == null:
-		warnings.append(\"Configure target node on tree\")
-
-	if get_children().any(func(x): return not (x is BeehaveNode)):
-		warnings.append(\"All children of this node should inherit from BeehaveNode class.\")
-
-	if get_child_count() != 1:
-		warnings.append(\"BeehaveTree should have exactly one child node.\")
-
-	return warnings
-
-
-## Returns the currently running action
-func get_running_action() -> ActionLeaf:
-	return blackboard.get_value(\"running_action\", null, str(actor.get_instance_id()))
-
-
-## Returns the last condition that was executed
-func get_last_condition() -> ConditionLeaf:
-	return blackboard.get_value(\"last_condition\", null, str(actor.get_instance_id()))
-
-
-## Returns the status of the last executed condition
-func get_last_condition_status() -> String:
-	if blackboard.has_value(\"last_condition_status\", str(actor.get_instance_id())):
-		var status = blackboard.get_value(
-			\"last_condition_status\", null, str(actor.get_instance_id())
-		)
-		if status == SUCCESS:
-			return \"SUCCESS\"
-		elif status == FAILURE:
-			return \"FAILURE\"
-		else:
-			return \"RUNNING\"
-	return \"\"
-
-
-## interrupts this tree if anything was running
-func interrupt() -> void:
-	if self.get_child_count() != 0:
-		var first_child = self.get_child(0)
-		if \"interrupt\" in first_child:
-			first_child.interrupt(actor, blackboard)
-
-
-## Enables this tree.
-func enable() -> void:
-	self.enabled = true
-
-
-## Disables this tree.
-func disable() -> void:
-	self.enabled = false
-
-
-func _exit_tree() -> void:
-	if Engine.is_editor_hint():
-		# Skip this when running in editor
-		return
-	if custom_monitor:
-		if _process_time_metric_name != \"\":
-			# Remove tree metric from the engine
-			Performance.remove_custom_monitor(_process_time_metric_name)
-		_get_global_metrics().unregister_tree(self)
-		BeehaveDebuggerMessages.unregister_tree(get_instance_id())
-
-
-# Called by the engine to profile this tree
-func _get_process_time_metric_value() -> int:
-	return int(_process_time_metric_value)
-
-
-func _get_debugger_data(node: Node) -> Dictionary:
-	if not (node is BeehaveTree or node is BeehaveNode):
-		return {}
-
-	var data := {
-		path = node.get_path(),
-		name = node.name,
-		type = node.get_class_name(),
-		id = str(node.get_instance_id())
-	}
-	if node.get_child_count() > 0:
-		data.children = []
-	for child in node.get_children():
-		var child_data := _get_debugger_data(child)
-		if not child_data.is_empty():
-			data.children.push_back(child_data)
-	return data
-
-
-func get_class_name() -> Array[StringName]:
-	return [&\"BeehaveTree\"]
-
-
-# required to avoid lifecycle issues on initial load
-# due to loading order problems with autoloads
-func _get_global_metrics() -> Node:
-	return get_tree().root.get_node(\"BeehaveGlobalMetrics\")
-
-
-# required to avoid lifecycle issues on initial load
-# due to loading order problems with autoloads
-func _get_global_debugger() -> Node:
-	return get_tree().root.get_node(\"BeehaveGlobalDebugger\")
-"
-
-[sub_resource type="GDScript" id="GDScript_br3nj"]
-script/source = "## A Selector runs its children in order until one succeeds or is running.
-## On failure, skips already-processed children across ticks.
-@tool
-@icon(\"../../icons/selector.svg\")
-class_name SelectorComposite extends Composite
-
-
-var last_execution_index: int = 0
-var previous_success_or_running_index: int = -1
-var ready_to_interrupt_all: bool = false
-
-
-func tick(actor: Node, blackboard: Blackboard) -> int:
-	var children = get_children()
-	var children_count = children.size()
-	var processed_count = 0
-	
-	for i in range(children.size()):
-		var child = children[i]
-		if child.get_index() < last_execution_index:
-			processed_count += 1
-			continue
-
-		if child != running_child:
-			child.before_run(actor, blackboard)
-
-		var response = child._safe_tick(actor, blackboard)
-		processed_count += 1
-		
-		if can_send_message(blackboard):
-			BeehaveDebuggerMessages.process_tick(child.get_instance_id(), response, blackboard.get_debug_data())
-
-		if child is ConditionLeaf:
-			var id = str(actor.get_instance_id())
-			blackboard.set_value(\"last_condition\", child, id)
-			blackboard.set_value(\"last_condition_status\", response, id)
-
-		match response:
-			SUCCESS:
-				if running_child != null:
-					if running_child != child:
-						running_child.interrupt(actor, blackboard)
-					_cleanup_running(running_child, actor, blackboard)
-				child.after_run(actor, blackboard)
-				_interrupt_children(actor, blackboard, i, previous_success_or_running_index)
-				previous_success_or_running_index = i
-				ready_to_interrupt_all = false
-				return SUCCESS
-
-			FAILURE:
-				if running_child != null and running_child == child:
-					_cleanup_running(running_child, actor, blackboard)
-				child.after_run(actor, blackboard)
-				last_execution_index = max(last_execution_index, child.get_index() + 1)
-
-			RUNNING:
-				if child != running_child:
-					if running_child != null:
-						running_child.interrupt(actor, blackboard)
-					running_child = child
-				if child is ActionLeaf:
-					blackboard.set_value(\"running_action\", child, str(actor.get_instance_id()))
-				_interrupt_children(actor, blackboard, i, previous_success_or_running_index)
-				previous_success_or_running_index = i
-				ready_to_interrupt_all = false
-				return RUNNING
-
-	# all children failed
-	ready_to_interrupt_all = (processed_count == children_count)
-	last_execution_index = 0
-	return FAILURE
-
-
-func after_run(actor: Node, blackboard: Blackboard) -> void:
-	last_execution_index = 0
-	super(actor, blackboard)
-
-
-func interrupt(actor: Node, blackboard: Blackboard) -> void:
-	if ready_to_interrupt_all:
-		# If all children failed, interrupt all children by using indices 0 and children.size()-1
-		var children = get_children()
-		if children.size() > 0:
-			_interrupt_children(actor, blackboard, -1, children.size() - 1)
-		ready_to_interrupt_all = false
-	else:
-		# Use the normal interrupt logic for partial processing
-		_interrupt_children(actor, blackboard, last_execution_index, previous_success_or_running_index)
-	if running_child != null:
-		running_child.interrupt(actor, blackboard)
-		_cleanup_running(running_child, actor, blackboard)
-	last_execution_index = 0
-	previous_success_or_running_index = -1
-	super(actor, blackboard)
-
-
-func get_class_name() -> Array[StringName]:
-	var classes = super()
-	classes.push_back(&\"SelectorComposite\")
-	return classes
-"
 
 [sub_resource type="GDScript" id="GDScript_xn6gn"]
 script/source = "@tool
@@ -476,10 +51,10 @@ func tick(actor: Node, _blackboard: Blackboard) -> int:
 	if enemy_actor == null:
 		return FAILURE
 
-	var target := get_tree().get_first_node_in_group(\"player\") as Node3D
+	var target := get_tree().get_first_node_in_group(\"player\") as CharacterBody3D
 	if target == null:
 		return FAILURE
-
+ 
 	match move_type:
 		MoveType.AWAY_FROM_TARGET:
 			# direction from target -> enemy (so enemy moves away)
@@ -575,24 +150,35 @@ transform = Transform3D(0.3969877, 0, -0.9178239, 0, 1, 0, 0.9178239, 0, 0.39698
 transform = Transform3D(-0.64685625, 0, -0.76261187, 0, 1, 0, 0.76261187, 0, -0.64685625, -7.947236, 1.1420511, -85.423836)
 
 [node name="Enemy" type="Node" parent="." unique_id=433773733]
-script = ExtResource("4_55wc7")
 
 [node name="Visual" type="Node" parent="Enemy" unique_id=907123010]
 
 [node name="Drone" parent="Enemy/Visual" unique_id=1041426428 instance=ExtResource("4_bghym")]
-transform = Transform3D(-0.037603013, 0, -0.9992927, 0, 1, 0, 0.9992927, 0, -0.037603013, -8.201086, 3.3661146, -17.39819)
+transform = Transform3D(0.9999999, 0, 0, 0, 1, 0, 0, 0, 0.9999999, 0, 0, 0)
+script = ExtResource("4_55wc7")
 
-[node name="BeehaveTree" type="Node" parent="Enemy" unique_id=2021997188 node_paths=PackedStringArray("actor")]
-script = SubResource("GDScript_ffrie")
-actor_node_path = NodePath("../Visual/Drone")
+[node name="BeehaveTree" type="Node" parent="Enemy/Visual" unique_id=460015067 node_paths=PackedStringArray("blackboard", "actor")]
+script = ExtResource("6_55wc7")
+actor_node_path = NodePath("../..")
+blackboard = NodePath("@Node@25610")
 actor = NodePath(".")
+metadata/_custom_type_script = "uid://bb0t2ovl7wifo"
 
-[node name="SelectorComposite" type="Node" parent="Enemy/BeehaveTree" unique_id=1974725233]
-script = SubResource("GDScript_br3nj")
+[node name="SelectorComposite2" type="Node" parent="Enemy/Visual/BeehaveTree" unique_id=343080693]
+script = ExtResource("7_j0tst")
+metadata/_custom_type_script = "uid://8hn4kne15ac5"
 
-[node name="HealthLess30Percent" type="Node" parent="Enemy/BeehaveTree/SelectorComposite" unique_id=704449503]
+[node name="SequenceComposite" type="Node" parent="Enemy/Visual/BeehaveTree/SelectorComposite2" unique_id=627913226]
+script = ExtResource("6_br3nj")
+metadata/_custom_type_script = "uid://cg016dbe7gs1x"
+
+[node name="HealthLess30Percent" type="Node" parent="Enemy/Visual/BeehaveTree/SelectorComposite2/SequenceComposite" unique_id=704449503]
 script = SubResource("GDScript_xn6gn")
 health_percentage = 30
 
-[node name="RetreatFromPlayer" type="Node" parent="Enemy/BeehaveTree/SelectorComposite" unique_id=1263759097]
+[node name="RetreatFromPlayer" type="Node" parent="Enemy/Visual/BeehaveTree/SelectorComposite2/SequenceComposite" unique_id=1263759097]
+script = SubResource("GDScript_bghym")
+move_type = 1
+
+[node name="MoveAtPlayer" type="Node" parent="Enemy/Visual/BeehaveTree/SelectorComposite2" unique_id=1632718790]
 script = SubResource("GDScript_bghym")
