@@ -1,184 +1,126 @@
 [gd_scene format=3 uid="uid://hyeh47v46j86"]
 
-[ext_resource type="PackedScene" uid="uid://dckfnquaidfil" path="res://UI/player_ui.tscn" id="1_tsyqh"]
-[ext_resource type="PackedScene" uid="uid://cqrenk8ue8j8v" path="res://Player/player.tscn" id="2_8fnaj"]
-[ext_resource type="PackedScene" uid="uid://bxgwgbkpugt5j" path="res://World/Outlet/outlet.tscn" id="3_ffrie"]
 [ext_resource type="Script" uid="uid://bl44lp1yridj8" path="res://Enemies/enemy.gd" id="4_55wc7"]
 [ext_resource type="PackedScene" uid="uid://balgpgdnfqd4g" path="res://Enemies/Enemie1/Drone.fbx" id="4_bghym"]
 [ext_resource type="Script" uid="uid://bb0t2ovl7wifo" path="res://addons/beehave/nodes/beehave_tree.gd" id="6_55wc7"]
 [ext_resource type="Script" uid="uid://cg016dbe7gs1x" path="res://addons/beehave/nodes/composites/sequence.gd" id="6_br3nj"]
 [ext_resource type="Script" uid="uid://8hn4kne15ac5" path="res://addons/beehave/nodes/composites/selector.gd" id="7_j0tst"]
 
-[sub_resource type="Environment" id="Environment_br3nj"]
-background_mode = 1
-background_color = Color(0.6006, 0.66, 0.66, 1)
-glow_enabled = true
-fog_light_color = Color(0, 0, 0, 1)
-volumetric_fog_enabled = true
-volumetric_fog_albedo = Color(0.24299997, 0.40514997, 0.45, 1)
-volumetric_fog_length = 86.0
-
 [sub_resource type="GDScript" id="GDScript_xn6gn"]
 script/source = "@tool
 extends ConditionLeaf
 
-@export_range(0, 100, 1, \"suffix:%\") var health_percentage: int = 0
+@export_range(0, 100, 1, \"suffix:%\") var health_percentage: int = 30
 
 func tick(actor: Node, _blackboard: Blackboard) -> int:
-	if not actor:
+	var enemy := actor as Enemy
+	if enemy == null:
 		return FAILURE
-	var actor_health_percent: float = float(actor.health)/float(actor.max_health)
-	if actor_health_percent < health_percentage:
-		return SUCCESS
-	else:
+
+	if enemy.max_health <= 0:
 		return FAILURE
+
+	var hp_percent := (float(enemy.health) / float(enemy.max_health)) * 100.0
+	return SUCCESS if hp_percent < float(health_percentage) else FAILURE
 "
 
 [sub_resource type="GDScript" id="GDScript_bghym"]
 script/source = "@tool
-class_name CalculateMoveDirection_BH
-extends ActionLeaf
+extends ConditionLeaf
+class_name CanSeePlayer_BH
 
-enum MoveType {
-	TO_TARGET = 0,
-	AWAY_FROM_TARGET = 1,
-}
+@export var vision_range: float = 25.0
+@export var fov_degrees: float = 90.0
+@export var collision_mask: int = 1  # world geometry layer(s)
 
-@export var move_type: MoveType = MoveType.TO_TARGET
-
-func tick(actor: Node, _blackboard: Blackboard) -> int:
-	var enemy_actor := actor as Node3D
-	if enemy_actor == null:
+func tick(actor: Node, blackboard: Blackboard) -> int:
+	var enemy := actor as Enemy
+	if enemy == null:
 		return FAILURE
 
-	var target := get_tree().get_first_node_in_group(\"player\") as CharacterBody3D
-	if target == null:
+	var player := enemy.get_tree().get_first_node_in_group(\"player\") as Node3D
+	if player == null:
 		return FAILURE
- 
-	match move_type:
-		MoveType.AWAY_FROM_TARGET:
-			# direction from target -> enemy (so enemy moves away)
-			enemy_actor.move_direction = target.global_position.direction_to(enemy_actor.global_position)
-			return SUCCESS
 
-		MoveType.TO_TARGET:
-			# direction from enemy -> target
-			enemy_actor.move_direction = enemy_actor.global_position.direction_to(target.global_position)
-			return SUCCESS
+	# Eye positions
+	var from := enemy.global_position + Vector3.UP * enemy.eye_height
+	var to := player.global_position + Vector3.UP * 1.2
 
-	return FAILURE
+	# Range check
+	if from.distance_to(to) > vision_range:
+		return FAILURE
+
+	# FOV check (uses enemy forward)
+	var to_player_dir := (to - from).normalized()
+	var forward := -enemy.global_transform.basis.z.normalized()
+	var cos_half_fov := cos(deg_to_rad(fov_degrees * 0.5))
+	if forward.dot(to_player_dir) < cos_half_fov:
+		return FAILURE
+
+	# Raycast (line of sight)
+	var space := enemy.get_world_3d().direct_space_state
+	var query := PhysicsRayQueryParameters3D.create(from, to)
+	query.collision_mask = collision_mask
+	query.exclude = [enemy]  # don't hit yourself
+
+	var hit := space.intersect_ray(query)
+
+	# If something blocks, you can't see the player
+	if hit.size() > 0:
+		var collider: Object = hit[\"collider\"]
+		if collider != player and not (collider is Node and (collider as Node).is_in_group(\"player\")):
+			return FAILURE
+
+	# SUCCESS: store last seen position for chasing/searching
+	blackboard.set_value(\"last_seen_pos\", player.global_position)
+	blackboard.set_value(\"has_last_seen\", true)
+	return SUCCESS
 "
+
+[sub_resource type="BoxShape3D" id="BoxShape3D_ffrie"]
+size = Vector3(2.1970215, 2.2486572, 2.7003174)
 
 [node name="TestEnemy_tscn" type="Node3D" unique_id=1924405938]
 
-[node name="PlayerUI" parent="." unique_id=883918654 instance=ExtResource("1_tsyqh")]
-
-[node name="SubViewportContainer" type="SubViewportContainer" parent="PlayerUI" unique_id=1488802912]
-anchors_preset = 15
-anchor_right = 1.0
-anchor_bottom = 1.0
-grow_horizontal = 2
-grow_vertical = 2
-mouse_filter = 2
-stretch = true
-stretch_shrink = 4
-
-[node name="SubViewport" type="SubViewport" parent="PlayerUI/SubViewportContainer" unique_id=1046679752]
-handle_input_locally = false
-audio_listener_enable_3d = true
-size = Vector2i(320, 215)
-size_2d_override_stretch = true
-render_target_update_mode = 4
-
-[node name="CSGBox3D" type="CSGBox3D" parent="PlayerUI/SubViewportContainer/SubViewport" unique_id=825956912]
-transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, -9.136589, -3.163, -98.35701)
-use_collision = true
-size = Vector3(38.63057, 5.0889893, 219.60583)
-
-[node name="CSGBox3D8" type="CSGBox3D" parent="PlayerUI/SubViewportContainer/SubViewport" unique_id=2040221876]
-transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 78.558334, 18.124975, -98.35701)
-use_collision = true
-size = Vector3(38.63057, 5.0889893, 219.60583)
-
-[node name="CSGBox3D6" type="CSGBox3D" parent="PlayerUI/SubViewportContainer/SubViewport" unique_id=1858358373]
-transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 14.424938, 10.274113, -98.35701)
-use_collision = true
-size = Vector3(13.911476, 32, 219.60583)
-
-[node name="CSGBox3D7" type="CSGBox3D" parent="PlayerUI/SubViewportContainer/SubViewport" unique_id=1807742946]
-transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, -31.490223, 10.566074, -98.35701)
-use_collision = true
-size = Vector3(13.911476, 32.583923, 219.60583)
-
-[node name="CSGBox3D2" type="CSGBox3D" parent="PlayerUI/SubViewportContainer/SubViewport" unique_id=48048741]
-transform = Transform3D(0.29964027, 0, -0.9540523, 0, 1, 0, 0.9540523, 0, 0.29964027, 3.671226, 2.4992502, -48.092133)
-use_collision = true
-size = Vector3(8.831219, 7.5484314, 17.591831)
-
-[node name="CSGBox3D5" type="CSGBox3D" parent="PlayerUI/SubViewportContainer/SubViewport" unique_id=1753900644]
-transform = Transform3D(0.85919213, 0, -0.51165307, 0, 1, 0, 0.51165307, 0, 0.85919213, -26.949791, 1.5899942, -35.579586)
-use_collision = true
-size = Vector3(20.473919, 5.7299194, 6.6466236)
-
-[node name="Player" parent="PlayerUI/SubViewportContainer/SubViewport" unique_id=1517765959 instance=ExtResource("2_8fnaj")]
-transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, -7.9193344, 1.5280628, -2.4022925)
-
-[node name="WorldEnvironment" type="WorldEnvironment" parent="PlayerUI/SubViewportContainer/SubViewport" unique_id=1547834592]
-environment = SubResource("Environment_br3nj")
-
-[node name="DirectionalLight3D" type="DirectionalLight3D" parent="PlayerUI/SubViewportContainer/SubViewport" unique_id=1518879193]
-transform = Transform3D(0.9153607, 0.12700464, 0.3820794, -0.40263486, 0.2887357, 0.86862934, 0, -0.9489476, 0.31543377, 0, 7.3581166, 0)
-shadow_enabled = true
-
-[node name="CSGBox3D3" type="CSGBox3D" parent="PlayerUI/SubViewportContainer/SubViewport" unique_id=1324758803]
-transform = Transform3D(0.018534422, 0, 0.9998282, 0, 1, 0, -0.9998282, 0, 0.018534422, -13.847928, 1.3077011, -85.65367)
-use_collision = true
-size = Vector3(8.309418, 6.057556, 11.516392)
-
-[node name="Outlet" parent="PlayerUI/SubViewportContainer/SubViewport" unique_id=220038749 instance=ExtResource("3_ffrie")]
-transform = Transform3D(0.7857922, 0, 0.61849064, 0, 1, 0, -0.61849064, 0, 0.7857922, -4.8091483, 4.0179935, -45.29271)
-
-[node name="CSGBox3D4" type="CSGBox3D" parent="PlayerUI/SubViewportContainer/SubViewport" unique_id=1083920867]
-transform = Transform3D(0.3969877, 0, -0.9178239, 0, 1, 0, 0.9178239, 0, 0.3969877, -15.816255, 0.67638874, -15.914407)
-use_collision = true
-size = Vector3(1.5280151, 2.7254639, 2.0904007)
-
-[node name="Outlet2" parent="PlayerUI/SubViewportContainer/SubViewport" unique_id=1931095423 instance=ExtResource("3_ffrie")]
-transform = Transform3D(0.3969877, 0, -0.9178239, 0, 1, 0, 0.9178239, 0, 0.3969877, -15.544044, 0.8243972, -15.222859)
-
-[node name="Outlet3" parent="PlayerUI/SubViewportContainer/SubViewport" unique_id=864816755 instance=ExtResource("3_ffrie")]
-transform = Transform3D(-0.64685625, 0, -0.76261187, 0, 1, 0, 0.76261187, 0, -0.64685625, -7.947236, 1.1420511, -85.423836)
-
-[node name="Enemy" type="Node" parent="." unique_id=433773733]
-
-[node name="Visual" type="Node" parent="Enemy" unique_id=907123010]
-
-[node name="Drone" parent="Enemy/Visual" unique_id=1041426428 instance=ExtResource("4_bghym")]
-transform = Transform3D(0.9999999, 0, 0, 0, 1, 0, 0, 0, 0.9999999, 0, 0, 0)
+[node name="Enemy" type="CharacterBody3D" parent="." unique_id=1538566187]
 script = ExtResource("4_55wc7")
 
-[node name="BeehaveTree" type="Node" parent="Enemy/Visual" unique_id=460015067 node_paths=PackedStringArray("blackboard", "actor")]
+[node name="Visual2" type="Node3D" parent="Enemy" unique_id=775212031]
+
+[node name="Drone" parent="Enemy/Visual2" unique_id=1041426428 instance=ExtResource("4_bghym")]
+transform = Transform3D(0.9999999, 0, 0, 0, 1, 0, 0, 0, 0.9999999, 0, 2, 0)
+
+[node name="BeehaveTree" type="Node" parent="Enemy" unique_id=460015067 node_paths=PackedStringArray("blackboard", "actor")]
 script = ExtResource("6_55wc7")
-actor_node_path = NodePath("../..")
 blackboard = NodePath("@Node@25610")
-actor = NodePath(".")
+actor = NodePath("")
 metadata/_custom_type_script = "uid://bb0t2ovl7wifo"
 
-[node name="SelectorComposite2" type="Node" parent="Enemy/Visual/BeehaveTree" unique_id=343080693]
+[node name="SelectorComposite2" type="Node" parent="Enemy/BeehaveTree" unique_id=343080693]
 script = ExtResource("7_j0tst")
 metadata/_custom_type_script = "uid://8hn4kne15ac5"
 
-[node name="SequenceComposite" type="Node" parent="Enemy/Visual/BeehaveTree/SelectorComposite2" unique_id=627913226]
+[node name="SequenceComposite" type="Node" parent="Enemy/BeehaveTree/SelectorComposite2" unique_id=627913226]
 script = ExtResource("6_br3nj")
 metadata/_custom_type_script = "uid://cg016dbe7gs1x"
 
-[node name="HealthLess30Percent" type="Node" parent="Enemy/Visual/BeehaveTree/SelectorComposite2/SequenceComposite" unique_id=704449503]
+[node name="HealthLess30Percent" type="Node" parent="Enemy/BeehaveTree/SelectorComposite2/SequenceComposite" unique_id=704449503]
 script = SubResource("GDScript_xn6gn")
-health_percentage = 30
 
-[node name="RetreatFromPlayer" type="Node" parent="Enemy/Visual/BeehaveTree/SelectorComposite2/SequenceComposite" unique_id=1263759097]
+[node name="RetreatFromPlayer" type="Node" parent="Enemy/BeehaveTree/SelectorComposite2/SequenceComposite" unique_id=1263759097]
 script = SubResource("GDScript_bghym")
-move_type = 1
+vision_range = null
+fov_degrees = null
+collision_mask = null
 
-[node name="MoveAtPlayer" type="Node" parent="Enemy/Visual/BeehaveTree/SelectorComposite2" unique_id=1632718790]
+[node name="MoveAtPlayer" type="Node" parent="Enemy/BeehaveTree/SelectorComposite2" unique_id=1632718790]
 script = SubResource("GDScript_bghym")
+vision_range = null
+fov_degrees = null
+collision_mask = null
+
+[node name="CollisionShape3D" type="CollisionShape3D" parent="Enemy" unique_id=1771231787]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0.023803711, 2.0885878, 0.02935791)
+shape = SubResource("BoxShape3D_ffrie")
+
+[node name="NavigationAgent3D" type="NavigationAgent3D" parent="Enemy" unique_id=1041459957]
