@@ -1,14 +1,10 @@
 [gd_scene format=3 uid="uid://cqrenk8ue8j8v"]
 
 [ext_resource type="Script" uid="uid://dqvwobvui5k2b" path="res://Player/player.gd" id="1_l8h54"]
-<<<<<<< HEAD
-[ext_resource type="AudioStream" uid="uid://ctepy7hf0c1dv" path="res://Audio/Player/step.wav" id="2_4ntmi"]
+[ext_resource type="AudioStream" uid="uid://b0nq65rv0j5j1" path="res://Audio/Player/step.wav" id="2_4ntmi"]
 [ext_resource type="PackedScene" uid="uid://dcq4u4hsq0jim" path="res://Effects/hit_particles.tscn" id="2_gwnis"]
 [ext_resource type="AudioStream" uid="uid://cckkey6se7c0o" path="res://Audio/Player/robotShoot1.wav" id="3_btcbx"]
-=======
-[ext_resource type="AudioStream" uid="uid://ctepy7hf0c1dv" path="res://step.wav" id="2_4ntmi"]
-[ext_resource type="Shader" uid="uid://di4xxgrjrbt6l" path="res://Shaders/quantize.gdshader" id="2_gwnis"]
->>>>>>> 62bdfc118efafd33c39c99166c2e8a610e788743
+[ext_resource type="AudioStream" uid="uid://b6bab46bh7o52" path="res://Audio/Enemies/robotHit1.wav" id="3_k53q1"]
 
 [sub_resource type="CapsuleShape3D" id="CapsuleShape3D_4ntmi"]
 
@@ -93,6 +89,9 @@ collide_with_bodies = false
 mesh = SubResource("CapsuleMesh_4ntmi")
 
 [node name="HitParticles" parent="." unique_id=1875539030 instance=ExtResource("2_gwnis")]
+
+[node name="HitSound" type="AudioStreamPlayer" parent="." unique_id=1914255404]
+stream = ExtResource("3_k53q1")
 
 [node name="StepSound" type="AudioStreamPlayer3D" parent="." unique_id=2102336518]
 transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, -0.8, 0)

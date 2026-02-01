@@ -38,4 +38,4 @@ func _process(delta: float) -> void:
 	currency.text = str(Global.currency);
 
 func _on_go_button_pressed() -> void:
-	get_tree().change_scene_to_file("res://World/world.tscn");
+	get_tree().change_scene_to_file("res://World/world2.tscn");

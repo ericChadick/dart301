@@ -68,9 +68,6 @@ layout_mode = 2
 size_flags_horizontal = 4
 iconTexture = ExtResource("7_dc6v4")
 
-[node name="TextureButton" type="TextureButton" parent="Control/MarginContainer/VBoxContainer" unique_id=1257204282]
-layout_mode = 2
-
 [node name="GoButton" type="TextureButton" parent="Control/MarginContainer/VBoxContainer" unique_id=1693835580]
 custom_minimum_size = Vector2(128, 128)
 layout_mode = 2
