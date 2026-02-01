@@ -13,10 +13,10 @@ func _process(delta: float) -> void:
 	position += direction * speed * delta;
 
 func _on_body_entered(body: Node3D) -> void:
-	if body != creator:
-		destroy();
-		
-	if body.is_in_group("enemy"):
+	#if body != creator:
+		#destroy();
+		#
+	if body != creator and body.is_in_group("character"):
 		body.hp -= 1;
 		var particles = body.get_node("HitParticles").get_children();
 		for i in particles:

@@ -9,7 +9,8 @@ extends CharacterBody3D
 @onready var step_sound: AudioStreamPlayer3D = $StepSound
 @onready var shoot_sound: AudioStreamPlayer = $ShootSound
 
-var progress_bar: ProgressBar;
+var battery_bar: ProgressBar;
+var health_bar: ProgressBar;
 var crosshair: TextureRect;
 var circle_bar: ColorRect;
 var outlet_crosshair: TextureRect;
@@ -96,7 +97,8 @@ func _ready() -> void:
 	outlet_ray.target_position = Vector3(0.0,0.0, -cordLength);
 	targY = head.position.y;
 	
-	progress_bar = playerUI.get_node("Control/MarginContainer/StatBars/BatteryBar");
+	battery_bar = playerUI.get_node("Control/MarginContainer/StatBars/BatteryBar");
+	health_bar = playerUI.get_node("Control/MarginContainer/StatBars/HealthBar");
 	crosshair = playerUI.get_node("Control/MarginContainer/Crosshair");
 	circle_bar = playerUI.get_node("Control/MarginContainer/Crosshair/CircleBar");
 	outlet_crosshair = playerUI.get_node("Control/OutletCrosshair");
@@ -135,7 +137,8 @@ func _process(delta):
 		cord.rotation_degrees.x += 90;
 		cord.scale.y = global_position.distance_to(outlet.global_position);
 		
-	progress_bar.value = (battery/batteryMax);
+	battery_bar.value = (battery/batteryMax);
+	health_bar.value = (hp/hpMax);
 	currency_text.text = str(Global.currency);
 	
 	shootBuffer -= delta;

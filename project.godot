@@ -48,6 +48,7 @@ outlet=""
 enemy=""
 blueprint=""
 collect=""
+character=""
 
 [input]
 

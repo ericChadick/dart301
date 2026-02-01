@@ -1,7 +1,8 @@
 [gd_scene format=3 uid="uid://cqrenk8ue8j8v"]
 
-[ext_resource type="Script" uid="uid://dqvwobvui5k2b" path="res://Player/player2.gd" id="1_l8h54"]
+[ext_resource type="Script" uid="uid://dqvwobvui5k2b" path="res://Player/player.gd" id="1_l8h54"]
 [ext_resource type="AudioStream" uid="uid://ctepy7hf0c1dv" path="res://Audio/Player/step.wav" id="2_4ntmi"]
+[ext_resource type="PackedScene" uid="uid://dcq4u4hsq0jim" path="res://Effects/hit_particles.tscn" id="2_gwnis"]
 [ext_resource type="AudioStream" uid="uid://cckkey6se7c0o" path="res://Audio/Player/robotShoot1.wav" id="3_btcbx"]
 
 [sub_resource type="CapsuleShape3D" id="CapsuleShape3D_4ntmi"]
@@ -49,7 +50,7 @@ stream_0/stream = ExtResource("2_4ntmi")
 [sub_resource type="SphereShape3D" id="SphereShape3D_4ntmi"]
 radius = 1.0
 
-[node name="Player" type="CharacterBody3D" unique_id=1517765959]
+[node name="Player" type="CharacterBody3D" unique_id=1517765959 groups=["character"]]
 script = ExtResource("1_l8h54")
 
 [node name="CollisionShape3D" type="CollisionShape3D" parent="." unique_id=2095073883]
@@ -85,6 +86,8 @@ collide_with_bodies = false
 
 [node name="Cord" type="MeshInstance3D" parent="." unique_id=1405577659]
 mesh = SubResource("CapsuleMesh_4ntmi")
+
+[node name="HitParticles" parent="." unique_id=1875539030 instance=ExtResource("2_gwnis")]
 
 [node name="StepSound" type="AudioStreamPlayer3D" parent="." unique_id=2102336518]
 transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, -0.8, 0)
