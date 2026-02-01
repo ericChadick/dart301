@@ -8,6 +8,25 @@
 [ext_resource type="Shader" uid="uid://drc60ttp56cn4" path="res://Shaders/screen.gdshader" id="4_b8q8m"]
 [ext_resource type="Texture2D" uid="uid://d1wj28snqsa6y" path="res://UI/outletCrosshair.png" id="5_8w2om"]
 [ext_resource type="FontFile" uid="uid://b5iu436di81lx" path="res://UI/propaganda.ttf" id="5_qf5vc"]
+[ext_resource type="Shader" uid="uid://dvp31qmvkfe0v" path="res://Shaders/glitch.gdshader" id="8_an3gc"]
+[ext_resource type="Shader" uid="uid://bbea84b1alg8v" path="res://Shaders/speedlines.gdshader" id="8_byocv"]
+
+[sub_resource type="FastNoiseLite" id="FastNoiseLite_fwocb"]
+
+[sub_resource type="NoiseTexture2D" id="NoiseTexture2D_rvkn8"]
+noise = SubResource("FastNoiseLite_fwocb")
+
+[sub_resource type="ShaderMaterial" id="ShaderMaterial_ixg0m"]
+shader = ExtResource("8_byocv")
+shader_parameter/noise = SubResource("NoiseTexture2D_rvkn8")
+shader_parameter/line_count = 2.0
+shader_parameter/distortion_power = 0.034
+shader_parameter/line_falloff = 1.0
+shader_parameter/mask_size = 0.175
+shader_parameter/mask_edge = 0.195
+shader_parameter/animation_speed = 20.0
+shader_parameter/blur_strength = 0.01
+shader_parameter/effect_power = 0.5
 
 [sub_resource type="StyleBoxFlat" id="StyleBoxFlat_8w2om"]
 bg_color = Color(0, 0, 0, 0.39215687)
@@ -42,6 +61,14 @@ corner_radius_top_right = 12
 corner_radius_bottom_right = 12
 corner_radius_bottom_left = 12
 
+[sub_resource type="ShaderMaterial" id="ShaderMaterial_byocv"]
+shader = ExtResource("8_an3gc")
+shader_parameter/shake_power = 0.01
+shader_parameter/shake_rate = 0.0730000034675
+shader_parameter/shake_speed = 1.0
+shader_parameter/shake_block_size = 40.0
+shader_parameter/shake_color_rate = 0.01
+
 [sub_resource type="ShaderMaterial" id="ShaderMaterial_ccqt3"]
 shader = ExtResource("4_b8q8m")
 shader_parameter/grain_intensity = 0.0800000038
@@ -72,6 +99,16 @@ anchor_bottom = 1.0
 grow_horizontal = 2
 grow_vertical = 2
 mouse_filter = 2
+
+[node name="SpeedLines" type="ColorRect" parent="Control" unique_id=93272705]
+visible = false
+material = SubResource("ShaderMaterial_ixg0m")
+layout_mode = 1
+anchors_preset = 15
+anchor_right = 1.0
+anchor_bottom = 1.0
+grow_horizontal = 2
+grow_vertical = 2
 
 [node name="LeftHand" type="TextureRect" parent="Control" unique_id=982429023]
 visible = false
@@ -222,7 +259,16 @@ size_flags_vertical = 8
 texture = ExtResource("2_ccqt3")
 expand_mode = 1
 
+[node name="Glitch" type="ColorRect" parent="." unique_id=114921552]
+material = SubResource("ShaderMaterial_byocv")
+anchors_preset = 15
+anchor_right = 1.0
+anchor_bottom = 1.0
+grow_horizontal = 2
+grow_vertical = 2
+
 [node name="Screen" type="ColorRect" parent="." unique_id=1373793926]
+visible = false
 material = SubResource("ShaderMaterial_ccqt3")
 anchors_preset = 15
 anchor_right = 1.0

@@ -1,3 +1,130 @@
 [gd_scene format=3 uid="uid://hyeh47v46j86"]
 
-[node name="TestEnemy_tscn" type="Node3D" unique_id=1924405938]
+[ext_resource type="Script" uid="uid://eijqsjxei6sx" path="res://Enemies/test_enemy.gd" id="1_2u0nj"]
+[ext_resource type="Texture2D" uid="uid://bfg5niyy10kcd" path="res://Effects/Flare00.PNG" id="2_e511w"]
+[ext_resource type="AudioStream" uid="uid://b6bab46bh7o52" path="res://Audio/Enemies/robotHit1.wav" id="3_tsyqh"]
+
+[sub_resource type="CapsuleShape3D" id="CapsuleShape3D_p28x0"]
+
+[sub_resource type="StandardMaterial3D" id="StandardMaterial3D_2u0nj"]
+albedo_color = Color(1, 0, 0, 1)
+
+[sub_resource type="CapsuleMesh" id="CapsuleMesh_e511w"]
+material = SubResource("StandardMaterial3D_2u0nj")
+
+[sub_resource type="Curve" id="Curve_e511w"]
+_data = [Vector2(0, 1), 0.0, 0.0, 0, 0, Vector2(1, 0), 0.0, 0.0, 0, 0]
+point_count = 2
+
+[sub_resource type="CurveTexture" id="CurveTexture_tsyqh"]
+curve = SubResource("Curve_e511w")
+
+[sub_resource type="Curve" id="Curve_tsyqh"]
+_data = [Vector2(0, 1), 0.0, 0.0, 0, 0, Vector2(1, 0), 0.0, 0.0, 0, 0]
+point_count = 2
+
+[sub_resource type="Curve" id="Curve_8fnaj"]
+_limits = [0.0, 3.0, 0.0, 1.0]
+_data = [Vector2(0, 3), 0.0, 0.0, 0, 0, Vector2(1, 0), 0.0, 0.0, 0, 0]
+point_count = 2
+
+[sub_resource type="Curve" id="Curve_ffrie"]
+_data = [Vector2(0, 1), 0.0, 0.0, 0, 0, Vector2(1, 0), 0.0, 0.0, 0, 0]
+point_count = 2
+
+[sub_resource type="CurveXYZTexture" id="CurveXYZTexture_br3nj"]
+curve_x = SubResource("Curve_tsyqh")
+curve_y = SubResource("Curve_8fnaj")
+curve_z = SubResource("Curve_ffrie")
+
+[sub_resource type="ParticleProcessMaterial" id="ParticleProcessMaterial_bghym"]
+particle_flag_align_y = true
+emission_shape = 1
+emission_sphere_radius = 0.5
+spread = 180.0
+initial_velocity_min = 9.0
+initial_velocity_max = 12.0
+gravity = Vector3(0, -5, 0)
+scale_min = 0.29999998
+scale_max = 0.5
+scale_curve = SubResource("CurveXYZTexture_br3nj")
+color = Color(2.1168277, 1.4275763, 1.0556773, 1)
+emission_curve = SubResource("CurveTexture_tsyqh")
+
+[sub_resource type="StandardMaterial3D" id="StandardMaterial3D_55wc7"]
+transparency = 1
+cull_mode = 2
+shading_mode = 0
+vertex_color_use_as_albedo = true
+albedo_texture = ExtResource("2_e511w")
+
+[sub_resource type="QuadMesh" id="QuadMesh_j0tst"]
+material = SubResource("StandardMaterial3D_55wc7")
+
+[sub_resource type="Curve" id="Curve_br3nj"]
+_data = [Vector2(0, 1), 0.0, 0.0, 0, 0, Vector2(1, 0), 0.0, 0.0, 0, 0]
+point_count = 2
+
+[sub_resource type="CurveTexture" id="CurveTexture_bghym"]
+curve = SubResource("Curve_br3nj")
+
+[sub_resource type="ParticleProcessMaterial" id="ParticleProcessMaterial_55wc7"]
+emission_shape = 1
+emission_sphere_radius = 0.25
+spread = 180.0
+initial_velocity_min = 2.0
+initial_velocity_max = 3.0
+gravity = Vector3(0, 0, 0)
+scale_min = 1.5
+scale_max = 3.0
+scale_curve = SubResource("CurveTexture_bghym")
+color = Color(2.1168277, 1.4275763, 1.0556773, 1)
+emission_curve = SubResource("CurveTexture_tsyqh")
+
+[sub_resource type="StandardMaterial3D" id="StandardMaterial3D_j0tst"]
+transparency = 1
+cull_mode = 2
+shading_mode = 0
+vertex_color_use_as_albedo = true
+albedo_texture = ExtResource("2_e511w")
+billboard_mode = 3
+billboard_keep_scale = true
+particles_anim_h_frames = 1
+particles_anim_v_frames = 1
+particles_anim_loop = false
+
+[sub_resource type="QuadMesh" id="QuadMesh_efyi5"]
+material = SubResource("StandardMaterial3D_j0tst")
+
+[node name="testEnemy" type="CharacterBody3D" unique_id=1048089377 groups=["enemy"]]
+script = ExtResource("1_2u0nj")
+
+[node name="CollisionShape3D" type="CollisionShape3D" parent="." unique_id=1699424102]
+shape = SubResource("CapsuleShape3D_p28x0")
+
+[node name="MeshInstance3D" type="MeshInstance3D" parent="." unique_id=681873625]
+mesh = SubResource("CapsuleMesh_e511w")
+
+[node name="HitParticles" type="Node3D" parent="." unique_id=426319950]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 0.5, 0)
+
+[node name="HitParticle" type="GPUParticles3D" parent="HitParticles" unique_id=1378005853]
+emitting = false
+amount = 6
+lifetime = 0.4
+one_shot = true
+explosiveness = 1.0
+process_material = SubResource("ParticleProcessMaterial_bghym")
+draw_pass_1 = SubResource("QuadMesh_j0tst")
+
+[node name="HitParticle2" type="GPUParticles3D" parent="HitParticles" unique_id=1501728338]
+emitting = false
+amount = 4
+lifetime = 0.5
+one_shot = true
+explosiveness = 1.0
+process_material = SubResource("ParticleProcessMaterial_55wc7")
+draw_pass_1 = SubResource("QuadMesh_efyi5")
+
+[node name="HitSound" type="AudioStreamPlayer3D" parent="." unique_id=1741123554]
+stream = ExtResource("3_tsyqh")

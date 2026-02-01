@@ -3,9 +3,12 @@ extends CharacterBody3D
 @onready var head: Node3D = $Head
 @onready var camera: Camera3D = $Head/Camera3D
 @onready var shoot_point: Marker3D = $Head/shootPoint
+@onready var shoot_particles: GPUParticles3D = $Head/ShootParticles
 @onready var cord: MeshInstance3D = $Cord
 @onready var outlet_ray: RayCast3D = $Head/outletRay
 @onready var step_sound: AudioStreamPlayer3D = $StepSound
+@onready var shoot_sound: AudioStreamPlayer = $ShootSound
+
 var progress_bar: ProgressBar;
 var crosshair: TextureRect;
 var circle_bar: ColorRect;
@@ -13,25 +16,28 @@ var outlet_crosshair: TextureRect;
 var currency_text: RichTextLabel;
 
 @export var playerUI : CanvasLayer;
-@export var baseSpd := 15.0;
-@export var jumpSpd := 20;
-@export var dashSpd := 80;
-@export var groundAccel := 6.0;
-@export var groundFric := 10.0;
-@export var airAccel := 1.0;
-@export var airFric := 1.0;
-@export var gravity := 25;
-@export var cordLength := 30.0;
-var speed = baseSpd;
 
-var stepTimerStep := .25;
+func calculateStat(minValue:float,maxValue:float, statLevel:int, statLevelMax:int) -> float:
+	return minValue + (float(statLevel)/float(statLevelMax))*(maxValue-minValue);
+
+#calculate stats based off of their upgraded level
+var speed := calculateStat(Global.spdMin, Global.spdMax, Global.spdLevel, Global.spdLevelMax);
+var jumpSpd := calculateStat(Global.jumpSpdMin, Global.jumpSpdMax, Global.jumpSpdLevel, Global.jumpSpdLevelMax);
+var dashSpd := calculateStat(Global.dashSpdMin, Global.dashSpdMax, Global.dashSpdLevel, Global.dashSpdLevelMax);
+var battery := calculateStat(Global.batteryMin, Global.batteryMax, Global.batteryLevel, Global.batteryLevelMax);
+var batteryMax := battery;
+var hp := calculateStat(Global.hpMin, Global.hpMax, Global.hpLevel, Global.hpLevelMax);
+var hpMax := hp;
+var cordLength := calculateStat(Global.cordLengthMin, Global.cordLengthMax, Global.cordLengthLevel, Global.cordLengthLevelMax);
+
+@export var groundAccel := speed*1.25;
+@export var groundFric := speed*1.25;
+@export var airAccel := speed*.75;
+@export var airFric := speed*.75;
+@export var gravity := 25.0;#jumpSpd*1.5;
+
+var stepTimerStep := (1.0-(speed/18.0))*2.0;
 var stepTimer := stepTimerStep;
-
-var power := 1.0;
-var powerDecRate = .15;
-
-var hp := 100.0;
-var hpMax = hp;
 
 var outlet : Area3D;
 var outletSelect := Area3D;
@@ -44,11 +50,21 @@ var dashInputBuffer := 0.0;
 var jumpBuffer := 0.0;
 var groundBuffer := 0.0;
 
+var outletBuffer := 0.0;
+var outletBufferTime := .2;
+
 var shootBuffer := 0.0;
 var shootBufferTime := .2;
+var shootShakeAmnt := .2;
+var shootOutletAmnt := .3;
+
 var releaseTime := 0.0;
-var releaseTimeMax := .3;
+var releaseTimeMax := .0;
 var releasing := false;
+
+var canWallRun := false;
+var wallRunTime := 0.0;
+var wallRunTimeMax := 2.0;
 
 #Camera variables
 var invertCamMov := true;
@@ -65,7 +81,8 @@ var t_bob := 0.0
 var shake := 0.0;
 var targY := 0.0;
 
-const bullet = preload("uid://du7sfa2nmsgo7");
+const outletProj = preload("uid://du7sfa2nmsgo7")
+const bullet = preload("uid://h8nfngcoc7cq")
 
 const crosshairIcon = preload("uid://dxo87ctx1s615")
 const powerIcon = preload("uid://fcmbc0c6wtwk")
@@ -83,7 +100,7 @@ func _ready() -> void:
 	crosshair = playerUI.get_node("Control/MarginContainer/Crosshair");
 	circle_bar = playerUI.get_node("Control/MarginContainer/Crosshair/CircleBar");
 	outlet_crosshair = playerUI.get_node("Control/OutletCrosshair");
-	currency_text = playerUI.get_node("$Control/MarginContainer/Currency");
+	currency_text = playerUI.get_node("Control/MarginContainer/Currency");
 	
 
 #move camera with controller r stick
@@ -101,7 +118,7 @@ func _process(delta):
 	camera.transform.origin = headbob(t_bob)+shakeOffset;
 	
 	if outlet == null:
-		power -= delta*powerDecRate;
+		battery -= delta;#*Global.batteryDecRate;
 		cord.visible = false;
 		
 		if cordProjectile != null:
@@ -111,18 +128,23 @@ func _process(delta):
 			cord.rotation_degrees.x += 90;
 			cord.scale.y = global_position.distance_to(cordProjectile.global_position);
 	else:
-		power = 1.0;
+		battery = batteryMax;
 		cord.visible = true;
 		cord.global_position = (global_position+outlet.global_position)/2;
 		cord.look_at(outlet.global_position);
 		cord.rotation_degrees.x += 90;
 		cord.scale.y = global_position.distance_to(outlet.global_position);
 		
-	progress_bar.value = power;
+	progress_bar.value = (battery/batteryMax);
+	currency_text.text = str(Global.currency);
 	
+	shootBuffer -= delta;
+	outletBuffer -= delta;
 	if Input.is_action_just_pressed("plug"):
+		outletBuffer = outletBufferTime;
+	if Input.is_action_just_pressed("LMB"):
 		shootBuffer = shootBufferTime;
-	
+		
 	crosshair.texture = crosshairIcon;
 	if outlet != null:
 		if Input.is_action_just_pressed("plug"):
@@ -144,21 +166,30 @@ func _process(delta):
 		
 	circleBarMat.set_shader_parameter("progress", releaseTime/releaseTimeMax);
 		
-	shootBuffer -= delta;
-	if outlet == null and cordProjectile == null and shootBuffer > 0.0:
+	if outlet == null and cordProjectile == null and outletBuffer > 0.0:
 		#shoot_sound.play();
-		#shake = shakeShootAmnt;
 		#shoot_particles.emitting = true;
-		var bulletInstance = bullet.instantiate();
-		#here we add the bullet as a child of the world, not the player
+		var bulletInstance = outletProj.instantiate();
 		get_parent().add_child(bulletInstance);
-		#use the rotation and position of the camera to define the forward vector of the bullet
 		bulletInstance.position = shoot_point.global_position;
 		bulletInstance.direction = -head.transform.basis.z;
 		bulletInstance.creator = self;
 		cordProjectile = bulletInstance;
-		shootBuffer = 0.0;
+		outletBuffer = 0.0;
+		shake = shootOutletAmnt;
 	
+	if Input.is_action_just_pressed("LMB") and shootBuffer > 0.0:
+		var bulletInstance = bullet.instantiate();
+		get_parent().add_child(bulletInstance);
+		bulletInstance.position = shoot_point.global_position;
+		bulletInstance.direction = -head.transform.basis.z;
+		bulletInstance.creator = self;
+		shoot_particles.restart();
+		shootBuffer = 0.0;
+		shake = shootShakeAmnt;
+		shoot_sound.play();
+		
+		
 	if Input.is_action_just_pressed("ui_cancel"):
 		get_tree().quit();
 
@@ -186,6 +217,8 @@ func _physics_process(delta: float) -> void:
 			jumpBuffer = 0.0;
 			groundBuffer = 0.0;
 			shake = .4;
+			canWallRun = true;
+			wallRunTime = wallRunTimeMax;
 		#set accelerations ground
 		if input_dir.length() < .5:
 			inc = groundFric;
@@ -193,11 +226,20 @@ func _physics_process(delta: float) -> void:
 			inc = groundAccel;
 	else:
 		velocity.y -= gravity * delta #handle gravity
+		canWallRun = false;
+		wallRunTime = 0.0;
 		#set accelerations air
 		if input_dir.length() < .5:
 			inc = airFric;
 		else:
 			inc = airAccel;
+	
+	#wall run
+	if canWallRun and input_dir.length() > .5:
+		if is_on_wall() and wallRunTime > 0.0:
+			wallRunTime -= delta;
+			var wallN = get_slide_collision(0)
+			direction = -wallN.get_normal()* speed;
 	
 	velocity.x = lerp(velocity.x, direction.x * speed, delta * inc)
 	velocity.z = lerp(velocity.z, direction.z * speed, delta * inc)
@@ -230,8 +272,9 @@ func _physics_process(delta: float) -> void:
 			velocity += cordDir.normalized() * velocity.length();
 	
 	#if power runs out or hp drops below 0	
-	if power <= 0.0 or hp <= 0.0:
-		get_tree().reload_current_scene();
+	if battery <= 0.0 or hp <= 0.0:
+		get_tree().change_scene_to_file("res://UI/upgrade_menu.tscn");
+		
 		
 	if outlet_ray.is_colliding():
 		var coll = outlet_ray.get_collider()
@@ -269,3 +312,8 @@ func headbob(time) -> Vector3:
 	pos.y = sin(time * BOB_FREQ) * BOB_AMP
 	pos.x = cos(time * BOB_FREQ / 2) * BOB_AMP
 	return pos
+
+
+func _on_collect_radius_area_entered(area: Area3D) -> void:
+	if area.is_in_group("blueprint"):
+		area.queue_free();

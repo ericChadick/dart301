@@ -2,8 +2,8 @@
 
 importer="texture"
 type="CompressedTexture2D"
-uid="uid://bqtmruylxcp8e"
-path.s3tc="res://.godot/imported/gear.png-f78801a32fff936ec1f8c7011237f167.s3tc.ctex"
+uid="uid://dq715b8i8lqox"
+path.s3tc="res://.godot/imported/Circle03.png-7b866fc992e62ba3224280732424f6fb.s3tc.ctex"
 metadata={
 "imported_formats": ["s3tc_bptc"],
 "vram_texture": true
@@ -11,8 +11,8 @@ metadata={
 
 [deps]
 
-source_file="res://UI/gear.png"
-dest_files=["res://.godot/imported/gear.png-f78801a32fff936ec1f8c7011237f167.s3tc.ctex"]
+source_file="res://Effects/Circle03.png"
+dest_files=["res://.godot/imported/Circle03.png-7b866fc992e62ba3224280732424f6fb.s3tc.ctex"]
 
 [params]
 

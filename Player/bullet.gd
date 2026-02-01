@@ -8,38 +8,34 @@ var creator : Node3D;
 func _ready() -> void:
 	pass;
 
-
 # Called every frame. 'delta' is the elapsed time since the previous frame.
 func _process(delta: float) -> void:
-	speed = creator.cordLength*8.0;
-	
 	position += direction * speed * delta;
-	
-	if global_position.distance_to(creator.global_position) > creator.cordLength:
-		destroy();
 
 func _on_body_entered(body: Node3D) -> void:
 	if body != creator:
 		destroy();
-	#if body.is_in_group("enemy"):
-		#body.hp -= 1;
-		##body.hit_particles.emitting = true;
+		
+	if body.is_in_group("enemy"):
+		body.hp -= 1;
+		var particles = body.get_node("HitParticles").get_children();
+		for i in particles:
+			i.restart();
+		body.get_node("HitSound").play();
+		#body.hit_particles.emitting = true;
 		#body.hit_sound.play();
-		#if body.hp <= 0:
-			#body.queue_free();
-		#queue_free();
-	
+		if body.hp <= 0:
+			Global.currency += body.currencyReward;
+			body.queue_free();
+		destroy();
 
 #timer node connected signal to destroy self on timeout
 func _on_timer_timeout() -> void:
 	destroy();
 
-
 func _on_area_entered(area: Area3D) -> void:
-	if area.is_in_group("outlet"):
-		creator.outlet = area;
+	if !area.is_in_group("collect"):
 		destroy();
 		
 func destroy() -> void:
-	creator.cordProjectile = null;
 	queue_free();

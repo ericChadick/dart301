@@ -1,6 +1,16 @@
 [gd_scene format=3 uid="uid://bv1ctickto1om"]
 
+[ext_resource type="Script" uid="uid://d0dch7ajvegkl" path="res://UI/upgrade_menu.gd" id="1_f4tld"]
+[ext_resource type="FontFile" uid="uid://b5iu436di81lx" path="res://UI/propaganda.ttf" id="1_hofnk"]
+[ext_resource type="PackedScene" uid="uid://c6bf0wyk5lre" path="res://UI/stat_upgrade_meter.tscn" id="2_b1awm"]
+[ext_resource type="Texture2D" uid="uid://diu4t01qg1wt5" path="res://UI/battery.png" id="4_e1wke"]
+[ext_resource type="Texture2D" uid="uid://bqtmruylxcp8e" path="res://UI/gear.png" id="5_4r3qf"]
+[ext_resource type="Texture2D" uid="uid://2sy53byjqv7y" path="res://UI/next.png" id="5_v27ci"]
+[ext_resource type="Texture2D" uid="uid://1wu46p4iroyh" path="res://UI/fire.png" id="6_1uskd"]
+[ext_resource type="Texture2D" uid="uid://fcmbc0c6wtwk" path="res://UI/power.png" id="7_dc6v4"]
+
 [node name="UpgradeMenu" type="CanvasLayer" unique_id=11142419]
+script = ExtResource("1_f4tld")
 
 [node name="Control" type="Control" parent="." unique_id=1788166864]
 layout_mode = 3
@@ -22,11 +32,50 @@ theme_override_constants/margin_top = 64
 theme_override_constants/margin_right = 64
 theme_override_constants/margin_bottom = 64
 
-[node name="RichTextLabel" type="RichTextLabel" parent="Control/MarginContainer" unique_id=83709108]
-custom_minimum_size = Vector2(256, 128)
+[node name="VBoxContainer" type="VBoxContainer" parent="Control/MarginContainer" unique_id=1917288982]
+layout_mode = 2
+theme_override_constants/separation = 16
+
+[node name="Currency" type="RichTextLabel" parent="Control/MarginContainer/VBoxContainer" unique_id=83709108]
+custom_minimum_size = Vector2(256, 96)
 layout_mode = 2
 size_flags_horizontal = 0
 size_flags_vertical = 0
+theme_override_fonts/normal_font = ExtResource("1_hofnk")
+theme_override_font_sizes/normal_font_size = 64
 bbcode_enabled = true
 text = "100"
 fit_content = true
+horizontal_alignment = 1
+
+[node name="BatteryUpgradeMeter" parent="Control/MarginContainer/VBoxContainer" unique_id=1429138153 instance=ExtResource("2_b1awm")]
+layout_mode = 2
+size_flags_horizontal = 4
+iconTexture = ExtResource("4_e1wke")
+
+[node name="HealthUpgradeMeter" parent="Control/MarginContainer/VBoxContainer" unique_id=1004966271 instance=ExtResource("2_b1awm")]
+layout_mode = 2
+size_flags_horizontal = 4
+iconTexture = ExtResource("5_4r3qf")
+
+[node name="SpeedUpgradeMeter" parent="Control/MarginContainer/VBoxContainer" unique_id=825251718 instance=ExtResource("2_b1awm")]
+layout_mode = 2
+size_flags_horizontal = 4
+iconTexture = ExtResource("6_1uskd")
+
+[node name="JumpUpgradeMeter" parent="Control/MarginContainer/VBoxContainer" unique_id=713297231 instance=ExtResource("2_b1awm")]
+layout_mode = 2
+size_flags_horizontal = 4
+iconTexture = ExtResource("7_dc6v4")
+
+[node name="TextureButton" type="TextureButton" parent="Control/MarginContainer/VBoxContainer" unique_id=1257204282]
+layout_mode = 2
+
+[node name="GoButton" type="TextureButton" parent="Control/MarginContainer/VBoxContainer" unique_id=1693835580]
+custom_minimum_size = Vector2(128, 128)
+layout_mode = 2
+size_flags_horizontal = 8
+texture_normal = ExtResource("5_v27ci")
+stretch_mode = 6
+
+[connection signal="pressed" from="Control/MarginContainer/VBoxContainer/GoButton" to="." method="_on_go_button_pressed"]
