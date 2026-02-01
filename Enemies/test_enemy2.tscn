@@ -1,6 +1,6 @@
 [gd_scene format=3 uid="uid://hyeh47v46j86"]
 
-[ext_resource type="Script" uid="uid://eijqsjxei6sx" path="res://Enemies/test_enemy.gd" id="1_2u0nj"]
+[ext_resource type="Script" uid="uid://eijqsjxei6sx" path="res://Enemies/test_enemy2.gd" id="1_2u0nj"]
 [ext_resource type="Texture2D" uid="uid://bfg5niyy10kcd" path="res://Effects/Flare00.PNG" id="2_e511w"]
 [ext_resource type="AudioStream" uid="uid://b6bab46bh7o52" path="res://Audio/Enemies/robotHit1.wav" id="3_tsyqh"]
 
