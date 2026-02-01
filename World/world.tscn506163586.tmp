@@ -1,8 +1,10 @@
 [gd_scene format=3 uid="uid://deylxh1cxgy08"]
 
 [ext_resource type="PackedScene" uid="uid://dckfnquaidfil" path="res://UI/player_ui.tscn" id="1_3f78f"]
+[ext_resource type="PackedScene" uid="uid://cqrenk8ue8j8v" path="res://Player/player.tscn" id="1_62w18"]
 [ext_resource type="Script" uid="uid://bevf68wrkg7sv" path="res://World/world.gd" id="1_k8do8"]
 [ext_resource type="PackedScene" uid="uid://bxgwgbkpugt5j" path="res://World/Outlet/outlet.tscn" id="2_8a836"]
+[ext_resource type="PackedScene" uid="uid://hyeh47v46j86" path="res://Enemies/test_enemy.tscn" id="2_k8do8"]
 
 [sub_resource type="Environment" id="Environment_62w18"]
 background_mode = 1
@@ -20,7 +22,7 @@ polygons = [PackedInt32Array(3, 2, 0), PackedInt32Array(0, 2, 1), PackedInt32Arr
 [node name="World" type="Node" unique_id=1407900701]
 script = ExtResource("1_k8do8")
 
-[node name="TestEnemy_tscn" parent="." unique_id=1924405938]
+[node name="TestEnemy_tscn" parent="." unique_id=1924405938 instance=ExtResource("2_k8do8")]
 
 [node name="PlayerUI" parent="." unique_id=1726899109 instance=ExtResource("1_3f78f")]
 
@@ -40,6 +42,10 @@ audio_listener_enable_3d = true
 size = Vector2i(320, 215)
 size_2d_override_stretch = true
 render_target_update_mode = 4
+
+[node name="Player" parent="SubViewportContainer/SubViewport" unique_id=2050322541 node_paths=PackedStringArray("playerUI") instance=ExtResource("1_62w18")]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, -7.9193344, 1.5280628, -2.4022925)
+playerUI = NodePath("../../../PlayerUI")
 
 [node name="WorldEnvironment" type="WorldEnvironment" parent="SubViewportContainer/SubViewport" unique_id=893196715]
 environment = SubResource("Environment_62w18")
