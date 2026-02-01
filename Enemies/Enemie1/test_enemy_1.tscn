@@ -1,9 +1,9 @@
-[gd_scene format=3 uid="uid://didm7lhyyaxnn"]
+[gd_scene format=3 uid="uid://dapbdknjekj5i"]
 
-[ext_resource type="Script" uid="uid://bl44lp1yridj8" path="res://Enemies/enemy.gd" id="1_el6kk"]
+[ext_resource type="Script" uid="uid://bl44lp1yridj8" path="res://Enemies/Enemie1/enemy.gd" id="1_el6kk"]
 [ext_resource type="PackedScene" uid="uid://balgpgdnfqd4g" path="res://Enemies/Enemie1/Drone.fbx" id="2_0qf7y"]
-[ext_resource type="Script" uid="uid://dr0i6gay7a4q3" path="res://Enemies/move_along_path_bh.gd" id="3_0waae"]
-[ext_resource type="Script" uid="uid://chjfwavr2yh6x" path="res://Enemies/set_nav_target_bh.gd" id="4_fwjoi"]
+[ext_resource type="Script" uid="uid://dr0i6gay7a4q3" path="res://Enemies/Enemie1/move_along_path_bh.gd" id="3_0waae"]
+[ext_resource type="Script" uid="uid://chjfwavr2yh6x" path="res://Enemies/Enemie1/set_nav_target_bh.gd" id="4_fwjoi"]
 
 [sub_resource type="GDScript" id="GDScript_8fnaj"]
 script/source = "## Controls the flow of execution of the entire behavior tree.
@@ -458,7 +458,6 @@ metadata/_custom_type_script = "uid://8hn4kne15ac5"
 
 [node name="MoveAlongPath_BH" type="Node" parent="Enemy/BeehaveTree/MoveAtPlayer" unique_id=1777249907]
 script = ExtResource("3_0waae")
-metadata/_custom_type_script = "uid://dwekmosfbjm86"
 
 [node name="SetNavTarget_BH" type="Node" parent="Enemy/BeehaveTree/MoveAtPlayer" unique_id=2090705276]
 script = ExtResource("4_fwjoi")

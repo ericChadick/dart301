@@ -260,6 +260,7 @@ texture = ExtResource("2_ccqt3")
 expand_mode = 1
 
 [node name="Glitch" type="ColorRect" parent="." unique_id=114921552]
+visible = false
 material = SubResource("ShaderMaterial_byocv")
 anchors_preset = 15
 anchor_right = 1.0
@@ -268,7 +269,6 @@ grow_horizontal = 2
 grow_vertical = 2
 
 [node name="Screen" type="ColorRect" parent="." unique_id=1373793926]
-visible = false
 material = SubResource("ShaderMaterial_ccqt3")
 anchors_preset = 15
 anchor_right = 1.0
