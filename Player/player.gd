@@ -91,6 +91,9 @@ const powerIcon = preload("uid://fcmbc0c6wtwk")
 var circleBarMat : Resource;
 
 func _ready() -> void:
+	#Wyatt added
+	add_to_group("player")
+	#####
 	outlet = null;
 	cordProjectile = null;
 	circleBarMat = preload("uid://f4lyx4wwc4mt");

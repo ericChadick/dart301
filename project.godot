@@ -22,12 +22,18 @@ config/icon="res://icon.svg"
 [autoload]
 
 Global="*uid://qbtw0nsbi67u"
+BeehaveGlobalMetrics="*uid://c3ktl6ontsdt7"
+BeehaveGlobalDebugger="*uid://bl3ma400hpvsh"
 
 [display]
 
 window/size/viewport_width=1280
 window/size/viewport_height=860
 window/stretch/mode="canvas_items"
+
+[editor_plugins]
+
+enabled=PackedStringArray("res://addons/beehave/plugin.cfg")
 
 [file_customization]
 
@@ -41,6 +47,10 @@ folder_colors={
 "res://UI/": "green",
 "res://World/": "yellow"
 }
+
+[filesystem]
+
+import/blender/enabled=false
 
 [global_group]
 
