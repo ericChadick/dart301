@@ -8,6 +8,15 @@
 [ext_resource type="Texture2D" uid="uid://2sy53byjqv7y" path="res://UI/next.png" id="5_v27ci"]
 [ext_resource type="Texture2D" uid="uid://1wu46p4iroyh" path="res://UI/fire.png" id="6_1uskd"]
 [ext_resource type="Texture2D" uid="uid://fcmbc0c6wtwk" path="res://UI/power.png" id="7_dc6v4"]
+[ext_resource type="PackedScene" uid="uid://c2pjwyt35wifb" path="res://UI/stat_item_purchase.tscn" id="8_dc6v4"]
+[ext_resource type="Texture2D" uid="uid://d1wj28snqsa6y" path="res://UI/outletCrosshair.png" id="9_soptt"]
+[ext_resource type="AudioStream" uid="uid://daa3r12i25bk0" path="res://Audio/UpgradeMenu/menucycle.wav" id="11_in30h"]
+
+[sub_resource type="AudioStreamRandomizer" id="AudioStreamRandomizer_soptt"]
+random_pitch = 1.0028923
+random_volume_offset_db = 0.05
+streams_count = 1
+stream_0/stream = ExtResource("11_in30h")
 
 [node name="UpgradeMenu" type="CanvasLayer" unique_id=11142419]
 script = ExtResource("1_f4tld")
@@ -50,23 +59,28 @@ horizontal_alignment = 1
 
 [node name="BatteryUpgradeMeter" parent="Control/MarginContainer/VBoxContainer" unique_id=1429138153 instance=ExtResource("2_b1awm")]
 layout_mode = 2
-size_flags_horizontal = 4
+size_flags_horizontal = 0
 iconTexture = ExtResource("4_e1wke")
 
 [node name="HealthUpgradeMeter" parent="Control/MarginContainer/VBoxContainer" unique_id=1004966271 instance=ExtResource("2_b1awm")]
 layout_mode = 2
-size_flags_horizontal = 4
+size_flags_horizontal = 0
 iconTexture = ExtResource("5_4r3qf")
 
 [node name="SpeedUpgradeMeter" parent="Control/MarginContainer/VBoxContainer" unique_id=825251718 instance=ExtResource("2_b1awm")]
 layout_mode = 2
-size_flags_horizontal = 4
+size_flags_horizontal = 0
 iconTexture = ExtResource("6_1uskd")
 
 [node name="JumpUpgradeMeter" parent="Control/MarginContainer/VBoxContainer" unique_id=713297231 instance=ExtResource("2_b1awm")]
 layout_mode = 2
-size_flags_horizontal = 4
+size_flags_horizontal = 0
 iconTexture = ExtResource("7_dc6v4")
+
+[node name="GunPurchaseButton" parent="Control/MarginContainer/VBoxContainer" unique_id=1510449367 instance=ExtResource("8_dc6v4")]
+layout_mode = 2
+size_flags_horizontal = 0
+iconTexture = ExtResource("9_soptt")
 
 [node name="GoButton" type="TextureButton" parent="Control/MarginContainer/VBoxContainer" unique_id=1693835580]
 custom_minimum_size = Vector2(128, 128)
@@ -74,5 +88,10 @@ layout_mode = 2
 size_flags_horizontal = 8
 texture_normal = ExtResource("5_v27ci")
 stretch_mode = 6
+
+[node name="Audio" type="Node" parent="." unique_id=1896171430]
+
+[node name="CycleSound" type="AudioStreamPlayer" parent="Audio" unique_id=1596670953]
+stream = SubResource("AudioStreamRandomizer_soptt")
 
 [connection signal="pressed" from="Control/MarginContainer/VBoxContainer/GoButton" to="." method="_on_go_button_pressed"]

@@ -4,7 +4,7 @@ extends Node
 var currency := 10000;
 
 var hpMin := 10.0; #initial unupgraded value of stat
-var hpMax := 50.0; #max value of stat after all upgrades
+var hpMax := 20.0; #max value of stat after all upgrades
 var hpLevel := 0; #current level the stat has been upgraded to
 var hpLevelMax := 10; #max level the stat can be upgraded to
 
@@ -36,9 +36,13 @@ var dashSpdLevel := 0;
 var dashSpdLevelMax := 5;
 
 var dashUnlocked := false;
+var dashPurchased := false;
 var jumpUnlocked := false;
+var jumpPurchased := false;
 var jetUnlocked := false;
+var jetPurchased := false;
 var gunUnlocked := false;
+var gunPurchased := false;
 
 #general settings
 var screenShake := 1.0;

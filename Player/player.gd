@@ -15,6 +15,7 @@ var crosshair: TextureRect;
 var circle_bar: ColorRect;
 var outlet_crosshair: TextureRect;
 var currency_text: RichTextLabel;
+var blueprint_text: RichTextLabel;
 
 @export var playerUI : CanvasLayer;
 
@@ -60,7 +61,7 @@ var shootShakeAmnt := .2;
 var shootOutletAmnt := .3;
 
 var releaseTime := 0.0;
-var releaseTimeMax := .0;
+var releaseTimeMax := 0.0;
 var releasing := false;
 
 var canWallRun := false;
@@ -81,6 +82,9 @@ const BOB_AMP := 0.06
 var t_bob := 0.0
 var shake := 0.0;
 var targY := 0.0;
+
+var groundedPrev := true;
+var groundedCurrent := groundedPrev;
 
 const outletProj = preload("uid://du7sfa2nmsgo7")
 const bullet = preload("uid://h8nfngcoc7cq")
@@ -106,6 +110,7 @@ func _ready() -> void:
 	circle_bar = playerUI.get_node("Control/MarginContainer/Crosshair/CircleBar");
 	outlet_crosshair = playerUI.get_node("Control/OutletCrosshair");
 	currency_text = playerUI.get_node("Control/MarginContainer/Currency");
+	blueprint_text = playerUI.get_node("Control/MarginContainer/BlueprintText");
 	
 
 #move camera with controller r stick
@@ -146,32 +151,13 @@ func _process(delta):
 	
 	shootBuffer -= delta;
 	outletBuffer -= delta;
-	if Input.is_action_just_pressed("plug"):
+	if Input.is_action_just_pressed("RMB"):
 		outletBuffer = outletBufferTime;
 	if Input.is_action_just_pressed("LMB"):
 		shootBuffer = shootBufferTime;
 		
 	crosshair.texture = crosshairIcon;
-	if outlet != null:
-		if Input.is_action_just_pressed("plug"):
-			releasing = true;
-		if Input.is_action_just_released("plug"):
-			releasing = false;
-			
-		if releasing && Input.is_action_pressed("plug"):
-			releaseTime += delta;
-			crosshair.texture = powerIcon;
-		else:
-			releaseTime = 0.0;
-
-		if releaseTime >= releaseTimeMax:
-			releaseTime = 0.0;
-			outlet = null;
-	else:
-		releasing = false;
-		
-	circleBarMat.set_shader_parameter("progress", releaseTime/releaseTimeMax);
-		
+	
 	if outlet == null and cordProjectile == null and outletBuffer > 0.0:
 		#shoot_sound.play();
 		#shoot_particles.emitting = true;
@@ -183,8 +169,35 @@ func _process(delta):
 		cordProjectile = bulletInstance;
 		outletBuffer = 0.0;
 		shake = shootOutletAmnt;
+		
+	if outlet != null:
+		if Input.is_action_just_pressed("RMB"):
+			outlet = null;
 	
-	if Input.is_action_just_pressed("LMB") and shootBuffer > 0.0:
+	if Input.is_action_just_pressed("selfDestruct"):
+		battery = 0.0;
+		
+	#if outlet != null:
+		#if Input.is_action_just_pressed("RMB"):
+			#releasing = true;
+		#if Input.is_action_just_released("RMB"):
+			#releasing = false;
+			#
+		#if releasing && Input.is_action_pressed("RMB"):
+			#releaseTime += delta;
+			#crosshair.texture = powerIcon;
+		#else:
+			#releaseTime = 0.0;
+#
+		#if releaseTime >= releaseTimeMax:
+			#releaseTime = 0.0;
+			#outlet = null;
+	#else:
+		#releasing = false;
+		
+	circleBarMat.set_shader_parameter("progress", releaseTime/releaseTimeMax);
+	
+	if Global.gunPurchased and Input.is_action_just_pressed("LMB") and shootBuffer > 0.0:
 		var bulletInstance = bullet.instantiate();
 		get_parent().add_child(bulletInstance);
 		bulletInstance.position = shoot_point.global_position;
@@ -215,7 +228,9 @@ func _physics_process(delta: float) -> void:
 		jumpBuffer = .25;
 	if is_on_floor(): 
 		groundBuffer = .2;
-		
+	
+	groundedPrev = groundedCurrent;
+	groundedCurrent = groundBuffer > 0.0;
 	var inc := 0.0;
 	if groundBuffer > 0.0:
 		if jumpBuffer > 0.0: #handle jump
@@ -240,6 +255,13 @@ func _physics_process(delta: float) -> void:
 		else:
 			inc = airAccel;
 	
+	if velocity.y > 0 and !Input.is_action_pressed("jump"):
+		velocity.y *= .9;
+			
+	#land effects
+	if groundedPrev != groundedCurrent:
+		shake = .5;
+		
 	#wall run
 	if canWallRun and input_dir.length() > .5:
 		if is_on_wall() and wallRunTime > 0.0:
@@ -264,7 +286,7 @@ func _physics_process(delta: float) -> void:
 	dashInputBuffer -= delta;
 	if Input.is_action_just_pressed("dash"):
 		dashInputBuffer = .2;
-	if dashInputBuffer > 0.0 and dashCooldown <= 0.0:
+	if Global.dashPurchased and dashInputBuffer > 0.0 and dashCooldown <= 0.0:
 		velocity.x = direction.x * dashSpd
 		velocity.z = direction.z * dashSpd
 		dashCooldown = dashCooldownAmnt;
@@ -280,7 +302,6 @@ func _physics_process(delta: float) -> void:
 	#if power runs out or hp drops below 0	
 	if battery <= 0.0 or hp <= 0.0:
 		get_tree().change_scene_to_file("res://UI/upgrade_menu.tscn");
-		
 		
 	if outlet_ray.is_colliding():
 		var coll = outlet_ray.get_collider()
@@ -322,4 +343,7 @@ func headbob(time) -> Vector3:
 
 func _on_collect_radius_area_entered(area: Area3D) -> void:
 	if area.is_in_group("blueprint"):
+		blueprint_text.text = "Acquired " + str(area.itemName);
+		match(area.itemName):
+			"Gun": Global.gunUnlocked=true;
 		area.queue_free();

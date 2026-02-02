@@ -211,6 +211,7 @@ expand_mode = 1
 stretch_mode = 5
 
 [node name="CircleBar" type="ColorRect" parent="Control/MarginContainer/Crosshair" unique_id=1707341552]
+visible = false
 material = ExtResource("2_b8q8m")
 layout_mode = 1
 anchors_preset = 15
@@ -225,6 +226,12 @@ layout_mode = 2
 theme_override_fonts/normal_font = ExtResource("5_qf5vc")
 theme_override_font_sizes/normal_font_size = 64
 text = "100"
+
+[node name="BlueprintText" type="RichTextLabel" parent="Control/MarginContainer" unique_id=1726145664]
+layout_mode = 2
+theme_override_fonts/normal_font = ExtResource("5_qf5vc")
+theme_override_font_sizes/normal_font_size = 48
+text = "Acquired"
 horizontal_alignment = 1
 
 [node name="OutletCrosshair" type="TextureRect" parent="Control" unique_id=841454661]

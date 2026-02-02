@@ -51,7 +51,7 @@ stream_0/stream = ExtResource("2_4ntmi")
 [sub_resource type="SphereShape3D" id="SphereShape3D_4ntmi"]
 radius = 1.0
 
-[node name="Player" type="CharacterBody3D" unique_id=1517765959 groups=["character"]]
+[node name="Player" type="CharacterBody3D" unique_id=1517765959 groups=["character", "player"]]
 script = ExtResource("1_l8h54")
 
 [node name="CollisionShape3D" type="CollisionShape3D" parent="." unique_id=2095073883]
@@ -80,6 +80,7 @@ process_material = SubResource("ParticleProcessMaterial_k53q1")
 draw_pass_1 = SubResource("CapsuleMesh_vtle1")
 
 [node name="outletRay" type="RayCast3D" parent="Head" unique_id=1987803095]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 0, -1)
 target_position = Vector3(0, 0, -10)
 hit_from_inside = true
 collide_with_areas = true

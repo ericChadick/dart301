@@ -5,6 +5,7 @@ extends HBoxContainer
 @onready var costTxt: RichTextLabel = $Cost
 @onready var levelTxt: RichTextLabel = $Level
 @onready var progress_bar: ProgressBar = $ProgressBar
+@onready var purchase_sound: AudioStreamPlayer = $PurchaseSound
 
 @export var iconTexture: Texture2D;
 var level := 0;
@@ -24,7 +25,7 @@ func calculateCost():
 
 # Called when the node enters the scene tree for the first time.
 func _ready() -> void:
-	var stat = name.replace("UpgradeMeter", "");
+	stat = name.replace("UpgradeMeter", "");
 	match(stat):
 		"Battery": levelMax = Global.batteryLevelMax;
 		"Health": levelMax = Global.hpLevelMax;
@@ -45,7 +46,8 @@ func _process(delta: float) -> void:
 func _on_button_pressed() -> void:
 	if Global.currency >= levelCost and level < levelMax:
 		Global.currency -= levelCost
-		stat = name.replace("UpgradeMeter", "");
+		purchase_sound.play();
+		#stat = name.replace("UpgradeMeter", "");
 		match(stat):
 			"Battery":Global.batteryLevel+=1; level = Global.batteryLevel;
 			"Health":Global.hpLevel+=1; level = Global.hpLevel;

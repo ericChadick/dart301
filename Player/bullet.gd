@@ -3,6 +3,7 @@ extends Area3D
 var speed : float = 80.0;
 var direction : Vector3 = Vector3.ZERO;
 var creator : Node3D;
+var damage : float = 1.0;
 
 # Called when the node enters the scene tree for the first time.
 func _ready() -> void:
@@ -17,16 +18,17 @@ func _on_body_entered(body: Node3D) -> void:
 		#destroy();
 		#
 	if body != creator and body.is_in_group("character"):
-		body.hp -= 1;
+		body.hp -= damage;
 		var particles = body.get_node("HitParticles").get_children();
 		for i in particles:
 			i.restart();
 		body.get_node("HitSound").play();
-		#body.hit_particles.emitting = true;
-		#body.hit_sound.play();
-		if body.hp <= 0:
-			Global.currency += body.currencyReward;
-			body.queue_free();
+		if body.is_in_group("player"):#add camera screenshake
+			body.shake = clamp(damage*.25, 0.0, .8);
+		if body.is_in_group("enemy"): #collect currency from enemies
+			if body.hp <= 0:
+				Global.currency += body.currencyReward;
+				body.queue_free();
 		destroy();
 
 #timer node connected signal to destroy self on timeout
