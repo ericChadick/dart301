@@ -4,7 +4,7 @@ extends HBoxContainer
 @onready var button: TextureButton = $Button
 @onready var costTxt: RichTextLabel = $Cost
 @onready var levelTxt: RichTextLabel = $Level
-@onready var progress_bar: ProgressBar = $ProgressBar
+@onready var progress_bar: ProgressBar = $Level/ProgressBar
 @onready var purchase_sound: AudioStreamPlayer = $PurchaseSound
 
 @export var iconTexture: Texture2D;
@@ -31,13 +31,15 @@ func _ready() -> void:
 		"Health": levelMax = Global.hpLevelMax;
 		"Speed": levelMax = Global.spdLevelMax;
 		"Jump": levelMax = Global.jumpSpdLevelMax;
+		"Cord": levelMax = Global.cordLengthLevelMax;
+		"Multiplier": levelMax = Global.dataMultiplierLevelMax;
 
 
 # Called every frame. 'delta' is the elapsed time since the previous frame.
 func _process(delta: float) -> void:
 	button.texture_normal = iconTexture;
 	costTxt.text = str(levelCost);
-	levelTxt.text = str(level) + " / " + str(levelMax);
+	levelTxt.text = str(level) + "/" + str(levelMax);
 	progress_bar.value = float(level)/float(levelMax);
 	
 	queue_redraw();
@@ -53,4 +55,6 @@ func _on_button_pressed() -> void:
 			"Health":Global.hpLevel+=1; level = Global.hpLevel;
 			"Speed":Global.spdLevel+=1; level = Global.spdLevel;
 			"Jump":Global.jumpSpdLevel+=1; level = Global.jumpSpdLevel;
+			"Cord":Global.cordLengthLevel+=1; level = Global.cordLengthLevel;
+			"Multiplier":Global.dataMultiplierLevel+=1; level = Global.dataMultiplierLevel;
 		calculateCost();

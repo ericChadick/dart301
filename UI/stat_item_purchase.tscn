@@ -11,12 +11,13 @@ streams_count = 1
 stream_0/stream = ExtResource("3_tixg1")
 
 [node name="ItemPurchaseButton" type="HBoxContainer" unique_id=1429138153]
-custom_minimum_size = Vector2(512, 64)
-offset_right = 776.0
-offset_bottom = 128.0
+custom_minimum_size = Vector2(232, 64)
+offset_right = 232.0
+offset_bottom = 64.0
 script = ExtResource("1_ngna2")
 
 [node name="Button" type="TextureButton" parent="." unique_id=1348568238]
+modulate = Color(0.74509805, 0.74509805, 0.74509805, 1)
 custom_minimum_size = Vector2(64, 64)
 layout_mode = 2
 size_flags_horizontal = 0
@@ -32,7 +33,7 @@ size_flags_vertical = 0
 mouse_filter = 2
 theme_override_fonts/normal_font = ExtResource("3_t7bc4")
 theme_override_font_sizes/normal_font_size = 32
-text = "0"
+text = "100.0"
 horizontal_alignment = 1
 vertical_alignment = 1
 

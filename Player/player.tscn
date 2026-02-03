@@ -1,10 +1,13 @@
 [gd_scene format=3 uid="uid://cqrenk8ue8j8v"]
 
 [ext_resource type="Script" uid="uid://dqvwobvui5k2b" path="res://Player/player.gd" id="1_l8h54"]
-[ext_resource type="AudioStream" uid="uid://b0nq65rv0j5j1" path="res://Audio/Player/step.wav" id="2_4ntmi"]
 [ext_resource type="PackedScene" uid="uid://dcq4u4hsq0jim" path="res://Effects/hit_particles.tscn" id="2_gwnis"]
 [ext_resource type="AudioStream" uid="uid://cckkey6se7c0o" path="res://Audio/Player/robotShoot1.wav" id="3_btcbx"]
-[ext_resource type="AudioStream" uid="uid://b6bab46bh7o52" path="res://Audio/Enemies/robotHit1.wav" id="3_k53q1"]
+[ext_resource type="AudioStream" uid="uid://d26jn355hmskh" path="res://Audio/Player/player_takingdamage.wav" id="3_fhl08"]
+[ext_resource type="AudioStream" uid="uid://cb0wl6gpwpn3q" path="res://Audio/Player/player_footsteps_v1.wav" id="4_vtle1"]
+[ext_resource type="AudioStream" uid="uid://bcim0cmakpuiv" path="res://Audio/Player/player_footsteps_v2.wav" id="5_od3ui"]
+[ext_resource type="AudioStream" uid="uid://b4yd4581pueuc" path="res://Audio/Player/player_charginghum.wav" id="7_vtle1"]
+[ext_resource type="AudioStream" uid="uid://bl1krkd6lbdyy" path="res://Audio/Player/player_cord_out.wav" id="8_od3ui"]
 
 [sub_resource type="CapsuleShape3D" id="CapsuleShape3D_4ntmi"]
 
@@ -45,11 +48,18 @@ height = 1.0
 [sub_resource type="AudioStreamRandomizer" id="AudioStreamRandomizer_btcbx"]
 random_pitch = 1.005793
 random_volume_offset_db = 0.1
-streams_count = 1
-stream_0/stream = ExtResource("2_4ntmi")
+streams_count = 2
+stream_0/stream = ExtResource("4_vtle1")
+stream_1/stream = ExtResource("5_od3ui")
 
 [sub_resource type="SphereShape3D" id="SphereShape3D_4ntmi"]
 radius = 1.0
+
+[sub_resource type="AudioStreamRandomizer" id="AudioStreamRandomizer_od3ui"]
+random_pitch = 1.0028923
+random_volume_offset_db = 0.05
+streams_count = 1
+stream_0/stream = ExtResource("8_od3ui")
 
 [node name="Player" type="CharacterBody3D" unique_id=1517765959 groups=["character", "player"]]
 script = ExtResource("1_l8h54")
@@ -86,13 +96,19 @@ hit_from_inside = true
 collide_with_areas = true
 collide_with_bodies = false
 
+[node name="OmniLight3D" type="OmniLight3D" parent="Head" unique_id=1204201419]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, -0.56448567, -1.0331776)
+light_color = Color(1, 0.88938797, 0.7314151, 1)
+shadow_enabled = true
+omni_range = 8.0
+
 [node name="Cord" type="MeshInstance3D" parent="." unique_id=1405577659]
 mesh = SubResource("CapsuleMesh_4ntmi")
 
 [node name="HitParticles" parent="." unique_id=1875539030 instance=ExtResource("2_gwnis")]
 
 [node name="HitSound" type="AudioStreamPlayer" parent="." unique_id=1914255404]
-stream = ExtResource("3_k53q1")
+stream = ExtResource("3_fhl08")
 
 [node name="StepSound" type="AudioStreamPlayer3D" parent="." unique_id=2102336518]
 transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, -0.8, 0)
@@ -106,4 +122,15 @@ shape = SubResource("SphereShape3D_4ntmi")
 [node name="ShootSound" type="AudioStreamPlayer" parent="." unique_id=589736813]
 stream = ExtResource("3_btcbx")
 
+[node name="SelfDestructSound" type="AudioStreamPlayer" parent="." unique_id=1349448854]
+stream = ExtResource("7_vtle1")
+
+[node name="UnplugSound" type="AudioStreamPlayer" parent="." unique_id=590016087]
+stream = SubResource("AudioStreamRandomizer_od3ui")
+
+[node name="BlueprintTimer" type="Timer" parent="." unique_id=1308357960]
+wait_time = 5.0
+one_shot = true
+
 [connection signal="area_entered" from="CollectRadius" to="." method="_on_collect_radius_area_entered"]
+[connection signal="timeout" from="BlueprintTimer" to="." method="_on_blueprint_timer_timeout"]

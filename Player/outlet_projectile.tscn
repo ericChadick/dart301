@@ -1,10 +1,17 @@
 [gd_scene format=3 uid="uid://du7sfa2nmsgo7"]
 
 [ext_resource type="Script" uid="uid://7v3qv6ndkiur" path="res://Player/outlet_projectile.gd" id="1_2pkip"]
+[ext_resource type="AudioStream" uid="uid://y7bc5sifdix8" path="res://Audio/Player/player_cord_in.wav" id="2_grrx7"]
 
 [sub_resource type="SphereShape3D" id="SphereShape3D_o2tsc"]
 
 [sub_resource type="SphereMesh" id="SphereMesh_o11rv"]
+
+[sub_resource type="AudioStreamRandomizer" id="AudioStreamRandomizer_5oei7"]
+random_pitch = 1.0028923
+random_volume_offset_db = 0.05
+streams_count = 1
+stream_0/stream = ExtResource("2_grrx7")
 
 [node name="OutletProjectile" type="Area3D" unique_id=1023997352]
 script = ExtResource("1_2pkip")
@@ -15,10 +22,8 @@ shape = SubResource("SphereShape3D_o2tsc")
 [node name="MeshInstance3D" type="MeshInstance3D" parent="." unique_id=253204116]
 mesh = SubResource("SphereMesh_o11rv")
 
-[node name="Timer" type="Timer" parent="." unique_id=1313509895]
-wait_time = 10.0
-one_shot = true
-autostart = true
+[node name="ShootSound" type="AudioStreamPlayer3D" parent="." unique_id=1514686892]
+stream = SubResource("AudioStreamRandomizer_5oei7")
 
 [connection signal="area_entered" from="." to="." method="_on_area_entered"]
 [connection signal="body_entered" from="." to="." method="_on_body_entered"]

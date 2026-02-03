@@ -14,9 +14,6 @@ func _process(delta: float) -> void:
 	position += direction * speed * delta;
 
 func _on_body_entered(body: Node3D) -> void:
-	#if body != creator:
-		#destroy();
-		#
 	if body != creator and body.is_in_group("character"):
 		body.hp -= damage;
 		var particles = body.get_node("HitParticles").get_children();
@@ -30,6 +27,8 @@ func _on_body_entered(body: Node3D) -> void:
 				Global.currency += body.currencyReward;
 				body.queue_free();
 		destroy();
+		
+	destroy();
 
 #timer node connected signal to destroy self on timeout
 func _on_timer_timeout() -> void:

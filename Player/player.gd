@@ -8,6 +8,9 @@ extends CharacterBody3D
 @onready var outlet_ray: RayCast3D = $Head/outletRay
 @onready var step_sound: AudioStreamPlayer3D = $StepSound
 @onready var shoot_sound: AudioStreamPlayer = $ShootSound
+@onready var self_destruct_sound: AudioStreamPlayer = $SelfDestructSound
+@onready var unplug_sound: AudioStreamPlayer = $UnplugSound
+@onready var blueprint_timer: Timer = $BlueprintTimer
 
 var battery_bar: ProgressBar;
 var health_bar: ProgressBar;
@@ -31,6 +34,7 @@ var batteryMax := battery;
 var hp := calculateStat(Global.hpMin, Global.hpMax, Global.hpLevel, Global.hpLevelMax);
 var hpMax := hp;
 var cordLength := calculateStat(Global.cordLengthMin, Global.cordLengthMax, Global.cordLengthLevel, Global.cordLengthLevelMax);
+var dataMultiplier := calculateStat(Global.dataMultiplierMin, Global.dataMultiplierMax, Global.dataMultiplierLevel, Global.dataMultiplierLevelMax);
 
 @export var groundAccel := speed*1.25;
 @export var groundFric := speed*1.25;
@@ -61,7 +65,7 @@ var shootShakeAmnt := .2;
 var shootOutletAmnt := .3;
 
 var releaseTime := 0.0;
-var releaseTimeMax := 0.0;
+var releaseTimeMax := 3.0;
 var releasing := false;
 
 var canWallRun := false;
@@ -95,13 +99,10 @@ const powerIcon = preload("uid://fcmbc0c6wtwk")
 var circleBarMat : Resource;
 
 func _ready() -> void:
-	##Wyatt added
-	#add_to_group("player")
-	######
 	outlet = null;
 	cordProjectile = null;
 	circleBarMat = preload("uid://f4lyx4wwc4mt");
-	outlet_ray.target_position = Vector3(0.0,0.0, -cordLength);
+	outlet_ray.target_position = Vector3(0.0,0.0, -cordLength+1.0);
 	targY = head.position.y;
 	
 	battery_bar = playerUI.get_node("Control/MarginContainer/StatBars/BatteryBar");
@@ -147,7 +148,7 @@ func _process(delta):
 		
 	battery_bar.value = (battery/batteryMax);
 	health_bar.value = (hp/hpMax);
-	currency_text.text = str(Global.currency);
+	currency_text.text = str("%.1f" %Global.currency);
 	
 	shootBuffer -= delta;
 	outletBuffer -= delta;
@@ -171,29 +172,23 @@ func _process(delta):
 		shake = shootOutletAmnt;
 		
 	if outlet != null:
-		if Input.is_action_just_pressed("RMB"):
+		Global.currency += delta*dataMultiplier;
+		if outletBuffer > 0.0:
 			outlet = null;
-	
-	if Input.is_action_just_pressed("selfDestruct"):
-		battery = 0.0;
+			unplug_sound.play();
+			outletBuffer = 0.0;
 		
-	#if outlet != null:
-		#if Input.is_action_just_pressed("RMB"):
-			#releasing = true;
-		#if Input.is_action_just_released("RMB"):
-			#releasing = false;
-			#
-		#if releasing && Input.is_action_pressed("RMB"):
-			#releaseTime += delta;
-			#crosshair.texture = powerIcon;
-		#else:
-			#releaseTime = 0.0;
-#
-		#if releaseTime >= releaseTimeMax:
-			#releaseTime = 0.0;
-			#outlet = null;
-	#else:
-		#releasing = false;
+	if Input.is_action_pressed("selfDestruct"):
+		if !self_destruct_sound.playing:
+			self_destruct_sound.play();
+		releaseTime += delta;
+		if releaseTime >= releaseTimeMax:
+			battery = 0.0;
+		crosshair.texture = powerIcon;
+	else:
+		releaseTime = 0.0;
+		crosshair.texture = crosshairIcon
+		self_destruct_sound.stop();
 		
 	circleBarMat.set_shader_parameter("progress", releaseTime/releaseTimeMax);
 	
@@ -343,7 +338,12 @@ func headbob(time) -> Vector3:
 
 func _on_collect_radius_area_entered(area: Area3D) -> void:
 	if area.is_in_group("blueprint"):
-		blueprint_text.text = "Acquired " + str(area.itemName);
+		blueprint_text.text = "Uploading " + str(area.itemName) + " blueprint...";
+		blueprint_timer.start();
 		match(area.itemName):
 			"Gun": Global.gunUnlocked=true;
 		area.queue_free();
+
+
+func _on_blueprint_timer_timeout() -> void:
+	blueprint_text.text = "";

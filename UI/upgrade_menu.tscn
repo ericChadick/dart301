@@ -3,20 +3,44 @@
 [ext_resource type="Script" uid="uid://d0dch7ajvegkl" path="res://UI/upgrade_menu.gd" id="1_f4tld"]
 [ext_resource type="FontFile" uid="uid://b5iu436di81lx" path="res://UI/propaganda.ttf" id="1_hofnk"]
 [ext_resource type="PackedScene" uid="uid://c6bf0wyk5lre" path="res://UI/stat_upgrade_meter.tscn" id="2_b1awm"]
-[ext_resource type="Texture2D" uid="uid://diu4t01qg1wt5" path="res://UI/battery.png" id="4_e1wke"]
+[ext_resource type="Texture2D" uid="uid://c51nhjnik3pop" path="res://UI/UpgradeMenu/batteryIcon.png" id="4_2bpua"]
 [ext_resource type="Texture2D" uid="uid://bqtmruylxcp8e" path="res://UI/gear.png" id="5_4r3qf"]
 [ext_resource type="Texture2D" uid="uid://2sy53byjqv7y" path="res://UI/next.png" id="5_v27ci"]
-[ext_resource type="Texture2D" uid="uid://1wu46p4iroyh" path="res://UI/fire.png" id="6_1uskd"]
-[ext_resource type="Texture2D" uid="uid://fcmbc0c6wtwk" path="res://UI/power.png" id="7_dc6v4"]
+[ext_resource type="Texture2D" uid="uid://csp48vvxcmebl" path="res://UI/UpgradeMenu/speedIcon.png" id="6_kimnd"]
+[ext_resource type="Texture2D" uid="uid://dlxfdu00bcus5" path="res://UI/UpgradeMenu/plugIcon.png" id="7_hhs1x"]
+[ext_resource type="Texture2D" uid="uid://bj0uifwmaujw0" path="res://UI/UpgradeMenu/jumpIcon.png" id="8_2bpua"]
 [ext_resource type="PackedScene" uid="uid://c2pjwyt35wifb" path="res://UI/stat_item_purchase.tscn" id="8_dc6v4"]
-[ext_resource type="Texture2D" uid="uid://d1wj28snqsa6y" path="res://UI/outletCrosshair.png" id="9_soptt"]
+[ext_resource type="Texture2D" uid="uid://bepdwhw1vvix6" path="res://UI/UpgradeMenu/multiplierIcon.png" id="9_g0opq"]
+[ext_resource type="Texture2D" uid="uid://bmmmchlg8ivik" path="res://UI/UpgradeMenu/gunIcon.png" id="10_g0opq"]
 [ext_resource type="AudioStream" uid="uid://daa3r12i25bk0" path="res://Audio/UpgradeMenu/menucycle.wav" id="11_in30h"]
+[ext_resource type="Texture2D" uid="uid://pkhhx2kkucph" path="res://UI/UpgradeMenu/prototype.png" id="12_kimnd"]
+[ext_resource type="Shader" uid="uid://drc60ttp56cn4" path="res://Shaders/screen.gdshader" id="14_hhs1x"]
 
 [sub_resource type="AudioStreamRandomizer" id="AudioStreamRandomizer_soptt"]
 random_pitch = 1.0028923
 random_volume_offset_db = 0.05
 streams_count = 1
 stream_0/stream = ExtResource("11_in30h")
+
+[sub_resource type="ShaderMaterial" id="ShaderMaterial_g0opq"]
+shader = ExtResource("14_hhs1x")
+shader_parameter/grain_intensity = 0.0800000038
+shader_parameter/min_lum = 0.0
+shader_parameter/max_lum = 1.0
+shader_parameter/time_scale = 0.5
+shader_parameter/vignette_darkness = 0.5
+shader_parameter/vignette_outer_radius = 2.0
+shader_parameter/vignette_inner_radius = 1.0000000475
+shader_parameter/scanline_intensity = 0.2
+shader_parameter/barrel_distortion = 0.2000000095
+shader_parameter/chromatic_aberration = 0.002000000095
+shader_parameter/crt_vignette_power = 0.50000002375
+shader_parameter/pixel_resolution_x = 1280
+shader_parameter/pixel_resolution_y = 960
+shader_parameter/enable_color_quantization = false
+shader_parameter/color_quant_steps = 32.0
+shader_parameter/warble_amount = 0.0010000000475
+shader_parameter/warble_speed = 2.000000095
 
 [node name="UpgradeMenu" type="CanvasLayer" unique_id=11142419]
 script = ExtResource("1_f4tld")
@@ -41,11 +65,7 @@ theme_override_constants/margin_top = 64
 theme_override_constants/margin_right = 64
 theme_override_constants/margin_bottom = 64
 
-[node name="VBoxContainer" type="VBoxContainer" parent="Control/MarginContainer" unique_id=1917288982]
-layout_mode = 2
-theme_override_constants/separation = 16
-
-[node name="Currency" type="RichTextLabel" parent="Control/MarginContainer/VBoxContainer" unique_id=83709108]
+[node name="Currency" type="RichTextLabel" parent="Control/MarginContainer" unique_id=83709108]
 custom_minimum_size = Vector2(256, 96)
 layout_mode = 2
 size_flags_horizontal = 0
@@ -57,36 +77,68 @@ text = "100"
 fit_content = true
 horizontal_alignment = 1
 
-[node name="BatteryUpgradeMeter" parent="Control/MarginContainer/VBoxContainer" unique_id=1429138153 instance=ExtResource("2_b1awm")]
+[node name="HBoxContainer" type="HBoxContainer" parent="Control/MarginContainer" unique_id=1106863556]
 layout_mode = 2
-size_flags_horizontal = 0
-iconTexture = ExtResource("4_e1wke")
+size_flags_horizontal = 8
+theme_override_constants/separation = 12
 
-[node name="HealthUpgradeMeter" parent="Control/MarginContainer/VBoxContainer" unique_id=1004966271 instance=ExtResource("2_b1awm")]
+[node name="StatUpgradeContainer" type="VBoxContainer" parent="Control/MarginContainer/HBoxContainer" unique_id=1917288982]
 layout_mode = 2
-size_flags_horizontal = 0
+theme_override_constants/separation = 16
+
+[node name="BatteryUpgradeMeter" parent="Control/MarginContainer/HBoxContainer/StatUpgradeContainer" unique_id=1429138153 instance=ExtResource("2_b1awm")]
+layout_mode = 2
+size_flags_horizontal = 8
+iconTexture = ExtResource("4_2bpua")
+
+[node name="HealthUpgradeMeter" parent="Control/MarginContainer/HBoxContainer/StatUpgradeContainer" unique_id=1004966271 instance=ExtResource("2_b1awm")]
+layout_mode = 2
+size_flags_horizontal = 8
 iconTexture = ExtResource("5_4r3qf")
 
-[node name="SpeedUpgradeMeter" parent="Control/MarginContainer/VBoxContainer" unique_id=825251718 instance=ExtResource("2_b1awm")]
+[node name="SpeedUpgradeMeter" parent="Control/MarginContainer/HBoxContainer/StatUpgradeContainer" unique_id=825251718 instance=ExtResource("2_b1awm")]
 layout_mode = 2
-size_flags_horizontal = 0
-iconTexture = ExtResource("6_1uskd")
+size_flags_horizontal = 8
+iconTexture = ExtResource("6_kimnd")
 
-[node name="JumpUpgradeMeter" parent="Control/MarginContainer/VBoxContainer" unique_id=713297231 instance=ExtResource("2_b1awm")]
+[node name="CordUpgradeMeter" parent="Control/MarginContainer/HBoxContainer/StatUpgradeContainer" unique_id=707361390 instance=ExtResource("2_b1awm")]
 layout_mode = 2
-size_flags_horizontal = 0
-iconTexture = ExtResource("7_dc6v4")
+size_flags_horizontal = 8
+iconTexture = ExtResource("7_hhs1x")
 
-[node name="GunPurchaseButton" parent="Control/MarginContainer/VBoxContainer" unique_id=1510449367 instance=ExtResource("8_dc6v4")]
+[node name="JumpUpgradeMeter" parent="Control/MarginContainer/HBoxContainer/StatUpgradeContainer" unique_id=713297231 instance=ExtResource("2_b1awm")]
 layout_mode = 2
-size_flags_horizontal = 0
-iconTexture = ExtResource("9_soptt")
+size_flags_horizontal = 8
+iconTexture = ExtResource("8_2bpua")
 
-[node name="GoButton" type="TextureButton" parent="Control/MarginContainer/VBoxContainer" unique_id=1693835580]
+[node name="MultiplierUpgradeMeter" parent="Control/MarginContainer/HBoxContainer/StatUpgradeContainer" unique_id=1112103353 instance=ExtResource("2_b1awm")]
+layout_mode = 2
+size_flags_horizontal = 8
+iconTexture = ExtResource("9_g0opq")
+
+[node name="ItemUpgradeContainer" type="VBoxContainer" parent="Control/MarginContainer/HBoxContainer" unique_id=1060177260]
+layout_mode = 2
+theme_override_constants/separation = 16
+
+[node name="GunPurchaseButton" parent="Control/MarginContainer/HBoxContainer/ItemUpgradeContainer" unique_id=1510449367 instance=ExtResource("8_dc6v4")]
+layout_mode = 2
+size_flags_horizontal = 8
+iconTexture = ExtResource("10_g0opq")
+
+[node name="GoButton" type="TextureButton" parent="Control/MarginContainer/HBoxContainer" unique_id=1693835580]
 custom_minimum_size = Vector2(128, 128)
 layout_mode = 2
 size_flags_horizontal = 8
+size_flags_vertical = 8
 texture_normal = ExtResource("5_v27ci")
+stretch_mode = 6
+
+[node name="TextureRect" type="TextureRect" parent="Control/MarginContainer" unique_id=1431262963]
+custom_minimum_size = Vector2(256, 256)
+layout_mode = 2
+size_flags_horizontal = 0
+size_flags_vertical = 8
+texture = ExtResource("12_kimnd")
 stretch_mode = 6
 
 [node name="Audio" type="Node" parent="." unique_id=1896171430]
@@ -94,4 +146,13 @@ stretch_mode = 6
 [node name="CycleSound" type="AudioStreamPlayer" parent="Audio" unique_id=1596670953]
 stream = SubResource("AudioStreamRandomizer_soptt")
 
-[connection signal="pressed" from="Control/MarginContainer/VBoxContainer/GoButton" to="." method="_on_go_button_pressed"]
+[node name="Screen" type="ColorRect" parent="." unique_id=139744653]
+material = SubResource("ShaderMaterial_g0opq")
+anchors_preset = 15
+anchor_right = 1.0
+anchor_bottom = 1.0
+grow_horizontal = 2
+grow_vertical = 2
+mouse_filter = 2
+
+[connection signal="pressed" from="Control/MarginContainer/HBoxContainer/GoButton" to="." method="_on_go_button_pressed"]

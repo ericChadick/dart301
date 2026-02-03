@@ -2,7 +2,7 @@
 
 [ext_resource type="Script" uid="uid://eijqsjxei6sx" path="res://Enemies/TestEnemy/test_enemy.gd" id="1_2u0nj"]
 [ext_resource type="PackedScene" uid="uid://dcq4u4hsq0jim" path="res://Effects/hit_particles.tscn" id="2_tsyqh"]
-[ext_resource type="AudioStream" uid="uid://b6bab46bh7o52" path="res://Audio/Enemies/robotHit1.wav" id="3_tsyqh"]
+[ext_resource type="AudioStream" uid="uid://di30dci5jx51n" path="res://Audio/Enemies/enemy1_takingdamage.wav" id="3_602qh"]
 
 [sub_resource type="CapsuleShape3D" id="CapsuleShape3D_p28x0"]
 
@@ -30,7 +30,7 @@ transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 0, -1)
 [node name="HitParticles" parent="." unique_id=1875539030 instance=ExtResource("2_tsyqh")]
 
 [node name="HitSound" type="AudioStreamPlayer3D" parent="." unique_id=1741123554]
-stream = ExtResource("3_tsyqh")
+stream = ExtResource("3_602qh")
 
 [node name="ShootTimer" type="Timer" parent="." unique_id=795125958]
 wait_time = 3.0

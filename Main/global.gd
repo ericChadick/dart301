@@ -1,7 +1,7 @@
 extends Node
 
 #stats
-var currency := 10000;
+var currency := 100.0;
 
 var hpMin := 10.0; #initial unupgraded value of stat
 var hpMax := 20.0; #max value of stat after all upgrades
@@ -13,10 +13,8 @@ var batteryMax := 15.0;
 var batteryLevel := 0;
 var batteryLevelMax := 10;
 
-#var batteryDecRate = .4;#.15;
-
 var cordLengthMin := 10.0;
-var cordLengthMax := 30.0;
+var cordLengthMax := 20.0;
 var cordLengthLevel := 0;
 var cordLengthLevelMax := 10;
 
@@ -26,7 +24,7 @@ var spdLevel := 0;
 var spdLevelMax := 8;
 
 var jumpSpdMin := 5.0;
-var jumpSpdMax := 20.0;
+var jumpSpdMax := 25.0;
 var jumpSpdLevel := 0;
 var jumpSpdLevelMax := 8;
 
@@ -34,6 +32,11 @@ var dashSpdMin := 20.0;
 var dashSpdMax := 60.0;
 var dashSpdLevel := 0;
 var dashSpdLevelMax := 5;
+
+var dataMultiplierMin := 1.0;
+var dataMultiplierMax := 4.0;
+var dataMultiplierLevel := 0;
+var dataMultiplierLevelMax := 10;
 
 var dashUnlocked := false;
 var dashPurchased := false;
