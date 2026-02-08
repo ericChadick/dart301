@@ -367,8 +367,8 @@ func _physics_process(delta: float) -> void:
 		if pull_timer.time_left <= 0.0:
 			if !is_on_wall() or wallRunTime <= 0.0:
 				velocity.y -= gravity * delta #handle gravity
-			else:
-				velocity.y -= gravity*.1 * delta
+			#else:
+			#	velocity.y -= gravity*.1 * delta
 		#set accelerations air
 		if input_dir.length() < .5:
 			inc = airFric;
@@ -409,14 +409,18 @@ func _physics_process(delta: float) -> void:
 	velocity.z = lerp(velocity.z, direction.z*pullRatioDir * speed*slideRatioSpd, delta * inc * pullRatioAcc * slideRatioAcc);
 	
 	#play step sounds
-	if velocity.length() > 1.0 and groundBuffer > 0.0 and slide_timer.time_left <= 0.0:
+	var wlrn = is_on_wall() and wallRunTime > 0.0;
+	if velocity.length() > 1.0 and (groundBuffer > 0.0 or wlrn) and slide_timer.time_left <= 0.0:
 		stepTimer -= delta;
 	else:
 		stepTimer = stepTimerStep;
 	if stepTimer <= 0.0:
 		step_sound.play();
 		shake = .1;
-		stepTimer = stepTimerStep;
+		if wlrn:
+			stepTimer = stepTimerStep*.5;
+		else:
+			stepTimer = stepTimerStep;
 	
 	dashCooldown -= delta;
 	dashInputBuffer -= delta;

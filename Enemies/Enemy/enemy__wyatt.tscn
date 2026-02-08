@@ -10,14 +10,20 @@ size = Vector3(2.3798828, 2.0605469, 2.4190063)
 script = ExtResource("1_21pf7")
 
 [node name="Drone" parent="." unique_id=1041426428 instance=ExtResource("2_td8pq")]
+transform = Transform3D(-4.371139e-08, 0, 1, 0, 1, 0, -1, 0, -4.371139e-08, 0, 0, 0)
+
+[node name="NavigationAgent3D" type="NavigationAgent3D" parent="." unique_id=1838999414]
 
 [node name="CollisionShape3D" type="CollisionShape3D" parent="." unique_id=1121291427]
 transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0.024902344, 0.10546875, 0.07772827)
 shape = SubResource("BoxShape3D_jxg8b")
 
 [node name="RayCast3D" type="RayCast3D" parent="." unique_id=1992434065]
-transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 1.2266817, 0.10546875, 0.07772827)
-target_position = Vector3(0, 0, 9)
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 0, -1)
+target_position = Vector3(0, 0, -15)
 
 [node name="Timer" type="Timer" parent="." unique_id=2095509256]
+wait_time = 5.0
 one_shot = true
+
+[connection signal="timeout" from="Timer" to="." method="_on_timer_timeout"]
