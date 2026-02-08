@@ -6,7 +6,6 @@
 [ext_resource type="PackedScene" uid="uid://nkr2g2w4vnro" path="res://Enemies/World_Enemy/Outlet/outlet.tscn" id="4_bum1d"]
 [ext_resource type="PackedScene" uid="uid://hyeh47v46j86" path="res://Enemies/TestEnemy/test_enemy.tscn" id="5_amfoy"]
 [ext_resource type="PackedScene" uid="uid://b6dc6vfdsdfvn" path="res://Enemies/World_Enemy/Blueprints/blueprint.tscn" id="6_2b58e"]
-[ext_resource type="Script" uid="uid://cxqekw5hgbprj" path="res://Enemies/World_Enemy/test_enemy_Wyatt.gd" id="6_a8xnw"]
 [ext_resource type="Texture2D" uid="uid://bmmmchlg8ivik" path="res://UI/UpgradeMenu/gunIcon.png" id="7_kk6br"]
 [ext_resource type="MeshLibrary" uid="uid://bvatqfua1rg1e" path="res://Enemies/World_Enemy/GridMap/demoBlocksEric.meshlib" id="8_r2wwq"]
 [ext_resource type="PackedScene" uid="uid://b8by2pig2hn5j" path="res://Enemies/World_Enemy/Props/wires.glb" id="9_5jxpc"]
@@ -21,12 +20,6 @@ fog_light_color = Color(0, 0, 0, 1)
 volumetric_fog_enabled = true
 volumetric_fog_albedo = Color(0.24299997, 0.40514997, 0.45, 1)
 volumetric_fog_length = 86.0
-
-[sub_resource type="CapsuleShape3D" id="CapsuleShape3D_hcsu3"]
-
-[sub_resource type="CapsuleMesh" id="CapsuleMesh_g6l2w"]
-radial_segments = 8
-rings = 4
 
 [sub_resource type="NavigationMesh" id="NavigationMesh_uavrs"]
 vertices = PackedVector3Array(-33, -1.5500002, -77.75, -28.5, -1.5500002, -77.75, -28.25, -1.5500002, -78.75, -33, -1.5500002, -123.5, 13.5, -1.5500002, -78.75, 13.25, -1.5500002, -123.5, -34, 22.7, -111.5, -34, 22.7, 7.5, 14, 22.7, 7.5, 14, 22.7, -111.5, -33, -1.5500002, -75.75, -33.5, -1.5500002, -75.5, -33.5, -1.5500002, -72.5, -33, -1.5500002, -72.25, -28.25, -1.5500002, -77, 13.5, -1.5500002, -77, -33, -1.5500002, 7.5, 13.25, -1.5500002, 7.5, -33.5, 2.4499998, -77.5, -33.5, 2.4499998, -74.5, 13.5, 2.4499998, -74.5, 13.5, 2.4499998, -77.75, 15, 2.4499998, -77.75, 15, 2.4499998, -74.5, 15.5, 2.4499998, -74.5, 15.5, 2.4499998, -77.75, -35.5, 2.4499998, -77.5, -35.5, 2.4499998, -74.5, -35, 2.4499998, -74.5, -35, 2.4499998, -77.5)
@@ -103,20 +96,6 @@ transform = Transform3D(-0.9997418, 0, -0.022722274, 0, 1, 0, 0.022722274, 0, -0
 [node name="testEnemy" parent="SubViewportContainer/SubViewport" unique_id=139086936 instance=ExtResource("5_amfoy")]
 transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, -24.327724, -0.8619056, -117.25311)
 
-[node name="TestEnemy" type="CharacterBody3D" parent="SubViewportContainer/SubViewport" unique_id=1829487111 groups=["enemy"]]
-transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 1.5384812, 0.46565437, -36.856247)
-script = ExtResource("6_a8xnw")
-
-[node name="CollisionShape3D" type="CollisionShape3D" parent="SubViewportContainer/SubViewport/TestEnemy" unique_id=621877915]
-shape = SubResource("CapsuleShape3D_hcsu3")
-
-[node name="MeshInstance3D" type="MeshInstance3D" parent="SubViewportContainer/SubViewport/TestEnemy" unique_id=2053737853]
-mesh = SubResource("CapsuleMesh_g6l2w")
-
-[node name="Timer" type="Timer" parent="SubViewportContainer/SubViewport/TestEnemy" unique_id=1077173671]
-
-[node name="RayCast3D" type="RayCast3D" parent="SubViewportContainer/SubViewport/TestEnemy" unique_id=1660569298]
-
 [node name="testEnemy2" parent="SubViewportContainer/SubViewport" unique_id=1815582290 instance=ExtResource("5_amfoy")]
 transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 1.5384812, 0.46565437, -91.514565)
 
@@ -188,5 +167,3 @@ transform = Transform3D(0.6260765, 0, -2.4203362, 0, 2.5, 0, 2.4203362, 0, 0.626
 
 [node name="Terminal2" parent="." unique_id=662887264 instance=ExtResource("11_8w5fq")]
 transform = Transform3D(0.6260765, 0, -2.4203362, 0, 2.5, 0, 2.4203362, 0, 0.6260765, 0.30967498, -2, -47.036373)
-
-[connection signal="timeout" from="SubViewportContainer/SubViewport/TestEnemy/Timer" to="." method="_on_timer_timeout"]
