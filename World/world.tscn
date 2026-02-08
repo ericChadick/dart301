@@ -9,7 +9,6 @@
 [ext_resource type="PackedScene" uid="uid://r3g5xuayp06q" path="res://World/Blueprints/blueprint.tscn" id="6_yf0ba"]
 [ext_resource type="Texture2D" uid="uid://bmmmchlg8ivik" path="res://UI/UpgradeMenu/gunIcon.png" id="7_oe8m4"]
 [ext_resource type="MeshLibrary" uid="uid://bl1bwbv6l4jik" path="res://World/GridMap/demoBlocksEric.meshlib" id="8_oe8m4"]
-[ext_resource type="PackedScene" uid="uid://b543lcfrqyvgq" path="res://Enemies/Enemy/enemy__wyatt.tscn" id="9_h2aik"]
 [ext_resource type="PackedScene" uid="uid://boy7266jscrro" path="res://World/Props/bacta_tank.tscn" id="10_lo5ox"]
 [ext_resource type="PackedScene" uid="uid://cki8bp3eco3r" path="res://World/Props/terminal.tscn" id="11_h2aik"]
 
@@ -161,6 +160,3 @@ transform = Transform3D(0.6260765, 0, -2.4203362, 0, 2.5, 0, 2.4203362, 0, 0.626
 
 [node name="Terminal2" parent="." unique_id=662887264 instance=ExtResource("11_h2aik")]
 transform = Transform3D(0.6260765, 0, -2.4203362, 0, 2.5, 0, 2.4203362, 0, 0.6260765, 0.30967498, -2, -47.036373)
-
-[node name="Enemy_ wyatt" parent="." unique_id=1897425168 instance=ExtResource("9_h2aik")]
-transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, -6.8806734, 1.644577, -30.372318)

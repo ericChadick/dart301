@@ -6,21 +6,18 @@
 [sub_resource type="BoxShape3D" id="BoxShape3D_jxg8b"]
 size = Vector3(2.3798828, 2.0605469, 2.4190063)
 
-[node name="Node3D" type="Node3D" unique_id=1727351999]
-
-[node name="Enemy" type="CharacterBody3D" parent="." unique_id=1209307127]
-transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0.024902344, 0.10546875, 0.07772827)
+[node name="Enemy" type="CharacterBody3D" unique_id=1414239772]
 script = ExtResource("1_21pf7")
 
-[node name="Drone" parent="Enemy" unique_id=1041426428 instance=ExtResource("2_td8pq")]
-transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, -0.024902344, -0.10546875, -0.07772827)
+[node name="Drone" parent="." unique_id=1041426428 instance=ExtResource("2_td8pq")]
 
-[node name="CollisionShape3D" type="CollisionShape3D" parent="Enemy" unique_id=1121291427]
+[node name="CollisionShape3D" type="CollisionShape3D" parent="." unique_id=1121291427]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0.024902344, 0.10546875, 0.07772827)
 shape = SubResource("BoxShape3D_jxg8b")
 
-[node name="RayCast3D" type="RayCast3D" parent="Enemy" unique_id=1992434065]
-transform = Transform3D(-4.371139e-08, -1, 4.371139e-08, 0, -4.371139e-08, -1, 1, -4.371139e-08, 1.9106855e-15, 1.2017794, 0, 0)
-target_position = Vector3(0, -9.35, 0)
+[node name="RayCast3D" type="RayCast3D" parent="." unique_id=1992434065]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 1.2266817, 0.10546875, 0.07772827)
+target_position = Vector3(0, 0, 9)
 
-[node name="Timer" type="Timer" parent="Enemy" unique_id=2095509256]
+[node name="Timer" type="Timer" parent="." unique_id=2095509256]
 one_shot = true

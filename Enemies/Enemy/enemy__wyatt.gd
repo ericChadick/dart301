@@ -4,14 +4,16 @@ extends CharacterBody3D
 @export var SPEED: int = 50
 @export var CHASE_SPEED: int = 150
 @export var ACCELERATION: int = 300
+@export var ROTATION_SPEED: float = 5.0
 
 @onready var ray_cast: RayCast3D = $RayCast3D
 @onready var timer = $Timer
 
 var gravity: float = ProjectSettings.get_setting("physics/3d/default_gravity")
-var direction: Vector3
-var right_bounds: Vector3
-var left_bounds: Vector3
+var direction: Vector3 = Vector3.RIGHT
+var right_bounds: float
+var left_bounds: float
+var facing_right: bool = true
 
 enum States{
 	WANDER,
@@ -21,14 +23,20 @@ enum States{
 var current_state = States.WANDER
 
 func _ready():
-	left_bounds = self.position + Vector3(125, 10, 125)
-	right_bounds = self.position + Vector3(-125, 0, -125)
+	# Set up patrol bounds (125 units left and right from starting position)
+	left_bounds = self.position.x - 125
+	right_bounds = self.position.x + 125
+
+	# Initialize raycast
+	#ray_cast.target_position = Vector3(125, 0, 0)
+	ray_cast.enabled = true
 
 
 func _physics_process(delta: float) -> void:
 	handle_gravity(delta)
-	handle_movement(delta)
 	change_direction()
+	handle_movement(delta)
+	handle_rotation(delta)
 	look_for_player()
 	
 
@@ -60,33 +68,35 @@ func handle_movement(delta: float) -> void:
 	
 func change_direction() -> void:
 	if current_state == States.WANDER:
-		if self.rotation.y == 0:  # Facing right
-			#move right
-			if self.position.x <= right_bounds.x:
-				direction = Vector3(1, 0, 0)
-			else:
-				#flip move left
-				self.rotation.y = PI
-				ray_cast.target_position = Vector3(-125, 0, 0)
+		if facing_right:
+			direction = Vector3.RIGHT
+			# Check if we've reached the right bound
+			if self.position.x >= right_bounds:
+				facing_right = false
 		else:
-			#move left
-			if self.position.x >= left_bounds.x:
-				direction = Vector3(-1, 0, 0)
-			else:
-				#flip to move right
-				self.rotation.y = 0
-				ray_cast.target_position = Vector3(125, 0, 0)
+			direction = Vector3.LEFT
+			# Check if we've reached the left bound
+			if self.position.x <= left_bounds:
+				facing_right = true
 	else:
-		#chase state
-		direction = (player.position - self.position).normalized()
-		if direction.x > 0:
-			#facing right
-			self.rotation.y = 0
-			ray_cast.target_position = Vector3(125, 0, 0)
-		else:
-			#facing left
-			self.rotation.y = PI
-			ray_cast.target_position = Vector3(-125, 0, 0)
+		# Chase state - move toward player
+		var to_player = player.position - self.position
+		to_player.y = 0  # Keep movement horizontal
+		direction = to_player.normalized()
+
+func handle_rotation(delta: float) -> void:
+	# Only rotate if we're actually moving
+	if direction.length() > 0.1:
+		# Create a target position to look at
+		var target_pos = self.position + direction
+		target_pos.y = self.position.y  # Keep rotation only on Y axis
+
+		# Smoothly rotate to face the movement direction
+		var target_transform = self.global_transform.looking_at(target_pos, Vector3.UP)
+		self.global_transform = self.global_transform.interpolate_with(target_transform, ROTATION_SPEED * delta)
+
+		# Update raycast to point forward
+		ray_cast.target_position = -self.global_transform.basis.z * 125
 
 
 func handle_gravity(delta: float) -> void:
