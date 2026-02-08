@@ -33,7 +33,7 @@ func _on_area_entered(area: Area3D) -> void:
 	if area.is_in_group("outlet"):
 		area.get_node("PlugSound").play();
 		creator.outlet = area;
-		creator.velocity = (area.global_position-creator.global_position).normalized()*area.global_position.distance_to(creator.global_position);
+		#creator.velocity = (area.global_position-creator.global_position).normalized()*area.global_position.distance_to(creator.global_position);
 		destroy();
 		
 func destroy() -> void:

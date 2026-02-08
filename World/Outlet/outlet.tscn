@@ -1,6 +1,7 @@
 [gd_scene format=4 uid="uid://bxgwgbkpugt5j"]
 
 [ext_resource type="AudioStream" uid="uid://djm48o3rgo8fn" path="res://Audio/Player/player_pluggingIN.wav" id="1_gl5ih"]
+[ext_resource type="Script" uid="uid://bs57agia8vb4j" path="res://World/Outlet/outlet.gd" id="1_iw82v"]
 
 [sub_resource type="SphereShape3D" id="SphereShape3D_qknly"]
 radius = 2.0
@@ -57,11 +58,14 @@ blend_shape_mode = 0
 shadow_mesh = SubResource("ArrayMesh_gl5ih")
 
 [node name="Outlet" type="Area3D" unique_id=220038749 groups=["outlet"]]
+collision_layer = 2
+collision_mask = 2
+script = ExtResource("1_iw82v")
 
 [node name="CollisionShape3D" type="CollisionShape3D" parent="." unique_id=593381698]
 shape = SubResource("SphereShape3D_qknly")
 
-[node name="MeshInstance3D" type="MeshInstance3D" parent="." unique_id=391716278]
+[node name="OutletLight" type="MeshInstance3D" parent="." unique_id=391716278]
 transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0.14567536, 0.026119918, 0)
 material_override = SubResource("StandardMaterial3D_qknly")
 mesh = SubResource("SphereMesh_uxtxx")

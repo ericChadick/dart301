@@ -7,7 +7,7 @@ extends CanvasLayer
 @onready var speed_upgrade_meter: HBoxContainer = $Control/MarginContainer/HBoxContainer/StatUpgradeContainer/SpeedUpgradeMeter
 @onready var cord_upgrade_meter: HBoxContainer = $Control/MarginContainer/HBoxContainer/StatUpgradeContainer/CordUpgradeMeter
 @onready var jump_upgrade_meter: HBoxContainer = $Control/MarginContainer/HBoxContainer/StatUpgradeContainer/JumpUpgradeMeter
-@onready var multiplier_upgrade_meter: HBoxContainer = $Control/MarginContainer/HBoxContainer/StatUpgradeContainer/MultiplierUpgradeMeter2
+@onready var multiplier_upgrade_meter: HBoxContainer = $Control/MarginContainer/HBoxContainer/StatUpgradeContainer/MultiplierUpgradeMeter
 
 @onready var cycle_sound: AudioStreamPlayer = $Audio/CycleSound
 
@@ -47,8 +47,8 @@ func _ready() -> void:
 	cord_upgrade_meter.costMultiplier = 5.0;
 	cord_upgrade_meter.calculateCost();
 	#multiplier
-	multiplier_upgrade_meter.level = Global.cordLengthLevel;
-	multiplier_upgrade_meter.levelMax = Global.cordLengthLevelMax;
+	multiplier_upgrade_meter.level = Global.dataMultiplierLevel;
+	multiplier_upgrade_meter.levelMax = Global.dataMultiplierLevelMax;
 	multiplier_upgrade_meter.costMultiplier = 8.0;
 	multiplier_upgrade_meter.calculateCost();
 

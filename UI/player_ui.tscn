@@ -6,10 +6,12 @@
 [ext_resource type="Texture2D" uid="uid://diu4t01qg1wt5" path="res://UI/battery.png" id="2_xmsn8"]
 [ext_resource type="Texture2D" uid="uid://gvddmejx417l" path="res://Player/Images/hand.png" id="3_xmsn8"]
 [ext_resource type="Shader" uid="uid://drc60ttp56cn4" path="res://Shaders/screen.gdshader" id="4_b8q8m"]
+[ext_resource type="Shader" uid="uid://booyle6ycaten" path="res://Shaders/vhs.gdshader" id="4_fwocb"]
 [ext_resource type="Texture2D" uid="uid://d1wj28snqsa6y" path="res://UI/outletCrosshair.png" id="5_8w2om"]
 [ext_resource type="FontFile" uid="uid://b5iu436di81lx" path="res://UI/propaganda.ttf" id="5_qf5vc"]
 [ext_resource type="Shader" uid="uid://dvp31qmvkfe0v" path="res://Shaders/glitch.gdshader" id="8_an3gc"]
 [ext_resource type="Shader" uid="uid://bbea84b1alg8v" path="res://Shaders/speedlines.gdshader" id="8_byocv"]
+[ext_resource type="Texture2D" uid="uid://dlxfdu00bcus5" path="res://UI/UpgradeMenu/plugIcon.png" id="12_rvkn8"]
 
 [sub_resource type="FastNoiseLite" id="FastNoiseLite_fwocb"]
 
@@ -61,14 +63,6 @@ corner_radius_top_right = 12
 corner_radius_bottom_right = 12
 corner_radius_bottom_left = 12
 
-[sub_resource type="ShaderMaterial" id="ShaderMaterial_byocv"]
-shader = ExtResource("8_an3gc")
-shader_parameter/shake_power = 0.01
-shader_parameter/shake_rate = 0.0730000034675
-shader_parameter/shake_speed = 1.0
-shader_parameter/shake_block_size = 40.0
-shader_parameter/shake_color_rate = 0.01
-
 [sub_resource type="ShaderMaterial" id="ShaderMaterial_ccqt3"]
 shader = ExtResource("4_b8q8m")
 shader_parameter/grain_intensity = 0.0800000038
@@ -88,6 +82,21 @@ shader_parameter/enable_color_quantization = false
 shader_parameter/color_quant_steps = 32.0
 shader_parameter/warble_amount = 0.0010000000475
 shader_parameter/warble_speed = 2.000000095
+
+[sub_resource type="ShaderMaterial" id="ShaderMaterial_rvkn8"]
+shader = ExtResource("4_fwocb")
+shader_parameter/wiggle = 0.03
+shader_parameter/wiggle_speed = 15.0
+shader_parameter/smear = 0.150000007125
+shader_parameter/blur_samples = 3
+
+[sub_resource type="ShaderMaterial" id="ShaderMaterial_byocv"]
+shader = ExtResource("8_an3gc")
+shader_parameter/shake_power = 0.01
+shader_parameter/shake_rate = 0.0730000034675
+shader_parameter/shake_speed = 1.0
+shader_parameter/shake_block_size = 40.0
+shader_parameter/shake_color_rate = 0.01
 
 [node name="PlayerUI" type="CanvasLayer" unique_id=883918654]
 
@@ -151,10 +160,10 @@ anchor_right = 1.0
 anchor_bottom = 1.0
 grow_horizontal = 2
 grow_vertical = 2
-theme_override_constants/margin_left = 32
-theme_override_constants/margin_top = 32
-theme_override_constants/margin_right = 32
-theme_override_constants/margin_bottom = 32
+theme_override_constants/margin_left = 64
+theme_override_constants/margin_top = 64
+theme_override_constants/margin_right = 64
+theme_override_constants/margin_bottom = 64
 
 [node name="StatBars" type="VBoxContainer" parent="Control/MarginContainer" unique_id=2047396080]
 layout_mode = 2
@@ -189,6 +198,7 @@ patch_margin_right = 31
 patch_margin_bottom = 31
 
 [node name="HealthBar" type="ProgressBar" parent="Control/MarginContainer/StatBars" unique_id=13475481]
+visible = false
 custom_minimum_size = Vector2(250, 36)
 layout_mode = 2
 size_flags_horizontal = 4
@@ -239,7 +249,49 @@ offset_right = 40.0
 offset_bottom = 40.0
 texture = ExtResource("5_8w2om")
 
+[node name="OutletBar" type="ProgressBar" parent="Control/OutletCrosshair" unique_id=472474386]
+custom_minimum_size = Vector2(80, 36)
+layout_mode = 0
+offset_left = 49.0
+offset_top = -9.999989
+offset_right = 129.0
+offset_bottom = 26.000011
+rotation = -1.5592283
+size_flags_horizontal = 4
+size_flags_vertical = 8
+mouse_filter = 1
+theme_override_styles/background = SubResource("StyleBoxFlat_8w2om")
+theme_override_styles/fill = SubResource("StyleBoxFlat_xmsn8")
+max_value = 1.0
+step = 0.005
+value = 1.0
+show_percentage = false
+
+[node name="NinePatchRect" type="NinePatchRect" parent="Control/OutletCrosshair/OutletBar" unique_id=11562061]
+custom_minimum_size = Vector2(128, 81.515)
+layout_mode = 1
+offset_left = -19.0
+offset_top = -20.0
+offset_right = 109.0
+offset_bottom = 67.0
+size_flags_horizontal = 4
+texture = ExtResource("2_xmsn8")
+patch_margin_left = 20
+patch_margin_top = 20
+patch_margin_right = 31
+patch_margin_bottom = 31
+
+[node name="PlugIcon" type="TextureRect" parent="." unique_id=110508154]
+custom_minimum_size = Vector2(64, 64)
+offset_left = 385.0
+offset_top = 747.0
+offset_right = 449.0
+offset_bottom = 811.0
+texture = ExtResource("12_rvkn8")
+expand_mode = 1
+
 [node name="GearIcon" type="TextureRect" parent="." unique_id=1794946992]
+visible = false
 custom_minimum_size = Vector2(86, 86)
 offset_left = 456.0
 offset_top = 767.0
@@ -264,17 +316,26 @@ size_flags_vertical = 8
 texture = ExtResource("2_ccqt3")
 expand_mode = 1
 
-[node name="Glitch" type="ColorRect" parent="." unique_id=114921552]
-visible = false
-material = SubResource("ShaderMaterial_byocv")
+[node name="Screen" type="ColorRect" parent="." unique_id=1373793926]
+material = SubResource("ShaderMaterial_ccqt3")
 anchors_preset = 15
 anchor_right = 1.0
 anchor_bottom = 1.0
 grow_horizontal = 2
 grow_vertical = 2
 
-[node name="Screen" type="ColorRect" parent="." unique_id=1373793926]
-material = SubResource("ShaderMaterial_ccqt3")
+[node name="Screen2" type="ColorRect" parent="." unique_id=392542210]
+visible = false
+material = SubResource("ShaderMaterial_rvkn8")
+anchors_preset = 15
+anchor_right = 1.0
+anchor_bottom = 1.0
+grow_horizontal = 2
+grow_vertical = 2
+
+[node name="Glitch" type="ColorRect" parent="." unique_id=114921552]
+visible = false
+material = SubResource("ShaderMaterial_byocv")
 anchors_preset = 15
 anchor_right = 1.0
 anchor_bottom = 1.0

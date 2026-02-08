@@ -14,7 +14,14 @@
 [ext_resource type="Texture2D" uid="uid://bmmmchlg8ivik" path="res://UI/UpgradeMenu/gunIcon.png" id="10_g0opq"]
 [ext_resource type="AudioStream" uid="uid://daa3r12i25bk0" path="res://Audio/UpgradeMenu/menucycle.wav" id="11_in30h"]
 [ext_resource type="Texture2D" uid="uid://pkhhx2kkucph" path="res://UI/UpgradeMenu/prototype.png" id="12_kimnd"]
+[ext_resource type="Shader" uid="uid://bp7q7ubcd4lk4" path="res://Shaders/dither.gdshader" id="13_d67jj"]
 [ext_resource type="Shader" uid="uid://drc60ttp56cn4" path="res://Shaders/screen.gdshader" id="14_hhs1x"]
+
+[sub_resource type="ShaderMaterial" id="ShaderMaterial_uxsr7"]
+shader = ExtResource("13_d67jj")
+shader_parameter/size = Vector2(1440, 1080)
+shader_parameter/color1 = Color(0.70975083, 0, 0, 0)
+shader_parameter/color2 = Color(0, 0, 0, 1)
 
 [sub_resource type="AudioStreamRandomizer" id="AudioStreamRandomizer_soptt"]
 random_pitch = 1.0028923
@@ -134,6 +141,7 @@ texture_normal = ExtResource("5_v27ci")
 stretch_mode = 6
 
 [node name="TextureRect" type="TextureRect" parent="Control/MarginContainer" unique_id=1431262963]
+material = SubResource("ShaderMaterial_uxsr7")
 custom_minimum_size = Vector2(256, 256)
 layout_mode = 2
 size_flags_horizontal = 0
@@ -147,6 +155,7 @@ stretch_mode = 6
 stream = SubResource("AudioStreamRandomizer_soptt")
 
 [node name="Screen" type="ColorRect" parent="." unique_id=139744653]
+visible = false
 material = SubResource("ShaderMaterial_g0opq")
 anchors_preset = 15
 anchor_right = 1.0

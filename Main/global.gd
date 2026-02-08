@@ -3,27 +3,29 @@ extends Node
 #stats
 var currency := 100.0;
 
+enum PlayerWeapon {FIST, GUN, FLAME}
+
 var hpMin := 10.0; #initial unupgraded value of stat
 var hpMax := 20.0; #max value of stat after all upgrades
 var hpLevel := 0; #current level the stat has been upgraded to
 var hpLevelMax := 10; #max level the stat can be upgraded to
 
-var batteryMin := 5.0;
+var batteryMin := 10.0;
 var batteryMax := 15.0;
 var batteryLevel := 0;
 var batteryLevelMax := 10;
 
-var cordLengthMin := 10.0;
+var cordLengthMin := 15.0;#10.0;
 var cordLengthMax := 20.0;
 var cordLengthLevel := 0;
 var cordLengthLevelMax := 10;
 
-var spdMin := 5.0;
+var spdMin := 10.0;
 var spdMax := 12.0;
 var spdLevel := 0;
 var spdLevelMax := 8;
 
-var jumpSpdMin := 5.0;
+var jumpSpdMin := 15.0;
 var jumpSpdMax := 25.0;
 var jumpSpdLevel := 0;
 var jumpSpdLevelMax := 8;
