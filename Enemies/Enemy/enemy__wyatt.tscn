@@ -2,6 +2,8 @@
 
 [ext_resource type="Script" uid="uid://qsidxb75c6f3" path="res://Enemies/Enemy/enemy__wyatt.gd" id="1_21pf7"]
 [ext_resource type="PackedScene" uid="uid://balgpgdnfqd4g" path="res://Enemies/Enemie1/Drone.fbx" id="2_td8pq"]
+[ext_resource type="PackedScene" uid="uid://dcq4u4hsq0jim" path="res://Effects/hit_particles.tscn" id="3_jxg8b"]
+[ext_resource type="AudioStream" uid="uid://di30dci5jx51n" path="res://Audio/Enemies/enemy1_takingdamage.wav" id="4_bbd1j"]
 
 [sub_resource type="BoxShape3D" id="BoxShape3D_jxg8b"]
 size = Vector3(2.3798828, 2.0605469, 2.4190063)
@@ -11,6 +13,9 @@ script = ExtResource("1_21pf7")
 
 [node name="Drone" parent="." unique_id=1041426428 instance=ExtResource("2_td8pq")]
 transform = Transform3D(-4.371139e-08, 0, 1, 0, 1, 0, -1, 0, -4.371139e-08, 0, 0, 0)
+
+[node name="ShootPoint" type="Marker3D" parent="." unique_id=1681437693]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, -0.343, -2.043273)
 
 [node name="NavigationAgent3D" type="NavigationAgent3D" parent="." unique_id=1838999414]
 
@@ -25,5 +30,16 @@ target_position = Vector3(0, 0, -15)
 [node name="Timer" type="Timer" parent="." unique_id=2095509256]
 wait_time = 5.0
 one_shot = true
+
+[node name="ShootTimer" type="Timer" parent="." unique_id=995841136]
+wait_time = 0.5
+one_shot = true
+autostart = true
+
+[node name="HitParticles" parent="." unique_id=1875539030 instance=ExtResource("3_jxg8b")]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 0, -1)
+
+[node name="HitSound" type="AudioStreamPlayer3D" parent="." unique_id=147450101]
+stream = ExtResource("4_bbd1j")
 
 [connection signal="timeout" from="Timer" to="." method="_on_timer_timeout"]

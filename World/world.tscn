@@ -235,7 +235,7 @@ omni_range = 200.0
 omni_attenuation = 0.283
 
 [node name="Enemy" parent="." unique_id=1414239772 node_paths=PackedStringArray("player") instance=ExtResource("12_h2aik")]
-transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, -3.403551, 2.536203, -23.084143)
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, -10.014042, 2.536203, -23.084143)
 player = NodePath("../SubViewportContainer/SubViewport/Player")
 SPEED = 2
 CHASE_SPEED = 3
