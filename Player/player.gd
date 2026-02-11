@@ -6,8 +6,12 @@ extends CharacterBody3D
 @onready var shoot_particles: GPUParticles3D = $Head/ShootParticles
 @onready var cord: MeshInstance3D = $Cord
 @onready var outlet_ray: RayCast3D = $Head/outletRay
+@onready var rightwall_ray: RayCast3D = $Head/rightwallRay
+@onready var leftwall_ray: RayCast3D = $Head/leftwallRay
+
 @onready var cord_hand_animations: AnimationPlayer = $CordHandAnimations
 @onready var weapon_hand_animations: AnimationPlayer = $WeaponHandAnimations
+
 
 @onready var step_sound: AudioStreamPlayer3D = $StepSound
 @onready var hit_sound: AudioStreamPlayer = $HitSound
@@ -284,6 +288,10 @@ func _process(delta):
 	circleBarMat.set_shader_parameter("progress", releaseTime/releaseTimeMax);
 	
 	if punch_timer.time_left > 0.0 and hitboxEnemy != null:
+		var e = hitboxEnemy.explosion.instantiate();
+		hitboxEnemy.get_parent().add_child(e);
+		e.global_position = hitboxEnemy.global_position;
+		Global.currency += hitboxEnemy.currencyReward;
 		hitboxEnemy.queue_free();
 		
 	match (weapon):
@@ -320,9 +328,13 @@ func _physics_process(delta: float) -> void:
 	var input_dir = Input.get_vector("left", "right", "up", "down");
 	var direction = (head.transform.basis * transform.basis * Vector3(input_dir.x, 0, input_dir.y)).normalized();
 	
-	var zwobble = -.125*input_dir.x;
+	var zwobble = 0.0;
 	if slide_timer.time_left > 0.0:
 		zwobble = -.2;
+	elif is_on_wall() and wallRunTime > 0.0:
+		zwobble = int(rightwall_ray.is_colliding())*.3-int(leftwall_ray.is_colliding())*.3;
+	else:
+		zwobble = -.125*input_dir.x;
 	head.rotation.z = lerp(head.rotation.z, zwobble, delta*5.0);
 		
 	#input buffers for platforming
@@ -340,7 +352,7 @@ func _physics_process(delta: float) -> void:
 	groundedCurrent = groundBuffer > 0.0;
 	var inc := 0.0;
 	if groundBuffer > 0.0:
-		if slideBuffer > 0.0 and slide_cooldown_timer.time_left <= 0.0:
+		if velocity.length() > speed*.5 and slideBuffer > 0.0 and slide_cooldown_timer.is_stopped():
 			slide_timer.start();
 			slide_sound.play();
 			velocity.x *= 2.5;

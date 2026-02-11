@@ -4,8 +4,10 @@
 [ext_resource type="PackedScene" uid="uid://cqrenk8ue8j8v" path="res://Player/player.tscn" id="1_62w18"]
 [ext_resource type="Script" uid="uid://bevf68wrkg7sv" path="res://World/world.gd" id="1_k8do8"]
 [ext_resource type="PackedScene" uid="uid://bxgwgbkpugt5j" path="res://World/Outlet/outlet.tscn" id="2_8a836"]
+[ext_resource type="PackedScene" uid="uid://tc8t4bsjnqh3" path="res://Enemies/TestEnemy/battery_dog_enemy.tscn" id="5_awrha"]
 [ext_resource type="PackedScene" uid="uid://hyeh47v46j86" path="res://Enemies/TestEnemy/test_enemy.tscn" id="5_bkhv4"]
 [ext_resource type="PackedScene" uid="uid://bbo01giq25jel" path="res://World/Props/wires.glb" id="5_k8do8"]
+[ext_resource type="PackedScene" uid="uid://cnexx5jm5sy8x" path="res://Enemies/TestEnemy/trash_bot_enemy.tscn" id="6_0wqet"]
 [ext_resource type="PackedScene" uid="uid://r3g5xuayp06q" path="res://World/Blueprints/blueprint.tscn" id="6_yf0ba"]
 [ext_resource type="Texture2D" uid="uid://bmmmchlg8ivik" path="res://UI/UpgradeMenu/gunIcon.png" id="7_oe8m4"]
 [ext_resource type="MeshLibrary" uid="uid://bl1bwbv6l4jik" path="res://World/GridMap/demoBlocksEric.meshlib" id="8_oe8m4"]
@@ -83,6 +85,15 @@ spot_range = 22.732235
 spot_attenuation = 0.5
 spot_angle = 46.957165
 
+[node name="SpotLight3D4" type="SpotLight3D" parent="SubViewportContainer/SubViewport" unique_id=843543521]
+transform = Transform3D(0.9980038, -0.05800901, -0.024969216, -0.005688202, -0.47632378, 0.8792516, -0.06289794, -0.8773544, -0.47570288, -5.5100913, 20.94, -175.6828)
+light_color = Color(1, 1, 0.9414779, 1)
+light_energy = 16.0
+shadow_enabled = true
+spot_range = 22.732235
+spot_attenuation = 0.5
+spot_angle = 46.957165
+
 [node name="Outlet" parent="SubViewportContainer/SubViewport" unique_id=1305501235 instance=ExtResource("2_8a836")]
 transform = Transform3D(0.09433418, 0, -0.9955406, 0, 1, 0, 0.9955406, 0, 0.09433418, 0.7275131, -0.24083197, -45.430546)
 
@@ -92,14 +103,36 @@ transform = Transform3D(0.029753476, 0, -0.99955726, 0, 1, 0, 0.99955726, 0, 0.0
 [node name="Outlet3" parent="SubViewportContainer/SubViewport" unique_id=1231886591 instance=ExtResource("2_8a836")]
 transform = Transform3D(-0.031061828, 0, -0.9995174, 0, 1, 0, 0.9995174, 0, -0.031061828, -13.990077, 0.75597394, -93.692604)
 
-[node name="Outlet4" parent="SubViewportContainer/SubViewport" unique_id=220038749 instance=ExtResource("2_8a836")]
+[node name="Outlet5" parent="SubViewportContainer/SubViewport" unique_id=220038749 instance=ExtResource("2_8a836")]
+transform = Transform3D(-0.03106183, -2.0975914e-10, -0.9995175, 0.99893445, 0.034149505, -0.031043714, 0.034132987, -0.99941677, -0.001060744, -25.517548, 9.583683, -259.58398)
+
+[node name="Outlet6" parent="SubViewportContainer/SubViewport" unique_id=1343407366 instance=ExtResource("2_8a836")]
+transform = Transform3D(-0.03106183, -2.0975914e-10, -0.9995175, 0.99893445, 0.034149505, -0.031043714, 0.034132987, -0.99941677, -0.001060744, 3.9249516, 9.583683, -207.73717)
+
+[node name="Outlet4" parent="SubViewportContainer/SubViewport" unique_id=616537199 instance=ExtResource("2_8a836")]
 transform = Transform3D(-0.9997418, 0, -0.022722274, 0, 1, 0, 0.022722274, 0, -0.9997418, 13.817866, 7.123963, -75.88269)
+
+[node name="BatteryDogEnemy" parent="SubViewportContainer/SubViewport" unique_id=1048089377 instance=ExtResource("5_awrha")]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, -6.8709874, 0.46565437, -38.332237)
 
 [node name="testEnemy" parent="SubViewportContainer/SubViewport" unique_id=139086936 instance=ExtResource("5_bkhv4")]
 transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, -24.327724, -0.8619056, -117.25311)
 
 [node name="testEnemy2" parent="SubViewportContainer/SubViewport" unique_id=1815582290 instance=ExtResource("5_bkhv4")]
 transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 1.5384812, 0.46565437, -91.514565)
+
+[node name="testEnemy3" parent="SubViewportContainer/SubViewport" unique_id=1329896303 instance=ExtResource("5_bkhv4")]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, -22.74178, 10.901337, -202.0199)
+
+[node name="testEnemy4" parent="SubViewportContainer/SubViewport" unique_id=1459111610 instance=ExtResource("5_bkhv4")]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, -1.6651115, 10.901337, -190.30711)
+
+[node name="testEnemy5" parent="SubViewportContainer/SubViewport" unique_id=318095098 instance=ExtResource("5_bkhv4")]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, -18.883259, 10.901337, -170.98494)
+
+[node name="trashBotEnemy" parent="SubViewportContainer/SubViewport" unique_id=1539988876 node_paths=PackedStringArray("outlet") instance=ExtResource("6_0wqet")]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, -17.995804, 0, -16.86903)
+outlet = NodePath("../Outlet2")
 
 [node name="Blueprint" parent="SubViewportContainer/SubViewport" unique_id=1232053923 instance=ExtResource("6_yf0ba")]
 transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, -0.56007004, 0.32449913, -103.16862)
@@ -130,11 +163,34 @@ transform = Transform3D(4, 0, 0, 0, 4, 0, 0, 0, 4, -27.985949, -1.9995785, -42.6
 [node name="BactaTank2" parent="SubViewportContainer/SubViewport/NavigationRegion3D" unique_id=1484936981 instance=ExtResource("10_lo5ox")]
 transform = Transform3D(4, 0, 0, 0, 4, 0, 0, 0, 4, 2.71591, -1.9995794, -116.696304)
 
+[node name="BactaTank3" parent="SubViewportContainer/SubViewport/NavigationRegion3D" unique_id=413465442 instance=ExtResource("10_lo5ox")]
+transform = Transform3D(4, 0, 0, 0, 4, 0, 0, 0, 4, 74.87171, 9.585129, -264.15845)
+
 [node name="Terminal" parent="SubViewportContainer/SubViewport/NavigationRegion3D" unique_id=854961400 instance=ExtResource("11_h2aik")]
 transform = Transform3D(0.6260765, 0, -2.4203362, 0, 2.5, 0, 2.4203362, 0, 0.6260765, -26.28589, -1.999999, -36.25729)
 
 [node name="Terminal2" parent="SubViewportContainer/SubViewport/NavigationRegion3D" unique_id=662887264 instance=ExtResource("11_h2aik")]
 transform = Transform3D(0.6260765, 0, -2.4203362, 0, 2.5, 0, 2.4203362, 0, 0.6260765, 0.30967498, -2, -47.036373)
+
+[node name="CSGBox3D" type="CSGBox3D" parent="SubViewportContainer/SubViewport/NavigationRegion3D" unique_id=1300969644]
+transform = Transform3D(1, 0, 0, 0, 0.9394237, -0.34275806, 0, 0.34275806, 0.9394237, -9.513977, 2.7458963, -138.84859)
+use_collision = true
+size = Vector3(51.113403, 1, 35.836914)
+
+[node name="CSGBox3D2" type="CSGBox3D" parent="SubViewportContainer/SubViewport/NavigationRegion3D" unique_id=1896758427]
+transform = Transform3D(1, 0, 0, 0, 0.99999994, 0, 0, 0, 0.99999994, -9.513977, -1.2656622, -189.38406)
+use_collision = true
+size = Vector3(51.113403, 20.96289, 67.77734)
+
+[node name="CSGBox3D4" type="CSGBox3D" parent="SubViewportContainer/SubViewport/NavigationRegion3D" unique_id=459802057]
+transform = Transform3D(1, 0, 0, 0, 0.99999994, 0, 0, 0, 0.99999994, -9.513977, 35.42193, -189.38406)
+use_collision = true
+size = Vector3(51.113403, 20.96289, 67.77734)
+
+[node name="CSGBox3D3" type="CSGBox3D" parent="SubViewportContainer/SubViewport/NavigationRegion3D" unique_id=281126397]
+transform = Transform3D(0.008360007, 0, -0.999965, 0, 0.9999999, 0, 0.999965, 0, 0.008360005, 39.35858, -1.2656622, -249.53564)
+use_collision = true
+size = Vector3(51.113403, 20.96289, 148.62549)
 
 [node name="wires" parent="." unique_id=904965906 instance=ExtResource("5_k8do8")]
 transform = Transform3D(-0.026360642, 0, 2.284848, 0, 2.285, 0, -2.284848, 0, -0.026360642, -5.225149, 22.314457, -17.433329)
@@ -161,6 +217,14 @@ light_energy = 3.0
 shadow_enabled = true
 omni_range = 200.0
 omni_attenuation = 0.283
+
+[node name="OmniLight3D3" type="OmniLight3D" parent="." unique_id=928692187]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, -8.263714, 21.901844, -198.42207)
+light_color = Color(1, 0.71569246, 0.557414, 1)
+light_energy = 3.0
+shadow_enabled = true
+omni_range = 200.0
+omni_attenuation = 0.356
 
 [node name="OmniLight3D2" type="OmniLight3D" parent="." unique_id=933052066]
 transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, -8.913273, 19.268068, -103.21061)

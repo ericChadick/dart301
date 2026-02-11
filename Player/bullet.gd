@@ -25,6 +25,9 @@ func _on_body_entered(body: Node3D) -> void:
 		if body.is_in_group("enemy"): #collect currency from enemies
 			if body.hp <= 0:
 				Global.currency += body.currencyReward;
+				var e = body.explosion.instantiate();
+				body.get_parent().add_child(e);
+				e.global_position = body.global_position;
 				body.queue_free();
 		destroy();
 		

@@ -3,9 +3,9 @@
 [ext_resource type="Script" uid="uid://dqvwobvui5k2b" path="res://Player/player.gd" id="1_l8h54"]
 [ext_resource type="PackedScene" uid="uid://dcq4u4hsq0jim" path="res://Effects/hit_particles.tscn" id="2_gwnis"]
 [ext_resource type="AudioStream" uid="uid://cckkey6se7c0o" path="res://Audio/Player/robotShoot1.wav" id="3_btcbx"]
-[ext_resource type="AudioStream" uid="uid://d26jn355hmskh" path="res://Audio/Player/player_takingdamage.wav" id="3_fhl08"]
-[ext_resource type="AudioStream" uid="uid://cb0wl6gpwpn3q" path="res://Audio/Player/player_footsteps_v1.wav" id="4_vtle1"]
-[ext_resource type="AudioStream" uid="uid://bcim0cmakpuiv" path="res://Audio/Player/player_footsteps_v2.wav" id="5_od3ui"]
+[ext_resource type="AudioStream" uid="uid://oy7efl1i4qjc" path="res://Audio/Player/player_takingdamage.wav" id="3_fhl08"]
+[ext_resource type="AudioStream" uid="uid://srd73yumjpfs" path="res://Audio/Player/player_footsteps_v1.wav" id="4_vtle1"]
+[ext_resource type="AudioStream" uid="uid://mw7sm40yjyft" path="res://Audio/Player/player_footsteps_v2.wav" id="5_od3ui"]
 [ext_resource type="AudioStream" uid="uid://b4yd4581pueuc" path="res://Audio/Player/player_charginghum.wav" id="7_vtle1"]
 [ext_resource type="AudioStream" uid="uid://bxyfhkfxya1ft" path="res://Audio/Player/cordswing.wav" id="8_00tjw"]
 [ext_resource type="AudioStream" uid="uid://bl1krkd6lbdyy" path="res://Audio/Player/player_cord_out.wav" id="8_od3ui"]
@@ -14,6 +14,7 @@
 [ext_resource type="AudioStream" uid="uid://2s3bfvs0fusv" path="res://Audio/Player/robotPunch.wav" id="12_5htga"]
 [ext_resource type="AudioStream" uid="uid://33q7i74dhbfn" path="res://Audio/Player/robotJump.wav" id="13_gu6f8"]
 [ext_resource type="AudioStream" uid="uid://dhh1c2ig825e7" path="res://Audio/Player/robotLand.wav" id="14_dkpta"]
+[ext_resource type="PackedScene" uid="uid://cqa3uexvcxuc4" path="res://Player/IsaacProtagArmAnim.glb" id="15_dkpta"]
 
 [sub_resource type="CapsuleShape3D" id="CapsuleShape3D_4ntmi"]
 
@@ -191,12 +192,30 @@ shadow_enabled = true
 omni_range = 8.0
 
 [node name="CordProtoNode" type="Node3D" parent="Head" unique_id=558342988]
-transform = Transform3D(0.74413925, 0.3429847, 0.57325214, -0.42135835, 0.90688306, 0.004364181, -0.5183764, -0.24479198, 0.8193672, 0.95013034, -0.6977509, -1.2693243)
+transform = Transform3D(0.74413925, 0.34298468, 0.57325214, -0.42135835, 0.906883, 0.004364181, -0.5183764, -0.24479197, 0.8193672, 0.95013034, -0.6977509, -1.2693243)
 
 [node name="CordProto" type="MeshInstance3D" parent="Head/CordProtoNode" unique_id=1396993993]
 transform = Transform3D(0.9999999, 0, 2.9802322e-08, 4.4703484e-08, 1.0000004, -1.4901161e-08, 0, 0, 1, -0.11860013, 0.8586336, 0.17990345)
 mesh = SubResource("CylinderMesh_od3ui")
 skeleton = NodePath("../../../CordHandAnimations")
+
+[node name="IsaacProtagArmAnim" parent="Head" unique_id=485485338 instance=ExtResource("15_dkpta")]
+transform = Transform3D(-0.04455945, -0.46692014, -1.1586633, 1.0185311, 0.6576875, -0.3042064, 0.72326255, -0.95495194, 0.35701317, 0.83942574, -0.5365705, 0.09051019)
+visible = false
+
+[node name="IsaacProtagArmAnim2" parent="Head" unique_id=311115104 instance=ExtResource("15_dkpta")]
+transform = Transform3D(0.88939154, 0.16785318, 0.86215335, 0.7883886, 0.38832945, -0.88890064, 0.38720334, -1.1762336, -0.17043456, -0.73659647, -0.26660407, 0.12287933)
+visible = false
+
+[node name="rightwallRay" type="RayCast3D" parent="Head" unique_id=1009828370]
+transform = Transform3D(0.9396926, 0.34202012, 0, -0.34202012, 0.9396926, 0, 0, 0, 1, 0.5, -0.5, 0)
+target_position = Vector3(1, 0, 0)
+hit_from_inside = true
+
+[node name="leftwallRay" type="RayCast3D" parent="Head" unique_id=1629569162]
+transform = Transform3D(0.9396926, -0.34202012, 0, 0.34202012, 0.9396926, 0, 0, 0, 1, -0.5, -0.5, 0)
+target_position = Vector3(-1, 0, 0)
+hit_from_inside = true
 
 [node name="Cord" type="MeshInstance3D" parent="." unique_id=1405577659]
 mesh = SubResource("CapsuleMesh_4ntmi")
@@ -268,7 +287,6 @@ wait_time = 0.5
 one_shot = true
 
 [node name="SlideCooldownTimer" type="Timer" parent="Timers" unique_id=146185733]
-wait_time = 0.5
 one_shot = true
 
 [node name="PunchTimer" type="Timer" parent="Timers" unique_id=1432460702]

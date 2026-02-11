@@ -1,6 +1,7 @@
 extends CharacterBody3D
 
 const bullet = preload("uid://h8nfngcoc7cq")
+const explosion = preload("uid://dg8jm24fvq8xv")
 
 @onready var shoot_timer: Timer = $ShootTimer
 @onready var head: Node3D = $Head
