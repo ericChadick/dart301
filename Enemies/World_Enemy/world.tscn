@@ -11,6 +11,7 @@
 [ext_resource type="PackedScene" uid="uid://b8by2pig2hn5j" path="res://Enemies/World_Enemy/Props/wires.glb" id="9_5jxpc"]
 [ext_resource type="PackedScene" uid="uid://cyi53l3c5qg8f" path="res://Enemies/World_Enemy/Props/bacta_tank.tscn" id="10_3sjox"]
 [ext_resource type="PackedScene" uid="uid://4e0xvn4qv3h8" path="res://Enemies/World_Enemy/Props/terminal.tscn" id="11_8w5fq"]
+[ext_resource type="PackedScene" uid="uid://b543lcfrqyvgq" path="res://Enemies/Enemy/enemy__wyatt.tscn" id="12_a8xnw"]
 
 [sub_resource type="Environment" id="Environment_62w18"]
 background_mode = 1
@@ -121,6 +122,10 @@ data = {
 "cells": PackedInt32Array(-9, 65522, 9, -9, 65516, 1048583, -9, 65510, 9, -9, 65528, 9, -9, 65534, 9, -65533, 65532, 655369, -65533, 65519, 655369, -65533, 65514, 655369, -65533, 65521, 655363, 65539, 65521, 131075, -9, 65531, 3, 131063, 65531, 524291, 393207, 65531, 524291, 262135, 65531, 524291, 196599, 65531, 524291, 327671, 65531, 524291, -4, 65531, 1048579, -4, 65512, 1048579, -9, 65517, 1441803, -7, 65517, 1441803, -4, 65517, 1441803, -65533, 65517, 1441803, -65536, 65517, 1441803, -1, 65517, 1441803, -3, 65517, 1441803, -5, 65517, 1441803, -6, 65517, 1441803, -8, 65517, 1441803, -2, 65517, 1441803, -65535, 65517, 1441803, -65534, 65517, 1441803, -4, 65518, 1441799, -65535, 65518, 1441799, -3, 65518, 1441799, -2, 65518, 1441799, -1, 65518, 1441799, -65536, 65518, 1441799, -65534, 65518, 1441799, -65533, 65518, 1441799, -5, 65518, 1441799, -6, 65518, 1441799, -7, 65518, 1441799, -8, 65518, 1441799, -9, 65518, 1441799, -8, 65516, 1048583, -65533, 65516, 655367)
 }
 metadata/_editor_floor_ = Vector3(0, -1, 0)
+
+[node name="Enemy" parent="SubViewportContainer/SubViewport" unique_id=1414239772 node_paths=PackedStringArray("player") instance=ExtResource("12_a8xnw")]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 5.945423, -1, -1.4993141)
+player = NodePath("../Player")
 
 [node name="wires" parent="." unique_id=904965906 instance=ExtResource("9_5jxpc")]
 transform = Transform3D(-0.026360642, 0, 2.284848, 0, 2.285, 0, -2.284848, 0, -0.026360642, -5.225149, 22.314457, -17.433329)
