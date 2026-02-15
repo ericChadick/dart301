@@ -33,7 +33,7 @@ mesh = SubResource("CapsuleMesh_e511w")
 transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 0.5, 0)
 
 [node name="ShootPoint" type="Marker3D" parent="Head" unique_id=454517184]
-transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 0, -1)
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 0.57257986, -1.5071368)
 
 [node name="HitParticles" parent="." unique_id=1875539030 instance=ExtResource("2_tsyqh")]
 

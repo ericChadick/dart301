@@ -1,16 +1,15 @@
 [gd_scene format=3 uid="uid://dckfnquaidfil"]
 
-[ext_resource type="Texture2D" uid="uid://fcmbc0c6wtwk" path="res://UI/power.png" id="1_kwigr"]
+[ext_resource type="Texture2D" uid="uid://fcmbc0c6wtwk" path="res://UI/Gameplay/power.png" id="1_kwigr"]
 [ext_resource type="Material" uid="uid://f4lyx4wwc4mt" path="res://Shaders/circleBar.tres" id="2_b8q8m"]
-[ext_resource type="Texture2D" uid="uid://bqtmruylxcp8e" path="res://UI/gear.png" id="2_ccqt3"]
-[ext_resource type="Texture2D" uid="uid://diu4t01qg1wt5" path="res://UI/battery.png" id="2_xmsn8"]
+[ext_resource type="Texture2D" uid="uid://bqtmruylxcp8e" path="res://UI/Gameplay/gear.png" id="2_ccqt3"]
+[ext_resource type="Texture2D" uid="uid://diu4t01qg1wt5" path="res://UI/Gameplay/battery.png" id="2_xmsn8"]
 [ext_resource type="Texture2D" uid="uid://gvddmejx417l" path="res://Player/Images/hand.png" id="3_xmsn8"]
-[ext_resource type="Shader" uid="uid://drc60ttp56cn4" path="res://Shaders/screen.gdshader" id="4_b8q8m"]
-[ext_resource type="Shader" uid="uid://booyle6ycaten" path="res://Shaders/vhs.gdshader" id="4_fwocb"]
-[ext_resource type="Texture2D" uid="uid://d1wj28snqsa6y" path="res://UI/outletCrosshair.png" id="5_8w2om"]
-[ext_resource type="FontFile" uid="uid://b5iu436di81lx" path="res://UI/propaganda.ttf" id="5_qf5vc"]
-[ext_resource type="Shader" uid="uid://dvp31qmvkfe0v" path="res://Shaders/glitch.gdshader" id="8_an3gc"]
+[ext_resource type="Texture2D" uid="uid://d1wj28snqsa6y" path="res://UI/Gameplay/outletCrosshair.png" id="5_8w2om"]
+[ext_resource type="FontFile" uid="uid://b5iu436di81lx" path="res://UI/Gameplay/propaganda.ttf" id="5_qf5vc"]
 [ext_resource type="Shader" uid="uid://bbea84b1alg8v" path="res://Shaders/speedlines.gdshader" id="8_byocv"]
+[ext_resource type="Shader" uid="uid://51dxx7ea6mtw" path="res://Shaders/lensflare.gdshader" id="10_fwocb"]
+[ext_resource type="Material" uid="uid://g0eihtw4spff" path="res://Shaders/screenMat.tres" id="11_fwocb"]
 [ext_resource type="Texture2D" uid="uid://dlxfdu00bcus5" path="res://UI/UpgradeMenu/plugIcon.png" id="12_rvkn8"]
 
 [sub_resource type="FastNoiseLite" id="FastNoiseLite_fwocb"]
@@ -63,40 +62,39 @@ corner_radius_top_right = 12
 corner_radius_bottom_right = 12
 corner_radius_bottom_left = 12
 
-[sub_resource type="ShaderMaterial" id="ShaderMaterial_ccqt3"]
-shader = ExtResource("4_b8q8m")
-shader_parameter/grain_intensity = 0.0800000038
-shader_parameter/min_lum = 0.0
-shader_parameter/max_lum = 1.0
-shader_parameter/time_scale = 0.5
-shader_parameter/vignette_darkness = 0.5
-shader_parameter/vignette_outer_radius = 2.0
-shader_parameter/vignette_inner_radius = 1.0000000475
-shader_parameter/scanline_intensity = 0.2
-shader_parameter/barrel_distortion = 0.2000000095
-shader_parameter/chromatic_aberration = 0.002000000095
-shader_parameter/crt_vignette_power = 0.50000002375
-shader_parameter/pixel_resolution_x = 1280
-shader_parameter/pixel_resolution_y = 960
-shader_parameter/enable_color_quantization = false
-shader_parameter/color_quant_steps = 32.0
-shader_parameter/warble_amount = 0.0010000000475
-shader_parameter/warble_speed = 2.000000095
+[sub_resource type="Gradient" id="Gradient_rvkn8"]
+offsets = PackedFloat32Array(0, 0.64637)
+colors = PackedColorArray(1, 1, 1, 1, 0, 0, 0, 1)
 
-[sub_resource type="ShaderMaterial" id="ShaderMaterial_rvkn8"]
-shader = ExtResource("4_fwocb")
-shader_parameter/wiggle = 0.03
-shader_parameter/wiggle_speed = 15.0
-shader_parameter/smear = 0.150000007125
-shader_parameter/blur_samples = 3
+[sub_resource type="GradientTexture2D" id="GradientTexture2D_ixg0m"]
+gradient = SubResource("Gradient_rvkn8")
+fill = 1
+fill_from = Vector2(0.5, 0.5)
 
-[sub_resource type="ShaderMaterial" id="ShaderMaterial_byocv"]
-shader = ExtResource("8_an3gc")
-shader_parameter/shake_power = 0.01
-shader_parameter/shake_rate = 0.0730000034675
-shader_parameter/shake_speed = 1.0
-shader_parameter/shake_block_size = 40.0
-shader_parameter/shake_color_rate = 0.01
+[sub_resource type="Gradient" id="Gradient_s8lkg"]
+colors = PackedColorArray(0.25323758, 0.25323758, 0.25323758, 1, 0, 0, 0, 1)
+
+[sub_resource type="GradientTexture2D" id="GradientTexture2D_8hdo2"]
+gradient = SubResource("Gradient_s8lkg")
+fill_from = Vector2(1, 1)
+
+[sub_resource type="ShaderMaterial" id="ShaderMaterial_k3km2"]
+shader = ExtResource("10_fwocb")
+shader_parameter/FlareMult = SubResource("GradientTexture2D_ixg0m")
+shader_parameter/FlareMult2 = SubResource("GradientTexture2D_8hdo2")
+shader_parameter/Blur = 3.0
+shader_parameter/FlareThreshold = 0.0
+shader_parameter/Thresholdsmoothness = 0.2
+shader_parameter/Flares = 3
+shader_parameter/FlareSpacing = 0.1
+shader_parameter/FlareDistance = 0.5
+shader_parameter/LensThickness = 2.0
+shader_parameter/Intensity = 3.0
+shader_parameter/Saturation_ = 5.0
+shader_parameter/visibility = 1.0
+shader_parameter/MinFlareIntensity = 0.0
+shader_parameter/MaxFlareIntensity = 1.0
+shader_parameter/RainbowIntensity = 5.0
 
 [node name="PlayerUI" type="CanvasLayer" unique_id=883918654]
 
@@ -118,6 +116,9 @@ anchor_right = 1.0
 anchor_bottom = 1.0
 grow_horizontal = 2
 grow_vertical = 2
+
+[node name="ScreenCracks" type="TextureRect" parent="Control" unique_id=1764382184]
+layout_mode = 0
 
 [node name="LeftHand" type="TextureRect" parent="Control" unique_id=982429023]
 visible = false
@@ -160,10 +161,10 @@ anchor_right = 1.0
 anchor_bottom = 1.0
 grow_horizontal = 2
 grow_vertical = 2
-theme_override_constants/margin_left = 64
-theme_override_constants/margin_top = 64
-theme_override_constants/margin_right = 64
-theme_override_constants/margin_bottom = 64
+theme_override_constants/margin_left = 128
+theme_override_constants/margin_top = 128
+theme_override_constants/margin_right = 128
+theme_override_constants/margin_bottom = 128
 
 [node name="StatBars" type="VBoxContainer" parent="Control/MarginContainer" unique_id=2047396080]
 layout_mode = 2
@@ -233,7 +234,7 @@ mouse_filter = 1
 [node name="Currency" type="RichTextLabel" parent="Control/MarginContainer" unique_id=896725824]
 layout_mode = 2
 theme_override_fonts/normal_font = ExtResource("5_qf5vc")
-theme_override_font_sizes/normal_font_size = 64
+theme_override_font_sizes/normal_font_size = 36
 text = "100"
 
 [node name="BlueprintText" type="RichTextLabel" parent="Control/MarginContainer" unique_id=1726145664]
@@ -283,10 +284,10 @@ patch_margin_bottom = 31
 
 [node name="PlugIcon" type="TextureRect" parent="." unique_id=110508154]
 custom_minimum_size = Vector2(64, 64)
-offset_left = 385.0
-offset_top = 747.0
-offset_right = 449.0
-offset_bottom = 811.0
+offset_left = 388.0
+offset_top = 685.0
+offset_right = 452.0
+offset_bottom = 749.0
 texture = ExtResource("12_rvkn8")
 expand_mode = 1
 
@@ -316,26 +317,17 @@ size_flags_vertical = 8
 texture = ExtResource("2_ccqt3")
 expand_mode = 1
 
+[node name="LensFlare" type="ColorRect" parent="." unique_id=1790180219]
+visible = false
+material = SubResource("ShaderMaterial_k3km2")
+anchors_preset = 15
+anchor_right = 1.0
+anchor_bottom = 1.0
+grow_horizontal = 2
+grow_vertical = 2
+
 [node name="Screen" type="ColorRect" parent="." unique_id=1373793926]
-material = SubResource("ShaderMaterial_ccqt3")
-anchors_preset = 15
-anchor_right = 1.0
-anchor_bottom = 1.0
-grow_horizontal = 2
-grow_vertical = 2
-
-[node name="Screen2" type="ColorRect" parent="." unique_id=392542210]
-visible = false
-material = SubResource("ShaderMaterial_rvkn8")
-anchors_preset = 15
-anchor_right = 1.0
-anchor_bottom = 1.0
-grow_horizontal = 2
-grow_vertical = 2
-
-[node name="Glitch" type="ColorRect" parent="." unique_id=114921552]
-visible = false
-material = SubResource("ShaderMaterial_byocv")
+material = ExtResource("11_fwocb")
 anchors_preset = 15
 anchor_right = 1.0
 anchor_bottom = 1.0

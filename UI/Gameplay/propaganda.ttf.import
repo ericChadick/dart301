@@ -3,12 +3,12 @@
 importer="font_data_dynamic"
 type="FontFile"
 uid="uid://b5iu436di81lx"
-path="res://.godot/imported/propaganda.ttf-5fdb448eaa35beee2c2696ba59fd639b.fontdata"
+path="res://.godot/imported/propaganda.ttf-7d3d1168a21cef71419cc2cc0408eacb.fontdata"
 
 [deps]
 
-source_file="res://UI/propaganda.ttf"
-dest_files=["res://.godot/imported/propaganda.ttf-5fdb448eaa35beee2c2696ba59fd639b.fontdata"]
+source_file="res://UI/Gameplay/propaganda.ttf"
+dest_files=["res://.godot/imported/propaganda.ttf-7d3d1168a21cef71419cc2cc0408eacb.fontdata"]
 
 [params]
 

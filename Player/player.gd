@@ -1,13 +1,14 @@
 extends CharacterBody3D
 
 @onready var head: Node3D = $Head
+@onready var torso: Node3D = $Torso
 @onready var camera: Camera3D = $Head/Camera3D
 @onready var shoot_point: Marker3D = $Head/shootPoint
 @onready var shoot_particles: GPUParticles3D = $Head/ShootParticles
 @onready var cord: MeshInstance3D = $Cord
 @onready var outlet_ray: RayCast3D = $Head/outletRay
-@onready var rightwall_ray: RayCast3D = $Head/rightwallRay
-@onready var leftwall_ray: RayCast3D = $Head/leftwallRay
+@onready var rightwall_ray: RayCast3D = $Torso/rightwallRay
+@onready var leftwall_ray: RayCast3D = $Torso/leftwallRay
 
 @onready var cord_hand_animations: AnimationPlayer = $CordHandAnimations
 @onready var weapon_hand_animations: AnimationPlayer = $WeaponHandAnimations
@@ -32,9 +33,11 @@ extends CharacterBody3D
 @onready var slide_timer: Timer = $Timers/SlideTimer
 @onready var slide_cooldown_timer: Timer = $Timers/SlideCooldownTimer
 @onready var punch_timer: Timer = $Timers/PunchTimer
+@onready var hit_cooldown_timer: Timer = $Timers/HitCooldownTimer
 
 @onready var sub_viewport_container: SubViewportContainer = $"../.."
 
+var screen: ColorRect;
 var battery_bar: ProgressBar;
 var health_bar: ProgressBar;
 var crosshair: TextureRect;
@@ -44,6 +47,7 @@ var currency_text: RichTextLabel;
 var blueprint_text: RichTextLabel;
 var outlet_bar: ProgressBar;
 var plug_icon: TextureRect;
+var screen_cracks: TextureRect;
 
 @export var playerUI : CanvasLayer;
 
@@ -134,6 +138,11 @@ const powerIcon = preload("uid://fcmbc0c6wtwk")
 
 var circleBarMat : Resource;
 
+const SCREEN_MAT = preload("uid://g0eihtw4spff")
+var screenMat : ShaderMaterial;
+
+const crackTex = preload("uid://c7pc4jg6uh08y")
+
 func _ready() -> void:
 	outlet = null;
 	cordProjectile = null;
@@ -141,6 +150,7 @@ func _ready() -> void:
 	outlet_ray.target_position = Vector3(0.0,0.0, -cordLength*.8);
 	targY = head.position.y;
 	
+	screen = playerUI.get_node("Screen");
 	battery_bar = playerUI.get_node("Control/MarginContainer/StatBars/BatteryBar");
 	health_bar = playerUI.get_node("Control/MarginContainer/StatBars/HealthBar");
 	crosshair = playerUI.get_node("Control/MarginContainer/Crosshair");
@@ -150,6 +160,10 @@ func _ready() -> void:
 	blueprint_text = playerUI.get_node("Control/MarginContainer/BlueprintText");
 	outlet_bar = playerUI.get_node("Control/OutletCrosshair/OutletBar")
 	plug_icon = playerUI.get_node("PlugIcon")
+	screen_cracks = playerUI.get_node("Control/ScreenCracks");
+	
+	screenMat = SCREEN_MAT.duplicate();
+	screen.material = screenMat;
 
 #move camera with controller r stick
 func _process(delta):
@@ -159,12 +173,12 @@ func _process(delta):
 	# FOV and headbob
 	t_bob += delta * velocity.length() * float(is_on_floor())
 	var velocity_clamped = clamp(velocity.length(), 0.5, speed * 2)
-	var target_fov = BASE_FOV + FOV_CHANGE*(1.0+(slide_timer.time_left/slide_timer.wait_time)*1.0) * velocity_clamped;
+	var target_fov = BASE_FOV + FOV_CHANGE*(1.0+(slide_timer.time_left/slide_timer.wait_time)*1.0+(wallRunTime/wallRunTimeMax)) * velocity_clamped;
 	camera.fov = lerp(camera.fov, target_fov, delta * 8.0)
 	shake = move_toward(shake, 0.0, delta*2.0);
 	var shakeOffset := Vector3(randf_range(-shake, shake)*Global.screenShake,randf_range(-shake, shake)*Global.screenShake,randf_range(-shake, shake)*Global.screenShake);
 	camera.transform.origin = headbob(t_bob)+shakeOffset;
-	#camera.transform.origin.z  
+	#camera.transform.origin.z  	
 	
 	plug_icon.visible = outlet != null;
 	if outlet == null:
@@ -185,6 +199,8 @@ func _process(delta):
 	battery_bar.value = (battery/batteryMax);
 	health_bar.value = (hp/hpMax);
 	currency_text.text = str("%.1f" %Global.currency);
+	
+	screenMat.set_shader_parameter("noise_strength", 10.0+clamp(1.0-(battery/batteryMax)+(hit_cooldown_timer.time_left/hit_cooldown_timer.wait_time)*.5, 0.0, 1.0)*60.0);
 	
 	weaponBuffer -= delta;
 	weaponCooldown -= delta;
@@ -332,9 +348,15 @@ func _physics_process(delta: float) -> void:
 	if slide_timer.time_left > 0.0:
 		zwobble = -.2;
 	elif is_on_wall() and wallRunTime > 0.0:
-		zwobble = int(rightwall_ray.is_colliding())*.3-int(leftwall_ray.is_colliding())*.3;
+
+		if leftwall_ray.is_colliding():
+			zwobble = -.3;
+		if rightwall_ray.is_colliding():
+			zwobble = .3;#int()*.3;#-int(leftwall_ray.is_colliding())*.3;
+		#zwobble = sign(-direction.dot(get_slide_collision(0).get_normal()))*.5;
+		#print(zwobble);
 	else:
-		zwobble = -.125*input_dir.x;
+		zwobble = -.08*input_dir.x;
 	head.rotation.z = lerp(head.rotation.z, zwobble, delta*5.0);
 		
 	#input buffers for platforming
@@ -347,6 +369,8 @@ func _physics_process(delta: float) -> void:
 		groundBuffer = .2;
 	if Input.is_action_just_pressed("slide"):
 		slideBuffer = .15;
+	
+	torso.rotation.y = head.rotation.y;
 	
 	groundedPrev = groundedCurrent;
 	groundedCurrent = groundBuffer > 0.0;
@@ -402,6 +426,7 @@ func _physics_process(delta: float) -> void:
 			var wallN = get_slide_collision(0)
 			var d = direction;
 			direction = d-wallN.get_normal()*d.dot(wallN.get_normal());
+			
 			if jumpBuffer > 0.0: #handle jump
 				jump_sound.play();
 				velocity = wallN.get_normal()*jumpSpd*2.0;
@@ -453,7 +478,8 @@ func _physics_process(delta: float) -> void:
 	
 	#if power runs out or hp drops below 0	
 	if battery <= 0.0 or hp <= 0.0:
-		get_tree().change_scene_to_file("res://UI/upgrade_menu.tscn");
+		get_tree().change_scene_to_file("res://UI/UpgradeMenu/upgrade_menu.tscn");
+		
 		
 	if outlet_ray.is_colliding():
 		var coll = outlet_ray.get_collider()
@@ -470,7 +496,8 @@ func _physics_process(delta: float) -> void:
 			outlet_crosshair.global_position = crossPos*sub_viewport_container.stretch_shrink-outlet_crosshair.size*.5;
 	else:
 		outlet_crosshair.hide();
-		
+	
+	
 	move_and_slide()
 
 
@@ -492,6 +519,16 @@ func headbob(time) -> Vector3:
 	pos.x = cos(time * BOB_FREQ / 2) * BOB_AMP
 	return pos
 
+func addScreenCrack() -> void:
+	var viewsize = get_viewport().get_visible_rect();
+	var newTex = TextureRect.new();
+	newTex.texture = crackTex;
+	screen_cracks.add_child(newTex);
+	$Sounds/GlassSound.play();
+	newTex.position = Vector2(randf_range(0.0, viewsize.size.x), randf_range(0.0, viewsize.size.y));
+	newTex.rotation_degrees = randf_range(0.0, 360.0);
+	newTex.scale = Vector2(randf_range(.75, 1.5), randf_range(.75, 1.5));
+	newTex.modulate.a = randf_range(.25, .5);
 
 func _on_collect_radius_area_entered(area: Area3D) -> void:
 	if area.is_in_group("blueprint"):

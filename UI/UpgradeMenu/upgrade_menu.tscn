@@ -1,15 +1,15 @@
 [gd_scene format=3 uid="uid://bv1ctickto1om"]
 
-[ext_resource type="Script" uid="uid://d0dch7ajvegkl" path="res://UI/upgrade_menu.gd" id="1_f4tld"]
-[ext_resource type="FontFile" uid="uid://b5iu436di81lx" path="res://UI/propaganda.ttf" id="1_hofnk"]
-[ext_resource type="PackedScene" uid="uid://c6bf0wyk5lre" path="res://UI/stat_upgrade_meter.tscn" id="2_b1awm"]
+[ext_resource type="Script" uid="uid://d0dch7ajvegkl" path="res://UI/UpgradeMenu/upgrade_menu.gd" id="1_f4tld"]
+[ext_resource type="FontFile" uid="uid://b5iu436di81lx" path="res://UI/Gameplay/propaganda.ttf" id="1_hofnk"]
+[ext_resource type="PackedScene" uid="uid://c6bf0wyk5lre" path="res://UI/UpgradeMenu/stat_upgrade_meter.tscn" id="2_b1awm"]
 [ext_resource type="Texture2D" uid="uid://c51nhjnik3pop" path="res://UI/UpgradeMenu/batteryIcon.png" id="4_2bpua"]
-[ext_resource type="Texture2D" uid="uid://bqtmruylxcp8e" path="res://UI/gear.png" id="5_4r3qf"]
-[ext_resource type="Texture2D" uid="uid://2sy53byjqv7y" path="res://UI/next.png" id="5_v27ci"]
+[ext_resource type="Texture2D" uid="uid://bqtmruylxcp8e" path="res://UI/Gameplay/gear.png" id="5_4r3qf"]
+[ext_resource type="Texture2D" uid="uid://2sy53byjqv7y" path="res://UI/Gameplay/next.png" id="5_v27ci"]
 [ext_resource type="Texture2D" uid="uid://csp48vvxcmebl" path="res://UI/UpgradeMenu/speedIcon.png" id="6_kimnd"]
 [ext_resource type="Texture2D" uid="uid://dlxfdu00bcus5" path="res://UI/UpgradeMenu/plugIcon.png" id="7_hhs1x"]
 [ext_resource type="Texture2D" uid="uid://bj0uifwmaujw0" path="res://UI/UpgradeMenu/jumpIcon.png" id="8_2bpua"]
-[ext_resource type="PackedScene" uid="uid://c2pjwyt35wifb" path="res://UI/stat_item_purchase.tscn" id="8_dc6v4"]
+[ext_resource type="PackedScene" uid="uid://c2pjwyt35wifb" path="res://UI/UpgradeMenu/stat_item_purchase.tscn" id="8_dc6v4"]
 [ext_resource type="Texture2D" uid="uid://bepdwhw1vvix6" path="res://UI/UpgradeMenu/multiplierIcon.png" id="9_g0opq"]
 [ext_resource type="Texture2D" uid="uid://bmmmchlg8ivik" path="res://UI/UpgradeMenu/gunIcon.png" id="10_g0opq"]
 [ext_resource type="AudioStream" uid="uid://daa3r12i25bk0" path="res://Audio/UpgradeMenu/menucycle.wav" id="11_in30h"]
@@ -86,11 +86,11 @@ horizontal_alignment = 1
 
 [node name="HBoxContainer" type="HBoxContainer" parent="Control/MarginContainer" unique_id=1106863556]
 layout_mode = 2
-size_flags_horizontal = 8
 theme_override_constants/separation = 12
 
 [node name="StatUpgradeContainer" type="VBoxContainer" parent="Control/MarginContainer/HBoxContainer" unique_id=1917288982]
 layout_mode = 2
+size_flags_vertical = 8
 theme_override_constants/separation = 16
 
 [node name="BatteryUpgradeMeter" parent="Control/MarginContainer/HBoxContainer/StatUpgradeContainer" unique_id=1429138153 instance=ExtResource("2_b1awm")]
@@ -123,8 +123,19 @@ layout_mode = 2
 size_flags_horizontal = 8
 iconTexture = ExtResource("9_g0opq")
 
+[node name="TextureRect" type="TextureRect" parent="Control/MarginContainer/HBoxContainer" unique_id=1431262963]
+material = SubResource("ShaderMaterial_uxsr7")
+custom_minimum_size = Vector2(256, 256)
+layout_mode = 2
+size_flags_horizontal = 0
+size_flags_vertical = 8
+texture = ExtResource("12_kimnd")
+stretch_mode = 6
+
 [node name="ItemUpgradeContainer" type="VBoxContainer" parent="Control/MarginContainer/HBoxContainer" unique_id=1060177260]
 layout_mode = 2
+size_flags_horizontal = 4
+size_flags_vertical = 8
 theme_override_constants/separation = 16
 
 [node name="GunPurchaseButton" parent="Control/MarginContainer/HBoxContainer/ItemUpgradeContainer" unique_id=1510449367 instance=ExtResource("8_dc6v4")]
@@ -138,15 +149,6 @@ layout_mode = 2
 size_flags_horizontal = 8
 size_flags_vertical = 8
 texture_normal = ExtResource("5_v27ci")
-stretch_mode = 6
-
-[node name="TextureRect" type="TextureRect" parent="Control/MarginContainer" unique_id=1431262963]
-material = SubResource("ShaderMaterial_uxsr7")
-custom_minimum_size = Vector2(256, 256)
-layout_mode = 2
-size_flags_horizontal = 0
-size_flags_vertical = 8
-texture = ExtResource("12_kimnd")
 stretch_mode = 6
 
 [node name="Audio" type="Node" parent="." unique_id=1896171430]

@@ -2,16 +2,16 @@
 
 importer="texture"
 type="CompressedTexture2D"
-uid="uid://d1wj28snqsa6y"
-path="res://.godot/imported/outletCrosshair.png-4f33e6681fca8149ff1c3a2b327b8eb4.ctex"
+uid="uid://diu4t01qg1wt5"
+path="res://.godot/imported/battery.png-4ce6ff9635956e44ca996d7289ff5347.ctex"
 metadata={
 "vram_texture": false
 }
 
 [deps]
 
-source_file="res://UI/outletCrosshair.png"
-dest_files=["res://.godot/imported/outletCrosshair.png-4f33e6681fca8149ff1c3a2b327b8eb4.ctex"]
+source_file="res://UI/Gameplay/battery.png"
+dest_files=["res://.godot/imported/battery.png-4ce6ff9635956e44ca996d7289ff5347.ctex"]
 
 [params]
 

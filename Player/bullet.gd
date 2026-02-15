@@ -22,6 +22,8 @@ func _on_body_entered(body: Node3D) -> void:
 		body.get_node("HitSound").play();
 		if body.is_in_group("player"):#add camera screenshake
 			body.shake = clamp(damage*.25, 0.0, .8);
+			body.hit_cooldown_timer.start();
+			body.addScreenCrack();
 		if body.is_in_group("enemy"): #collect currency from enemies
 			if body.hp <= 0:
 				Global.currency += body.currencyReward;

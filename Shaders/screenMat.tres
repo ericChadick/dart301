@@ -1,0 +1,15 @@
+[gd_resource type="ShaderMaterial" format=3 uid="uid://g0eihtw4spff"]
+
+[ext_resource type="Shader" uid="uid://yhvxawnx65bi" path="res://Shaders/bodycam.gdshader" id="1_6nefq"]
+
+[resource]
+shader = ExtResource("1_6nefq")
+shader_parameter/aspect = 0.2
+shader_parameter/distortion = 0.5
+shader_parameter/radius = 1.07
+shader_parameter/alpha = 1.0
+shader_parameter/crop = 1.0
+shader_parameter/crop_color = Color(0, 0, 0, 1)
+shader_parameter/crop_feathering = 0.1
+shader_parameter/channel_offset = 0.0030000034023799915
+shader_parameter/noise_strength = 20.0
