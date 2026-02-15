@@ -3,7 +3,7 @@
 [ext_resource type="Script" uid="uid://dqvwobvui5k2b" path="res://Player/player.gd" id="1_l8h54"]
 [ext_resource type="PackedScene" uid="uid://dcq4u4hsq0jim" path="res://Effects/hit_particles.tscn" id="2_gwnis"]
 [ext_resource type="AudioStream" uid="uid://cckkey6se7c0o" path="res://Audio/Player/robotShoot1.wav" id="3_btcbx"]
-[ext_resource type="AudioStream" uid="uid://oy7efl1i4qjc" path="res://Audio/Player/player_takingdamage.wav" id="3_fhl08"]
+[ext_resource type="AudioStream" uid="uid://eig5vaq87den" path="res://Audio/Player/player_takingdamage.wav" id="3_fhl08"]
 [ext_resource type="AudioStream" uid="uid://srd73yumjpfs" path="res://Audio/Player/player_footsteps_v1.wav" id="4_vtle1"]
 [ext_resource type="AudioStream" uid="uid://mw7sm40yjyft" path="res://Audio/Player/player_footsteps_v2.wav" id="5_od3ui"]
 [ext_resource type="AudioStream" uid="uid://b4yd4581pueuc" path="res://Audio/Player/player_charginghum.wav" id="7_vtle1"]
