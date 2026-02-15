@@ -8,6 +8,9 @@ const bullet = preload("uid://h8nfngcoc7cq")
 @export var ACCELERATION: int = 300
 @export var ROTATION_SPEED: float = 5.0
 
+## How far the enemy wanders from its starting position on each axis (0 = no movement on that axis)
+@export var wander_distance: Vector3 = Vector3(5, 0, 0)
+
 @onready var ray_cast: RayCast3D = $RayCast3D
 @onready var timer: Timer = $Timer
 @onready var navigation_agent_3d: NavigationAgent3D = $NavigationAgent3D
@@ -17,10 +20,11 @@ const bullet = preload("uid://h8nfngcoc7cq")
 
 
 var gravity: float = ProjectSettings.get_setting("physics/3d/default_gravity")
-var direction: Vector3 = Vector3.RIGHT
-var right_bounds: float
-var left_bounds: float
-var facing_right: bool = true
+var direction: Vector3 = Vector3.ZERO
+var start_position: Vector3
+var wander_target: Vector3
+var moving_to_end: bool = true
+var is_ready: bool = false
 
 # Health and reward system
 var hp := 3
@@ -34,22 +38,21 @@ enum States{
 var current_state = States.WANDER
 
 func _ready():
-	# Set up patrol bounds (125 units left and right from starting position)
-	left_bounds = self.position.x - 125
-	right_bounds = self.position.x + 125
-
-	# Initialize raycast
-	#ray_cast.target_position = Vector3(125, 0, 0)
+	print("===WYATT=== ", name, " _ready position: ", global_position)
 	ray_cast.enabled = true
-
-	# Wait for NavigationAgent to be ready
 	call_deferred("_setup_navigation")
 
 func _setup_navigation():
-	# Wait one frame for navigation map to be ready
+	# Wait one frame so global_position is correct for all instances
 	await get_tree().physics_frame
+	print("===WYATT=== ", name, " after frame position: ", global_position)
+	start_position = global_position
+	wander_target = start_position + wander_distance
+	is_ready = true
 
 func _physics_process(delta: float) -> void:
+	if not is_ready:
+		return
 	handle_gravity(delta)
 	change_direction()
 	handle_movement(delta)
@@ -102,16 +105,16 @@ func handle_movement(delta: float) -> void:
 	
 func change_direction() -> void:
 	if current_state == States.WANDER:
-		if facing_right:
-			direction = Vector3.RIGHT
-			# Check if we've reached the right bound
-			if self.position.x >= right_bounds:
-				facing_right = false
-		else:
-			direction = Vector3.LEFT
-			# Check if we've reached the left bound
-			if self.position.x <= left_bounds:
-				facing_right = true
+		var to_target = wander_target - global_position
+		# If close enough to the wander target, flip to the other end
+		if to_target.length() < 2.0:
+			if moving_to_end:
+				wander_target = start_position - wander_distance
+			else:
+				wander_target = start_position + wander_distance
+			moving_to_end = !moving_to_end
+			to_target = wander_target - global_position
+		direction = to_target.normalized()
 	else:
 		# Chase state - move directly toward player
 		var to_player = player.global_position - global_position
