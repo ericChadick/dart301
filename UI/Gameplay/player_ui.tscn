@@ -161,10 +161,10 @@ anchor_right = 1.0
 anchor_bottom = 1.0
 grow_horizontal = 2
 grow_vertical = 2
-theme_override_constants/margin_left = 128
-theme_override_constants/margin_top = 128
-theme_override_constants/margin_right = 128
-theme_override_constants/margin_bottom = 128
+theme_override_constants/margin_left = 256
+theme_override_constants/margin_top = 192
+theme_override_constants/margin_right = 256
+theme_override_constants/margin_bottom = 192
 
 [node name="StatBars" type="VBoxContainer" parent="Control/MarginContainer" unique_id=2047396080]
 layout_mode = 2
@@ -244,10 +244,11 @@ theme_override_font_sizes/normal_font_size = 48
 horizontal_alignment = 1
 
 [node name="OutletCrosshair" type="TextureRect" parent="Control" unique_id=841454661]
-custom_minimum_size = Vector2(128, 128)
+custom_minimum_size = Vector2(96, 96)
 layout_mode = 1
-offset_right = 40.0
-offset_bottom = 40.0
+offset_right = 96.0
+offset_bottom = 96.0
+pivot_offset = Vector2(48, 48)
 texture = ExtResource("5_8w2om")
 
 [node name="OutletBar" type="ProgressBar" parent="Control/OutletCrosshair" unique_id=472474386]
@@ -284,10 +285,10 @@ patch_margin_bottom = 31
 
 [node name="PlugIcon" type="TextureRect" parent="." unique_id=110508154]
 custom_minimum_size = Vector2(64, 64)
-offset_left = 388.0
-offset_top = 685.0
-offset_right = 452.0
-offset_bottom = 749.0
+offset_left = 705.0
+offset_top = 897.0
+offset_right = 769.0
+offset_bottom = 961.0
 texture = ExtResource("12_rvkn8")
 expand_mode = 1
 

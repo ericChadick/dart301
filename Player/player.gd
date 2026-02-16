@@ -67,11 +67,11 @@ var dataMultiplier := calculateStat(Global.dataMultiplierMin, Global.dataMultipl
 
 var pullSpd := 60.0;
 
-@export var groundAccel := speed*1.25;
-@export var groundFric := speed*1.25;
-@export var airAccel := speed*.75;
-@export var airFric := speed*.75;
-@export var gravity := 25.0;#jumpSpd*1.5;
+@export var groundAccel := speed*.8
+@export var groundFric := speed*.8
+@export var airAccel := speed*.6;
+@export var airFric := speed*.6;
+@export var gravity := 20.0;#jumpSpd*1.5;
 
 var stepTimerStep := .6;#(1.0-(speed/18.0))*2.0;
 var stepTimer := stepTimerStep;
@@ -81,6 +81,8 @@ var weapon := Global.PlayerWeapon.FIST;
 var outlet : Area3D;
 var outletSelect := Area3D;
 var cordProjectile : Node3D;
+var cordTugs := 0;
+var cordTugsMax := 1;
 
 var dashCooldown := 0.0;
 var dashCooldownAmnt := 1.0;
@@ -98,19 +100,21 @@ var weaponBuffer := 0.0;
 var weaponBufferTime := .2;
 var weaponCooldown := 0.0;
 var shootShakeAmnt := .2;
-var shootOutletAmnt := .3;
+var outletShakeAmnt := .1;
+var shakeJumpAmnt := .2;
+var shakeLandAmnt := .25;
 
 var hitboxEnemy : Node3D;
 
 var swingChargeTime := 0.0;
 
 var releaseTime := 0.0;
-var releaseTimeMax := 3.0;
+var releaseTimeMax := 2.0;
 var releasing := false;
 
 var canWallRun := false;
 var wallRunTime := 0.0;
-var wallRunTimeMax := 2.0;
+var wallRunTimeMax := 3.0;
 
 #Camera variables
 var invertCamMov := true;
@@ -142,6 +146,7 @@ const SCREEN_MAT = preload("uid://g0eihtw4spff")
 var screenMat : ShaderMaterial;
 
 const crackTex = preload("uid://c7pc4jg6uh08y")
+const midFalloffCurve = preload("uid://ctokbcp4b3k6s")
 
 func _ready() -> void:
 	outlet = null;
@@ -200,7 +205,8 @@ func _process(delta):
 	health_bar.value = (hp/hpMax);
 	currency_text.text = str("%.1f" %Global.currency);
 	
-	screenMat.set_shader_parameter("noise_strength", 10.0+clamp(1.0-(battery/batteryMax)+(hit_cooldown_timer.time_left/hit_cooldown_timer.wait_time)*.5, 0.0, 1.0)*60.0);
+	var fuzz = midFalloffCurve.sample(1.0-(battery/batteryMax)+(hit_cooldown_timer.time_left/hit_cooldown_timer.wait_time)*.5);
+	screenMat.set_shader_parameter("noise_strength", 10.0+(1.0-fuzz)*30.0);
 	
 	weaponBuffer -= delta;
 	weaponCooldown -= delta;
@@ -214,7 +220,7 @@ func _process(delta):
 		$Head/CordProtoNode.visible = true;
 		cord_hand_animations.play("swing");
 		chargeSwing = true;
-		shake = max(shake, .05);
+		shake = max(shake, .02);
 		if !swing_sound.playing:
 			swing_sound.play();
 	if chargeSwing:
@@ -230,7 +236,7 @@ func _process(delta):
 			bulletInstance.creator = self;
 			cordProjectile = bulletInstance;
 			outletBuffer = 0.0;
-			shake = max(shake, shootOutletAmnt);
+			shake = max(shake, outletShakeAmnt);
 			
 			$Head/CordProtoNode.visible = false
 			swing_sound.stop();
@@ -256,9 +262,11 @@ func _process(delta):
 	if outlet != null:
 		
 		outlet_bar.visible = true;
-		outlet.battery -= delta;
 		if outlet.battery > 0:
-			battery = batteryMax;
+			var diff = batteryMax-battery;
+			outlet.battery -= diff;
+			battery += diff;
+			
 			outlet_bar.modulate = Color.YELLOW;
 			battery_bar.modulate = Color.YELLOW;
 			if !charging_sound.playing:
@@ -270,15 +278,23 @@ func _process(delta):
 			
 		outlet_bar.value = outlet.battery/outlet.batteryMax;
 		#Global.currency += delta*dataMultiplier;
-		if Input.is_action_just_pressed("pull"):
+		if cordTugs > 0 and Input.is_action_just_pressed("pull"):
 			var outletVec = (outlet.global_position-global_position).normalized()*(pullSpd+outlet.global_position.distance_to(global_position));
 			var lookVec = -head.transform.basis.z*(pullSpd+outlet.global_position.distance_to(global_position));
 			var pullVec = (lookVec+outletVec)/2;
-			wallRunTime = 0.0;
+			canWallRun = true;
+			wallRunTime = wallRunTimeMax;
+			
 			velocity = pullVec;
 			pull_sound.play();
-			
+			cordTugs -= 1;
 			pull_timer.start();
+			
+			#unplug from outlet
+			outlet = null;
+			unplug_sound.play();
+			outletBuffer = 0.0;
+			
 			#creator.velocity = (area.global_position-creator.global_position).normalized()*area.global_position.distance_to(creator.global_position);
 		if outletBuffer > 0.0: #unplug
 			outlet = null;
@@ -346,17 +362,18 @@ func _physics_process(delta: float) -> void:
 	
 	var zwobble = 0.0;
 	if slide_timer.time_left > 0.0:
-		zwobble = -.2;
+		zwobble = -.1;
 	elif is_on_wall() and wallRunTime > 0.0:
-
+		var amnt = .3*midFalloffCurve.sample(1.0-(wallRunTime/wallRunTimeMax));
 		if leftwall_ray.is_colliding():
-			zwobble = -.3;
+			zwobble = -amnt;
 		if rightwall_ray.is_colliding():
-			zwobble = .3;#int()*.3;#-int(leftwall_ray.is_colliding())*.3;
+			zwobble = amnt;
+			#int()*.3;#-int(leftwall_ray.is_colliding())*.3;
 		#zwobble = sign(-direction.dot(get_slide_collision(0).get_normal()))*.5;
 		#print(zwobble);
 	else:
-		zwobble = -.08*input_dir.x;
+		zwobble = -.04*input_dir.x;
 	head.rotation.z = lerp(head.rotation.z, zwobble, delta*5.0);
 		
 	#input buffers for platforming
@@ -367,6 +384,7 @@ func _physics_process(delta: float) -> void:
 		jumpBuffer = .25;
 	if is_on_floor(): 
 		groundBuffer = .2;
+		cordTugs = cordTugsMax;
 	if Input.is_action_just_pressed("slide"):
 		slideBuffer = .15;
 	
@@ -382,6 +400,7 @@ func _physics_process(delta: float) -> void:
 			velocity.x *= 2.5;
 			velocity.z *= 2.5;
 			slideBuffer = 0.0;
+			slide_cooldown_timer.start();
 			
 		canWallRun = false;
 		wallRunTime = 0.0;
@@ -390,7 +409,7 @@ func _physics_process(delta: float) -> void:
 			velocity.y = jumpSpd;
 			jumpBuffer = 0.0;
 			groundBuffer = 0.0;
-			shake = .4;
+			shake = max(shake,shakeJumpAmnt);
 			canWallRun = true;
 			wallRunTime = wallRunTimeMax;
 			slide_timer.stop();
@@ -417,11 +436,12 @@ func _physics_process(delta: float) -> void:
 	#land effects
 	if groundedPrev != groundedCurrent:
 		land_sound.play();
-		shake = .5;
+		shake = max(shake, shakeLandAmnt);
 		
 	#wall run
 	if canWallRun and input_dir.length() > .5:
 		if is_on_wall() and wallRunTime > 0.0:
+			cordTugs = cordTugsMax;
 			wallRunTime -= delta;
 			var wallN = get_slide_collision(0)
 			var d = direction;
@@ -433,7 +453,7 @@ func _physics_process(delta: float) -> void:
 				velocity.y = jumpSpd*.5;
 				jumpBuffer = 0.0;
 				groundBuffer = 0.0;
-				shake = .4;
+				shake = max(shake, shakeJumpAmnt);
 				canWallRun = false;
 				wallRunTime = 0.0;
 				slide_timer.stop();
@@ -480,7 +500,6 @@ func _physics_process(delta: float) -> void:
 	if battery <= 0.0 or hp <= 0.0:
 		get_tree().change_scene_to_file("res://UI/UpgradeMenu/upgrade_menu.tscn");
 		
-		
 	if outlet_ray.is_colliding():
 		var coll = outlet_ray.get_collider()
 		if coll != null and coll.is_in_group("outlet"):
@@ -491,15 +510,13 @@ func _physics_process(delta: float) -> void:
 	if outletSelect != null:
 		if camera.is_position_in_frustum(outletSelect.global_position):
 			outlet_crosshair.show()
-			#offscreen_reticle.hide()
 			var crossPos = camera.unproject_position(outletSelect.global_position);
 			outlet_crosshair.global_position = crossPos*sub_viewport_container.stretch_shrink-outlet_crosshair.size*.5;
+			#outlet_crosshair.rotation_degrees += delta*5.0;
 	else:
 		outlet_crosshair.hide();
 	
-	
 	move_and_slide()
-
 
 func rotate_from_vector(v: Vector2):
 	if v.length() == 0: return

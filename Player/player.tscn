@@ -213,10 +213,10 @@ mesh = SubResource("CylinderMesh_od3ui")
 skeleton = NodePath("../../../CordHandAnimations")
 
 [node name="IsaacProtagArmAnim" parent="Head" unique_id=485485338 instance=ExtResource("15_dkpta")]
-transform = Transform3D(-0.04455945, -0.46692014, -1.1586633, 1.0185311, 0.6576875, -0.3042064, 0.72326255, -0.95495194, 0.35701317, 0.83942574, -0.5365705, 0.09051019)
+transform = Transform3D(-0.04455945, -0.46692014, -1.1586633, 1.0185311, 0.6576875, -0.3042064, 0.72326255, -0.95495194, 0.35701317, 1.1592337, -0.92315227, 0.09051019)
 
 [node name="IsaacProtagArmAnim2" parent="Head" unique_id=311115104 instance=ExtResource("15_dkpta")]
-transform = Transform3D(0.88939154, 0.16785318, 0.86215335, 0.7883886, 0.38832945, -0.88890064, 0.38720334, -1.1762336, -0.17043456, -0.73659647, -0.26660407, 0.12287933)
+transform = Transform3D(0.6330295, 0.28104, 1.0405724, 0.87370694, 0.5728903, -0.68624556, 0.63119686, -1.0748549, -0.09368784, -1.0231236, -0.8043887, 0.17131811)
 
 [node name="Cord" type="MeshInstance3D" parent="." unique_id=1405577659]
 mesh = SubResource("CapsuleMesh_4ntmi")

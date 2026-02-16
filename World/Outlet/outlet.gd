@@ -1,7 +1,7 @@
 extends Area3D
 
 @export var unlimited := false;
-@export var battery := 10.0;
+@export var battery := 20.0;
 var batteryMax := 1.0;
 var dead := false;
 @export var connected : Node3D;

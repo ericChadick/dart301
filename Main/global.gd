@@ -20,8 +20,8 @@ var cordLengthMax := 20.0;
 var cordLengthLevel := 0;
 var cordLengthLevelMax := 10;
 
-var spdMin := 10.0;
-var spdMax := 12.0;
+var spdMin := 12.0;
+var spdMax := 15.0;
 var spdLevel := 0;
 var spdLevelMax := 8;
 

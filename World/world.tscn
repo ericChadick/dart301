@@ -4,10 +4,8 @@
 [ext_resource type="PackedScene" uid="uid://cqrenk8ue8j8v" path="res://Player/player.tscn" id="1_62w18"]
 [ext_resource type="Script" uid="uid://bevf68wrkg7sv" path="res://World/world.gd" id="1_k8do8"]
 [ext_resource type="PackedScene" uid="uid://bxgwgbkpugt5j" path="res://World/Outlet/outlet.tscn" id="2_8a836"]
-[ext_resource type="PackedScene" uid="uid://tc8t4bsjnqh3" path="res://Enemies/TestEnemy/battery_dog_enemy.tscn" id="5_awrha"]
 [ext_resource type="PackedScene" uid="uid://hyeh47v46j86" path="res://Enemies/TestEnemy/test_enemy.tscn" id="5_bkhv4"]
 [ext_resource type="PackedScene" uid="uid://bbo01giq25jel" path="res://World/Props/wires.glb" id="5_k8do8"]
-[ext_resource type="PackedScene" uid="uid://cnexx5jm5sy8x" path="res://Enemies/TestEnemy/trash_bot_enemy.tscn" id="6_0wqet"]
 [ext_resource type="PackedScene" uid="uid://r3g5xuayp06q" path="res://World/Blueprints/blueprint.tscn" id="6_yf0ba"]
 [ext_resource type="Texture2D" uid="uid://bmmmchlg8ivik" path="res://UI/UpgradeMenu/gunIcon.png" id="7_oe8m4"]
 [ext_resource type="MeshLibrary" uid="uid://bl1bwbv6l4jik" path="res://World/GridMap/demoBlocksEric.meshlib" id="8_oe8m4"]
@@ -100,7 +98,7 @@ stretch_shrink = 2
 [node name="SubViewport" type="SubViewport" parent="SubViewportContainer" unique_id=943680386]
 handle_input_locally = false
 audio_listener_enable_3d = true
-size = Vector2i(640, 430)
+size = Vector2i(960, 540)
 size_2d_override_stretch = true
 render_target_update_mode = 4
 
@@ -162,9 +160,6 @@ transform = Transform3D(-0.03106183, -2.0975914e-10, -0.9995175, 0.99893445, 0.0
 [node name="Outlet4" parent="SubViewportContainer/SubViewport" unique_id=616537199 instance=ExtResource("2_8a836")]
 transform = Transform3D(-0.9997418, 0, -0.022722274, 0, 1, 0, 0.022722274, 0, -0.9997418, 13.817866, 7.123963, -75.88269)
 
-[node name="BatteryDogEnemy" parent="SubViewportContainer/SubViewport" unique_id=1048089377 instance=ExtResource("5_awrha")]
-transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, -6.8709874, 0.46565437, -38.332237)
-
 [node name="testEnemy" parent="SubViewportContainer/SubViewport" unique_id=139086936 instance=ExtResource("5_bkhv4")]
 transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, -24.327724, -0.8619056, -117.25311)
 
@@ -179,10 +174,6 @@ transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, -1.6651115, 10.901337, -190.3
 
 [node name="testEnemy5" parent="SubViewportContainer/SubViewport" unique_id=318095098 instance=ExtResource("5_bkhv4")]
 transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, -18.883259, 10.901337, -170.98494)
-
-[node name="trashBotEnemy" parent="SubViewportContainer/SubViewport" unique_id=1539988876 node_paths=PackedStringArray("outlet") instance=ExtResource("6_0wqet")]
-transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, -17.995804, 0, -16.86903)
-outlet = NodePath("../Outlet2")
 
 [node name="Blueprint" parent="SubViewportContainer/SubViewport" unique_id=1232053923 instance=ExtResource("6_yf0ba")]
 transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, -0.56007004, 0.32449913, -103.16862)
