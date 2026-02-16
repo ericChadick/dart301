@@ -1,7 +1,7 @@
 [gd_scene format=3 uid="uid://c2pjwyt35wifb"]
 
-[ext_resource type="Script" uid="uid://deyyrw5g333ku" path="res://UI/stat_item_purchase.gd" id="1_ngna2"]
-[ext_resource type="FontFile" uid="uid://b5iu436di81lx" path="res://UI/propaganda.ttf" id="3_t7bc4"]
+[ext_resource type="Script" uid="uid://deyyrw5g333ku" path="res://UI/UpgradeMenu/stat_item_purchase.gd" id="1_ngna2"]
+[ext_resource type="FontFile" uid="uid://b5iu436di81lx" path="res://UI/Gameplay/propaganda.ttf" id="3_t7bc4"]
 [ext_resource type="AudioStream" uid="uid://b868irl7yyur1" path="res://Audio/UpgradeMenu/itempurchase.wav" id="3_tixg1"]
 
 [sub_resource type="AudioStreamRandomizer" id="AudioStreamRandomizer_ygnnc"]

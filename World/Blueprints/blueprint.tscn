@@ -1,6 +1,6 @@
 [gd_scene format=3 uid="uid://r3g5xuayp06q"]
 
-[ext_resource type="Texture2D" uid="uid://bqtmruylxcp8e" path="res://UI/gear.png" id="1_g8ehm"]
+[ext_resource type="Texture2D" uid="uid://bqtmruylxcp8e" path="res://UI/Gameplay/gear.png" id="1_g8ehm"]
 [ext_resource type="Script" uid="uid://ccvh68e0m50yk" path="res://World/Blueprints/blueprint.gd" id="1_lx66k"]
 
 [sub_resource type="SphereShape3D" id="SphereShape3D_fkdi2"]

@@ -1,7 +1,7 @@
 [gd_scene format=3 uid="uid://tbibnyyxmln8"]
 
 [ext_resource type="Script" uid="uid://bxw3amto45f4k" path="res://Enemies/World_Enemy/world.gd" id="1_5n5c4"]
-[ext_resource type="PackedScene" uid="uid://dckfnquaidfil" path="res://UI/player_ui.tscn" id="2_plydi"]
+[ext_resource type="PackedScene" uid="uid://dckfnquaidfil" path="res://UI/Gameplay/player_ui.tscn" id="2_plydi"]
 [ext_resource type="PackedScene" uid="uid://cqrenk8ue8j8v" path="res://Player/player.tscn" id="3_ptg8m"]
 [ext_resource type="PackedScene" uid="uid://nkr2g2w4vnro" path="res://Enemies/World_Enemy/Outlet/outlet.tscn" id="4_bum1d"]
 [ext_resource type="PackedScene" uid="uid://hyeh47v46j86" path="res://Enemies/TestEnemy/test_enemy.tscn" id="5_amfoy"]

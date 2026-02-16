@@ -1,7 +1,7 @@
 [gd_scene format=3 uid="uid://b6dc6vfdsdfvn"]
 
 [ext_resource type="Script" uid="uid://baco6uryhu44e" path="res://Enemies/World_Enemy/Blueprints/blueprint.gd" id="1_81nnu"]
-[ext_resource type="Texture2D" uid="uid://bqtmruylxcp8e" path="res://UI/gear.png" id="2_5my82"]
+[ext_resource type="Texture2D" uid="uid://bqtmruylxcp8e" path="res://UI/Gameplay/gear.png" id="2_5my82"]
 
 [sub_resource type="SphereShape3D" id="SphereShape3D_fkdi2"]
 
