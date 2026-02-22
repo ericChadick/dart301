@@ -1,0 +1,138 @@
+[gd_scene format=3 uid="uid://cyihyjljoauja"]
+
+[ext_resource type="PackedScene" uid="uid://dckfnquaidfil" path="res://UI/Gameplay/player_ui.tscn" id="1_eirg7"]
+[ext_resource type="PackedScene" uid="uid://cqrenk8ue8j8v" path="res://Player/player.tscn" id="1_jh1ew"]
+[ext_resource type="Script" uid="uid://bevf68wrkg7sv" path="res://World/world.gd" id="1_va8ct"]
+[ext_resource type="PackedScene" uid="uid://bxgwgbkpugt5j" path="res://World/Outlet/outlet.tscn" id="4_wfacm"]
+[ext_resource type="PackedScene" uid="uid://cnexx5jm5sy8x" path="res://Enemies/TrashDog/trash_dog.tscn" id="5_oab11"]
+
+[sub_resource type="Environment" id="Environment_wfacm"]
+background_mode = 1
+background_color = Color(0.82234526, 0.64344853, 0.5297693, 1)
+background_energy_multiplier = 0.5
+tonemap_mode = 3
+glow_normalized = true
+glow_strength = 1.5
+fog_light_color = Color(0, 0, 0, 1)
+volumetric_fog_density = 0.03
+volumetric_fog_albedo = Color(0.1596, 0.29184, 0.38, 1)
+volumetric_fog_emission = Color(0.008399991, 0.14560005, 0.42, 1)
+volumetric_fog_length = 86.0
+
+[sub_resource type="Gradient" id="Gradient_8uvkv"]
+offsets = PackedFloat32Array(0.2, 1)
+colors = PackedColorArray(1, 1, 1, 1, 0, 0, 0, 1)
+
+[sub_resource type="FastNoiseLite" id="FastNoiseLite_jh1ew"]
+noise_type = 2
+frequency = 0.03
+cellular_jitter = 3.0
+cellular_return_type = 0
+domain_warp_enabled = true
+domain_warp_type = 1
+domain_warp_amplitude = 50.0
+domain_warp_fractal_type = 2
+domain_warp_fractal_lacunarity = 1.5
+domain_warp_fractal_gain = 1.0
+
+[sub_resource type="NoiseTexture2D" id="NoiseTexture2D_eirg7"]
+noise = SubResource("FastNoiseLite_jh1ew")
+color_ramp = SubResource("Gradient_8uvkv")
+seamless = true
+
+[sub_resource type="Terrain3DMaterial" id="Terrain3DMaterial_va8ct"]
+_shader_parameters = {
+&"bias_distance": 512.0,
+&"blend_sharpness": 0.87,
+&"depth_blur": 0.0,
+&"enable_macro_variation": true,
+&"enable_projection": true,
+&"height_blending": true,
+&"macro_variation1": Color(1, 1, 1, 1),
+&"macro_variation2": Color(1, 1, 1, 1),
+&"macro_variation_slope": 0.333,
+&"mipmap_bias": 1.0,
+&"noise1_angle": 0.0,
+&"noise1_offset": Vector2(0.5, 0.5),
+&"noise1_scale": 0.04,
+&"noise2_scale": 0.076,
+&"noise3_scale": 0.225,
+&"noise_texture": SubResource("NoiseTexture2D_eirg7"),
+&"projection_angular_division": 2.0,
+&"projection_threshold": 0.8,
+&"world_space_normal_blend": true
+}
+show_checkered = true
+
+[sub_resource type="StandardMaterial3D" id="StandardMaterial3D_wfacm"]
+transparency = 4
+cull_mode = 2
+vertex_color_use_as_albedo = true
+backlight_enabled = true
+backlight = Color(0.5, 0.5, 0.5, 1)
+distance_fade_mode = 1
+distance_fade_min_distance = 128.0
+distance_fade_max_distance = 96.0
+
+[sub_resource type="Terrain3DMeshAsset" id="Terrain3DMeshAsset_oab11"]
+generated_type = 1
+height_offset = 0.5
+material_override = SubResource("StandardMaterial3D_wfacm")
+last_lod = 0
+last_shadow_lod = 0
+lod0_range = 128.0
+
+[sub_resource type="Terrain3DAssets" id="Terrain3DAssets_nhhll"]
+mesh_list = Array[Terrain3DMeshAsset]([SubResource("Terrain3DMeshAsset_oab11")])
+
+[node name="JunkHole" type="Node" unique_id=119924058]
+script = ExtResource("1_va8ct")
+
+[node name="PlayerUI" parent="." unique_id=883918654 instance=ExtResource("1_eirg7")]
+
+[node name="SubViewportContainer" type="SubViewportContainer" parent="." unique_id=571855996]
+anchors_preset = 15
+anchor_right = 1.0
+anchor_bottom = 1.0
+grow_horizontal = 2
+grow_vertical = 2
+mouse_filter = 2
+stretch = true
+stretch_shrink = 2
+
+[node name="SubViewport" type="SubViewport" parent="SubViewportContainer" unique_id=579594435]
+handle_input_locally = false
+audio_listener_enable_3d = true
+size = Vector2i(960, 540)
+size_2d_override_stretch = true
+render_target_update_mode = 4
+
+[node name="WorldEnvironment" type="WorldEnvironment" parent="SubViewportContainer/SubViewport" unique_id=929510182]
+environment = SubResource("Environment_wfacm")
+
+[node name="DirectionalLight3D" type="DirectionalLight3D" parent="SubViewportContainer/SubViewport" unique_id=2020955228]
+transform = Transform3D(1, 0, 0, 0, -0.08425183, 0.9964445, 0, -0.9964445, -0.08425183, 0, 24.74411, 0)
+
+[node name="Terrain3D" type="Terrain3D" parent="SubViewportContainer/SubViewport" unique_id=2036573122]
+data_directory = "res://World/JunkHole/TerrainData"
+material = SubResource("Terrain3DMaterial_va8ct")
+assets = SubResource("Terrain3DAssets_nhhll")
+show_checkered = true
+top_level = true
+metadata/_edit_lock_ = true
+
+[node name="Player" parent="SubViewportContainer/SubViewport" unique_id=1517765959 node_paths=PackedStringArray("playerUI") instance=ExtResource("1_jh1ew")]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, -1.9073486e-06, 7.502901, 5.6798935)
+playerUI = NodePath("../../../PlayerUI")
+
+[node name="Outlet" parent="SubViewportContainer/SubViewport" unique_id=220038749 instance=ExtResource("4_wfacm")]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 8.515285, 5.514785, 32.09563)
+
+[node name="trashBotEnemy" parent="SubViewportContainer/SubViewport" unique_id=1048089377 node_paths=PackedStringArray("outlet") instance=ExtResource("5_oab11")]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 6.011618, 4.7326317, 35.30355)
+outlet = NodePath("../Outlet")
+
+[node name="CSGBox3D" type="CSGBox3D" parent="SubViewportContainer/SubViewport" unique_id=1104496788]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 69.53486, 2.8776073, -7.6293945e-06)
+use_collision = true
+size = Vector3(10.729492, 2.4091797, 1)

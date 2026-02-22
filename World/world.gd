@@ -6,6 +6,7 @@ extends Node
 # Called when the node enters the scene tree for the first time.
 func _ready() -> void:
 	sub_viewport_container.set_process_input(true);
+	Global.mainScene = get_tree().current_scene.get_path();
 	
 func _input(event):
 	if event is InputEventMouseMotion or event is InputEventMouseButton:

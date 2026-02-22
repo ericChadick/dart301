@@ -54,4 +54,12 @@ var screenShake := 1.0;
 var brightness := .5;
 var musicVolume := .75;
 
+#debug
+var mainScene : NodePath;
+var batteryDecreaseDebug := true;
+
 #input rebinding
+
+
+#screen cracks
+enum ScreenCracks {SMALL, MED, LARGE}

@@ -15,7 +15,7 @@ compatibility/default_parent_skeleton_in_mesh_instance_3d=true
 [application]
 
 config/name="Dart301"
-run/main_scene="uid://deylxh1cxgy08"
+run/main_scene="uid://cyihyjljoauja"
 config/features=PackedStringArray("4.6", "Forward Plus")
 config/icon="res://icon.svg"
 
@@ -35,7 +35,7 @@ window/stretch/aspect="expand"
 
 [editor_plugins]
 
-enabled=PackedStringArray("res://addons/beehave/plugin.cfg")
+enabled=PackedStringArray("res://addons/beehave/plugin.cfg", "res://addons/terrain_3d/plugin.cfg")
 
 [file_customization]
 
@@ -47,7 +47,8 @@ folder_colors={
 "res://Player/": "blue",
 "res://Shaders/": "pink",
 "res://UI/": "green",
-"res://World/": "yellow"
+"res://World/": "yellow",
+"res://World/JunkHole/": "green"
 }
 
 [filesystem]

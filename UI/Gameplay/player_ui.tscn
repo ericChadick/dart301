@@ -29,18 +29,22 @@ shader_parameter/animation_speed = 20.0
 shader_parameter/blur_strength = 0.01
 shader_parameter/effect_power = 0.5
 
-[sub_resource type="StyleBoxFlat" id="StyleBoxFlat_8w2om"]
-bg_color = Color(0, 0, 0, 0.39215687)
-corner_radius_top_left = 2
-corner_radius_top_right = 2
-corner_radius_bottom_right = 2
-corner_radius_bottom_left = 6
-expand_margin_left = 8.0
-expand_margin_top = 8.0
-expand_margin_right = 8.0
-expand_margin_bottom = 8.0
+[sub_resource type="Gradient" id="Gradient_dnxry"]
+colors = PackedColorArray(1, 0.26666665, 0, 0.47058824, 1, 0.48333335, 0, 0)
+
+[sub_resource type="GradientTexture2D" id="GradientTexture2D_16ylj"]
+gradient = SubResource("Gradient_dnxry")
+fill_to = Vector2(0, 1)
 
 [sub_resource type="StyleBoxFlat" id="StyleBoxFlat_xmsn8"]
+bg_color = Color(1, 1, 1, 1)
+border_blend = true
+corner_radius_top_left = 4
+corner_radius_top_right = 4
+corner_radius_bottom_right = 4
+corner_radius_bottom_left = 4
+
+[sub_resource type="StyleBoxFlat" id="StyleBoxFlat_dnxry"]
 bg_color = Color(1, 1, 1, 1)
 border_blend = true
 corner_radius_top_left = 4
@@ -61,6 +65,23 @@ corner_radius_top_left = 12
 corner_radius_top_right = 12
 corner_radius_bottom_right = 12
 corner_radius_bottom_left = 12
+
+[sub_resource type="Gradient" id="Gradient_16ylj"]
+
+[sub_resource type="GradientTexture2D" id="GradientTexture2D_2s0w1"]
+gradient = SubResource("Gradient_16ylj")
+width = 128
+
+[sub_resource type="StyleBoxFlat" id="StyleBoxFlat_8w2om"]
+bg_color = Color(0, 0, 0, 0.39215687)
+corner_radius_top_left = 2
+corner_radius_top_right = 2
+corner_radius_bottom_right = 2
+corner_radius_bottom_left = 6
+expand_margin_left = 8.0
+expand_margin_top = 8.0
+expand_margin_right = 8.0
+expand_margin_bottom = 8.0
 
 [sub_resource type="Gradient" id="Gradient_rvkn8"]
 offsets = PackedFloat32Array(0, 0.64637)
@@ -117,6 +138,15 @@ anchor_bottom = 1.0
 grow_horizontal = 2
 grow_vertical = 2
 
+[node name="HitFlash" type="TextureRect" parent="Control" unique_id=214710028]
+layout_mode = 1
+anchors_preset = 15
+anchor_right = 1.0
+anchor_bottom = 1.0
+grow_horizontal = 2
+grow_vertical = 2
+texture = SubResource("GradientTexture2D_16ylj")
+
 [node name="ScreenCracks" type="TextureRect" parent="Control" unique_id=1764382184]
 layout_mode = 0
 
@@ -168,7 +198,7 @@ theme_override_constants/margin_bottom = 192
 
 [node name="StatBars" type="VBoxContainer" parent="Control/MarginContainer" unique_id=2047396080]
 layout_mode = 2
-size_flags_vertical = 8
+size_flags_vertical = 0
 theme_override_constants/separation = 48
 
 [node name="BatteryBar" type="ProgressBar" parent="Control/MarginContainer/StatBars" unique_id=81806652]
@@ -177,11 +207,10 @@ layout_mode = 2
 size_flags_horizontal = 4
 size_flags_vertical = 8
 mouse_filter = 1
-theme_override_styles/background = SubResource("StyleBoxFlat_8w2om")
 theme_override_styles/fill = SubResource("StyleBoxFlat_xmsn8")
 max_value = 1.0
 step = 0.005
-value = 1.0
+value = 0.5
 show_percentage = false
 
 [node name="NinePatchRect" type="NinePatchRect" parent="Control/MarginContainer/StatBars/BatteryBar" unique_id=1862426868]
@@ -197,6 +226,21 @@ patch_margin_left = 20
 patch_margin_top = 20
 patch_margin_right = 31
 patch_margin_bottom = 31
+
+[node name="BatteryBarTrail" type="ProgressBar" parent="Control/MarginContainer/StatBars/BatteryBar" unique_id=1979182617]
+z_index = -1
+custom_minimum_size = Vector2(320, 36)
+layout_mode = 1
+offset_right = 320.0
+offset_bottom = 36.0
+size_flags_horizontal = 4
+size_flags_vertical = 8
+mouse_filter = 1
+theme_override_styles/fill = SubResource("StyleBoxFlat_dnxry")
+max_value = 1.0
+step = 0.005
+value = 0.6
+show_percentage = false
 
 [node name="HealthBar" type="ProgressBar" parent="Control/MarginContainer/StatBars" unique_id=13475481]
 visible = false
@@ -243,6 +287,24 @@ theme_override_fonts/normal_font = ExtResource("5_qf5vc")
 theme_override_font_sizes/normal_font_size = 48
 horizontal_alignment = 1
 
+[node name="VBoxContainer" type="VBoxContainer" parent="Control/MarginContainer" unique_id=1565216784]
+layout_mode = 2
+size_flags_horizontal = 0
+size_flags_vertical = 8
+theme_override_constants/separation = 12
+
+[node name="TextureRect" type="TextureRect" parent="Control/MarginContainer/VBoxContainer" unique_id=1775694139]
+layout_mode = 2
+texture = SubResource("GradientTexture2D_2s0w1")
+
+[node name="TextureRect2" type="TextureRect" parent="Control/MarginContainer/VBoxContainer" unique_id=172281655]
+layout_mode = 2
+texture = SubResource("GradientTexture2D_2s0w1")
+
+[node name="TextureRect3" type="TextureRect" parent="Control/MarginContainer/VBoxContainer" unique_id=987776484]
+layout_mode = 2
+texture = SubResource("GradientTexture2D_2s0w1")
+
 [node name="OutletCrosshair" type="TextureRect" parent="Control" unique_id=841454661]
 custom_minimum_size = Vector2(96, 96)
 layout_mode = 1
@@ -285,10 +347,10 @@ patch_margin_bottom = 31
 
 [node name="PlugIcon" type="TextureRect" parent="." unique_id=110508154]
 custom_minimum_size = Vector2(64, 64)
-offset_left = 705.0
-offset_top = 897.0
-offset_right = 769.0
-offset_bottom = 961.0
+offset_left = 717.0
+offset_top = 164.0
+offset_right = 781.0
+offset_bottom = 228.0
 texture = ExtResource("12_rvkn8")
 expand_mode = 1
 

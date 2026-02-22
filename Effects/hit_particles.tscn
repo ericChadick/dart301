@@ -6,7 +6,7 @@
 _data = [Vector2(0, 1), 0.0, 0.0, 0, 0, Vector2(1, 0), 0.0, 0.0, 0, 0]
 point_count = 2
 
-[sub_resource type="CurveTexture" id="CurveTexture_tsyqh"]
+[sub_resource type="CurveTexture" id="CurveTexture_1kdmq"]
 curve = SubResource("Curve_to7jw")
 
 [sub_resource type="Curve" id="Curve_ep2bw"]
@@ -22,7 +22,7 @@ point_count = 2
 _data = [Vector2(0, 1), 0.0, 0.0, 0, 0, Vector2(1, 0), 0.0, 0.0, 0, 0]
 point_count = 2
 
-[sub_resource type="CurveXYZTexture" id="CurveXYZTexture_br3nj"]
+[sub_resource type="CurveXYZTexture" id="CurveXYZTexture_to7jw"]
 curve_x = SubResource("Curve_ep2bw")
 curve_y = SubResource("Curve_6meke")
 curve_z = SubResource("Curve_lidua")
@@ -37,11 +37,11 @@ initial_velocity_max = 12.0
 gravity = Vector3(0, -5, 0)
 scale_min = 0.29999998
 scale_max = 0.5
-scale_curve = SubResource("CurveXYZTexture_br3nj")
+scale_curve = SubResource("CurveXYZTexture_to7jw")
 color = Color(2.1168277, 1.4275763, 1.0556773, 1)
-emission_curve = SubResource("CurveTexture_tsyqh")
+emission_curve = SubResource("CurveTexture_1kdmq")
 
-[sub_resource type="StandardMaterial3D" id="StandardMaterial3D_55wc7"]
+[sub_resource type="StandardMaterial3D" id="StandardMaterial3D_ep2bw"]
 transparency = 1
 cull_mode = 2
 shading_mode = 0
@@ -49,7 +49,14 @@ vertex_color_use_as_albedo = true
 albedo_texture = ExtResource("1_1kdmq")
 
 [sub_resource type="QuadMesh" id="QuadMesh_gef7r"]
-material = SubResource("StandardMaterial3D_55wc7")
+material = SubResource("StandardMaterial3D_ep2bw")
+
+[sub_resource type="Curve" id="Curve_h2fdc"]
+_data = [Vector2(0, 1), 0.0, 0.0, 0, 0, Vector2(1, 0), 0.0, 0.0, 0, 0]
+point_count = 2
+
+[sub_resource type="CurveTexture" id="CurveTexture_tsyqh"]
+curve = SubResource("Curve_h2fdc")
 
 [sub_resource type="Curve" id="Curve_1es6i"]
 _data = [Vector2(0, 1), 0.0, 0.0, 0, 0, Vector2(1, 0), 0.0, 0.0, 0, 0]

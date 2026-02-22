@@ -7,11 +7,11 @@ var dead := false;
 @export var connected : Node3D;
 
 @onready var outlet_light: MeshInstance3D = $OutletLight
+@onready var spark_particle: GPUParticles3D = $SparkParticle
 
 # Called when the node enters the scene tree for the first time.
 func _ready() -> void:
 	batteryMax = battery;
-
 
 # Called every frame. 'delta' is the elapsed time since the previous frame.
 func _process(delta: float) -> void:

@@ -152,12 +152,15 @@ _data = {
 }
 
 [node name="Player" type="CharacterBody3D" unique_id=1517765959 groups=["character", "player"]]
+floor_max_angle = 1.3962634
+floor_snap_length = 0.5
 script = ExtResource("1_l8h54")
 
 [node name="CollisionShape3D" type="CollisionShape3D" parent="." unique_id=2095073883]
 shape = SubResource("CapsuleShape3D_4ntmi")
 
 [node name="MeshInstance3D" type="MeshInstance3D" parent="." unique_id=266665977]
+visible = false
 mesh = SubResource("CapsuleMesh_l8h54")
 
 [node name="Torso" type="Node3D" parent="." unique_id=544929067]
@@ -204,8 +207,16 @@ light_color = Color(1, 0.88938797, 0.7314151, 1)
 shadow_enabled = true
 omni_range = 8.0
 
+[node name="HitLight" type="OmniLight3D" parent="Head" unique_id=1036089905]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 0.5, -1)
+visible = false
+light_color = Color(1, 0.2833333, 0, 1)
+light_energy = 4.0
+omni_range = 1.5
+omni_attenuation = 0.5
+
 [node name="CordProtoNode" type="Node3D" parent="Head" unique_id=558342988]
-transform = Transform3D(0.74413925, 0.34298465, 0.57325214, -0.42135835, 0.90688294, 0.004364181, -0.5183764, -0.24479195, 0.8193672, 0.95013034, -0.6977509, -1.2693243)
+transform = Transform3D(0.74413925, 0.34298462, 0.57325214, -0.42135835, 0.9068828, 0.004364181, -0.5183764, -0.24479192, 0.8193672, 0.95013034, -0.6977509, -1.2693243)
 
 [node name="CordProto" type="MeshInstance3D" parent="Head/CordProtoNode" unique_id=1396993993]
 transform = Transform3D(0.9999999, 0, 2.9802322e-08, 4.4703484e-08, 1.0000004, -1.4901161e-08, 0, 0, 1, -0.11860013, 0.8586336, 0.17990345)
@@ -300,7 +311,6 @@ wait_time = 0.2
 one_shot = true
 
 [node name="HitCooldownTimer" type="Timer" parent="Timers" unique_id=394302669]
-wait_time = 0.5
 one_shot = true
 
 [node name="CordHandAnimations" type="AnimationPlayer" parent="." unique_id=361054613]
@@ -313,3 +323,4 @@ libraries/ = SubResource("AnimationLibrary_x3vf3")
 [connection signal="area_entered" from="CollectRadius" to="." method="_on_collect_radius_area_entered"]
 [connection signal="timeout" from="Timers/BlueprintTimer" to="." method="_on_blueprint_timer_timeout"]
 [connection signal="timeout" from="Timers/SlideTimer" to="." method="_on_slide_timer_timeout"]
+[connection signal="timeout" from="Timers/HitCooldownTimer" to="." method="_on_hit_cooldown_timer_timeout"]

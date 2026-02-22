@@ -57,6 +57,35 @@ _surfaces = [{
 blend_shape_mode = 0
 shadow_mesh = SubResource("ArrayMesh_gl5ih")
 
+[sub_resource type="Curve" id="Curve_iw82v"]
+_data = [Vector2(0, 1), 0.0, 0.0, 0, 0, Vector2(0.49999997, 1), 0.0, 0.0, 0, 0, Vector2(1, 0), 0.0, 0.0, 0, 0]
+point_count = 3
+
+[sub_resource type="CurveTexture" id="CurveTexture_scrvh"]
+curve = SubResource("Curve_iw82v")
+
+[sub_resource type="ParticleProcessMaterial" id="ParticleProcessMaterial_iw82v"]
+particle_flag_align_y = true
+direction = Vector3(0, 1, 0)
+spread = 180.0
+flatness = 1.0
+initial_velocity_min = 6.0
+initial_velocity_max = 8.0
+scale_min = 0.5
+scale_curve = SubResource("CurveTexture_scrvh")
+
+[sub_resource type="StandardMaterial3D" id="StandardMaterial3D_spbea"]
+emission_enabled = true
+emission = Color(1, 0.857, 0.61, 1)
+emission_energy_multiplier = 2.0
+
+[sub_resource type="CapsuleMesh" id="CapsuleMesh_scrvh"]
+material = SubResource("StandardMaterial3D_spbea")
+radius = 0.1
+height = 0.8
+radial_segments = 4
+rings = 0
+
 [node name="Outlet" type="Area3D" unique_id=220038749 groups=["outlet"]]
 collision_layer = 4
 collision_mask = 4
@@ -77,3 +106,12 @@ stream = SubResource("AudioStreamRandomizer_iw82v")
 transform = Transform3D(0.668651, 0, 0, 0, 1, 0, 0, 0, 1, -0.46947527, -1.33751, 0)
 mesh = SubResource("ArrayMesh_iw82v")
 skeleton = NodePath("")
+
+[node name="SparkParticle" type="GPUParticles3D" parent="." unique_id=2082414729]
+emitting = false
+amount = 12
+lifetime = 0.25
+one_shot = true
+explosiveness = 0.2
+process_material = SubResource("ParticleProcessMaterial_iw82v")
+draw_pass_1 = SubResource("CapsuleMesh_scrvh")

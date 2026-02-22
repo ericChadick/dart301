@@ -2,6 +2,7 @@ extends CharacterBody3D
 
 @onready var head: Node3D = $Head
 @onready var torso: Node3D = $Torso
+@onready var collision_shape_3d: CollisionShape3D = $CollisionShape3D
 @onready var camera: Camera3D = $Head/Camera3D
 @onready var shoot_point: Marker3D = $Head/shootPoint
 @onready var shoot_particles: GPUParticles3D = $Head/ShootParticles
@@ -9,6 +10,7 @@ extends CharacterBody3D
 @onready var outlet_ray: RayCast3D = $Head/outletRay
 @onready var rightwall_ray: RayCast3D = $Torso/rightwallRay
 @onready var leftwall_ray: RayCast3D = $Torso/leftwallRay
+@onready var hit_light: OmniLight3D = $Head/HitLight
 
 @onready var cord_hand_animations: AnimationPlayer = $CordHandAnimations
 @onready var weapon_hand_animations: AnimationPlayer = $WeaponHandAnimations
@@ -39,6 +41,7 @@ extends CharacterBody3D
 
 var screen: ColorRect;
 var battery_bar: ProgressBar;
+var battery_bar_trail: ProgressBar;
 var health_bar: ProgressBar;
 var crosshair: TextureRect;
 var circle_bar: ColorRect;
@@ -48,6 +51,7 @@ var blueprint_text: RichTextLabel;
 var outlet_bar: ProgressBar;
 var plug_icon: TextureRect;
 var screen_cracks: TextureRect;
+var hit_flash_texture: TextureRect;
 
 @export var playerUI : CanvasLayer;
 
@@ -67,11 +71,11 @@ var dataMultiplier := calculateStat(Global.dataMultiplierMin, Global.dataMultipl
 
 var pullSpd := 60.0;
 
-@export var groundAccel := speed*.8
-@export var groundFric := speed*.8
-@export var airAccel := speed*.6;
-@export var airFric := speed*.6;
-@export var gravity := 20.0;#jumpSpd*1.5;
+@export var groundAccel := speed*.7
+@export var groundFric := speed*.6
+@export var airAccel := speed*.3;
+@export var airFric := speed*.2;
+@export var gravity := 25.0;#jumpSpd*1.5;
 
 var stepTimerStep := .6;#(1.0-(speed/18.0))*2.0;
 var stepTimer := stepTimerStep;
@@ -88,9 +92,11 @@ var dashCooldown := 0.0;
 var dashCooldownAmnt := 1.0;
 var dashInputBuffer := 0.0;
 
+var jumping := false;
 var jumpBuffer := 0.0;
 var groundBuffer := 0.0;
 var slideBuffer := 0.0;
+var playerHeight := 1.0;
 
 var outletBuffer := 0.0;
 var outletBufferTime := .25;
@@ -101,6 +107,7 @@ var weaponBufferTime := .2;
 var weaponCooldown := 0.0;
 var shootShakeAmnt := .2;
 var outletShakeAmnt := .1;
+var connectShakeAmnt := .25;
 var shakeJumpAmnt := .2;
 var shakeLandAmnt := .25;
 
@@ -146,6 +153,8 @@ const SCREEN_MAT = preload("uid://g0eihtw4spff")
 var screenMat : ShaderMaterial;
 
 const crackTex = preload("uid://c7pc4jg6uh08y")
+const crackTexMed = preload("uid://dgebraj58c247")
+
 const midFalloffCurve = preload("uid://ctokbcp4b3k6s")
 
 func _ready() -> void:
@@ -155,8 +164,11 @@ func _ready() -> void:
 	outlet_ray.target_position = Vector3(0.0,0.0, -cordLength*.8);
 	targY = head.position.y;
 	
+	playerHeight = collision_shape_3d.shape.height;
+	
 	screen = playerUI.get_node("Screen");
 	battery_bar = playerUI.get_node("Control/MarginContainer/StatBars/BatteryBar");
+	battery_bar_trail = playerUI.get_node("Control/MarginContainer/StatBars/BatteryBar/BatteryBarTrail");
 	health_bar = playerUI.get_node("Control/MarginContainer/StatBars/HealthBar");
 	crosshair = playerUI.get_node("Control/MarginContainer/Crosshair");
 	circle_bar = playerUI.get_node("Control/MarginContainer/Crosshair/CircleBar");
@@ -166,12 +178,17 @@ func _ready() -> void:
 	outlet_bar = playerUI.get_node("Control/OutletCrosshair/OutletBar")
 	plug_icon = playerUI.get_node("PlugIcon")
 	screen_cracks = playerUI.get_node("Control/ScreenCracks");
+	hit_flash_texture = playerUI.get_node("Control/HitFlash");
+	hit_flash_texture.modulate.a = 0.0;
 	
 	screenMat = SCREEN_MAT.duplicate();
 	screen.material = screenMat;
 
 #move camera with controller r stick
 func _process(delta):
+	if Global.batteryDecreaseDebug:
+		battery = batteryMax;
+		
 	var rstickDir = Input.get_vector("camLeft", "camRight", "camUp", "camDown");
 	rotate_from_vector(rstickDir * delta * Vector2(chAccel, cvAccel));
 	
@@ -195,6 +212,7 @@ func _process(delta):
 			cord.rotation_degrees.x += 90;
 			cord.scale.y = global_position.distance_to(cordProjectile.global_position);
 	else:
+		outlet.outlet_light.visible = false;
 		cord.visible = true;
 		cord.global_position = (global_position+outlet.global_position)/2;
 		cord.look_at(outlet.global_position);
@@ -202,11 +220,14 @@ func _process(delta):
 		cord.scale.y = global_position.distance_to(outlet.global_position);
 		
 	battery_bar.value = (battery/batteryMax);
+	battery_bar_trail.value = move_toward(battery_bar_trail.value, battery_bar.value, delta*.5);
 	health_bar.value = (hp/hpMax);
 	currency_text.text = str("%.1f" %Global.currency);
 	
 	var fuzz = midFalloffCurve.sample(1.0-(battery/batteryMax)+(hit_cooldown_timer.time_left/hit_cooldown_timer.wait_time)*.5);
 	screenMat.set_shader_parameter("noise_strength", 10.0+(1.0-fuzz)*30.0);
+	hit_flash_texture.modulate.a -= delta;
+	hit_flash_texture.modulate.a = max(hit_flash_texture.modulate.a, 0.0)
 	
 	weaponBuffer -= delta;
 	weaponCooldown -= delta;
@@ -291,12 +312,14 @@ func _process(delta):
 			pull_timer.start();
 			
 			#unplug from outlet
+			outlet.outlet_light.visible = true;
 			outlet = null;
 			unplug_sound.play();
 			outletBuffer = 0.0;
 			
 			#creator.velocity = (area.global_position-creator.global_position).normalized()*area.global_position.distance_to(creator.global_position);
 		if outletBuffer > 0.0: #unplug
+			outlet.outlet_light.visible = true;
 			outlet = null;
 			unplug_sound.play();
 			outletBuffer = 0.0;
@@ -373,7 +396,10 @@ func _physics_process(delta: float) -> void:
 		#zwobble = sign(-direction.dot(get_slide_collision(0).get_normal()))*.5;
 		#print(zwobble);
 	else:
-		zwobble = -.04*input_dir.x;
+		if abs(input_dir.x) < .1: #moving forward
+			zwobble = .02*sin(stepTimer/stepTimerStep*PI*2);
+		else: #strafing
+			zwobble = -.04*input_dir.x;
 	head.rotation.z = lerp(head.rotation.z, zwobble, delta*5.0);
 		
 	#input buffers for platforming
@@ -390,22 +416,38 @@ func _physics_process(delta: float) -> void:
 	
 	torso.rotation.y = head.rotation.y;
 	
+	
+	if !slide_cooldown_timer.is_stopped():
+		var prevHeight = collision_shape_3d.shape.height;
+		if !is_on_ceiling():
+			collision_shape_3d.shape.height = move_toward(collision_shape_3d.shape.height, playerHeight, 10*delta);
+		else:
+			collision_shape_3d.shape.height = prevHeight;
+			
+	collision_shape_3d.position.y = -(playerHeight-collision_shape_3d.shape.height)*.5;
+	
+	print(collision_shape_3d.position.y);
+	print(collision_shape_3d.shape.height);
+	
 	groundedPrev = groundedCurrent;
 	groundedCurrent = groundBuffer > 0.0;
 	var inc := 0.0;
 	if groundBuffer > 0.0:
-		if velocity.length() > speed*.5 and slideBuffer > 0.0 and slide_cooldown_timer.is_stopped():
+		jumping = false;
+		if velocity.length() > speed*.5 and slideBuffer > 0.0 and slide_timer.is_stopped() and slide_cooldown_timer.is_stopped():
 			slide_timer.start();
 			slide_sound.play();
-			velocity.x *= 2.5;
-			velocity.z *= 2.5;
+			velocity.x *= 1.8;
+			velocity.z *= 1.8;
 			slideBuffer = 0.0;
-			slide_cooldown_timer.start();
+			#slide_cooldown_timer.start();
+			collision_shape_3d.shape.height = 1.0;
 			
 		canWallRun = false;
 		wallRunTime = 0.0;
 		if jumpBuffer > 0.0: #handle jump
 			jump_sound.play();
+			jumping = true;
 			velocity.y = jumpSpd;
 			jumpBuffer = 0.0;
 			groundBuffer = 0.0;
@@ -421,47 +463,56 @@ func _physics_process(delta: float) -> void:
 	else:
 		if pull_timer.time_left <= 0.0:
 			if !is_on_wall() or wallRunTime <= 0.0:
-				velocity.y -= gravity * delta #handle gravity
-			#else:
-			#	velocity.y -= gravity*.1 * delta
+				if chargeSwing:
+					velocity.y -= gravity*.6 * delta
+				else:
+					velocity.y -= gravity * delta #handle gravity
+			else:
+				velocity.y *= .95;
 		#set accelerations air
 		if input_dir.length() < .5:
 			inc = airFric;
 		else:
 			inc = airAccel;
-	
-	if velocity.y > 0 and !Input.is_action_pressed("jump"):
+		if chargeSwing: #alter air acc and fric while charging swing
+			inc *= .75;
+		
+	if jumping and velocity.y > 0 and !Input.is_action_pressed("jump"):
 		velocity.y *= .9;
 			
 	#land effects
 	if groundedPrev != groundedCurrent:
+		#jumping = false;
 		land_sound.play();
 		shake = max(shake, shakeLandAmnt);
 		
 	#wall run
-	if canWallRun and input_dir.length() > .5:
+	if canWallRun:#and input_dir.length() > .5
 		if is_on_wall() and wallRunTime > 0.0:
 			cordTugs = cordTugsMax;
 			wallRunTime -= delta;
 			var wallN = get_slide_collision(0)
 			var d = direction;
 			direction = d-wallN.get_normal()*d.dot(wallN.get_normal());
-			
 			if jumpBuffer > 0.0: #handle jump
 				jump_sound.play();
-				velocity = wallN.get_normal()*jumpSpd*2.0;
+				#if input_dir.length() > 0.5:
+				velocity = wallN.get_normal()*jumpSpd*2.0+direction*jumpSpd;
+				#else:
+				#	velocity = wallN.get_normal()*jumpSpd*2.0;
 				velocity.y = jumpSpd*.5;
 				jumpBuffer = 0.0;
 				groundBuffer = 0.0;
 				shake = max(shake, shakeJumpAmnt);
-				canWallRun = false;
-				wallRunTime = 0.0;
+				canWallRun = true
+				wallRunTime = wallRunTimeMax;
 				slide_timer.stop();
 	
 	var pullRatioDir = clamp((pull_timer.time_left/pull_timer.wait_time)*3.0, 1.0, 3.0);
 	var pullRatioAcc = clamp((1.0-pull_timer.time_left/pull_timer.wait_time), .5, 1.0);
 	var slideRatioAcc = clamp(1.0-slide_timer.time_left/slide_timer.wait_time, .1, 1.0);
 	var slideRatioSpd = clamp((slide_timer.time_left/slide_timer.wait_time)*2.0, 1.0, 2.0);
+	
 	velocity.x = lerp(velocity.x, direction.x*pullRatioDir * speed*slideRatioSpd, delta * inc * pullRatioAcc * slideRatioAcc);
 	velocity.z = lerp(velocity.z, direction.z*pullRatioDir * speed*slideRatioSpd, delta * inc * pullRatioAcc * slideRatioAcc);
 	
@@ -503,7 +554,8 @@ func _physics_process(delta: float) -> void:
 	if outlet_ray.is_colliding():
 		var coll = outlet_ray.get_collider()
 		if coll != null and coll.is_in_group("outlet"):
-			outletSelect = coll;
+			if coll.connected == null:
+				outletSelect = coll;
 	else:
 		outletSelect = null;
 			
@@ -536,13 +588,27 @@ func headbob(time) -> Vector3:
 	pos.x = cos(time * BOB_FREQ / 2) * BOB_AMP
 	return pos
 
-func addScreenCrack() -> void:
+func getHit(batteryDamage, knockbackVector, screenShake, screenCrackType) -> void:
+	jumping = false; #prevent variable jump from affecting velocity
+	shake = screenShake;
+	battery -= batteryDamage;
+	hit_light.visible = true;
+	hit_cooldown_timer.start();
+	addScreenCrack(screenCrackType);
+	velocity = knockbackVector;
+	hit_flash_texture.modulate.a = 1.0;
+	
+func addScreenCrack(screenCrackType) -> void:
 	var viewsize = get_viewport().get_visible_rect();
 	var newTex = TextureRect.new();
-	newTex.texture = crackTex;
+	match (screenCrackType):
+		Global.ScreenCracks.SMALL: newTex.texture = crackTex;
+		Global.ScreenCracks.MED: newTex.texture = crackTex;
+		Global.ScreenCracks.LARGE: newTex.texture = crackTex;#crackTexMed;
 	screen_cracks.add_child(newTex);
 	$Sounds/GlassSound.play();
-	newTex.position = Vector2(randf_range(0.0, viewsize.size.x), randf_range(0.0, viewsize.size.y));
+	#print(viewsize.size);
+	newTex.position = Vector2(randf_range(0.0, viewsize.size.x*sub_viewport_container.stretch_shrink), randf_range(0.0, viewsize.size.y*sub_viewport_container.stretch_shrink));
 	newTex.rotation_degrees = randf_range(0.0, 360.0);
 	newTex.scale = Vector2(randf_range(.75, 1.5), randf_range(.75, 1.5));
 	newTex.modulate.a = randf_range(.25, .5);
@@ -552,13 +618,11 @@ func _on_collect_radius_area_entered(area: Area3D) -> void:
 		blueprint_text.text = "Uploading " + str(area.itemName) + " blueprint...";
 		blueprint_timer.start();
 		match(area.itemName):
-			"Gun": Global.gunUnlocked=true;
+			"Gun": Global.gunUnlocked = true;
 		area.queue_free();
-
 
 func _on_blueprint_timer_timeout() -> void:
 	blueprint_text.text = "";
-
 
 func _on_slide_timer_timeout() -> void:
 	slide_cooldown_timer.start();
@@ -566,5 +630,9 @@ func _on_slide_timer_timeout() -> void:
 func _on_punch_hitbox_body_entered(body: Node3D) -> void:
 	if body.is_in_group("enemy"):
 		hitboxEnemy = body;
+
 func _on_punch_hitbox_body_exited(body: Node3D) -> void:
 	hitboxEnemy = null;
+
+func _on_hit_cooldown_timer_timeout() -> void:
+	hit_light.visible = false;

@@ -4,6 +4,7 @@
 [ext_resource type="PackedScene" uid="uid://cqrenk8ue8j8v" path="res://Player/player.tscn" id="1_62w18"]
 [ext_resource type="Script" uid="uid://bevf68wrkg7sv" path="res://World/world.gd" id="1_k8do8"]
 [ext_resource type="PackedScene" uid="uid://bxgwgbkpugt5j" path="res://World/Outlet/outlet.tscn" id="2_8a836"]
+[ext_resource type="PackedScene" uid="uid://cnexx5jm5sy8x" path="res://Enemies/TrashDog/trash_dog.tscn" id="5_0wqet"]
 [ext_resource type="PackedScene" uid="uid://hyeh47v46j86" path="res://Enemies/TestEnemy/test_enemy.tscn" id="5_bkhv4"]
 [ext_resource type="PackedScene" uid="uid://bbo01giq25jel" path="res://World/Props/wires.glb" id="5_k8do8"]
 [ext_resource type="PackedScene" uid="uid://r3g5xuayp06q" path="res://World/Blueprints/blueprint.tscn" id="6_yf0ba"]
@@ -11,7 +12,7 @@
 [ext_resource type="MeshLibrary" uid="uid://bl1bwbv6l4jik" path="res://World/GridMap/demoBlocksEric.meshlib" id="8_oe8m4"]
 [ext_resource type="PackedScene" uid="uid://boy7266jscrro" path="res://World/Props/bacta_tank.tscn" id="10_lo5ox"]
 [ext_resource type="PackedScene" uid="uid://cki8bp3eco3r" path="res://World/Props/terminal.tscn" id="11_h2aik"]
-[ext_resource type="PackedScene" uid="uid://b543lcfrqyvgq" path="res://Enemies/Enemy/enemy__wyatt.tscn" id="12_h2aik"]
+[ext_resource type="PackedScene" uid="uid://i88uf8p3y2hu" path="res://Enemies/TrashDog/trash_block.tscn" id="14_awrha"]
 [ext_resource type="Shader" uid="uid://dkj8c7cp3ak0n" path="res://Shaders/godrays.gdshader" id="15_f23eu"]
 
 [sub_resource type="ProceduralSkyMaterial" id="ProceduralSkyMaterial_f23eu"]
@@ -146,7 +147,7 @@ spot_angle = 46.957165
 transform = Transform3D(0.09433418, 0, -0.9955406, 0, 1, 0, 0.9955406, 0, 0.09433418, 0.7275131, -0.24083197, -45.430546)
 
 [node name="Outlet2" parent="SubViewportContainer/SubViewport" unique_id=377076739 instance=ExtResource("2_8a836")]
-transform = Transform3D(0.029753476, 0, -0.99955726, 0, 1, 0, 0.99955726, 0, 0.029753476, -13.991362, 0.9149004, -17.841995)
+transform = Transform3D(0.029753476, 0, -0.99955726, 0, 1, 0, 0.99955726, 0, 0.029753476, -26.156324, 0.9149004, -34.541878)
 
 [node name="Outlet3" parent="SubViewportContainer/SubViewport" unique_id=1231886591 instance=ExtResource("2_8a836")]
 transform = Transform3D(-0.031061828, 0, -0.9995174, 0, 1, 0, 0.9995174, 0, -0.031061828, -13.990077, 0.75597394, -93.692604)
@@ -159,6 +160,10 @@ transform = Transform3D(-0.03106183, -2.0975914e-10, -0.9995175, 0.99893445, 0.0
 
 [node name="Outlet4" parent="SubViewportContainer/SubViewport" unique_id=616537199 instance=ExtResource("2_8a836")]
 transform = Transform3D(-0.9997418, 0, -0.022722274, 0, 1, 0, 0.022722274, 0, -0.9997418, 13.817866, 7.123963, -75.88269)
+
+[node name="trashBotEnemy" parent="SubViewportContainer/SubViewport" unique_id=1048089377 node_paths=PackedStringArray("outlet") instance=ExtResource("5_0wqet")]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, -24.156332, -0.75, -30.323488)
+outlet = NodePath("../Outlet2")
 
 [node name="testEnemy" parent="SubViewportContainer/SubViewport" unique_id=139086936 instance=ExtResource("5_bkhv4")]
 transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, -24.327724, -0.8619056, -117.25311)
@@ -233,6 +238,11 @@ transform = Transform3D(0.008360007, 0, -0.999965, 0, 0.9999999, 0, 0.999965, 0,
 use_collision = true
 size = Vector3(51.113403, 20.96289, 148.62549)
 
+[node name="CSGBox3D5" type="CSGBox3D" parent="SubViewportContainer/SubViewport/NavigationRegion3D" unique_id=1794333543]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 3.550023, 2.8553667, -12.690186)
+use_collision = true
+size = Vector3(3.6845703, 12.619568, 26.380371)
+
 [node name="wires" parent="." unique_id=904965906 instance=ExtResource("5_k8do8")]
 transform = Transform3D(-0.026360642, 0, 2.284848, 0, 2.285, 0, -2.284848, 0, -0.026360642, -5.225149, 22.314457, -17.433329)
 
@@ -275,13 +285,6 @@ shadow_enabled = true
 omni_range = 200.0
 omni_attenuation = 0.283
 
-[node name="Enemy" parent="." unique_id=1414239772 node_paths=PackedStringArray("player") instance=ExtResource("12_h2aik")]
-transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, -10.014042, 2.536203, -23.084143)
-player = NodePath("../SubViewportContainer/SubViewport/Player")
-SPEED = 2
-CHASE_SPEED = 3
-ACCELERATION = 10
-
 [node name="Godrays" type="CSGCylinder3D" parent="." unique_id=1030816675]
 transform = Transform3D(0.8774645, 0.47964165, 0, -0.47964165, 0.8774645, 0, 0, 0, 1, 3.853808, 16.368061, 0)
 material_override = SubResource("ShaderMaterial_0lysu")
@@ -311,3 +314,6 @@ cone = true
 transform = Transform3D(1, 0, 0, 0, 0.11159038, 0.99375427, 0, -0.99375427, 0.11159038, 0, 6.347834, 0)
 spot_range = 11.976244
 spot_angle = 24.091448
+
+[node name="TrashBlock" parent="." unique_id=1153544983 instance=ExtResource("14_awrha")]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, -6.790127, -1.5392044, -9.882351)

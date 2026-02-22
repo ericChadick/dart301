@@ -1,0 +1,60 @@
+[gd_scene format=3 uid="uid://i88uf8p3y2hu"]
+
+[ext_resource type="Script" uid="uid://birlswveq6b2" path="res://Enemies/TrashDog/trash_block.gd" id="1_x6b0e"]
+
+[sub_resource type="BoxShape3D" id="BoxShape3D_d3t84"]
+size = Vector3(0.5, 0.5, 0.5)
+
+[sub_resource type="BoxMesh" id="BoxMesh_x6b0e"]
+size = Vector3(0.5, 0.5, 0.5)
+
+[sub_resource type="SphereShape3D" id="SphereShape3D_x6b0e"]
+radius = 0.7
+
+[sub_resource type="Curve" id="Curve_x6b0e"]
+_data = [Vector2(0, 1), 0.0, 0.0, 0, 0, Vector2(0.7492877, 1), 0.0, 0.0, 0, 0, Vector2(1, 0), 0.0, 0.0, 0, 0]
+point_count = 3
+
+[sub_resource type="CurveTexture" id="CurveTexture_dprm7"]
+curve = SubResource("Curve_x6b0e")
+
+[sub_resource type="ParticleProcessMaterial" id="ParticleProcessMaterial_x6b0e"]
+particle_flag_align_y = true
+particle_flag_rotate_y = true
+emission_shape = 3
+emission_box_extents = Vector3(0.25, 0.25, 0.25)
+angle_min = -89.99999
+angle_max = 90.000015
+scale_max = 2.0
+scale_curve = SubResource("CurveTexture_dprm7")
+
+[sub_resource type="BoxMesh" id="BoxMesh_dprm7"]
+size = Vector3(0.1, 0.1, 0.1)
+
+[node name="TrashBlock" type="RigidBody3D" unique_id=1153544983]
+disable_mode = 2
+collision_layer = 0
+mass = 0.05
+script = ExtResource("1_x6b0e")
+
+[node name="CollisionShape3D" type="CollisionShape3D" parent="." unique_id=1298842358]
+shape = SubResource("BoxShape3D_d3t84")
+
+[node name="MeshInstance3D" type="MeshInstance3D" parent="." unique_id=1000045030]
+mesh = SubResource("BoxMesh_x6b0e")
+
+[node name="KickTimer" type="Timer" parent="." unique_id=1128906300]
+one_shot = true
+
+[node name="Area3D" type="Area3D" parent="." unique_id=257252787]
+
+[node name="CollisionShape3D" type="CollisionShape3D" parent="Area3D" unique_id=2111945322]
+shape = SubResource("SphereShape3D_x6b0e")
+
+[node name="TrailParticle" type="GPUParticles3D" parent="." unique_id=289620975]
+emitting = false
+amount = 3
+process_material = SubResource("ParticleProcessMaterial_x6b0e")
+draw_pass_1 = SubResource("BoxMesh_dprm7")
+
+[connection signal="body_entered" from="Area3D" to="." method="_on_area_3d_body_entered"]

@@ -1,0 +1,498 @@
+[gd_scene format=3 uid="uid://b5qayvbmq8kqr"]
+
+[ext_resource type="PackedScene" uid="uid://y4qaak6l41yn" path="res://Enemies/TrashDog/trashBot.glb" id="1_m3foq"]
+[ext_resource type="AudioStream" uid="uid://6as4d5fvsriv" path="res://Audio/Enemies/TrashDog/machinery.wav" id="2_hsjqm"]
+[ext_resource type="Shader" uid="uid://bhurhxydrjdhq" path="res://Shaders/fire.gdshader" id="2_jo873"]
+[ext_resource type="Shader" uid="uid://gadag6vg3pji" path="res://Shaders/smoke.gdshader" id="2_oi4yx"]
+[ext_resource type="Script" uid="uid://xs26nf86hp4e" path="res://Enemies/TrashDog/trash_bot_mod.gd" id="2_q6tuq"]
+[ext_resource type="AudioStream" uid="uid://bvetq445kwjme" path="res://Audio/Enemies/TrashDog/enemyvoice.wav" id="3_jdje3"]
+[ext_resource type="ArrayMesh" uid="uid://03gfwjwmrsc8" path="res://Shaders/smokeMesh.tres" id="4_xm41f"]
+[ext_resource type="Texture2D" uid="uid://bfg5niyy10kcd" path="res://Effects/Flare00.PNG" id="6_rdxiu"]
+
+[sub_resource type="Curve" id="Curve_q6tuq"]
+_data = [Vector2(0, 1), 0.0, 0.0, 0, 0, Vector2(0.7450111, 0), 0.0, 0.0, 0, 0]
+point_count = 2
+
+[sub_resource type="CurveTexture" id="CurveTexture_b5hk4"]
+curve = SubResource("Curve_q6tuq")
+
+[sub_resource type="Gradient" id="Gradient_k2rpy"]
+offsets = PackedFloat32Array(0.21459228, 1)
+colors = PackedColorArray(0.32, 0.30885333, 0.2848, 1, 0.21, 0.17429999, 0.17429999, 1)
+
+[sub_resource type="GradientTexture1D" id="GradientTexture1D_b66gd"]
+gradient = SubResource("Gradient_k2rpy")
+
+[sub_resource type="Gradient" id="Gradient_imkfq"]
+
+[sub_resource type="FastNoiseLite" id="FastNoiseLite_6dr5b"]
+noise_type = 2
+fractal_type = 0
+
+[sub_resource type="NoiseTexture2D" id="NoiseTexture2D_b66gd"]
+noise = SubResource("FastNoiseLite_6dr5b")
+color_ramp = SubResource("Gradient_imkfq")
+
+[sub_resource type="ShaderMaterial" id="ShaderMaterial_sm8bf"]
+render_priority = 0
+shader = ExtResource("2_oi4yx")
+shader_parameter/Color = Color(1, 1, 1, 1)
+shader_parameter/Color_Gradiant = SubResource("GradientTexture1D_b66gd")
+shader_parameter/Vor_Noise = SubResource("NoiseTexture2D_b66gd")
+shader_parameter/Alpha_Curve = SubResource("CurveTexture_b5hk4")
+shader_parameter/Fernal_Power = 1.0
+shader_parameter/Vor_Scale = 0.8
+shader_parameter/Vor_Speed = 0.2
+shader_parameter/Emmision_Power = 1.0
+shader_parameter/Alpha_Clip = 0.0
+
+[sub_resource type="Curve" id="Curve_n7y4p"]
+_data = [Vector2(0, 1), 0.0, -0.44730887, 0, 0, Vector2(0.7482679, 0), -2.83773, 0.0, 0, 0]
+point_count = 2
+
+[sub_resource type="CurveTexture" id="CurveTexture_acbqd"]
+texture_mode = 1
+curve = SubResource("Curve_n7y4p")
+
+[sub_resource type="Curve" id="Curve_xtx5x"]
+_data = [Vector2(0, 0.27411175), 0.0, 0.0, 0, 0, Vector2(0.74595845, 1), 0.0, 0.0, 0, 0]
+point_count = 2
+
+[sub_resource type="CurveTexture" id="CurveTexture_wxifh"]
+curve = SubResource("Curve_xtx5x")
+
+[sub_resource type="ParticleProcessMaterial" id="ParticleProcessMaterial_gusb7"]
+particle_flag_rotate_y = true
+emission_shape = 3
+emission_box_extents = Vector3(0.5, 0.2, 0.5)
+angle_min = -89.99999
+angle_max = 90.000015
+gravity = Vector3(0, 1, 0)
+scale_min = 0.39999998
+scale_max = 0.59999996
+scale_curve = SubResource("CurveTexture_wxifh")
+alpha_curve = SubResource("CurveTexture_acbqd")
+hue_variation_min = -2.2351742e-08
+hue_variation_max = 0.019999977
+turbulence_noise_strength = 0.05
+turbulence_noise_scale = 0.1
+collision_mode = 1
+collision_friction = 0.0
+collision_bounce = 0.0
+collision_use_scale = true
+
+[sub_resource type="Curve" id="Curve_xm41f"]
+_data = [Vector2(0, 1), 0.0, 0.0, 0, 0, Vector2(1, 0), 0.0, 0.0, 0, 0]
+point_count = 2
+
+[sub_resource type="CurveTexture" id="CurveTexture_q6tuq"]
+curve = SubResource("Curve_xm41f")
+
+[sub_resource type="Gradient" id="Gradient_h2fdc"]
+colors = PackedColorArray(0.6, 0.6, 0.6, 1, 1, 1, 1, 1)
+
+[sub_resource type="GradientTexture1D" id="GradientTexture1D_k2rpy"]
+gradient = SubResource("Gradient_h2fdc")
+
+[sub_resource type="Gradient" id="Gradient_xm41f"]
+offsets = PackedFloat32Array(0.43825665, 0.6440678)
+
+[sub_resource type="FastNoiseLite" id="FastNoiseLite_imkfq"]
+
+[sub_resource type="NoiseTexture2D" id="NoiseTexture2D_6dr5b"]
+noise = SubResource("FastNoiseLite_imkfq")
+color_ramp = SubResource("Gradient_xm41f")
+
+[sub_resource type="ShaderMaterial" id="ShaderMaterial_4dgng"]
+render_priority = 0
+shader = ExtResource("2_oi4yx")
+shader_parameter/Color = Color(0, 0, 0, 1)
+shader_parameter/Color_Gradiant = SubResource("GradientTexture1D_k2rpy")
+shader_parameter/Vor_Noise = SubResource("NoiseTexture2D_6dr5b")
+shader_parameter/Alpha_Curve = SubResource("CurveTexture_q6tuq")
+shader_parameter/Fernal_Power = 0.0
+shader_parameter/Vor_Scale = 3.0
+shader_parameter/Vor_Speed = 1.0
+shader_parameter/Emmision_Power = 1.0
+shader_parameter/Alpha_Clip = 0.9999999776485
+
+[sub_resource type="Curve" id="Curve_jdje3"]
+_data = [Vector2(0, 1), 0.0, 0.0, 0, 0, Vector2(0.2477876, 1), 0.0, 0.0, 0, 0, Vector2(0.7463127, 0.49801522), -2.7390218, -2.7390218, 0, 0, Vector2(1, 0), 0.0, 0.0, 0, 0]
+point_count = 4
+
+[sub_resource type="CurveTexture" id="CurveTexture_jo873"]
+curve = SubResource("Curve_jdje3")
+
+[sub_resource type="ParticleProcessMaterial" id="ParticleProcessMaterial_m3foq"]
+emission_shape = 3
+emission_box_extents = Vector3(0.5, 0.1, 0.5)
+gravity = Vector3(0, 3, 0)
+scale_min = 0.5
+scale_curve = SubResource("CurveTexture_jo873")
+
+[sub_resource type="SphereMesh" id="SphereMesh_jdje3"]
+radial_segments = 12
+rings = 4
+
+[sub_resource type="Curve" id="Curve_m3foq"]
+_data = [Vector2(0, 1), 0.0, 0.0, 0, 0, Vector2(1, 0), 0.0, 0.0, 0, 0]
+point_count = 2
+
+[sub_resource type="CurveTexture" id="CurveTexture_hsjqm"]
+curve = SubResource("Curve_m3foq")
+
+[sub_resource type="ParticleProcessMaterial" id="ParticleProcessMaterial_hsjqm"]
+particle_flag_align_y = true
+emission_shape = 3
+emission_box_extents = Vector3(0.6, 0.2, 0.2)
+direction = Vector3(0, 0, 1)
+spread = 25.0
+initial_velocity_min = 6.0
+initial_velocity_max = 8.0
+scale_min = 0.5
+scale_curve = SubResource("CurveTexture_hsjqm")
+
+[sub_resource type="StandardMaterial3D" id="StandardMaterial3D_jdje3"]
+emission_enabled = true
+emission = Color(1, 0.45000005, 0, 1)
+emission_energy_multiplier = 3.0
+
+[sub_resource type="CapsuleMesh" id="CapsuleMesh_jdje3"]
+material = SubResource("StandardMaterial3D_jdje3")
+radius = 0.1
+height = 0.75
+radial_segments = 4
+rings = 0
+
+[sub_resource type="Gradient" id="Gradient_jo873"]
+offsets = PackedFloat32Array(0.30126584, 0.7417722)
+colors = PackedColorArray(1, 0.26666665, 0, 1, 1, 0.55, 0, 1)
+
+[sub_resource type="GradientTexture1D" id="GradientTexture1D_oi4yx"]
+gradient = SubResource("Gradient_jo873")
+
+[sub_resource type="Curve" id="Curve_jo873"]
+_data = [Vector2(0, 1), 0.0, 0.0, 0, 0, Vector2(0.4967742, 1), 0.0, 0.0, 0, 0, Vector2(1, 0), 0.0, 0.0, 0, 0]
+point_count = 3
+
+[sub_resource type="CurveTexture" id="CurveTexture_oi4yx"]
+curve = SubResource("Curve_jo873")
+
+[sub_resource type="ParticleProcessMaterial" id="ParticleProcessMaterial_jdje3"]
+emission_shape = 3
+emission_box_extents = Vector3(0.5, 0.1, 0.5)
+direction = Vector3(0, 1, 0)
+initial_velocity_max = 2.0
+gravity = Vector3(0, 3, 0)
+scale_min = 0.5
+scale_curve = SubResource("CurveTexture_oi4yx")
+color_ramp = SubResource("GradientTexture1D_oi4yx")
+
+[sub_resource type="Gradient" id="Gradient_oi4yx"]
+offsets = PackedFloat32Array(0.29177058, 0.68578553)
+
+[sub_resource type="FastNoiseLite" id="FastNoiseLite_xm41f"]
+noise_type = 0
+frequency = 0.0075
+
+[sub_resource type="NoiseTexture2D" id="NoiseTexture2D_q6tuq"]
+noise = SubResource("FastNoiseLite_xm41f")
+color_ramp = SubResource("Gradient_oi4yx")
+seamless = true
+
+[sub_resource type="Gradient" id="Gradient_rdxiu"]
+offsets = PackedFloat32Array(0.29925188, 0.680798)
+colors = PackedColorArray(1, 1, 1, 1, 0, 0, 0, 1)
+
+[sub_resource type="GradientTexture2D" id="GradientTexture2D_h2fdc"]
+gradient = SubResource("Gradient_rdxiu")
+fill = 1
+fill_from = Vector2(0.5, 0.5)
+
+[sub_resource type="ShaderMaterial" id="ShaderMaterial_k2rpy"]
+render_priority = 0
+shader = ExtResource("2_jo873")
+shader_parameter/noise_texture = SubResource("NoiseTexture2D_q6tuq")
+shader_parameter/texture_mask = SubResource("GradientTexture2D_h2fdc")
+shader_parameter/emission_intensity = 2.0
+shader_parameter/time_scale = 3.0
+shader_parameter/texture_scale = Vector2(1, 1)
+shader_parameter/edge_softness = 0.1
+
+[sub_resource type="QuadMesh" id="QuadMesh_imkfq"]
+material = SubResource("ShaderMaterial_k2rpy")
+
+[sub_resource type="Curve" id="Curve_h2fdc"]
+_data = [Vector2(0, 1), 0.0, 0.0, 0, 0, Vector2(1, 0), 0.0, 0.0, 0, 0]
+point_count = 2
+
+[sub_resource type="CurveTexture" id="CurveTexture_tsyqh"]
+curve = SubResource("Curve_h2fdc")
+
+[sub_resource type="Curve" id="Curve_k2rpy"]
+_data = [Vector2(0, 1), 0.0, 0.0, 0, 0, Vector2(1, 0), 0.0, 0.0, 0, 0]
+point_count = 2
+
+[sub_resource type="Curve" id="Curve_imkfq"]
+_limits = [0.0, 3.0, 0.0, 1.0]
+_data = [Vector2(0, 3), 0.0, 0.0, 0, 0, Vector2(1, 0), 0.0, 0.0, 0, 0]
+point_count = 2
+
+[sub_resource type="Curve" id="Curve_6dr5b"]
+_data = [Vector2(0, 1), 0.0, 0.0, 0, 0, Vector2(1, 0), 0.0, 0.0, 0, 0]
+point_count = 2
+
+[sub_resource type="CurveXYZTexture" id="CurveXYZTexture_br3nj"]
+curve_x = SubResource("Curve_k2rpy")
+curve_y = SubResource("Curve_imkfq")
+curve_z = SubResource("Curve_6dr5b")
+
+[sub_resource type="ParticleProcessMaterial" id="ParticleProcessMaterial_4dgng"]
+particle_flag_align_y = true
+emission_shape = 1
+emission_sphere_radius = 0.5
+spread = 180.0
+initial_velocity_min = 9.0
+initial_velocity_max = 12.0
+gravity = Vector3(0, -5, 0)
+scale_min = 0.29999998
+scale_max = 0.5
+scale_curve = SubResource("CurveXYZTexture_br3nj")
+color = Color(2.1168277, 1.4275763, 1.0556773, 1)
+emission_curve = SubResource("CurveTexture_tsyqh")
+
+[sub_resource type="StandardMaterial3D" id="StandardMaterial3D_55wc7"]
+transparency = 1
+cull_mode = 2
+shading_mode = 0
+vertex_color_use_as_albedo = true
+albedo_texture = ExtResource("6_rdxiu")
+
+[sub_resource type="QuadMesh" id="QuadMesh_sm8bf"]
+material = SubResource("StandardMaterial3D_55wc7")
+
+[sub_resource type="Curve" id="Curve_rdxiu"]
+_data = [Vector2(0, 1), 0.0, 0.0, 0, 0, Vector2(0.49884528, 1), 0.0, 0.0, 0, 0, Vector2(1, 0), 0.0, 0.0, 0, 0]
+point_count = 3
+
+[sub_resource type="CurveTexture" id="CurveTexture_h2fdc"]
+curve = SubResource("Curve_rdxiu")
+
+[sub_resource type="ParticleProcessMaterial" id="ParticleProcessMaterial_rdxiu"]
+angle_min = -89.99999
+angle_max = 90.000015
+direction = Vector3(-1, 1, -1)
+spread = 25.0
+initial_velocity_min = 4.0
+initial_velocity_max = 8.0
+gravity = Vector3(0, -12, 0)
+scale_max = 2.0
+scale_curve = SubResource("CurveTexture_h2fdc")
+
+[sub_resource type="BoxMesh" id="BoxMesh_h2fdc"]
+size = Vector3(0.2, 0.2, 0.2)
+
+[sub_resource type="Curve" id="Curve_4dgng"]
+_data = [Vector2(0, 1), 0.0, 0.0, 0, 0, Vector2(0.49884528, 1), 0.0, 0.0, 0, 0, Vector2(1, 0), 0.0, 0.0, 0, 0]
+point_count = 3
+
+[sub_resource type="CurveTexture" id="CurveTexture_sm8bf"]
+curve = SubResource("Curve_4dgng")
+
+[sub_resource type="ParticleProcessMaterial" id="ParticleProcessMaterial_n7y4p"]
+angle_min = -89.99999
+angle_max = 90.000015
+direction = Vector3(1, 1, -1)
+spread = 25.0
+initial_velocity_min = 4.0
+initial_velocity_max = 8.0
+gravity = Vector3(0, -12, 0)
+scale_max = 2.0
+scale_curve = SubResource("CurveTexture_sm8bf")
+
+[sub_resource type="SphereShape3D" id="SphereShape3D_rdxiu"]
+radius = 1.2
+
+[sub_resource type="BoxShape3D" id="BoxShape3D_rdxiu"]
+size = Vector3(1.5, 1, 1.5)
+
+[sub_resource type="AudioStreamRandomizer" id="AudioStreamRandomizer_jdje3"]
+random_pitch = 1.0028923
+random_volume_offset_db = 0.1
+streams_count = 1
+stream_0/stream = ExtResource("2_hsjqm")
+
+[sub_resource type="AudioStreamRandomizer" id="AudioStreamRandomizer_jo873"]
+random_pitch = 1.005793
+random_volume_offset_db = 0.1
+streams_count = 1
+stream_0/stream = ExtResource("3_jdje3")
+
+[node name="trashBot" unique_id=7624336 instance=ExtResource("1_m3foq")]
+script = ExtResource("2_q6tuq")
+trashblockSpawn = true
+shakeTime = 0.1
+shakeIntensity = 0.05
+
+[node name="Skeleton3D" parent="Armature" parent_id_path=PackedInt32Array(824860676) index="0" unique_id=923111252]
+bones/0/position = Vector3(0, -0.9422789, 0.15761109)
+bones/0/rotation = Quaternion(0.08315224, -0.0049166917, -0.05882064, 0.9947873)
+bones/1/rotation = Quaternion(0.9984778, 0.0048223995, -0.053033642, -0.014359806)
+bones/2/rotation = Quaternion(0.34520707, 0.020554788, 0.044845596, 0.93722916)
+bones/3/rotation = Quaternion(-0.23415463, -0.001137305, -0.0041759857, 0.9721897)
+bones/4/position = Vector3(2.5936876e-07, -0.018429399, 0.9822578)
+bones/4/rotation = Quaternion(1, -5.3108845e-12, 7.453503e-08, -1.5035991e-07)
+bones/5/rotation = Quaternion(-0.5729434, 1.7906334e-09, -8.5716444e-08, 0.819595)
+bones/6/rotation = Quaternion(-6.6322774e-09, 1.1928553e-07, -1.6302563e-09, 1)
+bones/7/rotation = Quaternion(-1.7913085e-07, 1.1836705e-07, -1.5540218e-09, 1)
+bones/8/rotation = Quaternion(0.7071068, -3.7093448e-09, -0.7071067, 1.2490594e-09)
+bones/9/rotation = Quaternion(0.9913427, 0.10155077, 0.07581181, 0.03434813)
+bones/10/rotation = Quaternion(0.27329785, -0.019236563, -0.033553094, 0.9611517)
+bones/11/rotation = Quaternion(-0.18648152, 0.0023952825, 0.008331831, 0.9824202)
+bones/12/position = Vector3(0.4477772, -2.4523754, -0.9988326)
+bones/12/rotation = Quaternion(-0.7071068, -2.528811e-07, 2.528811e-07, 0.7071068)
+bones/13/position = Vector3(-2.3513172e-07, -5.9604645e-07, 4.175995e-07)
+bones/14/position = Vector3(0.66472334, -2.01275, 0.34279233)
+bones/15/position = Vector3(-0.4669266, -2.4487584, -0.68367076)
+bones/15/rotation = Quaternion(-0.7070103, -0.0017732187, -0.00081434293, 0.7072006)
+bones/16/position = Vector3(2.465573e-07, 2.1750867e-07, -4.254635e-07)
+bones/16/rotation = Quaternion(1, -8.381905e-09, 4.349884e-07, 5.587933e-09)
+bones/17/position = Vector3(-0.6780457, -1.9907734, 0.36259452)
+
+[node name="leg2_l" parent="Armature/Skeleton3D" index="0" unique_id=488527893]
+transform = Transform3D(0.9778295, -0.2077648, -0.026128598, -0.17791833, -0.8901229, 0.41955453, -0.1104264, -0.40560412, -0.9073533, 0.6045407, -1.7807548, -0.6927939)
+
+[node name="leg1_l" parent="Armature/Skeleton3D" index="1" unique_id=325613781]
+transform = Transform3D(0.976002, -0.20428984, 0.07540159, -0.18572056, -0.6001129, 0.7780566, -0.11369967, -0.77338827, -0.6236518, 0.73429114, -1.3996055, -0.2015925)
+
+[node name="thigh_l" parent="Armature/Skeleton3D" index="2" unique_id=705431391]
+transform = Transform3D(0.990765, -0.10753546, -0.082586214, -0.08881877, -0.9749457, 0.20394056, -0.10244798, -0.19472212, -0.97549284, 0.7969467, -0.83155304, -0.08813764)
+
+[node name="Bone_009" parent="Armature/Skeleton3D" index="3" unique_id=135299472]
+transform = Transform3D(0.9930319, -0.05828903, -0.102420524, -0.117845565, -0.49117517, -0.8630523, 6.552677e-08, 0.8691083, -0.49462172, -0.115833886, -1.9183606, 0.9882127)
+
+[node name="Bone_005" parent="Armature/Skeleton3D" index="4" unique_id=1663249280]
+transform = Transform3D(0.9930319, -0.11621035, 0.01956444, -0.11784572, -0.9792516, 0.16485944, 1.358238e-07, -0.16601627, -0.986123, -0.021358574, -1.1222602, 1.1231786)
+
+[node name="Bone_006" parent="Armature/Skeleton3D" index="5" unique_id=1800208897]
+transform = Transform3D(0.9930319, 0.11621036, -0.01956402, -0.11784566, 0.9792517, -0.16485918, -2.469776e-07, 0.16601595, 0.9861231, 0.077716626, -0.2873963, 0.6656131)
+
+[node name="Bone_007" parent="Armature/Skeleton3D" index="6" unique_id=75472861]
+transform = Transform3D(0.9930319, 0.116210364, -0.01956398, -0.11784566, 0.97925174, -0.16485883, -2.4514082e-07, 0.16601561, 0.98612314, 0.022768546, -0.7504188, 0.5871153)
+
+[node name="Bone_008" parent="Armature/Skeleton3D" index="7" unique_id=117339368]
+transform = Transform3D(0.019564433, -0.11621035, -0.99303186, 0.16485912, -0.9792516, 0.117845714, -0.986123, -0.16601595, -1.0580153e-07, 0.14073038, 0.2435916, -0.84006107)
+
+[node name="leg2_r" parent="Armature/Skeleton3D" index="8" unique_id=1862825880]
+transform = Transform3D(0.9793071, 0.16073188, 0.122972816, 0.12372479, -0.9563571, 0.26471293, 0.16015388, -0.24402049, -0.9564537, -0.5693009, -1.7292931, -0.49988306)
+
+[node name="leg1_r" parent="Armature/Skeleton3D" index="9" unique_id=822120312]
+transform = Transform3D(0.9765817, 0.2097506, 0.04787966, 0.14064007, -0.79079103, 0.59570944, 0.16281332, -0.575025, -0.80177116, -0.70251966, -1.2270386, -0.13466793)
+
+[node name="thigh_r" parent="Armature/Skeleton3D" index="10" unique_id=1574672939]
+transform = Transform3D(0.98233473, 0.07959561, 0.16935945, 0.06457505, -0.9936231, 0.092428945, 0.1756365, -0.07985982, -0.98121, -0.74889606, -0.64810383, -0.08813763)
+
+[node name="Bone" parent="Armature/Skeleton3D" index="11" unique_id=1726800287]
+transform = Transform3D(0.9930319, 0.11621036, -0.019564258, -0.1178457, 0.9792517, -0.16485916, -1.1175871e-08, 0.16601597, 0.9861231, 0, -0.9422789, 0.15761109)
+
+[node name="CordPoint" type="Marker3D" parent="Armature/Skeleton3D/Bone" index="1" unique_id=34527443]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 1.4, -1.25)
+
+[node name="BlockPoint" type="Marker3D" parent="Armature/Skeleton3D/Bone" index="2" unique_id=622824984]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 0.5, -1.25)
+
+[node name="Smoke" type="GPUParticles3D" parent="Armature/Skeleton3D/Bone" index="3" unique_id=1676800017]
+transform = Transform3D(1, -4.656613e-10, 0, 9.313226e-10, 1.0000002, -1.1920929e-07, -4.656613e-10, 0, 1.0000001, 0, 1.9000001, -0.25)
+material_override = SubResource("ShaderMaterial_sm8bf")
+cast_shadow = 0
+amount = 16
+lifetime = 2.5
+explosiveness = 0.25
+trail_lifetime = 0.2
+process_material = SubResource("ParticleProcessMaterial_gusb7")
+draw_pass_1 = ExtResource("4_xm41f")
+
+[node name="SmokeParticle" type="GPUParticles3D" parent="Armature/Skeleton3D/Bone" index="4" unique_id=235985221]
+transform = Transform3D(1, -7.450581e-09, 5.9604645e-08, -7.450581e-09, 1, 0, 2.9802322e-08, 0, 1, 0, 1.9, -0.25)
+visible = false
+material_override = SubResource("ShaderMaterial_4dgng")
+amount = 16
+lifetime = 1.5
+explosiveness = 0.25
+process_material = SubResource("ParticleProcessMaterial_m3foq")
+draw_pass_1 = SubResource("SphereMesh_jdje3")
+
+[node name="SparksParticle" type="GPUParticles3D" parent="Armature/Skeleton3D/Bone" index="5" unique_id=1854494936]
+transform = Transform3D(0.9999998, -9.9244115e-09, 2.0678836e-10, -2.164602e-09, 0.99999964, -1.4901161e-08, 1.8093793e-10, 0, 0.99999964, 0.004, 0.5, 0.8)
+amount = 2
+lifetime = 0.3
+process_material = SubResource("ParticleProcessMaterial_hsjqm")
+draw_pass_1 = SubResource("CapsuleMesh_jdje3")
+
+[node name="FireParticle" type="GPUParticles3D" parent="Armature/Skeleton3D/Bone" index="6" unique_id=240954612]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 1.9, -0.25)
+emitting = false
+amount = 24
+one_shot = true
+explosiveness = 0.6
+process_material = SubResource("ParticleProcessMaterial_jdje3")
+draw_pass_1 = SubResource("QuadMesh_imkfq")
+
+[node name="ChompParticle" type="GPUParticles3D" parent="Armature/Skeleton3D/Bone" index="7" unique_id=1907542989]
+transform = Transform3D(1, 5.5298432e-09, 5.1752735e-10, 4.8386126e-09, 0.99999994, -1.4901161e-08, 4.52836e-10, 0, 0.99999994, 0.016095072, 0.18663085, 1.1664556)
+emitting = false
+amount = 6
+lifetime = 0.4
+one_shot = true
+explosiveness = 1.0
+process_material = SubResource("ParticleProcessMaterial_4dgng")
+draw_pass_1 = SubResource("QuadMesh_sm8bf")
+
+[node name="DebrisLeftParticle" type="GPUParticles3D" parent="Armature/Skeleton3D/Bone" index="8" unique_id=512803829]
+transform = Transform3D(1, 0, 0, 0, 0.99999994, 0, 0, 0, 1, -1, -1, 1)
+amount = 4
+process_material = SubResource("ParticleProcessMaterial_rdxiu")
+draw_pass_1 = SubResource("BoxMesh_h2fdc")
+
+[node name="DebrisRightParticle" type="GPUParticles3D" parent="Armature/Skeleton3D/Bone" index="9" unique_id=179034790]
+transform = Transform3D(1, 0, 0, 0, 0.99999994, 0, 0, 0, 1, 1, -1, 1)
+amount = 4
+process_material = SubResource("ParticleProcessMaterial_n7y4p")
+draw_pass_1 = SubResource("BoxMesh_h2fdc")
+
+[node name="MouthHitbox" type="Area3D" parent="Armature/Skeleton3D/Bone" index="10" unique_id=1887236855]
+transform = Transform3D(1, -1.5461442e-09, 1.2923884e-10, -1.8553729e-09, 1, -1.4901161e-08, 1.5508661e-10, 0, 1, 0, 0.3, 1.2)
+
+[node name="CollisionShape3D" type="CollisionShape3D" parent="Armature/Skeleton3D/Bone/MouthHitbox" index="0" unique_id=126063111]
+shape = SubResource("SphereShape3D_rdxiu")
+
+[node name="BackHitbox" type="Area3D" parent="Armature/Skeleton3D/Bone" index="11" unique_id=1772152149]
+transform = Transform3D(1, -1.5461442e-09, 1.2923884e-10, -1.8811197e-09, 1, -2.9802322e-08, 2.1520563e-12, 0, 1, 0, 2, -0.25)
+
+[node name="CollisionShape3D" type="CollisionShape3D" parent="Armature/Skeleton3D/Bone/BackHitbox" index="0" unique_id=1365727713]
+shape = SubResource("BoxShape3D_rdxiu")
+
+[node name="foot_l" parent="Armature/Skeleton3D" index="12" unique_id=1749422102]
+transform = Transform3D(1, 0, -1.5099579e-07, -1.5099579e-07, 0, -1, 0, 1, 0, 0.44777697, -2.452375, -0.998832)
+
+[node name="LeftStepSound" type="AudioStreamPlayer3D" parent="Armature/Skeleton3D/foot_l" index="1" unique_id=436942670]
+transform = Transform3D(0.99999994, 0, 0, 0, 1, 0, 0, 0, 1, 0, 0.5, 0.2)
+stream = SubResource("AudioStreamRandomizer_jdje3")
+
+[node name="foot_r" parent="Armature/Skeleton3D" index="13" unique_id=338789150]
+transform = Transform3D(0.9999924, -0.0036591918, 0.0013574148, 0.0013564302, -0.00027154761, -0.999999, 0.0036595569, 0.99999326, -0.00026653762, -0.46692637, -2.4487588, -0.683671)
+
+[node name="RightStepSound" type="AudioStreamPlayer3D" parent="Armature/Skeleton3D/foot_r" index="1" unique_id=1464872236]
+transform = Transform3D(0.99999994, 0, 0, 0, 1, 0, 0, 0, 1, 0, 0.5, 0.2)
+stream = SubResource("AudioStreamRandomizer_jdje3")
+
+[node name="AlertSound" type="AudioStreamPlayer3D" parent="." index="1" unique_id=130600514]
+stream = SubResource("AudioStreamRandomizer_jo873")
+unit_size = 20.0
+
+[node name="AnimationPlayer" parent="." index="2" unique_id=1356046253]
+autoplay = &"EatIdle"
+playback_default_blend_time = 0.2
+
+[connection signal="body_entered" from="Armature/Skeleton3D/Bone/MouthHitbox" to="." method="_on_mouth_hitbox_body_entered"]
+[connection signal="body_entered" from="Armature/Skeleton3D/Bone/BackHitbox" to="." method="_on_back_hitbox_body_entered"]

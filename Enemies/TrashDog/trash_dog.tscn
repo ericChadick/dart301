@@ -1,0 +1,62 @@
+[gd_scene format=3 uid="uid://cnexx5jm5sy8x"]
+
+[ext_resource type="Script" uid="uid://8j6d5hf8s4wd" path="res://Enemies/TrashDog/trash_dog.gd" id="1_wggqt"]
+[ext_resource type="PackedScene" uid="uid://dcq4u4hsq0jim" path="res://Effects/hit_particles.tscn" id="3_ar1h6"]
+[ext_resource type="PackedScene" uid="uid://b5qayvbmq8kqr" path="res://Enemies/TrashDog/trash_botMod.tscn" id="4_63hwd"]
+[ext_resource type="AudioStream" uid="uid://dw3f1fuukuip4" path="res://Audio/Enemies/enemy1/enemy1_takingdamage.wav" id="4_s2a0q"]
+[ext_resource type="AudioStream" uid="uid://bvetq445kwjme" path="res://Audio/Enemies/TrashDog/enemyvoice.wav" id="5_63hwd"]
+
+[sub_resource type="CapsuleShape3D" id="CapsuleShape3D_ela0e"]
+radius = 1.5
+height = 3.8
+
+[sub_resource type="StandardMaterial3D" id="StandardMaterial3D_2u0nj"]
+albedo_color = Color(1, 0, 0, 1)
+
+[sub_resource type="CapsuleMesh" id="CapsuleMesh_s2a0q"]
+material = SubResource("StandardMaterial3D_2u0nj")
+radius = 1.0
+height = 2.5
+
+[sub_resource type="CylinderMesh" id="CylinderMesh_wggqt"]
+top_radius = 0.1
+bottom_radius = 0.1
+height = 1.0
+
+[node name="trashBotEnemy" type="CharacterBody3D" unique_id=1048089377 groups=["character", "enemy"]]
+script = ExtResource("1_wggqt")
+
+[node name="CollisionShape3D" type="CollisionShape3D" parent="." unique_id=1764782850]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 1.8580215, 0)
+shape = SubResource("CapsuleShape3D_ela0e")
+
+[node name="trashBot" parent="." unique_id=983870169 instance=ExtResource("4_63hwd")]
+transform = Transform3D(-1, 0, -8.742278e-08, 0, 1, 0, 8.742278e-08, 0, -1, 0, 0, 0)
+
+[node name="MeshInstance3D" type="MeshInstance3D" parent="." unique_id=935696773]
+visible = false
+mesh = SubResource("CapsuleMesh_s2a0q")
+
+[node name="Head" type="Node3D" parent="." unique_id=25793801]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 2.482664, 0.008497238)
+
+[node name="ShootPoint" type="Marker3D" parent="Head" unique_id=454517184]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, -0.09347439, -1.5)
+
+[node name="CordPoint" type="Marker3D" parent="Head" unique_id=678470088]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 0.86812663, 1.1274652)
+
+[node name="HitParticles" parent="." unique_id=1875539030 instance=ExtResource("3_ar1h6")]
+
+[node name="HitSound" type="AudioStreamPlayer3D" parent="." unique_id=1741123554]
+stream = ExtResource("4_s2a0q")
+
+[node name="AlertSound" type="AudioStreamPlayer3D" parent="." unique_id=509182297]
+stream = ExtResource("5_63hwd")
+
+[node name="Cord" type="MeshInstance3D" parent="." unique_id=491060797]
+mesh = SubResource("CylinderMesh_wggqt")
+
+[node name="GroundRay" type="RayCast3D" parent="." unique_id=1766517832]
+
+[connection signal="tree_exited" from="." to="." method="_on_tree_exited"]

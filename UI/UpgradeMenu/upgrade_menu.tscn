@@ -16,6 +16,7 @@
 [ext_resource type="Texture2D" uid="uid://pkhhx2kkucph" path="res://UI/UpgradeMenu/prototype.png" id="12_kimnd"]
 [ext_resource type="Shader" uid="uid://bp7q7ubcd4lk4" path="res://Shaders/dither.gdshader" id="13_d67jj"]
 [ext_resource type="Shader" uid="uid://drc60ttp56cn4" path="res://Shaders/screen.gdshader" id="14_hhs1x"]
+[ext_resource type="Texture2D" uid="uid://diu4t01qg1wt5" path="res://UI/Gameplay/battery.png" id="15_g2q6n"]
 
 [sub_resource type="ShaderMaterial" id="ShaderMaterial_uxsr7"]
 shader = ExtResource("13_d67jj")
@@ -151,6 +152,12 @@ size_flags_vertical = 8
 texture_normal = ExtResource("5_v27ci")
 stretch_mode = 6
 
+[node name="BatteryDebug" type="TextureButton" parent="Control/MarginContainer" unique_id=1364926991]
+layout_mode = 2
+size_flags_horizontal = 8
+size_flags_vertical = 0
+texture_normal = ExtResource("15_g2q6n")
+
 [node name="Audio" type="Node" parent="." unique_id=1896171430]
 
 [node name="CycleSound" type="AudioStreamPlayer" parent="Audio" unique_id=1596670953]
@@ -167,3 +174,4 @@ grow_vertical = 2
 mouse_filter = 2
 
 [connection signal="pressed" from="Control/MarginContainer/HBoxContainer/GoButton" to="." method="_on_go_button_pressed"]
+[connection signal="pressed" from="Control/MarginContainer/BatteryDebug" to="." method="_on_battery_debug_pressed"]

@@ -65,4 +65,9 @@ func _process(delta: float) -> void:
 		cycle_sound.play();
 
 func _on_go_button_pressed() -> void:
-	get_tree().change_scene_to_file("res://World/world.tscn");
+	get_tree().change_scene_to_file(Global.mainScene);
+	#get_tree().change_scene_to_file("res://World/world.tscn");
+
+
+func _on_battery_debug_pressed() -> void:
+	Global.batteryDecreaseDebug = !Global.batteryDecreaseDebug;
