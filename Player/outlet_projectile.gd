@@ -1,4 +1,5 @@
 extends Area3D
+@onready var shoot_sound: AudioStreamPlayer3D = $ShootSound
 
 var speed : float = 80.0;
 var direction : Vector3 = Vector3.ZERO;
@@ -6,7 +7,7 @@ var creator : Node3D;
 
 # Called when the node enters the scene tree for the first time.
 func _ready() -> void:
-	pass;
+	shoot_sound.play();
 
 # Called every frame. 'delta' is the elapsed time since the previous frame.
 func _process(delta: float) -> void:
@@ -27,15 +28,13 @@ func _on_body_entered(body: Node3D) -> void:
 		#if body.hp <= 0:
 			#body.queue_free();
 		#queue_free();
-	
-#timer node connected signal to destroy self on timeout
-func _on_timer_timeout() -> void:
-	destroy();
 
 func _on_area_entered(area: Area3D) -> void:
 	if area.is_in_group("outlet"):
+		area.get_node("PlugSound").play();
 		creator.outlet = area;
-		creator.velocity = (area.global_position-creator.global_position).normalized()*area.global_position.distance_to(creator.global_position);
+		creator.shake = max(creator.shake, creator.outletShakeAmnt);
+		#creator.velocity = (area.global_position-creator.global_position).normalized()*area.global_position.distance_to(creator.global_position);
 		destroy();
 		
 func destroy() -> void:

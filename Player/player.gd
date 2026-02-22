@@ -1,14 +1,43 @@
 extends CharacterBody3D
 
 @onready var head: Node3D = $Head
+@onready var torso: Node3D = $Torso
 @onready var camera: Camera3D = $Head/Camera3D
 @onready var shoot_point: Marker3D = $Head/shootPoint
 @onready var shoot_particles: GPUParticles3D = $Head/ShootParticles
 @onready var cord: MeshInstance3D = $Cord
 @onready var outlet_ray: RayCast3D = $Head/outletRay
-@onready var step_sound: AudioStreamPlayer3D = $StepSound
-@onready var shoot_sound: AudioStreamPlayer = $ShootSound
+@onready var rightwall_ray: RayCast3D = $Torso/rightwallRay
+@onready var leftwall_ray: RayCast3D = $Torso/leftwallRay
 
+@onready var cord_hand_animations: AnimationPlayer = $CordHandAnimations
+@onready var weapon_hand_animations: AnimationPlayer = $WeaponHandAnimations
+
+
+@onready var step_sound: AudioStreamPlayer3D = $StepSound
+@onready var hit_sound: AudioStreamPlayer = $HitSound
+
+@onready var shoot_sound: AudioStreamPlayer = $Sounds/ShootSound
+@onready var self_destruct_sound: AudioStreamPlayer = $Sounds/SelfDestructSound
+@onready var swing_sound: AudioStreamPlayer = $Sounds/SwingSound
+@onready var unplug_sound: AudioStreamPlayer = $Sounds/UnplugSound
+@onready var charging_sound: AudioStreamPlayer = $Sounds/ChargingSound
+@onready var pull_sound: AudioStreamPlayer = $Sounds/PullSound
+@onready var slide_sound: AudioStreamPlayer = $Sounds/SlideSound
+@onready var punch_sound: AudioStreamPlayer = $Sounds/PunchSound
+@onready var jump_sound: AudioStreamPlayer = $Sounds/JumpSound
+@onready var land_sound: AudioStreamPlayer = $Sounds/LandSound
+
+@onready var blueprint_timer: Timer = $Timers/BlueprintTimer
+@onready var pull_timer: Timer = $Timers/PullTimer
+@onready var slide_timer: Timer = $Timers/SlideTimer
+@onready var slide_cooldown_timer: Timer = $Timers/SlideCooldownTimer
+@onready var punch_timer: Timer = $Timers/PunchTimer
+@onready var hit_cooldown_timer: Timer = $Timers/HitCooldownTimer
+
+@onready var sub_viewport_container: SubViewportContainer = $"../.."
+
+var screen: ColorRect;
 var battery_bar: ProgressBar;
 var health_bar: ProgressBar;
 var crosshair: TextureRect;
@@ -16,6 +45,9 @@ var circle_bar: ColorRect;
 var outlet_crosshair: TextureRect;
 var currency_text: RichTextLabel;
 var blueprint_text: RichTextLabel;
+var outlet_bar: ProgressBar;
+var plug_icon: TextureRect;
+var screen_cracks: TextureRect;
 
 @export var playerUI : CanvasLayer;
 
@@ -31,19 +63,26 @@ var batteryMax := battery;
 var hp := calculateStat(Global.hpMin, Global.hpMax, Global.hpLevel, Global.hpLevelMax);
 var hpMax := hp;
 var cordLength := calculateStat(Global.cordLengthMin, Global.cordLengthMax, Global.cordLengthLevel, Global.cordLengthLevelMax);
+var dataMultiplier := calculateStat(Global.dataMultiplierMin, Global.dataMultiplierMax, Global.dataMultiplierLevel, Global.dataMultiplierLevelMax);
 
-@export var groundAccel := speed*1.25;
-@export var groundFric := speed*1.25;
-@export var airAccel := speed*.75;
-@export var airFric := speed*.75;
-@export var gravity := 25.0;#jumpSpd*1.5;
+var pullSpd := 60.0;
 
-var stepTimerStep := (1.0-(speed/18.0))*2.0;
+@export var groundAccel := speed*.8
+@export var groundFric := speed*.8
+@export var airAccel := speed*.6;
+@export var airFric := speed*.6;
+@export var gravity := 20.0;#jumpSpd*1.5;
+
+var stepTimerStep := .6;#(1.0-(speed/18.0))*2.0;
 var stepTimer := stepTimerStep;
+
+var weapon := Global.PlayerWeapon.FIST;
 
 var outlet : Area3D;
 var outletSelect := Area3D;
 var cordProjectile : Node3D;
+var cordTugs := 0;
+var cordTugsMax := 1;
 
 var dashCooldown := 0.0;
 var dashCooldownAmnt := 1.0;
@@ -51,22 +90,31 @@ var dashInputBuffer := 0.0;
 
 var jumpBuffer := 0.0;
 var groundBuffer := 0.0;
+var slideBuffer := 0.0;
 
 var outletBuffer := 0.0;
-var outletBufferTime := .2;
+var outletBufferTime := .25;
+var chargeSwing := false;
 
-var shootBuffer := 0.0;
-var shootBufferTime := .2;
+var weaponBuffer := 0.0;
+var weaponBufferTime := .2;
+var weaponCooldown := 0.0;
 var shootShakeAmnt := .2;
-var shootOutletAmnt := .3;
+var outletShakeAmnt := .1;
+var shakeJumpAmnt := .2;
+var shakeLandAmnt := .25;
+
+var hitboxEnemy : Node3D;
+
+var swingChargeTime := 0.0;
 
 var releaseTime := 0.0;
-var releaseTimeMax := 0.0;
+var releaseTimeMax := 2.0;
 var releasing := false;
 
 var canWallRun := false;
 var wallRunTime := 0.0;
-var wallRunTimeMax := 2.0;
+var wallRunTimeMax := 3.0;
 
 #Camera variables
 var invertCamMov := true;
@@ -94,16 +142,20 @@ const powerIcon = preload("uid://fcmbc0c6wtwk")
 
 var circleBarMat : Resource;
 
+const SCREEN_MAT = preload("uid://g0eihtw4spff")
+var screenMat : ShaderMaterial;
+
+const crackTex = preload("uid://c7pc4jg6uh08y")
+const midFalloffCurve = preload("uid://ctokbcp4b3k6s")
+
 func _ready() -> void:
-	##Wyatt added
-	#add_to_group("player")
-	######
 	outlet = null;
 	cordProjectile = null;
 	circleBarMat = preload("uid://f4lyx4wwc4mt");
-	outlet_ray.target_position = Vector3(0.0,0.0, -cordLength);
+	outlet_ray.target_position = Vector3(0.0,0.0, -cordLength*.8);
 	targY = head.position.y;
 	
+	screen = playerUI.get_node("Screen");
 	battery_bar = playerUI.get_node("Control/MarginContainer/StatBars/BatteryBar");
 	health_bar = playerUI.get_node("Control/MarginContainer/StatBars/HealthBar");
 	crosshair = playerUI.get_node("Control/MarginContainer/Crosshair");
@@ -111,7 +163,12 @@ func _ready() -> void:
 	outlet_crosshair = playerUI.get_node("Control/OutletCrosshair");
 	currency_text = playerUI.get_node("Control/MarginContainer/Currency");
 	blueprint_text = playerUI.get_node("Control/MarginContainer/BlueprintText");
+	outlet_bar = playerUI.get_node("Control/OutletCrosshair/OutletBar")
+	plug_icon = playerUI.get_node("PlugIcon")
+	screen_cracks = playerUI.get_node("Control/ScreenCracks");
 	
+	screenMat = SCREEN_MAT.duplicate();
+	screen.material = screenMat;
 
 #move camera with controller r stick
 func _process(delta):
@@ -121,16 +178,16 @@ func _process(delta):
 	# FOV and headbob
 	t_bob += delta * velocity.length() * float(is_on_floor())
 	var velocity_clamped = clamp(velocity.length(), 0.5, speed * 2)
-	var target_fov = BASE_FOV + FOV_CHANGE * velocity_clamped;
+	var target_fov = BASE_FOV + FOV_CHANGE*(1.0+(slide_timer.time_left/slide_timer.wait_time)*1.0+(wallRunTime/wallRunTimeMax)) * velocity_clamped;
 	camera.fov = lerp(camera.fov, target_fov, delta * 8.0)
 	shake = move_toward(shake, 0.0, delta*2.0);
 	var shakeOffset := Vector3(randf_range(-shake, shake)*Global.screenShake,randf_range(-shake, shake)*Global.screenShake,randf_range(-shake, shake)*Global.screenShake);
 	camera.transform.origin = headbob(t_bob)+shakeOffset;
+	#camera.transform.origin.z  	
 	
+	plug_icon.visible = outlet != null;
 	if outlet == null:
-		battery -= delta;#*Global.batteryDecRate;
 		cord.visible = false;
-		
 		if cordProjectile != null:
 			cord.visible = true;
 			cord.global_position = (global_position+cordProjectile.global_position)/2;
@@ -138,7 +195,6 @@ func _process(delta):
 			cord.rotation_degrees.x += 90;
 			cord.scale.y = global_position.distance_to(cordProjectile.global_position);
 	else:
-		battery = batteryMax;
 		cord.visible = true;
 		cord.global_position = (global_position+outlet.global_position)/2;
 		cord.look_at(outlet.global_position);
@@ -147,66 +203,149 @@ func _process(delta):
 		
 	battery_bar.value = (battery/batteryMax);
 	health_bar.value = (hp/hpMax);
-	currency_text.text = str(Global.currency);
+	currency_text.text = str("%.1f" %Global.currency);
 	
-	shootBuffer -= delta;
+	var fuzz = midFalloffCurve.sample(1.0-(battery/batteryMax)+(hit_cooldown_timer.time_left/hit_cooldown_timer.wait_time)*.5);
+	screenMat.set_shader_parameter("noise_strength", 10.0+(1.0-fuzz)*30.0);
+	
+	weaponBuffer -= delta;
+	weaponCooldown -= delta;
 	outletBuffer -= delta;
-	if Input.is_action_just_pressed("RMB"):
+	if Input.is_action_just_released("RMB"):
 		outletBuffer = outletBufferTime;
 	if Input.is_action_just_pressed("LMB"):
-		shootBuffer = shootBufferTime;
-		
+		weaponBuffer = weaponBufferTime;
+	
+	if outlet == null and cordProjectile == null and Input.is_action_pressed("RMB"):
+		$Head/CordProtoNode.visible = true;
+		cord_hand_animations.play("swing");
+		chargeSwing = true;
+		shake = max(shake, .02);
+		if !swing_sound.playing:
+			swing_sound.play();
+	if chargeSwing:
+		swingChargeTime += delta;
+	if outletBuffer > 0.0:
+		if swingChargeTime > .25:
+			chargeSwing = false;
+			outletBuffer = 0.0;
+			var bulletInstance = outletProj.instantiate();
+			get_parent().add_child(bulletInstance);
+			bulletInstance.position = shoot_point.global_position;
+			bulletInstance.direction = -head.transform.basis.z;
+			bulletInstance.creator = self;
+			cordProjectile = bulletInstance;
+			outletBuffer = 0.0;
+			shake = max(shake, outletShakeAmnt);
+			
+			$Head/CordProtoNode.visible = false
+			swing_sound.stop();
+			swingChargeTime = 0.0;
+			cord_hand_animations.play("RESET");
+	
 	crosshair.texture = crosshairIcon;
 	
-	if outlet == null and cordProjectile == null and outletBuffer > 0.0:
-		#shoot_sound.play();
-		#shoot_particles.emitting = true;
-		var bulletInstance = outletProj.instantiate();
-		get_parent().add_child(bulletInstance);
-		bulletInstance.position = shoot_point.global_position;
-		bulletInstance.direction = -head.transform.basis.z;
-		bulletInstance.creator = self;
-		cordProjectile = bulletInstance;
-		outletBuffer = 0.0;
-		shake = shootOutletAmnt;
-		
-	if outlet != null:
-		if Input.is_action_just_pressed("RMB"):
-			outlet = null;
+	#if outlet == null and cordProjectile == null and outletBuffer > 0.0:
+		##shoot_sound.play();
+		##shoot_particles.emitting = true;
+		#var bulletInstance = outletProj.instantiate();
+		#get_parent().add_child(bulletInstance);
+		#bulletInstance.position = shoot_point.global_position;
+		#bulletInstance.direction = -head.transform.basis.z;
+		#bulletInstance.creator = self;
+		#cordProjectile = bulletInstance;
+		#outletBuffer = 0.0;
+		#shake = shootOutletAmnt;
 	
-	if Input.is_action_just_pressed("selfDestruct"):
-		battery = 0.0;
+	battery -= delta;
+	
+	if outlet != null:
 		
-	#if outlet != null:
-		#if Input.is_action_just_pressed("RMB"):
-			#releasing = true;
-		#if Input.is_action_just_released("RMB"):
-			#releasing = false;
-			#
-		#if releasing && Input.is_action_pressed("RMB"):
-			#releaseTime += delta;
-			#crosshair.texture = powerIcon;
-		#else:
-			#releaseTime = 0.0;
-#
-		#if releaseTime >= releaseTimeMax:
-			#releaseTime = 0.0;
-			#outlet = null;
-	#else:
-		#releasing = false;
+		outlet_bar.visible = true;
+		if outlet.battery > 0:
+			var diff = batteryMax-battery;
+			outlet.battery -= diff;
+			battery += diff;
+			
+			outlet_bar.modulate = Color.YELLOW;
+			battery_bar.modulate = Color.YELLOW;
+			if !charging_sound.playing:
+				charging_sound.play();
+		else:
+			outlet_bar.modulate = Color.RED;
+			battery_bar.modulate = Color.RED;
+			charging_sound.stop();
+			
+		outlet_bar.value = outlet.battery/outlet.batteryMax;
+		#Global.currency += delta*dataMultiplier;
+		if cordTugs > 0 and Input.is_action_just_pressed("pull"):
+			var outletVec = (outlet.global_position-global_position).normalized()*(pullSpd+outlet.global_position.distance_to(global_position));
+			var lookVec = -head.transform.basis.z*(pullSpd+outlet.global_position.distance_to(global_position));
+			var pullVec = (lookVec+outletVec)/2;
+			canWallRun = true;
+			wallRunTime = wallRunTimeMax;
+			
+			velocity = pullVec;
+			pull_sound.play();
+			cordTugs -= 1;
+			pull_timer.start();
+			
+			#unplug from outlet
+			outlet = null;
+			unplug_sound.play();
+			outletBuffer = 0.0;
+			
+			#creator.velocity = (area.global_position-creator.global_position).normalized()*area.global_position.distance_to(creator.global_position);
+		if outletBuffer > 0.0: #unplug
+			outlet = null;
+			unplug_sound.play();
+			outletBuffer = 0.0;
+	else:
+		charging_sound.stop();
+		battery_bar.modulate = Color.WHITE;
+		outlet_bar.visible = false;
+		
+	if Input.is_action_pressed("selfDestruct"):
+		if !self_destruct_sound.playing:
+			self_destruct_sound.play();
+		releaseTime += delta;
+		if releaseTime >= releaseTimeMax:
+			battery = 0.0;
+		crosshair.texture = powerIcon;
+	else:
+		releaseTime = 0.0;
+		crosshair.texture = crosshairIcon
+		self_destruct_sound.stop();
 		
 	circleBarMat.set_shader_parameter("progress", releaseTime/releaseTimeMax);
 	
-	if Global.gunPurchased and Input.is_action_just_pressed("LMB") and shootBuffer > 0.0:
-		var bulletInstance = bullet.instantiate();
-		get_parent().add_child(bulletInstance);
-		bulletInstance.position = shoot_point.global_position;
-		bulletInstance.direction = -head.transform.basis.z;
-		bulletInstance.creator = self;
-		shoot_particles.restart();
-		shootBuffer = 0.0;
-		shake = shootShakeAmnt;
-		shoot_sound.play();
+	if punch_timer.time_left > 0.0 and hitboxEnemy != null:
+		var e = hitboxEnemy.explosion.instantiate();
+		hitboxEnemy.get_parent().add_child(e);
+		e.global_position = hitboxEnemy.global_position;
+		Global.currency += hitboxEnemy.currencyReward;
+		hitboxEnemy.queue_free();
+		
+	match (weapon):
+		Global.PlayerWeapon.FIST:
+			if weaponBuffer > 0.0 and weaponCooldown <= 0.0:
+				shoot_particles.restart();
+				weaponBuffer = 0.0;
+				weaponCooldown = .4;
+				punch_timer.start();
+				punch_sound.play();
+				shake = shootShakeAmnt;
+		Global.PlayerWeapon.GUN:
+			if Global.gunPurchased and weaponBuffer > 0.0:
+				var bulletInstance = bullet.instantiate();
+				get_parent().add_child(bulletInstance);
+				bulletInstance.position = shoot_point.global_position;
+				bulletInstance.direction = -head.transform.basis.z;
+				bulletInstance.creator = self;
+				shoot_particles.restart();
+				weaponBuffer = 0.0;
+				shake = max(shake, shootShakeAmnt);
+				shoot_sound.play();
 		
 		
 	if Input.is_action_just_pressed("ui_cancel"):
@@ -221,34 +360,70 @@ func _physics_process(delta: float) -> void:
 	var input_dir = Input.get_vector("left", "right", "up", "down");
 	var direction = (head.transform.basis * transform.basis * Vector3(input_dir.x, 0, input_dir.y)).normalized();
 	
+	var zwobble = 0.0;
+	if slide_timer.time_left > 0.0:
+		zwobble = -.1;
+	elif is_on_wall() and wallRunTime > 0.0:
+		var amnt = .3*midFalloffCurve.sample(1.0-(wallRunTime/wallRunTimeMax));
+		if leftwall_ray.is_colliding():
+			zwobble = -amnt;
+		if rightwall_ray.is_colliding():
+			zwobble = amnt;
+			#int()*.3;#-int(leftwall_ray.is_colliding())*.3;
+		#zwobble = sign(-direction.dot(get_slide_collision(0).get_normal()))*.5;
+		#print(zwobble);
+	else:
+		zwobble = -.04*input_dir.x;
+	head.rotation.z = lerp(head.rotation.z, zwobble, delta*5.0);
+		
 	#input buffers for platforming
 	jumpBuffer -= delta;
 	groundBuffer -= delta;
+	slideBuffer -= delta;
 	if Input.is_action_just_pressed("jump"):
 		jumpBuffer = .25;
 	if is_on_floor(): 
 		groundBuffer = .2;
+		cordTugs = cordTugsMax;
+	if Input.is_action_just_pressed("slide"):
+		slideBuffer = .15;
+	
+	torso.rotation.y = head.rotation.y;
 	
 	groundedPrev = groundedCurrent;
 	groundedCurrent = groundBuffer > 0.0;
 	var inc := 0.0;
 	if groundBuffer > 0.0:
+		if velocity.length() > speed*.5 and slideBuffer > 0.0 and slide_cooldown_timer.is_stopped():
+			slide_timer.start();
+			slide_sound.play();
+			velocity.x *= 2.5;
+			velocity.z *= 2.5;
+			slideBuffer = 0.0;
+			slide_cooldown_timer.start();
+			
+		canWallRun = false;
+		wallRunTime = 0.0;
 		if jumpBuffer > 0.0: #handle jump
+			jump_sound.play();
 			velocity.y = jumpSpd;
 			jumpBuffer = 0.0;
 			groundBuffer = 0.0;
-			shake = .4;
+			shake = max(shake,shakeJumpAmnt);
 			canWallRun = true;
 			wallRunTime = wallRunTimeMax;
+			slide_timer.stop();
 		#set accelerations ground
 		if input_dir.length() < .5:
 			inc = groundFric;
 		else:
 			inc = groundAccel;
 	else:
-		velocity.y -= gravity * delta #handle gravity
-		canWallRun = false;
-		wallRunTime = 0.0;
+		if pull_timer.time_left <= 0.0:
+			if !is_on_wall() or wallRunTime <= 0.0:
+				velocity.y -= gravity * delta #handle gravity
+			#else:
+			#	velocity.y -= gravity*.1 * delta
 		#set accelerations air
 		if input_dir.length() < .5:
 			inc = airFric;
@@ -260,27 +435,49 @@ func _physics_process(delta: float) -> void:
 			
 	#land effects
 	if groundedPrev != groundedCurrent:
-		shake = .5;
+		land_sound.play();
+		shake = max(shake, shakeLandAmnt);
 		
 	#wall run
 	if canWallRun and input_dir.length() > .5:
 		if is_on_wall() and wallRunTime > 0.0:
+			cordTugs = cordTugsMax;
 			wallRunTime -= delta;
 			var wallN = get_slide_collision(0)
-			direction = -wallN.get_normal()* speed;
+			var d = direction;
+			direction = d-wallN.get_normal()*d.dot(wallN.get_normal());
+			
+			if jumpBuffer > 0.0: #handle jump
+				jump_sound.play();
+				velocity = wallN.get_normal()*jumpSpd*2.0;
+				velocity.y = jumpSpd*.5;
+				jumpBuffer = 0.0;
+				groundBuffer = 0.0;
+				shake = max(shake, shakeJumpAmnt);
+				canWallRun = false;
+				wallRunTime = 0.0;
+				slide_timer.stop();
 	
-	velocity.x = lerp(velocity.x, direction.x * speed, delta * inc)
-	velocity.z = lerp(velocity.z, direction.z * speed, delta * inc)
+	var pullRatioDir = clamp((pull_timer.time_left/pull_timer.wait_time)*3.0, 1.0, 3.0);
+	var pullRatioAcc = clamp((1.0-pull_timer.time_left/pull_timer.wait_time), .5, 1.0);
+	var slideRatioAcc = clamp(1.0-slide_timer.time_left/slide_timer.wait_time, .1, 1.0);
+	var slideRatioSpd = clamp((slide_timer.time_left/slide_timer.wait_time)*2.0, 1.0, 2.0);
+	velocity.x = lerp(velocity.x, direction.x*pullRatioDir * speed*slideRatioSpd, delta * inc * pullRatioAcc * slideRatioAcc);
+	velocity.z = lerp(velocity.z, direction.z*pullRatioDir * speed*slideRatioSpd, delta * inc * pullRatioAcc * slideRatioAcc);
 	
 	#play step sounds
-	if velocity.length() > 1.0 and groundBuffer > 0.0:
+	var wlrn = is_on_wall() and wallRunTime > 0.0;
+	if velocity.length() > 1.0 and (groundBuffer > 0.0 or wlrn) and slide_timer.time_left <= 0.0:
 		stepTimer -= delta;
 	else:
 		stepTimer = stepTimerStep;
 	if stepTimer <= 0.0:
 		step_sound.play();
 		shake = .1;
-		stepTimer = stepTimerStep;
+		if wlrn:
+			stepTimer = stepTimerStep*.5;
+		else:
+			stepTimer = stepTimerStep;
 	
 	dashCooldown -= delta;
 	dashInputBuffer -= delta;
@@ -301,7 +498,7 @@ func _physics_process(delta: float) -> void:
 	
 	#if power runs out or hp drops below 0	
 	if battery <= 0.0 or hp <= 0.0:
-		get_tree().change_scene_to_file("res://UI/upgrade_menu.tscn");
+		get_tree().change_scene_to_file("res://UI/UpgradeMenu/upgrade_menu.tscn");
 		
 	if outlet_ray.is_colliding():
 		var coll = outlet_ray.get_collider()
@@ -313,14 +510,13 @@ func _physics_process(delta: float) -> void:
 	if outletSelect != null:
 		if camera.is_position_in_frustum(outletSelect.global_position):
 			outlet_crosshair.show()
-			#offscreen_reticle.hide()
 			var crossPos = camera.unproject_position(outletSelect.global_position);
-			outlet_crosshair.global_position = crossPos*4.0-outlet_crosshair.size*.5;
+			outlet_crosshair.global_position = crossPos*sub_viewport_container.stretch_shrink-outlet_crosshair.size*.5;
+			#outlet_crosshair.rotation_degrees += delta*5.0;
 	else:
 		outlet_crosshair.hide();
-		
+	
 	move_and_slide()
-
 
 func rotate_from_vector(v: Vector2):
 	if v.length() == 0: return
@@ -336,14 +532,39 @@ func rotate_from_vector(v: Vector2):
 
 func headbob(time) -> Vector3:
 	var pos = Vector3.ZERO
-	pos.y = sin(time * BOB_FREQ) * BOB_AMP
+	pos.y = sin(time * BOB_FREQ) * BOB_AMP - sin((slide_timer.time_left/slide_timer.wait_time)*PI)
 	pos.x = cos(time * BOB_FREQ / 2) * BOB_AMP
 	return pos
 
+func addScreenCrack() -> void:
+	var viewsize = get_viewport().get_visible_rect();
+	var newTex = TextureRect.new();
+	newTex.texture = crackTex;
+	screen_cracks.add_child(newTex);
+	$Sounds/GlassSound.play();
+	newTex.position = Vector2(randf_range(0.0, viewsize.size.x), randf_range(0.0, viewsize.size.y));
+	newTex.rotation_degrees = randf_range(0.0, 360.0);
+	newTex.scale = Vector2(randf_range(.75, 1.5), randf_range(.75, 1.5));
+	newTex.modulate.a = randf_range(.25, .5);
 
 func _on_collect_radius_area_entered(area: Area3D) -> void:
 	if area.is_in_group("blueprint"):
-		blueprint_text.text = "Acquired " + str(area.itemName);
+		blueprint_text.text = "Uploading " + str(area.itemName) + " blueprint...";
+		blueprint_timer.start();
 		match(area.itemName):
 			"Gun": Global.gunUnlocked=true;
 		area.queue_free();
+
+
+func _on_blueprint_timer_timeout() -> void:
+	blueprint_text.text = "";
+
+
+func _on_slide_timer_timeout() -> void:
+	slide_cooldown_timer.start();
+
+func _on_punch_hitbox_body_entered(body: Node3D) -> void:
+	if body.is_in_group("enemy"):
+		hitboxEnemy = body;
+func _on_punch_hitbox_body_exited(body: Node3D) -> void:
+	hitboxEnemy = null;

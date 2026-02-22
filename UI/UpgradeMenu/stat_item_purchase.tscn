@@ -1,0 +1,43 @@
+[gd_scene format=3 uid="uid://c2pjwyt35wifb"]
+
+[ext_resource type="Script" uid="uid://deyyrw5g333ku" path="res://UI/UpgradeMenu/stat_item_purchase.gd" id="1_ngna2"]
+[ext_resource type="FontFile" uid="uid://b5iu436di81lx" path="res://UI/Gameplay/propaganda.ttf" id="3_t7bc4"]
+[ext_resource type="AudioStream" uid="uid://b868irl7yyur1" path="res://Audio/UpgradeMenu/itempurchase.wav" id="3_tixg1"]
+
+[sub_resource type="AudioStreamRandomizer" id="AudioStreamRandomizer_ygnnc"]
+random_pitch = 1.0028923
+random_volume_offset_db = 0.05
+streams_count = 1
+stream_0/stream = ExtResource("3_tixg1")
+
+[node name="ItemPurchaseButton" type="HBoxContainer" unique_id=1429138153]
+custom_minimum_size = Vector2(232, 64)
+offset_right = 232.0
+offset_bottom = 64.0
+script = ExtResource("1_ngna2")
+
+[node name="Button" type="TextureButton" parent="." unique_id=1348568238]
+modulate = Color(0.74509805, 0.74509805, 0.74509805, 1)
+custom_minimum_size = Vector2(64, 64)
+layout_mode = 2
+size_flags_horizontal = 0
+size_flags_vertical = 0
+ignore_texture_size = true
+stretch_mode = 0
+
+[node name="Cost" type="RichTextLabel" parent="." unique_id=2098328202]
+custom_minimum_size = Vector2(128, 64)
+layout_mode = 2
+size_flags_horizontal = 4
+size_flags_vertical = 0
+mouse_filter = 2
+theme_override_fonts/normal_font = ExtResource("3_t7bc4")
+theme_override_font_sizes/normal_font_size = 32
+text = "100.0"
+horizontal_alignment = 1
+vertical_alignment = 1
+
+[node name="PurchaseSound" type="AudioStreamPlayer" parent="." unique_id=2045507802]
+stream = SubResource("AudioStreamRandomizer_ygnnc")
+
+[connection signal="pressed" from="Button" to="." method="_on_button_pressed"]

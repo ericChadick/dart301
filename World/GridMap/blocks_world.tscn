@@ -1,6 +1,6 @@
-[gd_scene format=3 uid="uid://vfjjr3drxpbh"]
+[gd_scene format=3 uid="uid://dh471oxwkleom"]
 
-[ext_resource type="MeshLibrary" uid="uid://drs3lk62bi4td" path="res://World/GridMap/blocksDEMO.meshlib" id="1_53jnu"]
+[ext_resource type="MeshLibrary" path="res://World/GridMap/blocksDEMO.meshlib" id="1_53jnu"]
 
 [node name="blocksWorld" type="Node3D" unique_id=402529294]
 

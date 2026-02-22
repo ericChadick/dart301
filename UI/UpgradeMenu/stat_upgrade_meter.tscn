@@ -1,0 +1,73 @@
+[gd_scene format=3 uid="uid://c6bf0wyk5lre"]
+
+[ext_resource type="Script" uid="uid://bwync4nalilxd" path="res://UI/UpgradeMenu/stat_upgrade_meter.gd" id="1_m5xdx"]
+[ext_resource type="FontFile" uid="uid://b5iu436di81lx" path="res://UI/Gameplay/propaganda.ttf" id="2_eqfvs"]
+[ext_resource type="AudioStream" uid="uid://cqdur613kx6ik" path="res://Audio/UpgradeMenu/menupurchase.wav" id="4_eniag"]
+
+[sub_resource type="StyleBoxFlat" id="StyleBoxFlat_g5w1w"]
+bg_color = Color(0, 0, 0, 0.39215687)
+
+[sub_resource type="StyleBoxFlat" id="StyleBoxFlat_eqfvs"]
+bg_color = Color(1, 1, 1, 1)
+
+[sub_resource type="AudioStreamRandomizer" id="AudioStreamRandomizer_eniag"]
+random_pitch = 1.0028923
+random_volume_offset_db = 0.05
+streams_count = 1
+stream_0/stream = ExtResource("4_eniag")
+
+[node name="StatUpgradeMeter" type="HBoxContainer" unique_id=1429138153]
+custom_minimum_size = Vector2(320, 64)
+offset_right = 296.0
+offset_bottom = 64.0
+size_flags_horizontal = 0
+size_flags_vertical = 0
+script = ExtResource("1_m5xdx")
+
+[node name="Button" type="TextureButton" parent="." unique_id=1348568238]
+custom_minimum_size = Vector2(64, 64)
+layout_mode = 2
+size_flags_horizontal = 0
+size_flags_vertical = 0
+ignore_texture_size = true
+stretch_mode = 0
+
+[node name="Cost" type="RichTextLabel" parent="." unique_id=2098328202]
+custom_minimum_size = Vector2(96, 64)
+layout_mode = 2
+size_flags_horizontal = 4
+size_flags_vertical = 0
+mouse_filter = 2
+theme_override_fonts/normal_font = ExtResource("2_eqfvs")
+theme_override_font_sizes/normal_font_size = 32
+text = "0"
+vertical_alignment = 1
+
+[node name="Level" type="RichTextLabel" parent="." unique_id=1687728496]
+custom_minimum_size = Vector2(128, 64)
+layout_mode = 2
+size_flags_vertical = 0
+theme_override_constants/outline_size = 8
+theme_override_fonts/normal_font = ExtResource("2_eqfvs")
+theme_override_font_sizes/normal_font_size = 32
+text = "0/8"
+vertical_alignment = 1
+
+[node name="ProgressBar" type="ProgressBar" parent="Level" unique_id=809416466]
+z_index = -1
+layout_mode = 1
+anchors_preset = 15
+anchor_right = 1.0
+anchor_bottom = 1.0
+grow_horizontal = 2
+grow_vertical = 2
+theme_override_styles/background = SubResource("StyleBoxFlat_g5w1w")
+theme_override_styles/fill = SubResource("StyleBoxFlat_eqfvs")
+max_value = 1.0
+step = 0.002
+show_percentage = false
+
+[node name="PurchaseSound" type="AudioStreamPlayer" parent="." unique_id=38442035]
+stream = SubResource("AudioStreamRandomizer_eniag")
+
+[connection signal="pressed" from="Button" to="." method="_on_button_pressed"]
