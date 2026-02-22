@@ -10,8 +10,8 @@
 [ext_resource type="Texture2D" uid="uid://bmmmchlg8ivik" path="res://UI/UpgradeMenu/gunIcon.png" id="7_oe8m4"]
 [ext_resource type="MeshLibrary" uid="uid://bl1bwbv6l4jik" path="res://World/GridMap/demoBlocksEric.meshlib" id="8_oe8m4"]
 [ext_resource type="PackedScene" uid="uid://boy7266jscrro" path="res://World/Props/bacta_tank.tscn" id="10_lo5ox"]
+[ext_resource type="PackedScene" uid="uid://c1q5hgb0q01xm" path="res://Enemies/Small Interactions/Pull Object.tscn" id="11_0wqet"]
 [ext_resource type="PackedScene" uid="uid://cki8bp3eco3r" path="res://World/Props/terminal.tscn" id="11_h2aik"]
-[ext_resource type="PackedScene" uid="uid://b543lcfrqyvgq" path="res://Enemies/Enemy/enemy__wyatt.tscn" id="12_h2aik"]
 [ext_resource type="Shader" uid="uid://dkj8c7cp3ak0n" path="res://Shaders/godrays.gdshader" id="15_f23eu"]
 
 [sub_resource type="ProceduralSkyMaterial" id="ProceduralSkyMaterial_f23eu"]
@@ -101,6 +101,9 @@ audio_listener_enable_3d = true
 size = Vector2i(960, 540)
 size_2d_override_stretch = true
 render_target_update_mode = 4
+
+[node name="PullObject" parent="SubViewportContainer/SubViewport" unique_id=1603127869 instance=ExtResource("11_0wqet")]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 11.363899, -20.322811)
 
 [node name="Player" parent="SubViewportContainer/SubViewport" unique_id=1325343129 node_paths=PackedStringArray("playerUI") instance=ExtResource("1_62w18")]
 transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, -7.9193344, 1.5280628, -2.4022925)
@@ -274,13 +277,6 @@ light_energy = 3.0
 shadow_enabled = true
 omni_range = 200.0
 omni_attenuation = 0.283
-
-[node name="Enemy" parent="." unique_id=1414239772 node_paths=PackedStringArray("player") instance=ExtResource("12_h2aik")]
-transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, -10.014042, 2.536203, -23.084143)
-player = NodePath("../SubViewportContainer/SubViewport/Player")
-SPEED = 2
-CHASE_SPEED = 3
-ACCELERATION = 10
 
 [node name="Godrays" type="CSGCylinder3D" parent="." unique_id=1030816675]
 transform = Transform3D(0.8774645, 0.47964165, 0, -0.47964165, 0.8774645, 0, 0, 0, 1, 3.853808, 16.368061, 0)
