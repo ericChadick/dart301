@@ -11,6 +11,7 @@ extends CharacterBody3D
 @onready var rightwall_ray: RayCast3D = $Torso/rightwallRay
 @onready var leftwall_ray: RayCast3D = $Torso/leftwallRay
 @onready var hit_light: OmniLight3D = $Head/HitLight
+@onready var ceiling_ray: RayCast3D = $ceilingRay
 
 @onready var cord_hand_animations: AnimationPlayer = $CordHandAnimations
 @onready var weapon_hand_animations: AnimationPlayer = $WeaponHandAnimations
@@ -92,9 +93,11 @@ var dashCooldown := 0.0;
 var dashCooldownAmnt := 1.0;
 var dashInputBuffer := 0.0;
 
+var direction := Vector3.ZERO;
 var jumping := false;
 var jumpBuffer := 0.0;
 var groundBuffer := 0.0;
+var wallBuffer := 0.0;
 var slideBuffer := 0.0;
 var playerHeight := 1.0;
 
@@ -381,12 +384,18 @@ func _unhandled_input(event):
 	
 func _physics_process(delta: float) -> void:
 	var input_dir = Input.get_vector("left", "right", "up", "down");
-	var direction = (head.transform.basis * transform.basis * Vector3(input_dir.x, 0, input_dir.y)).normalized();
+
+	wallBuffer -= delta;
+	if is_on_wall_only():
+		wallBuffer = .1;
+	if wallBuffer <= 0.0:
+		#default input direction when not on wall
+		direction = (head.transform.basis * transform.basis * Vector3(input_dir.x, 0, input_dir.y)).normalized();
 	
 	var zwobble = 0.0;
 	if slide_timer.time_left > 0.0:
 		zwobble = -.1;
-	elif is_on_wall() and wallRunTime > 0.0:
+	elif wallBuffer > 0.0 and wallRunTime > 0.0:
 		var amnt = .3*midFalloffCurve.sample(1.0-(wallRunTime/wallRunTimeMax));
 		if leftwall_ray.is_colliding():
 			zwobble = -amnt;
@@ -418,23 +427,23 @@ func _physics_process(delta: float) -> void:
 	
 	
 	if !slide_cooldown_timer.is_stopped():
-		var prevHeight = collision_shape_3d.shape.height;
-		if !is_on_ceiling():
-			collision_shape_3d.shape.height = move_toward(collision_shape_3d.shape.height, playerHeight, 10*delta);
+		#var prevHeight = collision_shape_3d.shape.height;
+		if ceiling_ray.is_colliding() or Input.is_action_pressed("slide"):
+			collision_shape_3d.shape.height = 1.0;
 		else:
-			collision_shape_3d.shape.height = prevHeight;
-			
+			collision_shape_3d.shape.height = move_toward(collision_shape_3d.shape.height, playerHeight, 10*delta);
+		
 	collision_shape_3d.position.y = -(playerHeight-collision_shape_3d.shape.height)*.5;
 	
-	print(collision_shape_3d.position.y);
-	print(collision_shape_3d.shape.height);
+	#print(collision_shape_3d.position.y);
+	#print(collision_shape_3d.shape.height);
 	
 	groundedPrev = groundedCurrent;
 	groundedCurrent = groundBuffer > 0.0;
 	var inc := 0.0;
 	if groundBuffer > 0.0:
 		jumping = false;
-		if velocity.length() > speed*.5 and slideBuffer > 0.0 and slide_timer.is_stopped() and slide_cooldown_timer.is_stopped():
+		if velocity.length() > speed*.5 and slideBuffer > 0.0 and Input.is_action_just_released("slide") and slide_timer.is_stopped() and slide_cooldown_timer.is_stopped():
 			slide_timer.start();
 			slide_sound.play();
 			velocity.x *= 1.8;
@@ -462,7 +471,7 @@ func _physics_process(delta: float) -> void:
 			inc = groundAccel;
 	else:
 		if pull_timer.time_left <= 0.0:
-			if !is_on_wall() or wallRunTime <= 0.0:
+			if !wallBuffer > 0.0 or wallRunTime <= 0.0:
 				if chargeSwing:
 					velocity.y -= gravity*.6 * delta
 				else:
@@ -488,25 +497,27 @@ func _physics_process(delta: float) -> void:
 		
 	#wall run
 	if canWallRun:#and input_dir.length() > .5
-		if is_on_wall() and wallRunTime > 0.0:
+		if wallBuffer > 0.0 and wallRunTime > 0.0:
 			cordTugs = cordTugsMax;
 			wallRunTime -= delta;
-			var wallN = get_slide_collision(0)
-			var d = direction;
-			direction = d-wallN.get_normal()*d.dot(wallN.get_normal());
-			if jumpBuffer > 0.0: #handle jump
-				jump_sound.play();
-				#if input_dir.length() > 0.5:
-				velocity = wallN.get_normal()*jumpSpd*2.0+direction*jumpSpd;
-				#else:
-				#	velocity = wallN.get_normal()*jumpSpd*2.0;
-				velocity.y = jumpSpd*.5;
-				jumpBuffer = 0.0;
-				groundBuffer = 0.0;
-				shake = max(shake, shakeJumpAmnt);
-				canWallRun = true
-				wallRunTime = wallRunTimeMax;
-				slide_timer.stop();
+			if get_slide_collision_count() != 0:
+				var wallN = get_slide_collision(0)
+				var d = direction;
+				direction = d-wallN.get_normal()*d.dot(wallN.get_normal());
+				if jumpBuffer > 0.0: #handle jump
+					wallBuffer = 0.0;
+					jump_sound.play();
+					#if input_dir.length() > 0.5:
+					velocity = wallN.get_normal()*jumpSpd*2.0+direction*jumpSpd;
+					#else:
+					#	velocity = wallN.get_normal()*jumpSpd*2.0;
+					velocity.y = jumpSpd*.5;
+					jumpBuffer = 0.0;
+					groundBuffer = 0.0;
+					shake = max(shake, shakeJumpAmnt);
+					canWallRun = true
+					wallRunTime = wallRunTimeMax;
+					slide_timer.stop();
 	
 	var pullRatioDir = clamp((pull_timer.time_left/pull_timer.wait_time)*3.0, 1.0, 3.0);
 	var pullRatioAcc = clamp((1.0-pull_timer.time_left/pull_timer.wait_time), .5, 1.0);
@@ -517,7 +528,7 @@ func _physics_process(delta: float) -> void:
 	velocity.z = lerp(velocity.z, direction.z*pullRatioDir * speed*slideRatioSpd, delta * inc * pullRatioAcc * slideRatioAcc);
 	
 	#play step sounds
-	var wlrn = is_on_wall() and wallRunTime > 0.0;
+	var wlrn = wallBuffer > 0.0 and wallRunTime > 0.0;
 	if velocity.length() > 1.0 and (groundBuffer > 0.0 or wlrn) and slide_timer.time_left <= 0.0:
 		stepTimer -= delta;
 	else:

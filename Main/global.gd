@@ -56,7 +56,7 @@ var musicVolume := .75;
 
 #debug
 var mainScene : NodePath;
-var batteryDecreaseDebug := true;
+var batteryDecreaseDebug := false;
 
 #input rebinding
 

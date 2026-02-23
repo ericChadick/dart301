@@ -15,6 +15,17 @@ const explosion = preload("uid://dg8jm24fvq8xv")
 var cord_point: Marker3D
 var animPlayer: AnimationPlayer;
 
+
+#if body.is_in_group("enemy"):
+	#body.queue_free();
+#if body.is_in_group("player"):
+	#body.getHit(1.0, Vector3.RIGHT, .2, Global.screenCracks.SMALL);
+#
+#var part = dirt.instantiate();
+#get_parent().add_child(part);
+#part.global_position = global_position;
+#queue_free();
+
 @onready var shoot_timer: Timer = $ShootTimer
 @onready var head: Node3D = $Head
 @onready var shoot_point: Marker3D = $Head/ShootPoint
@@ -30,8 +41,6 @@ var canSee := false;
 var speed := 20.0;
 var acc := 3.0;
 var gravity := 40.0;
-
-
 
 func _ready() -> void:
 	cord_point = trash_bot.get_node("Armature/Skeleton3D/Bone/CordPoint");

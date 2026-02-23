@@ -160,19 +160,21 @@ script = ExtResource("1_l8h54")
 shape = SubResource("CapsuleShape3D_4ntmi")
 
 [node name="MeshInstance3D" type="MeshInstance3D" parent="." unique_id=266665977]
-visible = false
 mesh = SubResource("CapsuleMesh_l8h54")
+
+[node name="ceilingRay" type="RayCast3D" parent="." unique_id=448533729]
+target_position = Vector3(0, 1, 0)
 
 [node name="Torso" type="Node3D" parent="." unique_id=544929067]
 
 [node name="rightwallRay" type="RayCast3D" parent="Torso" unique_id=1009828370]
-transform = Transform3D(0.99999994, 0, 0, 0, 0.99999994, 0, 0, 0, 1, 0.6, 0, 0)
-target_position = Vector3(0.3, 0, 0)
+transform = Transform3D(0.99999994, 0, 0, 0, 0.99999994, 0, 0, 0, 1, 0.5, 0, 0)
+target_position = Vector3(0.5, 0, 0)
 hit_from_inside = true
 
 [node name="leftwallRay" type="RayCast3D" parent="Torso" unique_id=1629569162]
-transform = Transform3D(0.99999994, 0, 0, 0, 0.99999994, 0, 0, 0, 1, -0.6, 0, 0)
-target_position = Vector3(-0.3, 0, 0)
+transform = Transform3D(0.99999994, 0, 0, 0, 0.99999994, 0, 0, 0, 1, -0.5, 0, 0)
+target_position = Vector3(-0.5, 0, 0)
 hit_from_inside = true
 
 [node name="Head" type="Node3D" parent="." unique_id=365589558]
@@ -216,7 +218,7 @@ omni_range = 1.5
 omni_attenuation = 0.5
 
 [node name="CordProtoNode" type="Node3D" parent="Head" unique_id=558342988]
-transform = Transform3D(0.74413925, 0.34298462, 0.57325214, -0.42135835, 0.9068828, 0.004364181, -0.5183764, -0.24479192, 0.8193672, 0.95013034, -0.6977509, -1.2693243)
+transform = Transform3D(0.74413925, 0.3429846, 0.57325214, -0.42135835, 0.9068828, 0.004364181, -0.5183764, -0.24479191, 0.8193672, 0.95013034, -0.6977509, -1.2693243)
 
 [node name="CordProto" type="MeshInstance3D" parent="Head/CordProtoNode" unique_id=1396993993]
 transform = Transform3D(0.9999999, 0, 2.9802322e-08, 4.4703484e-08, 1.0000004, -1.4901161e-08, 0, 0, 1, -0.11860013, 0.8586336, 0.17990345)

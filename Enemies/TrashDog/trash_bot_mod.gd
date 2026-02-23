@@ -37,7 +37,7 @@ func _process(delta: float) -> void:
 func _on_back_hitbox_body_entered(body: Node3D) -> void:
 	if body.is_in_group("player"):
 		body.shake = .5;
-		body.velocity.y = 40.0;
+		body.velocity.y = 15.0;
 
 func _on_mouth_hitbox_body_entered(body: Node3D) -> void:
 	if body.is_in_group("player"):
