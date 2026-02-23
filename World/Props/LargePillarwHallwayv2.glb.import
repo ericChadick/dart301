@@ -3,13 +3,13 @@
 importer="scene"
 importer_version=1
 type="PackedScene"
-uid="uid://bebsw3qsdk5ex"
-path="res://.godot/imported/LargePillarv1.glb-e4b4287752942663171ac28f6098a21e.scn"
+uid="uid://c3ahcmvpc4767"
+path="res://.godot/imported/LargePillarwHallwayv2.glb-eb48c44a47817155061e308e2863c8c4.scn"
 
 [deps]
 
-source_file="res://World/Props/LargePillarv1.glb"
-dest_files=["res://.godot/imported/LargePillarv1.glb-e4b4287752942663171ac28f6098a21e.scn"]
+source_file="res://World/Props/LargePillarwHallwayv2.glb"
+dest_files=["res://.godot/imported/LargePillarwHallwayv2.glb-eb48c44a47817155061e308e2863c8c4.scn"]
 
 [params]
 
