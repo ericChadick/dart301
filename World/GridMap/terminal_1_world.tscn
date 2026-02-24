@@ -1,0 +1,9 @@
+[gd_scene format=3 uid="uid://b0yegyvkxn5yi"]
+
+[ext_resource type="MeshLibrary" uid="uid://tnqm060ggni5" path="res://World/GridMap/terminal1.meshlib" id="1_1ylyb"]
+
+[node name="terminal1World" type="Node3D" unique_id=1688983195]
+
+[node name="GridMap" type="GridMap" parent="." unique_id=651361683]
+mesh_library = ExtResource("1_1ylyb")
+cell_size = Vector3(4, 4, 4)
