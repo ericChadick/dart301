@@ -1,0 +1,13 @@
+[gd_scene format=3 uid="uid://bx62ty4br7aa4"]
+
+[ext_resource type="PackedScene" uid="uid://bx5cogae7rxde" path="res://World/GridMap/enviroAssets5.glb" id="1_de732"]
+[ext_resource type="Material" uid="uid://3p4sxakjhhcs" path="res://World/GridMap/Metal1.material" id="2_ctgwl"]
+[ext_resource type="Material" uid="uid://d1o4kdb54s685" path="res://World/GridMap/Concrete1.material" id="3_vo4mn"]
+
+[node name="enviroAssets5" unique_id=317618803 instance=ExtResource("1_de732")]
+
+[node name="floorBig1" parent="." index="1" unique_id=194697908]
+material_override = ExtResource("2_ctgwl")
+
+[node name="wallBig1" parent="." index="3" unique_id=1830986832]
+material_override = ExtResource("3_vo4mn")
