@@ -90,6 +90,7 @@ layout_mode = 2
 theme_override_constants/separation = 12
 
 [node name="StatUpgradeContainer" type="VBoxContainer" parent="Control/MarginContainer/HBoxContainer" unique_id=1917288982]
+visible = false
 layout_mode = 2
 size_flags_vertical = 8
 theme_override_constants/separation = 16
@@ -152,11 +153,58 @@ size_flags_vertical = 8
 texture_normal = ExtResource("5_v27ci")
 stretch_mode = 6
 
-[node name="BatteryDebug" type="TextureButton" parent="Control/MarginContainer" unique_id=1364926991]
+[node name="HBoxContainer2" type="HBoxContainer" parent="Control/MarginContainer" unique_id=942299027]
+layout_mode = 2
+size_flags_horizontal = 8
+size_flags_vertical = 0
+
+[node name="BatteryDebug" type="TextureButton" parent="Control/MarginContainer/HBoxContainer2" unique_id=1364926991]
 layout_mode = 2
 size_flags_horizontal = 8
 size_flags_vertical = 0
 texture_normal = ExtResource("15_g2q6n")
+
+[node name="RichTextLabel" type="RichTextLabel" parent="Control/MarginContainer/HBoxContainer2/BatteryDebug" unique_id=1072793294]
+custom_minimum_size = Vector2(128, 0)
+layout_mode = 1
+anchors_preset = 8
+anchor_left = 0.5
+anchor_top = 0.5
+anchor_right = 0.5
+anchor_bottom = 0.5
+offset_left = -72.0
+offset_top = -99.0
+offset_right = 56.0
+offset_bottom = -59.0
+grow_horizontal = 2
+grow_vertical = 2
+mouse_filter = 2
+text = "Infinite Battery"
+
+[node name="CordDebug" type="HSlider" parent="Control/MarginContainer/HBoxContainer2" unique_id=510066627]
+custom_minimum_size = Vector2(256, 0)
+layout_mode = 2
+min_value = 5.0
+max_value = 30.0
+value = 5.0
+
+[node name="RichTextLabel" type="RichTextLabel" parent="Control/MarginContainer/HBoxContainer2/CordDebug" unique_id=1727274188]
+custom_minimum_size = Vector2(128, 0)
+layout_mode = 1
+anchors_preset = 3
+anchor_left = 1.0
+anchor_top = 1.0
+anchor_right = 1.0
+anchor_bottom = 1.0
+offset_left = -254.0
+offset_top = -51.0
+offset_right = -126.0
+offset_bottom = -11.0
+grow_horizontal = 0
+grow_vertical = 0
+mouse_filter = 2
+text = "Cord length
+"
 
 [node name="Audio" type="Node" parent="." unique_id=1896171430]
 
@@ -174,4 +222,4 @@ grow_vertical = 2
 mouse_filter = 2
 
 [connection signal="pressed" from="Control/MarginContainer/HBoxContainer/GoButton" to="." method="_on_go_button_pressed"]
-[connection signal="pressed" from="Control/MarginContainer/BatteryDebug" to="." method="_on_battery_debug_pressed"]
+[connection signal="pressed" from="Control/MarginContainer/HBoxContainer2/BatteryDebug" to="." method="_on_battery_debug_pressed"]

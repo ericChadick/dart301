@@ -5,7 +5,6 @@
 [ext_resource type="Script" uid="uid://bevf68wrkg7sv" path="res://World/world.gd" id="1_va8ct"]
 [ext_resource type="PackedScene" uid="uid://bxgwgbkpugt5j" path="res://World/Outlet/outlet.tscn" id="4_wfacm"]
 [ext_resource type="PackedScene" uid="uid://cnexx5jm5sy8x" path="res://Enemies/TrashDog/trash_dog.tscn" id="5_oab11"]
-[ext_resource type="PackedScene" uid="uid://c1q5hgb0q01xm" path="res://Enemies/Small Interactions/Pull Object.tscn" id="6_nhhll"]
 
 [sub_resource type="Environment" id="Environment_wfacm"]
 background_mode = 1
@@ -130,10 +129,28 @@ transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, -1.9073486e-06, 7.502901, 5.6
 playerUI = NodePath("../../../PlayerUI")
 
 [node name="Outlet" parent="SubViewportContainer/SubViewport" unique_id=220038749 instance=ExtResource("4_wfacm")]
-transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 8.515285, 5.514785, 32.09563)
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 2.5177436, 2.6127214, -79.97606)
+
+[node name="Outlet2" parent="SubViewportContainer/SubViewport" unique_id=254939207 instance=ExtResource("4_wfacm")]
+transform = Transform3D(-0.34953704, 0, -0.93692255, 0, 1, 0, 0.93692255, 0, -0.34953704, 3.3213496, 6.4774685, -2.8018246)
+
+[node name="Outlet3" parent="SubViewportContainer/SubViewport" unique_id=2002013981 instance=ExtResource("4_wfacm")]
+transform = Transform3D(-0.7092879, 0, -0.704919, 0, 1, 0, 0.704919, 0, -0.7092879, 10.409118, 5.3357677, -59.846558)
+
+[node name="Outlet4" parent="SubViewportContainer/SubViewport" unique_id=96767948 instance=ExtResource("4_wfacm")]
+transform = Transform3D(-0.32102627, 0, -0.94707036, 0, 1, 0, 0.94707036, 0, -0.32102627, 3.2624483, 4.262751, -100.62719)
+
+[node name="Outlet5" parent="SubViewportContainer/SubViewport" unique_id=1283008640 instance=ExtResource("4_wfacm")]
+transform = Transform3D(-0.67995346, 0, 0.7332554, 0, 1, 0, -0.7332554, 0, -0.67995346, 36.19059, 8.917342, -82.30878)
+
+[node name="Outlet6" parent="SubViewportContainer/SubViewport" unique_id=320886439 instance=ExtResource("4_wfacm")]
+transform = Transform3D(0.042468548, 0, -0.99909794, 0, 1, 0, 0.99909794, 0, 0.042468548, 67.14669, 17.298252, -100.600464)
+
+[node name="Outlet7" parent="SubViewportContainer/SubViewport" unique_id=1817942794 instance=ExtResource("4_wfacm")]
+transform = Transform3D(0.1210912, 0.026580906, 0.9922855, -0.9717566, 0.20715217, 0.11303692, -0.20254949, -0.9779477, 0.05091448, -1.4046725, 23.51984, -56.12144)
 
 [node name="trashBotEnemy" parent="SubViewportContainer/SubViewport" unique_id=1048089377 node_paths=PackedStringArray("outlet") instance=ExtResource("5_oab11")]
-transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 6.5287833, 5.693031, 35.30355)
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 2.5411408, 2.9335418, -76.050255)
 outlet = NodePath("../Outlet")
 cordLength = 25.0
 sightRange = 15.0
@@ -149,6 +166,11 @@ transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, -0.1234436, -3.1676636, 1.968
 operation = 2
 use_collision = true
 size = Vector3(7.8447876, 2.3917236, 15.246704)
+
+[node name="CSGBox3D12" type="CSGBox3D" parent="SubViewportContainer/SubViewport" unique_id=145286435]
+transform = Transform3D(0.42913234, 0.2020675, -0.8803269, -0.4260111, 0.90468633, 2.0664178e-08, 0.7964522, 0.37502903, 0.4743244, 2.8781958, 17.674477, -91.78099)
+use_collision = true
+size = Vector3(7.2214594, 3.6559296, 14.378496)
 
 [node name="CSGBox3D2" type="CSGBox3D" parent="SubViewportContainer/SubViewport" unique_id=1757651386]
 transform = Transform3D(0.99999994, 0, 0, 0, 0.99999994, 0, 0, 0, 1, 2.8591537, 18.531487, 11.527504)
@@ -169,6 +191,13 @@ use_collision = true
 flip_faces = true
 size = Vector3(23.63575, 17.033562, 11.930698)
 
+[node name="CSGBox3D11" type="CSGBox3D" parent="SubViewportContainer/SubViewport/CSGBox3D2/CSGBox3D3" unique_id=7166060]
+transform = Transform3D(0.9999948, 0, 8.917264e-13, 0, 0.9999744, 0, 2.4868996e-13, 0, 0.9999796, -5.8044806, 7.5353374, -19.902267)
+operation = 2
+use_collision = true
+flip_faces = true
+size = Vector3(15.944872, 3.6559296, 14.378496)
+
 [node name="CSGBox3D4" type="CSGBox3D" parent="SubViewportContainer/SubViewport/CSGBox3D2" unique_id=141181606]
 transform = Transform3D(0.99999326, 0, 0, 0, 0.99999326, 0, 0, 0, 1, -1.5712821, -8.289385, 69.627594)
 use_collision = true
@@ -181,8 +210,37 @@ use_collision = true
 flip_faces = true
 size = Vector3(18.736115, 26.8703, 92.3382)
 
-[node name="PullObject" parent="SubViewportContainer/SubViewport" unique_id=1603127869 instance=ExtResource("6_nhhll")]
-transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 13.2046, 0)
+[node name="CSGBox3D6" type="CSGBox3D" parent="SubViewportContainer/SubViewport/CSGBox3D2/CSGBox3D5" unique_id=1625429241]
+transform = Transform3D(0.9479075, 0, -0.31853923, 0, 0.9999796, 0, 0.31854573, 0, 0.9478882, -9.83345, -7.1974316, 21.835396)
+operation = 2
+use_collision = true
+flip_faces = true
+size = Vector3(10.302628, 14.811615, 33.597736)
 
-[node name="Outlet2" parent="SubViewportContainer/SubViewport" unique_id=254939207 instance=ExtResource("4_wfacm")]
-transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 10.925501, 10.856531, 0)
+[node name="CSGBox3D9" type="CSGBox3D" parent="SubViewportContainer/SubViewport/CSGBox3D2/CSGBox3D5" unique_id=219684228]
+transform = Transform3D(0.9479075, 0, -0.31853923, 0, 0.9999796, 0, 0.31854573, 0, 0.9478882, 13.41169, -4.2867002, 8.455162)
+operation = 2
+use_collision = true
+flip_faces = true
+size = Vector3(10.302628, 22.434616, 33.597736)
+
+[node name="CSGBox3D8" type="CSGBox3D" parent="SubViewportContainer/SubViewport/CSGBox3D2/CSGBox3D5" unique_id=435435757]
+transform = Transform3D(0.5255756, 0, -0.8507296, 0, 0.9999796, 0, 0.8507469, 0, 0.52556485, 6.5432587, -7.1974354, 43.89981)
+operation = 2
+use_collision = true
+flip_faces = true
+size = Vector3(10.302628, 14.811615, 29.60514)
+
+[node name="CSGBox3D7" type="CSGBox3D" parent="SubViewportContainer/SubViewport/CSGBox3D2/CSGBox3D5" unique_id=851269585]
+transform = Transform3D(1, 0, 8.9173113e-13, 0, 0.9999796, 0, 4.8316906e-13, 0, 0.9999796, -0.03804016, -13.351288, -13.868654)
+operation = 2
+use_collision = true
+flip_faces = true
+size = Vector3(22.815525, 14.811615, 14.378496)
+
+[node name="CSGBox3D10" type="CSGBox3D" parent="SubViewportContainer/SubViewport/CSGBox3D2/CSGBox3D5" unique_id=1464034651]
+transform = Transform3D(1, 0, 8.9173113e-13, 0, 0.9999796, 0, 2.5579538e-13, 0, 0.9999796, -0.03804016, 7.5353384, -13.86866)
+operation = 2
+use_collision = true
+flip_faces = true
+size = Vector3(22.815525, 3.6559296, 14.378496)

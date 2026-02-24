@@ -14,10 +14,16 @@ extends CanvasLayer
 var hoverPrev : TextureButton;
 var hoverCurrent : TextureButton;
 
+@onready var battery_debug: TextureButton = $Control/MarginContainer/HBoxContainer2/BatteryDebug
+@onready var cord_debug: HSlider = $Control/MarginContainer/HBoxContainer2/CordDebug
+
 # Called when the node enters the scene tree for the first time.
 func _ready() -> void:
 	hoverPrev = null;
 	hoverCurrent = null;
+	
+	#set debug
+	cord_debug.value = Global.cordLengthMin;
 	
 	Input.mouse_mode = Input.MOUSE_MODE_VISIBLE;
 	#update all stat upgrade meters
@@ -63,6 +69,8 @@ func _process(delta: float) -> void:
 	#play cycle sound
 	if hoverCurrent != hoverPrev:
 		cycle_sound.play();
+		
+	Global.cordLengthMin = cord_debug.value;
 
 func _on_go_button_pressed() -> void:
 	get_tree().change_scene_to_file(Global.mainScene);

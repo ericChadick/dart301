@@ -61,7 +61,7 @@ func _physics_process(delta: float) -> void:
 	var targetOutletDist = target.global_position.distance_to(outlet.global_position)
 	
 	if trash_bot.shakeTime > 0.0:
-		var ratio = trash_bot.shakeDistance/min(trash_bot.shakeDistance,trash_bot.shakeDistance);
+		var ratio = 1.0 - clamp(targetDist / trash_bot.shakeDistance, 0.0, 1.0)
 		target.shake = max(target.shake, trash_bot.shakeIntensity*ratio);
 	
 	if !canSee and targetOutletDist <= sightRange:

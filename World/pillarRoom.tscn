@@ -1,0 +1,83 @@
+[gd_scene format=3 uid="uid://bq14h1qiv0tb3"]
+
+[ext_resource type="PackedScene" uid="uid://b3p28mjqota4s" path="res://World/Props/LargePillarwHallwayv3.glb" id="1_4e2ul"]
+[ext_resource type="PackedScene" uid="uid://dag5wun1b2dl1" path="res://World/Props/LargePillarNoHallwayv4.glb" id="2_eliei"]
+[ext_resource type="PackedScene" uid="uid://bbo01giq25jel" path="res://World/Props/wires.glb" id="3_4png0"]
+
+[sub_resource type="ProceduralSkyMaterial" id="ProceduralSkyMaterial_wlewv"]
+sky_top_color = Color(0.72, 0.69564, 0.5112001, 1)
+sky_horizon_color = Color(0.64, 0.61504, 0.5568, 1)
+ground_bottom_color = Color(0.29, 0.26428667, 0.2349, 1)
+ground_horizon_color = Color(0.49, 0.46648002, 0.41160002, 1)
+
+[sub_resource type="Sky" id="Sky_nioa8"]
+sky_material = SubResource("ProceduralSkyMaterial_wlewv")
+
+[sub_resource type="Environment" id="Environment_4fiyw"]
+background_mode = 2
+background_color = Color(0.4206559, 0.38930398, 0.31931964, 1)
+sky = SubResource("Sky_nioa8")
+glow_enabled = true
+fog_enabled = true
+fog_light_color = Color(0.39, 0.3601, 0.35099998, 1)
+
+[sub_resource type="BoxMesh" id="BoxMesh_uou2r"]
+size = Vector3(150, 25, 15)
+
+[sub_resource type="BoxMesh" id="BoxMesh_hyj3y"]
+size = Vector3(225, 25, 400)
+
+[sub_resource type="CapsuleMesh" id="CapsuleMesh_dgp27"]
+
+[node name="Node3D" type="Node3D" unique_id=119251877]
+
+[node name="WorldEnvironment" type="WorldEnvironment" parent="." unique_id=876189105]
+environment = SubResource("Environment_4fiyw")
+
+[node name="LargePillarwHallwayv3" parent="." unique_id=1833208019 instance=ExtResource("1_4e2ul")]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, -100, 0, 0)
+
+[node name="LargePillarwHallwayv4" parent="." unique_id=2063382598 instance=ExtResource("1_4e2ul")]
+transform = Transform3D(-1, 0, -8.742278e-08, 0, 1, 0, 8.742278e-08, 0, -1, 100, 0, 0)
+
+[node name="MeshInstance3D" type="MeshInstance3D" parent="." unique_id=868483496]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, -53, 0)
+mesh = SubResource("BoxMesh_uou2r")
+
+[node name="MeshInstance3D2" type="MeshInstance3D" parent="." unique_id=1723429463]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 89.18152, 161.10536)
+mesh = SubResource("BoxMesh_hyj3y")
+
+[node name="LargePillarNoHallwayv4" parent="." unique_id=1431076528 instance=ExtResource("2_eliei")]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, -100, 0, 100)
+
+[node name="LargePillarNoHallwayv5" parent="." unique_id=1928813527 instance=ExtResource("2_eliei")]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, -100, 0, 201.7843)
+
+[node name="LargePillarNoHallwayv6" parent="." unique_id=813061921 instance=ExtResource("2_eliei")]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, -100, 0, 314.4489)
+
+[node name="LargePillarNoHallwayv7" parent="." unique_id=1982836603 instance=ExtResource("2_eliei")]
+transform = Transform3D(-1, 0, -8.742278e-08, 0, 1, 0, 8.742278e-08, 0, -1, 100.00001, 0, 310.82214)
+
+[node name="LargePillarNoHallwayv8" parent="." unique_id=880015662 instance=ExtResource("2_eliei")]
+transform = Transform3D(-1, 0, -8.742278e-08, 0, 1, 0, 8.742278e-08, 0, -1, 100, 0, 209.03784)
+
+[node name="LargePillarNoHallwayv9" parent="." unique_id=474981828 instance=ExtResource("2_eliei")]
+transform = Transform3D(-1, 0, -8.742278e-08, 0, 1, 0, 8.742278e-08, 0, -1, 99.99999, 0, 96.37323)
+
+[node name="wires" parent="." unique_id=433966668 instance=ExtResource("3_4png0")]
+transform = Transform3D(-3.8443625, 0, 14.442087, 0, 14.945, 0, -14.442087, 0, -3.8443625, 5.7501802, 79.72102, 255.45012)
+
+[node name="wires2" parent="." unique_id=647988609 instance=ExtResource("3_4png0")]
+transform = Transform3D(10.426653, 0, 10.425925, 0, 14.745, 0, -10.425925, 0, 10.426653, -20.744268, 77.88955, 143.23871)
+
+[node name="wires3" parent="." unique_id=1479236 instance=ExtResource("3_4png0")]
+transform = Transform3D(5.5192213, 0, -10.457954, 0, 11.825, 0, 10.457954, 0, 5.5192213, 18.819994, 77.88954, 202.63785)
+
+[node name="DirectionalLight3D" type="DirectionalLight3D" parent="." unique_id=1738268311]
+transform = Transform3D(0.18777716, -0.8360769, 0.51547563, -0.3094528, 0.44772536, 0.8389166, -0.93219024, -0.31704476, -0.17465377, 0, 0, 0)
+
+[node name="MeshInstance3D3" type="MeshInstance3D" parent="." unique_id=562751480]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, -34.574524, -38.575226, 1.0350935)
+mesh = SubResource("CapsuleMesh_dgp27")

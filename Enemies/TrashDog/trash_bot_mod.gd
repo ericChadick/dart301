@@ -9,7 +9,7 @@ const TRASH_BLOCK = preload("uid://i88uf8p3y2hu")
 @onready var animation_player: AnimationPlayer = $AnimationPlayer
 
 @export var shakeTime := 0.0;
-@export var shakeIntensity := .3;
+@export var shakeIntensity := .02;
 @export var shakeDistance := 10.0;
 
 

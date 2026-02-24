@@ -202,7 +202,7 @@ func _process(delta):
 	var velocity_clamped = clamp(velocity.length(), 0.5, speed * 2)
 	var target_fov = BASE_FOV + FOV_CHANGE*(1.0+(slide_timer.time_left/slide_timer.wait_time)*1.0+(wallRunTime/wallRunTimeMax)) * velocity_clamped;
 	camera.fov = lerp(camera.fov, target_fov, delta * 8.0)
-	shake = move_toward(shake, 0.0, delta*2.0);
+	shake = move_toward(shake, 0.0, delta*5.0);
 	var shakeOffset := Vector3(randf_range(-shake, shake)*Global.screenShake,randf_range(-shake, shake)*Global.screenShake,randf_range(-shake, shake)*Global.screenShake);
 	camera.transform.origin = headbob(t_bob)+shakeOffset;
 	#camera.transform.origin.z  	
@@ -432,7 +432,7 @@ func _physics_process(delta: float) -> void:
 	if !slide_cooldown_timer.is_stopped():
 		collision_shape_3d.shape.height = move_toward(collision_shape_3d.shape.height, playerHeight, 10*delta);
 	else:
-		if Input.is_action_pressed("slide"):
+		if groundBuffer > 0.0 and Input.is_action_pressed("slide"):
 			collision_shape_3d.shape.height = 1.0;
 			crouching = true;
 	if ceiling_ray.is_colliding():
@@ -543,7 +543,7 @@ func _physics_process(delta: float) -> void:
 		stepTimer = stepTimerStep;
 	if stepTimer <= 0.0:
 		step_sound.play();
-		shake = .1;
+		#shake = .1;
 		if wlrn:
 			stepTimer = stepTimerStep*.5;
 		else:
