@@ -100,6 +100,8 @@ var groundBuffer := 0.0;
 var wallBuffer := 0.0;
 var slideBuffer := 0.0;
 var playerHeight := 1.0;
+var crouching := false;
+var heightTarget := playerHeight;
 
 var outletBuffer := 0.0;
 var outletBufferTime := .25;
@@ -315,6 +317,7 @@ func _process(delta):
 			pull_timer.start();
 			
 			#unplug from outlet
+			outlet.pulled = true;
 			outlet.outlet_light.visible = true;
 			outlet = null;
 			unplug_sound.play();
@@ -425,15 +428,20 @@ func _physics_process(delta: float) -> void:
 	
 	torso.rotation.y = head.rotation.y;
 	
-	
+	crouching = false;
 	if !slide_cooldown_timer.is_stopped():
-		#var prevHeight = collision_shape_3d.shape.height;
-		if ceiling_ray.is_colliding() or Input.is_action_pressed("slide"):
+		collision_shape_3d.shape.height = move_toward(collision_shape_3d.shape.height, playerHeight, 10*delta);
+	else:
+		if Input.is_action_pressed("slide"):
 			collision_shape_3d.shape.height = 1.0;
-		else:
-			collision_shape_3d.shape.height = move_toward(collision_shape_3d.shape.height, playerHeight, 10*delta);
-		
+			crouching = true;
+	if ceiling_ray.is_colliding():
+		crouching = true;
+		collision_shape_3d.shape.height = 1.0;	
 	collision_shape_3d.position.y = -(playerHeight-collision_shape_3d.shape.height)*.5;
+	if !crouching and slide_timer.is_stopped():
+		collision_shape_3d.shape.height = move_toward(collision_shape_3d.shape.height, playerHeight, 10*delta);
+	heightTarget = move_toward(heightTarget, collision_shape_3d.shape.height, 5.0*delta);
 	
 	#print(collision_shape_3d.position.y);
 	#print(collision_shape_3d.shape.height);
@@ -595,7 +603,13 @@ func rotate_from_vector(v: Vector2):
 
 func headbob(time) -> Vector3:
 	var pos = Vector3.ZERO
-	pos.y = sin(time * BOB_FREQ) * BOB_AMP - sin((slide_timer.time_left/slide_timer.wait_time)*PI)
+	#var off := 0.0;
+	#if slide_timer.time_left > 0.0:
+		#off = sin((slide_timer.time_left/slide_timer.wait_time)*PI)
+	#elif crouching and slideBuffer <= 0.0:#crouching
+		#off = 1.0;
+	
+	pos.y = sin(time * BOB_FREQ) * BOB_AMP - playerHeight+heightTarget;
 	pos.x = cos(time * BOB_FREQ / 2) * BOB_AMP
 	return pos
 
@@ -608,6 +622,7 @@ func getHit(batteryDamage, knockbackVector, screenShake, screenCrackType) -> voi
 	addScreenCrack(screenCrackType);
 	velocity = knockbackVector;
 	hit_flash_texture.modulate.a = 1.0;
+	crouching = false;
 	
 func addScreenCrack(screenCrackType) -> void:
 	var viewsize = get_viewport().get_visible_rect();

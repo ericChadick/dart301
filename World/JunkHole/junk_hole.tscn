@@ -12,10 +12,13 @@ background_mode = 1
 background_color = Color(0.82234526, 0.64344853, 0.5297693, 1)
 background_energy_multiplier = 0.5
 tonemap_mode = 3
+glow_enabled = true
 glow_normalized = true
 glow_strength = 1.5
+fog_enabled = true
 fog_light_color = Color(0, 0, 0, 1)
-volumetric_fog_density = 0.03
+volumetric_fog_enabled = true
+volumetric_fog_density = 0.002
 volumetric_fog_albedo = Color(0.1596, 0.29184, 0.38, 1)
 volumetric_fog_emission = Color(0.008399991, 0.14560005, 0.42, 1)
 volumetric_fog_length = 86.0
@@ -137,25 +140,46 @@ sightRange = 15.0
 agroRange = 25.0
 
 [node name="CSGBox3D" type="CSGBox3D" parent="SubViewportContainer/SubViewport" unique_id=1104496788]
-transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 59.530045, 3.146284, 2.935196)
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 59.530045, 3.146284, 5.7039948)
 use_collision = true
-size = Vector3(10.729492, 7.4782715, 1)
+size = Vector3(10.729492, 7.4782715, 6.5375977)
 
 [node name="CSGBox3D2" type="CSGBox3D" parent="SubViewportContainer/SubViewport/CSGBox3D" unique_id=1898884834]
-transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, -0.1234436, -3.1676636, 0)
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, -0.1234436, -3.1676636, 1.9680786)
 operation = 2
 use_collision = true
-size = Vector3(7.8447876, 2.3917236, 1)
+size = Vector3(7.8447876, 2.3917236, 15.246704)
 
 [node name="CSGBox3D2" type="CSGBox3D" parent="SubViewportContainer/SubViewport" unique_id=1757651386]
-transform = Transform3D(0.9970084, 0.07729328, 0, -0.07729328, 0.9970084, 0, 0, 0, 1, -12.577699, 12.758599, 6.4930115)
+transform = Transform3D(0.99999994, 0, 0, 0, 0.99999994, 0, 0, 0, 1, 2.8591537, 18.531487, 11.527504)
 use_collision = true
-size = Vector3(6.7041016, 16.292969, 16.572815)
+flip_faces = true
+size = Vector3(64.39685, 40.315308, 58.436356)
 
-[node name="CSGBox3D3" type="CSGBox3D" parent="SubViewportContainer/SubViewport" unique_id=1618106740]
-transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, -23.894295, 12.758599, -0.9162493)
+[node name="CSGBox3D3" type="CSGBox3D" parent="SubViewportContainer/SubViewport/CSGBox3D2" unique_id=1618106740]
+transform = Transform3D(0.9999933, 0, 0, 0, 0.9999933, 0, 0, 0, 1, -1.5712823, -8.289386, -64.9588)
 use_collision = true
-size = Vector3(5.001953, 16.292969, 19.535309)
+flip_faces = true
+size = Vector3(18.736115, 26.8703, 92.563126)
+
+[node name="CSGBox3D6" type="CSGBox3D" parent="SubViewportContainer/SubViewport/CSGBox3D2/CSGBox3D3" unique_id=289243385]
+transform = Transform3D(0.99996907, 0, 0, 0, 0.99996907, 0, 0, 0, 1, -0.84604514, 5.7181816, 30.273941)
+operation = 2
+use_collision = true
+flip_faces = true
+size = Vector3(23.63575, 17.033562, 11.930698)
+
+[node name="CSGBox3D4" type="CSGBox3D" parent="SubViewportContainer/SubViewport/CSGBox3D2" unique_id=141181606]
+transform = Transform3D(0.99999326, 0, 0, 0, 0.99999326, 0, 0, 0, 1, -1.5712821, -8.289385, 69.627594)
+use_collision = true
+flip_faces = true
+size = Vector3(18.736115, 26.8703, 92.563126)
+
+[node name="CSGBox3D5" type="CSGBox3D" parent="SubViewportContainer/SubViewport/CSGBox3D2" unique_id=32442362]
+transform = Transform3D(-4.3710482e-08, 0, 0.99998945, 0, 0.9999828, 0, -0.9999933, 0, -4.3711378e-08, 35.465, -8.289379, -103.05666)
+use_collision = true
+flip_faces = true
+size = Vector3(18.736115, 26.8703, 92.3382)
 
 [node name="PullObject" parent="SubViewportContainer/SubViewport" unique_id=1603127869 instance=ExtResource("6_nhhll")]
 transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 13.2046, 0)

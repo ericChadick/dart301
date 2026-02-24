@@ -41,6 +41,6 @@ func _on_back_hitbox_body_entered(body: Node3D) -> void:
 
 func _on_mouth_hitbox_body_entered(body: Node3D) -> void:
 	if body.is_in_group("player"):
-		var dist = 40.0;
+		var dist = 60.0;
 		var vec = (mouth_hitbox.global_position-body.global_position).normalized();
-		body.getHit(1.0, Vector3(-vec.x*dist, dist*.75, -vec.z*dist), .5, Global.ScreenCracks.MED)
+		body.getHit(1.0, Vector3(-vec.x*dist, dist*.25, -vec.z*dist), .5, Global.ScreenCracks.MED)

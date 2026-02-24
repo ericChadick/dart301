@@ -4,6 +4,7 @@ extends Area3D
 @export var battery := 20.0;
 var batteryMax := 1.0;
 var dead := false;
+var pulled := false;
 @export var connected : Node3D;
 
 @onready var outlet_light: MeshInstance3D = $OutletLight
