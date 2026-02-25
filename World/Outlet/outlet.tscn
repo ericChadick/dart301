@@ -2,16 +2,10 @@
 
 [ext_resource type="AudioStream" uid="uid://ndp0v2vlid62" path="res://Audio/Player/player_pluggingIN.wav" id="1_gl5ih"]
 [ext_resource type="Script" uid="uid://bs57agia8vb4j" path="res://World/Outlet/outlet.gd" id="1_iw82v"]
+[ext_resource type="Material" uid="uid://c0uh2y7lgbtc4" path="res://World/Outlet/outletGlow.material" id="2_scrvh"]
 
 [sub_resource type="SphereShape3D" id="SphereShape3D_qknly"]
 radius = 2.0
-
-[sub_resource type="StandardMaterial3D" id="StandardMaterial3D_qknly"]
-vertex_color_use_as_albedo = true
-albedo_color = Color(1, 0.82, 0.39999998, 1)
-emission_enabled = true
-emission = Color(1, 0.48333335, 0, 1)
-emission_energy_multiplier = 16.0
 
 [sub_resource type="SphereMesh" id="SphereMesh_uxtxx"]
 radius = 0.2
@@ -96,7 +90,7 @@ shape = SubResource("SphereShape3D_qknly")
 
 [node name="OutletLight" type="MeshInstance3D" parent="." unique_id=391716278]
 transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0.14567536, 0.026119918, 0)
-material_override = SubResource("StandardMaterial3D_qknly")
+material_override = ExtResource("2_scrvh")
 mesh = SubResource("SphereMesh_uxtxx")
 
 [node name="PlugSound" type="AudioStreamPlayer3D" parent="." unique_id=1489634662]

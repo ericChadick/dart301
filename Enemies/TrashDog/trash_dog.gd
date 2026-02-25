@@ -39,6 +39,8 @@ var initPos : Vector3;
 var canSee := false;
 
 var speed := 20.0;
+var walkSpd := 6.0;
+var returnSpawn := false;
 var acc := 3.0;
 var gravity := 40.0;
 
@@ -54,8 +56,6 @@ func _ready() -> void:
 	outlet.outlet_light.visible = false;
 	
 func _physics_process(delta: float) -> void:
-	head.look_at(target.global_position);
-	
 	var targetDist = global_position.distance_to(target.global_position)
 	var outletDist = global_position.distance_to(outlet.global_position)
 	var targetOutletDist = target.global_position.distance_to(outlet.global_position)
@@ -70,6 +70,7 @@ func _physics_process(delta: float) -> void:
 		canSee = true;
 		
 	if canSee:
+		head.look_at(target.global_position);
 		animPlayer.play("Charge")
 		var direction = (target.global_position-global_position).normalized();
 		velocity.x = lerp(velocity.x, direction.x*speed, delta*acc);
@@ -79,17 +80,28 @@ func _physics_process(delta: float) -> void:
 		
 		if targetDist > agroRange:
 			canSee = false;
+			returnSpawn = true;
 			
 		if outletDist >= cordLength:
 			canSee = false;
 			animPlayer.play("BiteBakeShit")
-			#await get_tree().create_timer(3.0).timeout
+			await get_tree().create_timer(3.0).timeout
+			returnSpawn = true;
 			#canSee = false;
 	else:
-		if animPlayer.current_animation_position >= animPlayer.current_animation_length:
+		if returnSpawn:
+			animPlayer.play("Charge")
+			head.look_at(initPos);
+			var direction = (initPos-global_position).normalized();
+			velocity.x = lerp(velocity.x, direction.x*walkSpd, delta*acc);
+			velocity.z = lerp(velocity.z, direction.z*walkSpd, delta*acc);
+			if global_position.distance_to(initPos) < 5.0:
+				returnSpawn = false;
+		else:
+			#if animPlayer.current_animation_position >= animPlayer.current_animation_length:
 			animPlayer.play("EatIdle")
-		velocity.x = lerp(velocity.x, 0.0, delta*acc);
-		velocity.z = lerp(velocity.z, 0.0, delta*acc);
+			velocity.x = lerp(velocity.x, 0.0, delta*acc);
+			velocity.z = lerp(velocity.z, 0.0, delta*acc);
 	
 	if outlet == null:
 		cord.visible = false;

@@ -1,26 +1,26 @@
-[gd_scene format=3 uid="uid://7527t7qgom5h"]
+[gd_scene format=3 uid="uid://bcosaodb7abtl"]
 
 [ext_resource type="PackedScene" uid="uid://dpmi16oiaysr" path="res://World/GridMap/terminal1.glb" id="1_h02pv"]
 
 [node name="terminal1" unique_id=526457845 instance=ExtResource("1_h02pv")]
 
-[node name="Cylinder" parent="." index="0" unique_id=2068488763]
+[node name="Cylinder" parent="." index="0" unique_id=1359304234]
 transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 2, 2.7785883, -0.71416855)
 
-[node name="terminalCylinder" parent="." index="1" unique_id=1103554073]
+[node name="terminalCylinder" parent="." index="1" unique_id=1251271081]
 transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 2, 3.147168, -0.71416855)
 
-[node name="terminalCap" parent="." index="2" unique_id=1287023734]
+[node name="terminalCap" parent="." index="2" unique_id=1117150812]
 transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 2, 0, -0.71416855)
 
-[node name="teslaSphere" parent="." index="3" unique_id=358467914]
+[node name="teslaSphere" parent="." index="3" unique_id=948738050]
 transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 2, 3.3055882, -0.71416855)
 
-[node name="coils" parent="." index="4" unique_id=3401342]
+[node name="coils" parent="." index="4" unique_id=557808067]
 transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 2, 3.1918082, -0.71416855)
 
-[node name="terminal" parent="." index="5" unique_id=1320754709]
+[node name="terminal" parent="." index="5" unique_id=1596923346]
 transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 2, 0, -0.71416855)
 
-[node name="attachCylinder" parent="." index="6" unique_id=623861317]
-transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 2, 1.9522401, -0.71416855)
+[node name="attachCylinder" parent="." index="6" unique_id=1445968225]
+transform = Transform3D(0.16680318, 0, -0.9859902, 0, 1, 0, 0.9859902, 0, 0.16680318, 2, 1.9522401, -0.71416855)

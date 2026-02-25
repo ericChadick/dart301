@@ -70,7 +70,7 @@ var hpMax := hp;
 var cordLength := calculateStat(Global.cordLengthMin, Global.cordLengthMax, Global.cordLengthLevel, Global.cordLengthLevelMax);
 var dataMultiplier := calculateStat(Global.dataMultiplierMin, Global.dataMultiplierMax, Global.dataMultiplierLevel, Global.dataMultiplierLevelMax);
 
-var pullSpd := 60.0;
+var pullSpd := 45.0;
 
 @export var groundAccel := speed*.7
 @export var groundFric := speed*.6
@@ -308,12 +308,13 @@ func _process(delta):
 			var outletVec = (outlet.global_position-global_position).normalized()*(pullSpd+outlet.global_position.distance_to(global_position));
 			var lookVec = -head.transform.basis.z*(pullSpd+outlet.global_position.distance_to(global_position));
 			var pullVec = (lookVec+outletVec)/2;
+			pullVec.y = min(pullVec.y, jumpSpd*1.5)
 			canWallRun = true;
 			wallRunTime = wallRunTimeMax;
 			
 			velocity = pullVec;
 			pull_sound.play();
-			cordTugs -= 1;
+			#cordTugs -= 1;
 			pull_timer.start();
 			
 			#unplug from outlet

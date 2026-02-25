@@ -1,6 +1,6 @@
 [gd_scene format=4 uid="uid://nkr2g2w4vnro"]
 
-[ext_resource type="AudioStream" uid="uid://djm48o3rgo8fn" path="res://Audio/Player/player_pluggingIN.wav" id="1_378aq"]
+[ext_resource type="AudioStream" uid="uid://ndp0v2vlid62" path="res://Audio/Player/player_pluggingIN.wav" id="1_378aq"]
 
 [sub_resource type="SphereShape3D" id="SphereShape3D_qknly"]
 radius = 2.0
@@ -8,6 +8,7 @@ radius = 2.0
 [sub_resource type="StandardMaterial3D" id="StandardMaterial3D_qknly"]
 vertex_color_use_as_albedo = true
 albedo_color = Color(1, 0.82, 0.39999998, 1)
+roughness = 0.2
 emission_enabled = true
 emission = Color(1, 0.48333335, 0, 1)
 emission_energy_multiplier = 16.0
