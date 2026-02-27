@@ -1,0 +1,252 @@
+[gd_scene format=3 uid="uid://cfa75b7bjfkfv"]
+
+[ext_resource type="Script" uid="uid://bevf68wrkg7sv" path="res://World/world.gd" id="1_8oulc"]
+[ext_resource type="PackedScene" uid="uid://dckfnquaidfil" path="res://UI/Gameplay/player_ui.tscn" id="2_4mlq6"]
+[ext_resource type="PackedScene" uid="uid://cqrenk8ue8j8v" path="res://Player/player.tscn" id="3_5wgmv"]
+[ext_resource type="PackedScene" uid="uid://bxgwgbkpugt5j" path="res://World/Outlet/outlet.tscn" id="4_s85ri"]
+[ext_resource type="PackedScene" uid="uid://bcosaodb7abtl" path="res://World/GridMap/terminal_1.tscn" id="6_bqgks"]
+[ext_resource type="PackedScene" uid="uid://c1q5hgb0q01xm" path="res://Enemies/Small Interactions/Pull Object.tscn" id="7_xsq7s"]
+
+[sub_resource type="Environment" id="Environment_wfacm"]
+background_mode = 1
+background_color = Color(0.82234526, 0.64344853, 0.5297693, 1)
+background_energy_multiplier = 0.5
+tonemap_mode = 3
+glow_enabled = true
+glow_normalized = true
+glow_strength = 1.5
+fog_enabled = true
+fog_light_color = Color(0, 0, 0, 1)
+volumetric_fog_enabled = true
+volumetric_fog_density = 0.002
+volumetric_fog_albedo = Color(0.1596, 0.29184, 0.38, 1)
+volumetric_fog_emission = Color(0.008399991, 0.14560005, 0.42, 1)
+volumetric_fog_length = 86.0
+
+[sub_resource type="Gradient" id="Gradient_8uvkv"]
+offsets = PackedFloat32Array(0.2, 1)
+colors = PackedColorArray(1, 1, 1, 1, 0, 0, 0, 1)
+
+[sub_resource type="FastNoiseLite" id="FastNoiseLite_jh1ew"]
+noise_type = 2
+frequency = 0.03
+cellular_jitter = 3.0
+cellular_return_type = 0
+domain_warp_enabled = true
+domain_warp_type = 1
+domain_warp_amplitude = 50.0
+domain_warp_fractal_type = 2
+domain_warp_fractal_lacunarity = 1.5
+domain_warp_fractal_gain = 1.0
+
+[sub_resource type="NoiseTexture2D" id="NoiseTexture2D_eirg7"]
+noise = SubResource("FastNoiseLite_jh1ew")
+color_ramp = SubResource("Gradient_8uvkv")
+seamless = true
+
+[sub_resource type="Terrain3DMaterial" id="Terrain3DMaterial_va8ct"]
+_shader_parameters = {
+&"bias_distance": 512.0,
+&"blend_sharpness": 0.87,
+&"depth_blur": 0.0,
+&"enable_macro_variation": true,
+&"enable_projection": true,
+&"height_blending": true,
+&"macro_variation1": Color(1, 1, 1, 1),
+&"macro_variation2": Color(1, 1, 1, 1),
+&"macro_variation_slope": 0.333,
+&"mipmap_bias": 1.0,
+&"noise1_angle": 0.0,
+&"noise1_offset": Vector2(0.5, 0.5),
+&"noise1_scale": 0.04,
+&"noise2_scale": 0.076,
+&"noise3_scale": 0.225,
+&"noise_texture": SubResource("NoiseTexture2D_eirg7"),
+&"projection_angular_division": 2.0,
+&"projection_threshold": 0.8,
+&"world_space_normal_blend": true
+}
+show_checkered = true
+
+[sub_resource type="StandardMaterial3D" id="StandardMaterial3D_wfacm"]
+transparency = 4
+cull_mode = 2
+vertex_color_use_as_albedo = true
+backlight_enabled = true
+backlight = Color(0.5, 0.5, 0.5, 1)
+distance_fade_mode = 1
+distance_fade_min_distance = 128.0
+distance_fade_max_distance = 96.0
+
+[sub_resource type="Terrain3DMeshAsset" id="Terrain3DMeshAsset_oab11"]
+generated_type = 1
+height_offset = 0.5
+material_override = SubResource("StandardMaterial3D_wfacm")
+last_lod = 0
+last_shadow_lod = 0
+lod0_range = 128.0
+
+[sub_resource type="Terrain3DAssets" id="Terrain3DAssets_nhhll"]
+mesh_list = Array[Terrain3DMeshAsset]([SubResource("Terrain3DMeshAsset_oab11")])
+
+[node name="JunkHole" type="Node" unique_id=119924058]
+script = ExtResource("1_8oulc")
+
+[node name="PlayerUI" parent="." unique_id=883918654 instance=ExtResource("2_4mlq6")]
+
+[node name="SubViewportContainer" type="SubViewportContainer" parent="." unique_id=571855996]
+anchors_preset = 15
+anchor_right = 1.0
+anchor_bottom = 1.0
+grow_horizontal = 2
+grow_vertical = 2
+mouse_filter = 2
+stretch = true
+stretch_shrink = 2
+
+[node name="SubViewport" type="SubViewport" parent="SubViewportContainer" unique_id=579594435]
+handle_input_locally = false
+audio_listener_enable_3d = true
+size = Vector2i(960, 540)
+size_2d_override_stretch = true
+render_target_update_mode = 4
+
+[node name="WorldEnvironment" type="WorldEnvironment" parent="SubViewportContainer/SubViewport" unique_id=929510182]
+environment = SubResource("Environment_wfacm")
+
+[node name="DirectionalLight3D" type="DirectionalLight3D" parent="SubViewportContainer/SubViewport" unique_id=2020955228]
+transform = Transform3D(1, 0, 0, 0, -0.08425183, 0.9964445, 0, -0.9964445, -0.08425183, 0, 24.74411, 0)
+
+[node name="Terrain3D" type="Terrain3D" parent="SubViewportContainer/SubViewport" unique_id=2036573122]
+data_directory = "res://World/JunkHole/TerrainData"
+material = SubResource("Terrain3DMaterial_va8ct")
+assets = SubResource("Terrain3DAssets_nhhll")
+show_checkered = true
+top_level = true
+metadata/_edit_lock_ = true
+
+[node name="Player" parent="SubViewportContainer/SubViewport" unique_id=1517765959 node_paths=PackedStringArray("playerUI") instance=ExtResource("3_5wgmv")]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, -1.9073486e-06, 7.502901, 5.6798935)
+playerUI = NodePath("../../../PlayerUI")
+
+[node name="Outlet" parent="SubViewportContainer/SubViewport" unique_id=220038749 instance=ExtResource("4_s85ri")]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 2.5177398, 3.7913127, 26.019375)
+
+[node name="Outlet2" parent="SubViewportContainer/SubViewport" unique_id=254939207 instance=ExtResource("4_s85ri")]
+transform = Transform3D(-0.34953704, 0, -0.93692255, 0, 1, 0, 0.93692255, 0, -0.34953704, 3.3213496, 6.4774685, -2.8018246)
+
+[node name="Outlet3" parent="SubViewportContainer/SubViewport" unique_id=2002013981 instance=ExtResource("4_s85ri")]
+transform = Transform3D(-0.7092879, 0, -0.704919, 0, 1, 0, 0.704919, 0, -0.7092879, 10.409118, 5.3357677, -59.846558)
+
+[node name="Outlet8" parent="SubViewportContainer/SubViewport" unique_id=1084496116 instance=ExtResource("4_s85ri")]
+transform = Transform3D(0.13690856, 0, -0.99058366, -0.98727834, -0.08162534, -0.13645174, -0.0808568, 0.996663, -0.011175215, -1.0355558, 15.521633, -67.44659)
+
+[node name="Outlet9" parent="SubViewportContainer/SubViewport" unique_id=159378798 instance=ExtResource("4_s85ri")]
+transform = Transform3D(0.13690856, 0, -0.99058366, -0.98727834, -0.08162534, -0.13645174, -0.0808568, 0.996663, -0.011175215, -1.0355558, 15.521633, -77.98727)
+
+[node name="Outlet4" parent="SubViewportContainer/SubViewport" unique_id=96767948 instance=ExtResource("4_s85ri")]
+transform = Transform3D(-0.32102627, 0, -0.94707036, 0, 1, 0, 0.94707036, 0, -0.32102627, 3.2624483, 4.262751, -100.62719)
+
+[node name="Outlet5" parent="SubViewportContainer/SubViewport" unique_id=1283008640 instance=ExtResource("4_s85ri")]
+transform = Transform3D(-0.67995346, 0, 0.7332554, 0, 1, 0, -0.7332554, 0, -0.67995346, 36.19059, 8.917342, -82.30878)
+
+[node name="Outlet6" parent="SubViewportContainer/SubViewport" unique_id=320886439 instance=ExtResource("4_s85ri")]
+transform = Transform3D(0.042468548, 0, -0.99909794, 0, 1, 0, 0.99909794, 0, 0.042468548, 67.14669, 17.298252, -100.600464)
+
+[node name="Outlet7" parent="SubViewportContainer/SubViewport" unique_id=1817942794 instance=ExtResource("4_s85ri")]
+transform = Transform3D(0.1210912, 0.026580906, 0.9922855, -0.9717566, 0.20715217, 0.11303692, -0.20254949, -0.9779477, 0.05091448, -1.4046725, 23.51984, -56.12144)
+
+[node name="CSGBox3D" type="CSGBox3D" parent="SubViewportContainer/SubViewport" unique_id=1104496788]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 59.530045, 3.146284, 5.7039948)
+use_collision = true
+size = Vector3(10.729492, 7.4782715, 6.5375977)
+
+[node name="CSGBox3D2" type="CSGBox3D" parent="SubViewportContainer/SubViewport/CSGBox3D" unique_id=1898884834]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, -0.1234436, -3.1676636, 1.9680786)
+operation = 2
+use_collision = true
+size = Vector3(7.8447876, 2.3917236, 15.246704)
+
+[node name="CSGBox3D12" type="CSGBox3D" parent="SubViewportContainer/SubViewport" unique_id=145286435]
+transform = Transform3D(0.42913234, 0.2020675, -0.8803269, -0.4260111, 0.90468633, 2.0664178e-08, 0.7964522, 0.37502903, 0.4743244, 2.8781958, 17.674477, -91.78099)
+use_collision = true
+size = Vector3(7.2214594, 3.6559296, 14.378496)
+
+[node name="CSGBox3D2" type="CSGBox3D" parent="SubViewportContainer/SubViewport" unique_id=1757651386]
+transform = Transform3D(0.99999994, 0, 0, 0, 0.99999994, 0, 0, 0, 1, 2.8591537, 18.531487, 11.527504)
+use_collision = true
+flip_faces = true
+size = Vector3(64.39685, 40.315308, 58.436356)
+
+[node name="CSGBox3D3" type="CSGBox3D" parent="SubViewportContainer/SubViewport/CSGBox3D2" unique_id=1618106740]
+transform = Transform3D(0.9999933, 0, 0, 0, 0.9999933, 0, 0, 0, 1, -1.5712823, -8.289386, -64.9588)
+use_collision = true
+flip_faces = true
+size = Vector3(18.736115, 26.8703, 92.563126)
+
+[node name="CSGBox3D6" type="CSGBox3D" parent="SubViewportContainer/SubViewport/CSGBox3D2/CSGBox3D3" unique_id=289243385]
+transform = Transform3D(0.999969, 0, 0, 0, 0.999969, 0, 0, 0, 1, -0.846045, 5.215294, 30.273941)
+operation = 2
+use_collision = true
+flip_faces = true
+size = Vector3(23.63575, 17.033562, 11.930698)
+
+[node name="CSGBox3D11" type="CSGBox3D" parent="SubViewportContainer/SubViewport/CSGBox3D2/CSGBox3D3" unique_id=7166060]
+transform = Transform3D(0.9999948, 0, 8.917264e-13, 0, 0.9999744, 0, 2.4868996e-13, 0, 0.9999796, -5.8044806, 7.5353374, -19.902267)
+operation = 2
+use_collision = true
+flip_faces = true
+size = Vector3(15.944872, 3.6559296, 14.378496)
+
+[node name="CSGBox3D4" type="CSGBox3D" parent="SubViewportContainer/SubViewport/CSGBox3D2" unique_id=141181606]
+transform = Transform3D(0.99999326, 0, 0, 0, 0.99999326, 0, 0, 0, 1, -1.5712821, -8.289385, 69.627594)
+use_collision = true
+flip_faces = true
+size = Vector3(18.736115, 26.8703, 92.563126)
+
+[node name="CSGBox3D5" type="CSGBox3D" parent="SubViewportContainer/SubViewport/CSGBox3D2" unique_id=32442362]
+transform = Transform3D(-4.3710482e-08, 0, 0.99998945, 0, 0.9999828, 0, -0.9999933, 0, -4.3711378e-08, 35.465, -8.289379, -103.05666)
+use_collision = true
+flip_faces = true
+size = Vector3(18.736115, 26.8703, 92.3382)
+
+[node name="CSGBox3D6" type="CSGBox3D" parent="SubViewportContainer/SubViewport/CSGBox3D2/CSGBox3D5" unique_id=1625429241]
+transform = Transform3D(0.9479075, 0, -0.31853923, 0, 0.9999796, 0, 0.31854573, 0, 0.9478882, -9.83345, -7.1974316, 21.835396)
+operation = 2
+use_collision = true
+flip_faces = true
+size = Vector3(10.302628, 14.811615, 33.597736)
+
+[node name="CSGBox3D9" type="CSGBox3D" parent="SubViewportContainer/SubViewport/CSGBox3D2/CSGBox3D5" unique_id=219684228]
+transform = Transform3D(0.9479075, 0, -0.31853923, 0, 0.9999796, 0, 0.31854573, 0, 0.9478882, 13.41169, -4.2867002, 8.455162)
+operation = 2
+use_collision = true
+flip_faces = true
+size = Vector3(10.302628, 22.434616, 33.597736)
+
+[node name="CSGBox3D8" type="CSGBox3D" parent="SubViewportContainer/SubViewport/CSGBox3D2/CSGBox3D5" unique_id=435435757]
+transform = Transform3D(0.5255756, 0, -0.8507296, 0, 0.9999796, 0, 0.8507469, 0, 0.52556485, 6.5432587, -7.1974354, 43.89981)
+operation = 2
+use_collision = true
+flip_faces = true
+size = Vector3(10.302628, 14.811615, 29.60514)
+
+[node name="CSGBox3D7" type="CSGBox3D" parent="SubViewportContainer/SubViewport/CSGBox3D2/CSGBox3D5" unique_id=851269585]
+transform = Transform3D(1, 0, 8.9173113e-13, 0, 0.9999796, 0, 4.8316906e-13, 0, 0.9999796, -0.03804016, -13.351288, -13.868654)
+operation = 2
+use_collision = true
+flip_faces = true
+size = Vector3(22.815525, 14.811615, 14.378496)
+
+[node name="CSGBox3D10" type="CSGBox3D" parent="SubViewportContainer/SubViewport/CSGBox3D2/CSGBox3D5" unique_id=1464034651]
+transform = Transform3D(1, 0, 8.9173113e-13, 0, 0.9999796, 0, 2.5579538e-13, 0, 0.9999796, -0.03804016, 7.5353384, -13.86866)
+operation = 2
+use_collision = true
+flip_faces = true
+size = Vector3(22.815525, 3.6559296, 14.378496)
+
+[node name="terminal1" parent="SubViewportContainer/SubViewport" unique_id=526457845 instance=ExtResource("6_bqgks")]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, -0.19242764, 1.9477816, 11.122065)
+
+[node name="PullObject" parent="." unique_id=1603127869 instance=ExtResource("7_xsq7s")]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 9.186081, 20.863552, -4.679742)
