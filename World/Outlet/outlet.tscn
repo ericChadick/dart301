@@ -89,7 +89,6 @@ script = ExtResource("1_iw82v")
 shape = SubResource("SphereShape3D_qknly")
 
 [node name="OutletLight" type="MeshInstance3D" parent="." unique_id=391716278]
-transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0.14567536, 0.026119918, 0)
 material_override = ExtResource("2_scrvh")
 mesh = SubResource("SphereMesh_uxtxx")
 
@@ -98,6 +97,7 @@ stream = SubResource("AudioStreamRandomizer_iw82v")
 
 [node name="TerminalOutlet_001" type="MeshInstance3D" parent="." unique_id=107799262]
 transform = Transform3D(0.668651, 0, 0, 0, 1, 0, 0, 0, 1, -0.46947527, -1.33751, 0)
+visible = false
 mesh = SubResource("ArrayMesh_iw82v")
 skeleton = NodePath("")
 

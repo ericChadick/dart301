@@ -7,6 +7,7 @@ const TRASH_BLOCK = preload("uid://i88uf8p3y2hu")
 @onready var debris_right_particle: GPUParticles3D = $Armature/Skeleton3D/Bone/DebrisRightParticle
 @onready var mouth_hitbox: Area3D = $Armature/Skeleton3D/Bone/MouthHitbox
 @onready var animation_player: AnimationPlayer = $AnimationPlayer
+@onready var fire_particle: GPUParticles3D = $Armature/Skeleton3D/Bone/FireParticle
 
 @export var shakeTime := 0.0;
 @export var shakeIntensity := .02;
@@ -38,6 +39,7 @@ func _on_back_hitbox_body_entered(body: Node3D) -> void:
 	if body.is_in_group("player"):
 		body.shake = .5;
 		body.velocity.y = 15.0;
+		fire_particle.restart();
 
 func _on_mouth_hitbox_body_entered(body: Node3D) -> void:
 	if body.is_in_group("player"):

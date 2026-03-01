@@ -3,15 +3,15 @@
 importer="texture"
 type="CompressedTexture2D"
 uid="uid://c51nhjnik3pop"
-path="res://.godot/imported/batteryIcon.png-3d754c374d255c893dda3199acc65896.ctex"
+path="res://.godot/imported/batteryIcon.png-6e07c65e57453b4c37720ccd64c02dbd.ctex"
 metadata={
 "vram_texture": false
 }
 
 [deps]
 
-source_file="res://UI/UpgradeMenu/batteryIcon.png"
-dest_files=["res://.godot/imported/batteryIcon.png-3d754c374d255c893dda3199acc65896.ctex"]
+source_file="res://UI/UpgradeMenu/Icons/batteryIcon.png"
+dest_files=["res://.godot/imported/batteryIcon.png-6e07c65e57453b4c37720ccd64c02dbd.ctex"]
 
 [params]
 

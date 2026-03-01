@@ -1,0 +1,43 @@
+[gd_scene format=3 uid="uid://cguy2xjspouhw"]
+
+[ext_resource type="PackedScene" uid="uid://b8bf3rge4ipkh" path="res://World/Outlet/terminal.glb" id="1_qyl8s"]
+[ext_resource type="PackedScene" uid="uid://bxgwgbkpugt5j" path="res://World/Outlet/outlet.tscn" id="2_clhyg"]
+[ext_resource type="Script" uid="uid://bf4dew45ym0c" path="res://World/Outlet/terminal.gd" id="2_rs2nq"]
+
+[sub_resource type="CylinderShape3D" id="CylinderShape3D_rs2nq"]
+height = 4.024292
+radius = 0.72265625
+
+[sub_resource type="StandardMaterial3D" id="StandardMaterial3D_clhyg"]
+transparency = 1
+albedo_color = Color(1, 1, 1, 0.23529412)
+
+[sub_resource type="StandardMaterial3D" id="StandardMaterial3D_rs2nq"]
+shading_mode = 0
+albedo_color = Color(1, 0.9666667, 0, 1)
+
+[sub_resource type="CylinderMesh" id="CylinderMesh_v6u5i"]
+top_radius = 0.3
+bottom_radius = 0.3
+height = 0.9
+radial_segments = 16
+
+[node name="terminal" unique_id=1241557404 instance=ExtResource("1_qyl8s")]
+script = ExtResource("2_rs2nq")
+
+[node name="StaticBody3D" type="StaticBody3D" parent="." index="0" unique_id=1724681893]
+
+[node name="CollisionShape3D" type="CollisionShape3D" parent="StaticBody3D" index="0" unique_id=2007430192]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 2.00885, 0)
+shape = SubResource("CylinderShape3D_rs2nq")
+
+[node name="terminalCylinder" parent="." index="1" unique_id=1037808169]
+material_override = SubResource("StandardMaterial3D_clhyg")
+
+[node name="BatteryFill" type="MeshInstance3D" parent="." index="2" unique_id=2054867649]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 3.15, 0)
+material_override = SubResource("StandardMaterial3D_rs2nq")
+mesh = SubResource("CylinderMesh_v6u5i")
+
+[node name="Outlet" parent="attachCylinder" parent_id_path=PackedInt32Array(1255762821) index="0" unique_id=220038749 instance=ExtResource("2_clhyg")]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0.5, -0.15, 0)

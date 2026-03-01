@@ -438,7 +438,7 @@ func _physics_process(delta: float) -> void:
 			crouching = true;
 	if ceiling_ray.is_colliding():
 		crouching = true;
-		collision_shape_3d.shape.height = 1.0;	
+		collision_shape_3d.shape.height = 1.0;
 	collision_shape_3d.position.y = -(playerHeight-collision_shape_3d.shape.height)*.5;
 	if !crouching and slide_timer.is_stopped():
 		collision_shape_3d.shape.height = move_toward(collision_shape_3d.shape.height, playerHeight, 10*delta);
@@ -450,13 +450,21 @@ func _physics_process(delta: float) -> void:
 	groundedPrev = groundedCurrent;
 	groundedCurrent = groundBuffer > 0.0;
 	var inc := 0.0;
+	
 	if groundBuffer > 0.0:
 		jumping = false;
+		
 		if velocity.length() > speed*.5 and slideBuffer > 0.0 and Input.is_action_just_released("slide") and slide_timer.is_stopped() and slide_cooldown_timer.is_stopped():
 			slide_timer.start();
 			slide_sound.play();
-			velocity.x *= 1.8;
-			velocity.z *= 1.8;
+			
+			var slideSpd := 2000.0
+			var normal = get_floor_normal()
+			var slide_dir = Vector3.DOWN.slide(normal)
+			var slideInput = (direction + slide_dir)/2.0;
+			
+			velocity += slideInput*slideSpd*delta;
+			#velocity.z += 1.8;
 			slideBuffer = 0.0;
 			#slide_cooldown_timer.start();
 			collision_shape_3d.shape.height = 1.0;

@@ -6,7 +6,7 @@
 [ext_resource type="PackedScene" uid="uid://nkr2g2w4vnro" path="res://Enemies/World_Enemy/Outlet/outlet.tscn" id="4_bum1d"]
 [ext_resource type="PackedScene" uid="uid://hyeh47v46j86" path="res://Enemies/TestEnemy/test_enemy.tscn" id="5_amfoy"]
 [ext_resource type="PackedScene" uid="uid://b6dc6vfdsdfvn" path="res://Enemies/World_Enemy/Blueprints/blueprint.tscn" id="6_2b58e"]
-[ext_resource type="Texture2D" uid="uid://bmmmchlg8ivik" path="res://UI/UpgradeMenu/gunIcon.png" id="7_kk6br"]
+[ext_resource type="Texture2D" uid="uid://bmmmchlg8ivik" path="res://UI/UpgradeMenu/Icons/gunIcon.png" id="7_kk6br"]
 [ext_resource type="MeshLibrary" uid="uid://bvatqfua1rg1e" path="res://Enemies/World_Enemy/GridMap/demoBlocksEric.meshlib" id="8_r2wwq"]
 [ext_resource type="PackedScene" uid="uid://b8by2pig2hn5j" path="res://Enemies/World_Enemy/Props/wires.glb" id="9_5jxpc"]
 [ext_resource type="PackedScene" uid="uid://cyi53l3c5qg8f" path="res://Enemies/World_Enemy/Props/bacta_tank.tscn" id="10_3sjox"]

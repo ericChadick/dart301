@@ -1,0 +1,43 @@
+[gd_scene format=3 uid="uid://ccjew7eqgtwfb"]
+
+[ext_resource type="Script" uid="uid://bjjw236q3ru6i" path="res://UI/UpgradeMenu/WeaponLoadout/weapon_container.gd" id="1_xjv1b"]
+
+[sub_resource type="Gradient" id="Gradient_kxcfo"]
+
+[sub_resource type="GradientTexture2D" id="GradientTexture2D_bm0sf"]
+gradient = SubResource("Gradient_kxcfo")
+
+[node name="WeaponContainer" type="HBoxContainer" unique_id=1035050020]
+custom_minimum_size = Vector2(0, 64)
+offset_right = 40.0
+offset_bottom = 40.0
+script = ExtResource("1_xjv1b")
+
+[node name="WeaponIcon" type="TextureRect" parent="." unique_id=1260947381]
+layout_mode = 2
+texture = SubResource("GradientTexture2D_bm0sf")
+stretch_mode = 2
+
+[node name="WeaponName" type="RichTextLabel" parent="." unique_id=349843943]
+custom_minimum_size = Vector2(256, 0)
+layout_mode = 2
+size_flags_horizontal = 8
+bbcode_enabled = true
+text = "WEAPON"
+
+[node name="WeaponDescription" type="RichTextLabel" parent="WeaponName" unique_id=1179612430]
+custom_minimum_size = Vector2(256, 0)
+layout_mode = 1
+offset_top = 64.0
+offset_right = 256.0
+offset_bottom = 128.0
+bbcode_enabled = true
+text = "Description
+This item has a purpose!"
+
+[node name="Ammo" type="RichTextLabel" parent="." unique_id=212955696]
+custom_minimum_size = Vector2(64, 0)
+layout_mode = 2
+bbcode_enabled = true
+text = "3"
+horizontal_alignment = 1

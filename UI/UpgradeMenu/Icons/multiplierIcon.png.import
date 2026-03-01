@@ -2,16 +2,16 @@
 
 importer="texture"
 type="CompressedTexture2D"
-uid="uid://bj0uifwmaujw0"
-path="res://.godot/imported/jumpIcon.png-89bb6746f5658253be78cd26fe9f7869.ctex"
+uid="uid://bepdwhw1vvix6"
+path="res://.godot/imported/multiplierIcon.png-be038165e4629580058faee8e7a21b65.ctex"
 metadata={
 "vram_texture": false
 }
 
 [deps]
 
-source_file="res://UI/UpgradeMenu/jumpIcon.png"
-dest_files=["res://.godot/imported/jumpIcon.png-89bb6746f5658253be78cd26fe9f7869.ctex"]
+source_file="res://UI/UpgradeMenu/Icons/multiplierIcon.png"
+dest_files=["res://.godot/imported/multiplierIcon.png-be038165e4629580058faee8e7a21b65.ctex"]
 
 [params]
 

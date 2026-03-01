@@ -2,21 +2,21 @@
 
 [ext_resource type="Script" uid="uid://d0dch7ajvegkl" path="res://UI/UpgradeMenu/upgrade_menu.gd" id="1_f4tld"]
 [ext_resource type="FontFile" uid="uid://b5iu436di81lx" path="res://UI/Gameplay/propaganda.ttf" id="1_hofnk"]
-[ext_resource type="PackedScene" uid="uid://c6bf0wyk5lre" path="res://UI/UpgradeMenu/stat_upgrade_meter.tscn" id="2_b1awm"]
-[ext_resource type="Texture2D" uid="uid://c51nhjnik3pop" path="res://UI/UpgradeMenu/batteryIcon.png" id="4_2bpua"]
-[ext_resource type="Texture2D" uid="uid://bqtmruylxcp8e" path="res://UI/Gameplay/gear.png" id="5_4r3qf"]
+[ext_resource type="PackedScene" uid="uid://ccjew7eqgtwfb" path="res://UI/UpgradeMenu/WeaponLoadout/weapon_container.tscn" id="2_l626o"]
+[ext_resource type="PackedScene" uid="uid://c1ukt5sqs0152" path="res://UI/UpgradeMenu/WeaponLoadout/weapon_loadout_slot.tscn" id="4_kxcfo"]
 [ext_resource type="Texture2D" uid="uid://2sy53byjqv7y" path="res://UI/Gameplay/next.png" id="5_v27ci"]
-[ext_resource type="Texture2D" uid="uid://csp48vvxcmebl" path="res://UI/UpgradeMenu/speedIcon.png" id="6_kimnd"]
-[ext_resource type="Texture2D" uid="uid://dlxfdu00bcus5" path="res://UI/UpgradeMenu/plugIcon.png" id="7_hhs1x"]
-[ext_resource type="Texture2D" uid="uid://bj0uifwmaujw0" path="res://UI/UpgradeMenu/jumpIcon.png" id="8_2bpua"]
-[ext_resource type="PackedScene" uid="uid://c2pjwyt35wifb" path="res://UI/UpgradeMenu/stat_item_purchase.tscn" id="8_dc6v4"]
-[ext_resource type="Texture2D" uid="uid://bepdwhw1vvix6" path="res://UI/UpgradeMenu/multiplierIcon.png" id="9_g0opq"]
-[ext_resource type="Texture2D" uid="uid://bmmmchlg8ivik" path="res://UI/UpgradeMenu/gunIcon.png" id="10_g0opq"]
+[ext_resource type="AudioStream" uid="uid://dt0dthyx78b8a" path="res://Audio/UpgradeMenu/equip.wav" id="10_8ak6m"]
+[ext_resource type="AudioStream" uid="uid://r73kifb7qpq1" path="res://Audio/UpgradeMenu/weaponEquip.wav" id="11_hnh00"]
 [ext_resource type="AudioStream" uid="uid://daa3r12i25bk0" path="res://Audio/UpgradeMenu/menucycle.wav" id="11_in30h"]
-[ext_resource type="Texture2D" uid="uid://pkhhx2kkucph" path="res://UI/UpgradeMenu/prototype.png" id="12_kimnd"]
+[ext_resource type="Texture2D" uid="uid://pkhhx2kkucph" path="res://UI/UpgradeMenu/Icons/prototype.png" id="12_kimnd"]
 [ext_resource type="Shader" uid="uid://bp7q7ubcd4lk4" path="res://Shaders/dither.gdshader" id="13_d67jj"]
 [ext_resource type="Shader" uid="uid://drc60ttp56cn4" path="res://Shaders/screen.gdshader" id="14_hhs1x"]
 [ext_resource type="Texture2D" uid="uid://diu4t01qg1wt5" path="res://UI/Gameplay/battery.png" id="15_g2q6n"]
+
+[sub_resource type="Gradient" id="Gradient_kxcfo"]
+
+[sub_resource type="GradientTexture2D" id="GradientTexture2D_xntmr"]
+gradient = SubResource("Gradient_kxcfo")
 
 [sub_resource type="ShaderMaterial" id="ShaderMaterial_uxsr7"]
 shader = ExtResource("13_d67jj")
@@ -24,11 +24,48 @@ shader_parameter/size = Vector2(1440, 1080)
 shader_parameter/color1 = Color(0.70975083, 0, 0, 0)
 shader_parameter/color2 = Color(0, 0, 0, 1)
 
+[sub_resource type="Gradient" id="Gradient_xntmr"]
+
+[sub_resource type="GradientTexture2D" id="GradientTexture2D_8ak6m"]
+gradient = SubResource("Gradient_xntmr")
+
+[sub_resource type="Gradient" id="Gradient_l626o"]
+offsets = PackedFloat32Array(0.59518075, 0.6240964)
+colors = PackedColorArray(0, 0, 0, 1, 0, 0, 0, 0)
+
+[sub_resource type="GradientTexture2D" id="GradientTexture2D_kxcfo"]
+gradient = SubResource("Gradient_l626o")
+width = 32
+height = 32
+fill = 1
+fill_from = Vector2(0.5, 0.5)
+
+[sub_resource type="Gradient" id="Gradient_8ak6m"]
+offsets = PackedFloat32Array(0.29453683, 0.56057006)
+colors = PackedColorArray(1, 1, 1, 1, 1, 1, 1, 0)
+
+[sub_resource type="GradientTexture2D" id="GradientTexture2D_hnh00"]
+gradient = SubResource("Gradient_8ak6m")
+fill = 1
+fill_from = Vector2(0.5, 0.5)
+
 [sub_resource type="AudioStreamRandomizer" id="AudioStreamRandomizer_soptt"]
 random_pitch = 1.0028923
 random_volume_offset_db = 0.05
 streams_count = 1
 stream_0/stream = ExtResource("11_in30h")
+
+[sub_resource type="AudioStreamRandomizer" id="AudioStreamRandomizer_6mccb"]
+random_pitch = 1.0028923
+random_volume_offset_db = 0.05
+streams_count = 1
+stream_0/stream = ExtResource("10_8ak6m")
+
+[sub_resource type="AudioStreamRandomizer" id="AudioStreamRandomizer_dqcmg"]
+random_pitch = 1.0028923
+random_volume_offset_db = 0.05
+streams_count = 1
+stream_0/stream = ExtResource("11_hnh00")
 
 [sub_resource type="ShaderMaterial" id="ShaderMaterial_g0opq"]
 shader = ExtResource("14_hhs1x")
@@ -60,6 +97,7 @@ anchor_right = 1.0
 anchor_bottom = 1.0
 grow_horizontal = 2
 grow_vertical = 2
+focus_mode = 2
 
 [node name="MarginContainer" type="MarginContainer" parent="Control" unique_id=599927962]
 layout_mode = 1
@@ -73,6 +111,66 @@ theme_override_constants/margin_top = 64
 theme_override_constants/margin_right = 64
 theme_override_constants/margin_bottom = 64
 
+[node name="WeaponList" type="VBoxContainer" parent="Control/MarginContainer" unique_id=1918643389]
+custom_minimum_size = Vector2(320, 360)
+layout_mode = 2
+size_flags_horizontal = 0
+size_flags_vertical = 4
+
+[node name="WeaponContainer" parent="Control/MarginContainer/WeaponList" unique_id=1035050020 instance=ExtResource("2_l626o")]
+layout_mode = 2
+
+[node name="WeaponContainer2" parent="Control/MarginContainer/WeaponList" unique_id=575048552 instance=ExtResource("2_l626o")]
+layout_mode = 2
+
+[node name="WeaponContainer3" parent="Control/MarginContainer/WeaponList" unique_id=191886011 instance=ExtResource("2_l626o")]
+layout_mode = 2
+
+[node name="GridContainer" type="GridContainer" parent="Control/MarginContainer" unique_id=520906397]
+custom_minimum_size = Vector2(512, 256)
+layout_mode = 2
+size_flags_horizontal = 8
+size_flags_vertical = 4
+theme_override_constants/h_separation = 18
+theme_override_constants/v_separation = 18
+columns = 4
+
+[node name="TextureRect" type="TextureRect" parent="Control/MarginContainer/GridContainer" unique_id=1249160417]
+layout_mode = 2
+texture = SubResource("GradientTexture2D_xntmr")
+
+[node name="TextureRect2" type="TextureRect" parent="Control/MarginContainer/GridContainer" unique_id=1205231380]
+layout_mode = 2
+texture = SubResource("GradientTexture2D_xntmr")
+
+[node name="TextureRect3" type="TextureRect" parent="Control/MarginContainer/GridContainer" unique_id=246800455]
+layout_mode = 2
+texture = SubResource("GradientTexture2D_xntmr")
+
+[node name="TextureRect4" type="TextureRect" parent="Control/MarginContainer/GridContainer" unique_id=1460350143]
+layout_mode = 2
+texture = SubResource("GradientTexture2D_xntmr")
+
+[node name="TextureRect5" type="TextureRect" parent="Control/MarginContainer/GridContainer" unique_id=64053965]
+layout_mode = 2
+texture = SubResource("GradientTexture2D_xntmr")
+
+[node name="TextureRect6" type="TextureRect" parent="Control/MarginContainer/GridContainer" unique_id=2122639841]
+layout_mode = 2
+texture = SubResource("GradientTexture2D_xntmr")
+
+[node name="TextureRect7" type="TextureRect" parent="Control/MarginContainer/GridContainer" unique_id=1972618065]
+layout_mode = 2
+texture = SubResource("GradientTexture2D_xntmr")
+
+[node name="TextureRect8" type="TextureRect" parent="Control/MarginContainer/GridContainer" unique_id=623591253]
+layout_mode = 2
+texture = SubResource("GradientTexture2D_xntmr")
+
+[node name="TextureRect9" type="TextureRect" parent="Control/MarginContainer/GridContainer" unique_id=966985928]
+layout_mode = 2
+texture = SubResource("GradientTexture2D_xntmr")
+
 [node name="Currency" type="RichTextLabel" parent="Control/MarginContainer" unique_id=83709108]
 custom_minimum_size = Vector2(256, 96)
 layout_mode = 2
@@ -85,73 +183,77 @@ text = "100"
 fit_content = true
 horizontal_alignment = 1
 
-[node name="HBoxContainer" type="HBoxContainer" parent="Control/MarginContainer" unique_id=1106863556]
+[node name="HBoxContainer" type="HBoxContainer" parent="Control/MarginContainer" unique_id=481768132]
 layout_mode = 2
-theme_override_constants/separation = 12
+size_flags_horizontal = 4
+theme_override_constants/separation = 24
 
-[node name="StatUpgradeContainer" type="VBoxContainer" parent="Control/MarginContainer/HBoxContainer" unique_id=1917288982]
-visible = false
+[node name="WeaponLoadout" type="VBoxContainer" parent="Control/MarginContainer/HBoxContainer" unique_id=346539770]
 layout_mode = 2
-size_flags_vertical = 8
+size_flags_vertical = 4
 theme_override_constants/separation = 16
 
-[node name="BatteryUpgradeMeter" parent="Control/MarginContainer/HBoxContainer/StatUpgradeContainer" unique_id=1429138153 instance=ExtResource("2_b1awm")]
+[node name="WeaponLoadoutSlot" parent="Control/MarginContainer/HBoxContainer/WeaponLoadout" unique_id=586287958 instance=ExtResource("4_kxcfo")]
 layout_mode = 2
-size_flags_horizontal = 8
-iconTexture = ExtResource("4_2bpua")
 
-[node name="HealthUpgradeMeter" parent="Control/MarginContainer/HBoxContainer/StatUpgradeContainer" unique_id=1004966271 instance=ExtResource("2_b1awm")]
+[node name="WeaponLoadoutSlot2" parent="Control/MarginContainer/HBoxContainer/WeaponLoadout" unique_id=756316103 instance=ExtResource("4_kxcfo")]
 layout_mode = 2
-size_flags_horizontal = 8
-iconTexture = ExtResource("5_4r3qf")
 
-[node name="SpeedUpgradeMeter" parent="Control/MarginContainer/HBoxContainer/StatUpgradeContainer" unique_id=825251718 instance=ExtResource("2_b1awm")]
+[node name="WeaponLoadoutSlot3" parent="Control/MarginContainer/HBoxContainer/WeaponLoadout" unique_id=1343725565 instance=ExtResource("4_kxcfo")]
 layout_mode = 2
-size_flags_horizontal = 8
-iconTexture = ExtResource("6_kimnd")
 
-[node name="CordUpgradeMeter" parent="Control/MarginContainer/HBoxContainer/StatUpgradeContainer" unique_id=707361390 instance=ExtResource("2_b1awm")]
+[node name="PartsContainer" type="VBoxContainer" parent="Control/MarginContainer/HBoxContainer" unique_id=170894941]
 layout_mode = 2
-size_flags_horizontal = 8
-iconTexture = ExtResource("7_hhs1x")
+size_flags_horizontal = 4
+size_flags_vertical = 4
+theme_override_constants/separation = 12
 
-[node name="JumpUpgradeMeter" parent="Control/MarginContainer/HBoxContainer/StatUpgradeContainer" unique_id=713297231 instance=ExtResource("2_b1awm")]
-layout_mode = 2
-size_flags_horizontal = 8
-iconTexture = ExtResource("8_2bpua")
-
-[node name="MultiplierUpgradeMeter" parent="Control/MarginContainer/HBoxContainer/StatUpgradeContainer" unique_id=1112103353 instance=ExtResource("2_b1awm")]
-layout_mode = 2
-size_flags_horizontal = 8
-iconTexture = ExtResource("9_g0opq")
-
-[node name="TextureRect" type="TextureRect" parent="Control/MarginContainer/HBoxContainer" unique_id=1431262963]
+[node name="PlayerIcon" type="TextureRect" parent="Control/MarginContainer/HBoxContainer/PartsContainer" unique_id=1431262963]
 material = SubResource("ShaderMaterial_uxsr7")
 custom_minimum_size = Vector2(256, 256)
 layout_mode = 2
 size_flags_horizontal = 0
-size_flags_vertical = 8
+size_flags_vertical = 4
 texture = ExtResource("12_kimnd")
 stretch_mode = 6
 
-[node name="ItemUpgradeContainer" type="VBoxContainer" parent="Control/MarginContainer/HBoxContainer" unique_id=1060177260]
+[node name="PartTex" type="TextureRect" parent="Control/MarginContainer/HBoxContainer/PartsContainer/PlayerIcon" unique_id=550016226]
+layout_mode = 0
+offset_left = 102.0
+offset_top = 137.0
+offset_right = 166.0
+offset_bottom = 201.0
+texture = SubResource("GradientTexture2D_8ak6m")
+
+[node name="EquipPartsContainer" type="HBoxContainer" parent="Control/MarginContainer/HBoxContainer/PartsContainer" unique_id=1283100336]
 layout_mode = 2
 size_flags_horizontal = 4
-size_flags_vertical = 8
-theme_override_constants/separation = 16
+size_flags_vertical = 4
+theme_override_constants/separation = 12
 
-[node name="GunPurchaseButton" parent="Control/MarginContainer/HBoxContainer/ItemUpgradeContainer" unique_id=1510449367 instance=ExtResource("8_dc6v4")]
+[node name="CharmSlot" type="TextureRect" parent="Control/MarginContainer/HBoxContainer/PartsContainer/EquipPartsContainer" unique_id=255311891]
 layout_mode = 2
-size_flags_horizontal = 8
-iconTexture = ExtResource("10_g0opq")
+texture = SubResource("GradientTexture2D_kxcfo")
 
-[node name="GoButton" type="TextureButton" parent="Control/MarginContainer/HBoxContainer" unique_id=1693835580]
-custom_minimum_size = Vector2(128, 128)
+[node name="CharmSlot2" type="TextureRect" parent="Control/MarginContainer/HBoxContainer/PartsContainer/EquipPartsContainer" unique_id=542195590]
 layout_mode = 2
-size_flags_horizontal = 8
-size_flags_vertical = 8
-texture_normal = ExtResource("5_v27ci")
-stretch_mode = 6
+texture = SubResource("GradientTexture2D_kxcfo")
+
+[node name="CharmSlot3" type="TextureRect" parent="Control/MarginContainer/HBoxContainer/PartsContainer/EquipPartsContainer" unique_id=1549845204]
+layout_mode = 2
+texture = SubResource("GradientTexture2D_kxcfo")
+
+[node name="CharmSlot4" type="TextureRect" parent="Control/MarginContainer/HBoxContainer/PartsContainer/EquipPartsContainer" unique_id=647467874]
+layout_mode = 2
+texture = SubResource("GradientTexture2D_kxcfo")
+
+[node name="CharmSlot5" type="TextureRect" parent="Control/MarginContainer/HBoxContainer/PartsContainer/EquipPartsContainer" unique_id=409574878]
+layout_mode = 2
+texture = SubResource("GradientTexture2D_kxcfo")
+
+[node name="CharmSlot6" type="TextureRect" parent="Control/MarginContainer/HBoxContainer/PartsContainer/EquipPartsContainer" unique_id=2013162477]
+layout_mode = 2
+texture = SubResource("GradientTexture2D_kxcfo")
 
 [node name="HBoxContainer2" type="HBoxContainer" parent="Control/MarginContainer" unique_id=942299027]
 layout_mode = 2
@@ -206,10 +308,31 @@ mouse_filter = 2
 text = "Cord length
 "
 
+[node name="GoButton" type="TextureButton" parent="Control/MarginContainer" unique_id=1693835580]
+custom_minimum_size = Vector2(128, 128)
+layout_mode = 2
+size_flags_horizontal = 8
+size_flags_vertical = 8
+texture_normal = ExtResource("5_v27ci")
+stretch_mode = 6
+
+[node name="FocusDebug" type="TextureRect" parent="Control" unique_id=959162263]
+layout_mode = 0
+offset_right = 64.0
+offset_bottom = 64.0
+mouse_filter = 2
+texture = SubResource("GradientTexture2D_hnh00")
+
 [node name="Audio" type="Node" parent="." unique_id=1896171430]
 
 [node name="CycleSound" type="AudioStreamPlayer" parent="Audio" unique_id=1596670953]
 stream = SubResource("AudioStreamRandomizer_soptt")
+
+[node name="EquipSound" type="AudioStreamPlayer" parent="Audio" unique_id=1468851667]
+stream = SubResource("AudioStreamRandomizer_6mccb")
+
+[node name="WeaponEquipSound" type="AudioStreamPlayer" parent="Audio" unique_id=100768551]
+stream = SubResource("AudioStreamRandomizer_dqcmg")
 
 [node name="Screen" type="ColorRect" parent="." unique_id=139744653]
 visible = false
@@ -221,5 +344,6 @@ grow_horizontal = 2
 grow_vertical = 2
 mouse_filter = 2
 
-[connection signal="pressed" from="Control/MarginContainer/HBoxContainer/GoButton" to="." method="_on_go_button_pressed"]
+[connection signal="focus_entered" from="Control" to="." method="_on_control_focus_entered"]
 [connection signal="pressed" from="Control/MarginContainer/HBoxContainer2/BatteryDebug" to="." method="_on_battery_debug_pressed"]
+[connection signal="pressed" from="Control/MarginContainer/GoButton" to="." method="_on_go_button_pressed"]

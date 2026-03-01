@@ -2,16 +2,16 @@
 
 importer="texture"
 type="CompressedTexture2D"
-uid="uid://csp48vvxcmebl"
-path="res://.godot/imported/speedIcon.png-3c352094192879b40ff36d9a384e377e.ctex"
+uid="uid://bmmmchlg8ivik"
+path="res://.godot/imported/gunIcon.png-1c05af1c5f2737aed9fbe04a010516a0.ctex"
 metadata={
 "vram_texture": false
 }
 
 [deps]
 
-source_file="res://UI/UpgradeMenu/speedIcon.png"
-dest_files=["res://.godot/imported/speedIcon.png-3c352094192879b40ff36d9a384e377e.ctex"]
+source_file="res://UI/UpgradeMenu/Icons/gunIcon.png"
+dest_files=["res://.godot/imported/gunIcon.png-1c05af1c5f2737aed9fbe04a010516a0.ctex"]
 
 [params]
 

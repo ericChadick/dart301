@@ -17,13 +17,14 @@ var mat : StandardMaterial3D;
 func _ready() -> void:
 	batteryMax = battery;
 	mat = OUTLET_GLOW.duplicate();
-	outlet_light.material_override = mat;
+	#outlet_light.material_override = mat;
+	outlet_light.set_surface_override_material(0, mat);
 
 # Called every frame. 'delta' is the elapsed time since the previous frame.
 func _process(delta: float) -> void:
 	if !dead and connected != null and connected.is_in_group("player") and !unlimited:
 		battery -= delta;
 		if battery <= 0.0:
-			mat.emission = Color(1.0, 0.15, 0.0, 1.0);
-			#outlet_light.visible = false;
+			#mat.emission = Color(1.0, 0.15, 0.0, 1.0);
+			outlet_light.visible = false;
 			dead = true;

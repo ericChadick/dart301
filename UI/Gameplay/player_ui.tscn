@@ -10,7 +10,7 @@
 [ext_resource type="Shader" uid="uid://bbea84b1alg8v" path="res://Shaders/speedlines.gdshader" id="8_byocv"]
 [ext_resource type="Shader" uid="uid://51dxx7ea6mtw" path="res://Shaders/lensflare.gdshader" id="10_fwocb"]
 [ext_resource type="Material" uid="uid://g0eihtw4spff" path="res://Shaders/screenMat.tres" id="11_fwocb"]
-[ext_resource type="Texture2D" uid="uid://dlxfdu00bcus5" path="res://UI/UpgradeMenu/plugIcon.png" id="12_rvkn8"]
+[ext_resource type="Texture2D" uid="uid://dlxfdu00bcus5" path="res://UI/UpgradeMenu/Icons/plugIcon.png" id="12_rvkn8"]
 
 [sub_resource type="FastNoiseLite" id="FastNoiseLite_fwocb"]
 

@@ -4,6 +4,8 @@ extends Node
 var currency := 100.0;
 
 enum PlayerWeapon {FIST, GUN, FLAME}
+enum PlayerParts {WALLASCEND, WALLSTICK, WALLTIMEINCREASE, DOUBLEJUMP, CORDLENGTHEN, CORDFLOAT, 
+PROJECTILEBOUNCE, AIRSLIDE, SCREENCRACKREMOVE}
 
 var hpMin := 10.0; #initial unupgraded value of stat
 var hpMax := 20.0; #max value of stat after all upgrades
@@ -59,7 +61,6 @@ var mainScene : NodePath;
 var batteryDecreaseDebug := false;
 
 #input rebinding
-
 
 #screen cracks
 enum ScreenCracks {SMALL, MED, LARGE}

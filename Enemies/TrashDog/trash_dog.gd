@@ -3,7 +3,7 @@ extends CharacterBody3D
 const bullet = preload("uid://h8nfngcoc7cq")
 const explosion = preload("uid://dg8jm24fvq8xv")
 
-@export var outlet : Area3D;
+@export var terminal : Node3D;
 @export var cordLength := 25.0;
 @export var sightRange := 15.0;
 @export var agroRange := 25.0;
@@ -15,6 +15,7 @@ const explosion = preload("uid://dg8jm24fvq8xv")
 var cord_point: Marker3D
 var animPlayer: AnimationPlayer;
 
+var outlet : Area3D;
 
 #if body.is_in_group("enemy"):
 	#body.queue_free();
@@ -30,6 +31,7 @@ var animPlayer: AnimationPlayer;
 @onready var head: Node3D = $Head
 @onready var shoot_point: Marker3D = $Head/ShootPoint
 @onready var ground_ray: RayCast3D = $GroundRay
+@onready var return_buffer: Timer = $ReturnBuffer
 
 var hp := 3;
 var currencyReward := 10;
@@ -49,6 +51,7 @@ func _ready() -> void:
 	target = get_parent().find_child("Player");
 	animPlayer = trash_bot.get_node("AnimationPlayer");
 	
+	outlet = terminal.outlet;
 	animPlayer.play("EatIdle");
 	initPos = global_position;
 	
@@ -85,7 +88,8 @@ func _physics_process(delta: float) -> void:
 		if outletDist >= cordLength:
 			canSee = false;
 			animPlayer.play("BiteBakeShit")
-			await get_tree().create_timer(3.0).timeout
+			return_buffer.start();
+			await return_buffer.timeout
 			returnSpawn = true;
 			#canSee = false;
 	else:
@@ -98,8 +102,9 @@ func _physics_process(delta: float) -> void:
 			if global_position.distance_to(initPos) < 5.0:
 				returnSpawn = false;
 		else:
-			#if animPlayer.current_animation_position >= animPlayer.current_animation_length:
-			animPlayer.play("EatIdle")
+			if velocity.length() < 1.0 and return_buffer.time_left <= 0.0:
+				#animPlayer.current_animation_position >= animPlayer.current_animation_length:
+				animPlayer.play("EatIdle")
 			velocity.x = lerp(velocity.x, 0.0, delta*acc);
 			velocity.z = lerp(velocity.z, 0.0, delta*acc);
 	

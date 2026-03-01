@@ -10,12 +10,19 @@ extends CanvasLayer
 @onready var multiplier_upgrade_meter: HBoxContainer = $Control/MarginContainer/HBoxContainer/StatUpgradeContainer/MultiplierUpgradeMeter
 
 @onready var cycle_sound: AudioStreamPlayer = $Audio/CycleSound
+@onready var equip_sound: AudioStreamPlayer = $Audio/EquipSound
+@onready var weapon_equip_sound: AudioStreamPlayer = $Audio/WeaponEquipSound
 
 var hoverPrev : TextureButton;
 var hoverCurrent : TextureButton;
 
 @onready var battery_debug: TextureButton = $Control/MarginContainer/HBoxContainer2/BatteryDebug
 @onready var cord_debug: HSlider = $Control/MarginContainer/HBoxContainer2/CordDebug
+
+@onready var focus_debug: TextureRect = $FocusDebug
+#default focus owner
+@onready var weapon_loadout_slot: TextureRect = $Control/MarginContainer/HBoxContainer/WeaponLoadout/WeaponLoadoutSlot
+
 
 # Called when the node enters the scene tree for the first time.
 func _ready() -> void:
@@ -27,37 +34,7 @@ func _ready() -> void:
 	
 	Input.mouse_mode = Input.MOUSE_MODE_VISIBLE;
 	#update all stat upgrade meters
-	#battery
-	battery_upgrade_meter.level = Global.batteryLevel;
-	battery_upgrade_meter.levelMax = Global.batteryLevelMax;
-	battery_upgrade_meter.costMultiplier = 5.0;
-	battery_upgrade_meter.calculateCost();
-	#health
-	health_upgrade_meter.level = Global.hpLevel;
-	health_upgrade_meter.levelMax = Global.hpLevelMax;
-	health_upgrade_meter.costMultiplier = 3.0;
-	health_upgrade_meter.calculateCost();
-	#speed
-	speed_upgrade_meter.level = Global.spdLevel;
-	speed_upgrade_meter.levelMax = Global.spdLevelMax;
-	speed_upgrade_meter.costMultiplier = 6.0;
-	speed_upgrade_meter.calculateCost();
-	#jump
-	jump_upgrade_meter.level = Global.jumpSpdLevel;
-	jump_upgrade_meter.levelMax = Global.jumpSpdLevelMax;
-	jump_upgrade_meter.costMultiplier = 8.0;
-	jump_upgrade_meter.calculateCost();
-	#jump
-	cord_upgrade_meter.level = Global.cordLengthLevel;
-	cord_upgrade_meter.levelMax = Global.cordLengthLevelMax;
-	cord_upgrade_meter.costMultiplier = 5.0;
-	cord_upgrade_meter.calculateCost();
-	#multiplier
-	multiplier_upgrade_meter.level = Global.dataMultiplierLevel;
-	multiplier_upgrade_meter.levelMax = Global.dataMultiplierLevelMax;
-	multiplier_upgrade_meter.costMultiplier = 8.0;
-	multiplier_upgrade_meter.calculateCost();
-
+	
 # Called every frame. 'delta' is the elapsed time since the previous frame.
 func _process(delta: float) -> void:
 	currency.text = str(int(Global.currency));
@@ -71,6 +48,13 @@ func _process(delta: float) -> void:
 		cycle_sound.play();
 		
 	Global.cordLengthMin = cord_debug.value;
+	
+	
+	weapon_loadout_slot.call_deferred("grab_focus")
+	var focused = get_viewport().gui_get_focus_owner();
+	print(focused);
+	if focused != null:
+		focus_debug.global_position = focused.global_position;
 
 func _on_go_button_pressed() -> void:
 	get_tree().change_scene_to_file(Global.mainScene);
@@ -79,3 +63,7 @@ func _on_go_button_pressed() -> void:
 
 func _on_battery_debug_pressed() -> void:
 	Global.batteryDecreaseDebug = !Global.batteryDecreaseDebug;
+
+
+func _on_control_focus_entered() -> void:
+	print("Focus node");
