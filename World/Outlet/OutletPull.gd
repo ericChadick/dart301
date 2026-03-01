@@ -6,6 +6,7 @@ var batteryMax := 1.0
 var dead := false
 
 @export var connected: Node3D = null
+var pulled: bool = false
 
 @onready var outlet_light: MeshInstance3D = $OutletLight2
 

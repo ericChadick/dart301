@@ -2,7 +2,6 @@ extends Node3D
 
 @onready var outlet: Area3D = $Outlet
 @onready var rb: RigidBody3D = $RigidBody3D
-@onready var no_more_damage: RayCast3D = $NoMoreDamage
 @onready var damage_area: Area3D = $RigidBody3D/DamageArea
 
 @export var damage_per_second: float = 5.0
@@ -10,7 +9,6 @@ extends Node3D
 
 var damage_enabled: bool = false
 var despawn_started: bool = false
-var _detach_grace: float = 0.0
 var _touching: Array[Node] = []
 
 func _ready() -> void:
@@ -28,9 +26,6 @@ func _ready() -> void:
 
 	damage_enabled = false
 	despawn_started = false
-	_detach_grace = 0.0
-
-	no_more_damage.enabled = true
 
 	damage_area.body_entered.connect(_on_damage_body_entered)
 	damage_area.body_exited.connect(_on_damage_body_exited)
@@ -52,27 +47,17 @@ func on_pulled_detach() -> void:
 	rb.apply_impulse(Vector3(0, 2.0, 0))
 
 	damage_enabled = true
-	_detach_grace = 0.15
+
+func _process(_delta: float) -> void:
+	if outlet.pulled:
+		on_pulled_detach()
+		outlet.pulled = false
 
 func _physics_process(delta: float) -> void:
 	if rb == null:
 		return
 
-	# While attached, keep frozen
 	if not damage_enabled:
-		# outlet.connected is the plug projectile when latched
-		if outlet.get("connected") != null:
-			rb.freeze = true
-			rb.sleeping = true
-		return
-
-	_detach_grace = max(0.0, _detach_grace - delta)
-
-	# Stop damage once ray hits ground (after grace)
-	if _detach_grace <= 0.0 and no_more_damage.is_colliding():
-		print("[PullObject] ground detected -> stop + despawn")
-		damage_enabled = false
-		_start_despawn()
 		return
 
 	# Apply DPS to anything we are overlapping
