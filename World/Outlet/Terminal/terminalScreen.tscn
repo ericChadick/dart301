@@ -1,0 +1,5 @@
+[gd_scene format=3 uid="uid://cavcnl6ikh0nv"]
+
+[ext_resource type="PackedScene" uid="uid://8btuefqblh68" path="res://World/Outlet/terminalScreen2.glb" id="1_wlra0"]
+
+[node name="terminalScreen2" unique_id=1419796712 instance=ExtResource("1_wlra0")]
