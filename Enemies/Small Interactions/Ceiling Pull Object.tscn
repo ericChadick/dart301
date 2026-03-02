@@ -1,0 +1,54 @@
+[gd_scene format=3 uid="uid://cp6w0v6cwhcvu"]
+
+[ext_resource type="Script" uid="uid://ba331jj7tgj2" path="res://Enemies/Small Interactions/pull_object.gd" id="1_ceil"]
+[ext_resource type="PackedScene" uid="uid://bxgwgbkpugt5j" path="res://World/Outlet/outlet.tscn" id="2_ceil"]
+[ext_resource type="Script" uid="uid://batnaixn8y7nu" path="res://World/Outlet/OutletPull.gd" id="3_ceil"]
+
+[sub_resource type="SphereShape3D" id="SphereShape3D_ceil"]
+radius = 2.0
+
+[sub_resource type="StandardMaterial3D" id="StandardMaterial3D_ceil"]
+vertex_color_use_as_albedo = true
+albedo_color = Color(1, 0.5, 0, 1)
+emission_enabled = true
+emission = Color(1, 0.5, 0, 1)
+emission_energy_multiplier = 16.0
+
+[sub_resource type="SphereMesh" id="SphereMesh_ceil"]
+radius = 0.2
+height = 0.4
+
+[sub_resource type="BoxMesh" id="BoxMesh_ceil"]
+size = Vector3(2, 0.4, 2)
+
+[sub_resource type="BoxShape3D" id="BoxShape3D_ceil"]
+size = Vector3(2, 0.4, 2)
+
+[node name="CeilingPullObject" type="Node3D" unique_id=1577106152]
+script = ExtResource("1_ceil")
+damage_per_second = 10.0
+release_impulse = Vector3(0, 0, 0)
+
+[node name="Outlet" parent="." unique_id=1705277981 instance=ExtResource("2_ceil")]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, -0.25, 0)
+script = ExtResource("3_ceil")
+
+[node name="CollisionShape3D2" type="CollisionShape3D" parent="Outlet" unique_id=957483457]
+shape = SubResource("SphereShape3D_ceil")
+
+[node name="OutletLight2" type="MeshInstance3D" parent="Outlet" unique_id=476009497]
+material_override = SubResource("StandardMaterial3D_ceil")
+mesh = SubResource("SphereMesh_ceil")
+
+[node name="RigidBody3D" type="RigidBody3D" parent="." unique_id=1629740493]
+
+[node name="MeshInstance3D" type="MeshInstance3D" parent="RigidBody3D" unique_id=743545210]
+mesh = SubResource("BoxMesh_ceil")
+
+[node name="DamageArea" type="Area3D" parent="RigidBody3D" unique_id=1518818197]
+
+[node name="CollisionShape3D" type="CollisionShape3D" parent="RigidBody3D/DamageArea" unique_id=1580897458]
+shape = SubResource("BoxShape3D_ceil")
+
+[node name="CollisionShape3D" type="CollisionShape3D" parent="RigidBody3D" unique_id=514800617]
+shape = SubResource("BoxShape3D_ceil")

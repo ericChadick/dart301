@@ -6,6 +6,7 @@ extends Node3D
 
 @export var damage_per_second: float = 5.0
 @export var despawn_delay: float = 5.0
+@export var release_impulse: Vector3 = Vector3(0, 2.0, 0)
 
 var damage_enabled: bool = false
 var despawn_started: bool = false
@@ -29,6 +30,7 @@ func _ready() -> void:
 
 	damage_area.body_entered.connect(_on_damage_body_entered)
 	damage_area.body_exited.connect(_on_damage_body_exited)
+	rb.sleeping_state_changed.connect(_on_rb_sleeping_changed)
 
 	print("[PullObject] ready path=", get_path())
 
@@ -43,8 +45,8 @@ func on_pulled_detach() -> void:
 	rb.sleeping = false
 	rb.gravity_scale = 1.0
 
-	# tiny impulse so you SEE it detach
-	rb.apply_impulse(Vector3(0, 2.0, 0))
+	# impulse on detach (configurable per object type)
+	rb.apply_impulse(release_impulse)
 
 	damage_enabled = true
 
@@ -83,6 +85,10 @@ func _apply_damage(target: Node, dmg: float) -> void:
 			target.call("take_damage", dmg)
 		elif "hp" in target:
 			target.set("hp", float(target.get("hp")) - dmg)
+
+func _on_rb_sleeping_changed() -> void:
+	if rb.sleeping and damage_enabled:
+		_start_despawn()
 
 func _start_despawn() -> void:
 	if despawn_started:

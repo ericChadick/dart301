@@ -1,11 +1,13 @@
 [gd_scene format=3 uid="uid://cfa75b7bjfkfv"]
 
-[ext_resource type="Script" uid="uid://bevf68wrkg7sv" path="res://World/world.gd" id="1_8oulc"]
-[ext_resource type="PackedScene" uid="uid://dckfnquaidfil" path="res://UI/Gameplay/player_ui.tscn" id="2_4mlq6"]
-[ext_resource type="PackedScene" uid="uid://cqrenk8ue8j8v" path="res://Player/player.tscn" id="3_5wgmv"]
-[ext_resource type="PackedScene" uid="uid://bxgwgbkpugt5j" path="res://World/Outlet/outlet.tscn" id="4_s85ri"]
-[ext_resource type="PackedScene" uid="uid://bcosaodb7abtl" path="res://World/GridMap/terminal_1.tscn" id="6_bqgks"]
-[ext_resource type="PackedScene" uid="uid://c1q5hgb0q01xm" path="res://Enemies/Small Interactions/Pull Object.tscn" id="7_xsq7s"]
+[ext_resource type="Script" uid="uid://bevf68wrkg7sv" path="res://World/world.gd" id="1_wm0ah"]
+[ext_resource type="PackedScene" uid="uid://dckfnquaidfil" path="res://UI/Gameplay/player_ui.tscn" id="2_3fxl2"]
+[ext_resource type="PackedScene" uid="uid://cqrenk8ue8j8v" path="res://Player/player.tscn" id="3_8wmop"]
+[ext_resource type="PackedScene" uid="uid://bxgwgbkpugt5j" path="res://World/Outlet/outlet.tscn" id="4_2d5hj"]
+[ext_resource type="PackedScene" uid="uid://bcosaodb7abtl" path="res://World/GridMap/terminal_1.tscn" id="5_ry05d"]
+[ext_resource type="PackedScene" uid="uid://c1q5hgb0q01xm" path="res://Enemies/Small Interactions/Pull Object.tscn" id="6_0qhf1"]
+[ext_resource type="PackedScene" uid="uid://cp6w0v6cwhcvu" path="res://Enemies/Small Interactions/Ceiling Pull Object.tscn" id="6_wm0ah"]
+[ext_resource type="PackedScene" uid="uid://dh7n4cq2bm8xk" path="res://Enemies/Small Interactions/Prop Tank.tscn" id="8_8wmop"]
 
 [sub_resource type="Environment" id="Environment_wfacm"]
 background_mode = 1
@@ -90,9 +92,9 @@ lod0_range = 128.0
 mesh_list = Array[Terrain3DMeshAsset]([SubResource("Terrain3DMeshAsset_oab11")])
 
 [node name="JunkHole" type="Node" unique_id=119924058]
-script = ExtResource("1_8oulc")
+script = ExtResource("1_wm0ah")
 
-[node name="PlayerUI" parent="." unique_id=883918654 instance=ExtResource("2_4mlq6")]
+[node name="PlayerUI" parent="." unique_id=883918654 instance=ExtResource("2_3fxl2")]
 
 [node name="SubViewportContainer" type="SubViewportContainer" parent="." unique_id=571855996]
 anchors_preset = 15
@@ -125,35 +127,35 @@ show_checkered = true
 top_level = true
 metadata/_edit_lock_ = true
 
-[node name="Player" parent="SubViewportContainer/SubViewport" unique_id=1517765959 node_paths=PackedStringArray("playerUI") instance=ExtResource("3_5wgmv")]
+[node name="Player" parent="SubViewportContainer/SubViewport" unique_id=1517765959 node_paths=PackedStringArray("playerUI") instance=ExtResource("3_8wmop")]
 transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, -1.9073486e-06, 7.502901, 5.6798935)
 playerUI = NodePath("../../../PlayerUI")
 
-[node name="Outlet" parent="SubViewportContainer/SubViewport" unique_id=220038749 instance=ExtResource("4_s85ri")]
+[node name="Outlet" parent="SubViewportContainer/SubViewport" unique_id=220038749 instance=ExtResource("4_2d5hj")]
 transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 2.5177398, 3.7913127, 26.019375)
 
-[node name="Outlet2" parent="SubViewportContainer/SubViewport" unique_id=254939207 instance=ExtResource("4_s85ri")]
+[node name="Outlet2" parent="SubViewportContainer/SubViewport" unique_id=254939207 instance=ExtResource("4_2d5hj")]
 transform = Transform3D(-0.34953704, 0, -0.93692255, 0, 1, 0, 0.93692255, 0, -0.34953704, 3.3213496, 6.4774685, -2.8018246)
 
-[node name="Outlet3" parent="SubViewportContainer/SubViewport" unique_id=2002013981 instance=ExtResource("4_s85ri")]
+[node name="Outlet3" parent="SubViewportContainer/SubViewport" unique_id=2002013981 instance=ExtResource("4_2d5hj")]
 transform = Transform3D(-0.7092879, 0, -0.704919, 0, 1, 0, 0.704919, 0, -0.7092879, 10.409118, 5.3357677, -59.846558)
 
-[node name="Outlet8" parent="SubViewportContainer/SubViewport" unique_id=1084496116 instance=ExtResource("4_s85ri")]
+[node name="Outlet8" parent="SubViewportContainer/SubViewport" unique_id=1084496116 instance=ExtResource("4_2d5hj")]
 transform = Transform3D(0.13690856, 0, -0.99058366, -0.98727834, -0.08162534, -0.13645174, -0.0808568, 0.996663, -0.011175215, -1.0355558, 15.521633, -67.44659)
 
-[node name="Outlet9" parent="SubViewportContainer/SubViewport" unique_id=159378798 instance=ExtResource("4_s85ri")]
+[node name="Outlet9" parent="SubViewportContainer/SubViewport" unique_id=159378798 instance=ExtResource("4_2d5hj")]
 transform = Transform3D(0.13690856, 0, -0.99058366, -0.98727834, -0.08162534, -0.13645174, -0.0808568, 0.996663, -0.011175215, -1.0355558, 15.521633, -77.98727)
 
-[node name="Outlet4" parent="SubViewportContainer/SubViewport" unique_id=96767948 instance=ExtResource("4_s85ri")]
+[node name="Outlet4" parent="SubViewportContainer/SubViewport" unique_id=96767948 instance=ExtResource("4_2d5hj")]
 transform = Transform3D(-0.32102627, 0, -0.94707036, 0, 1, 0, 0.94707036, 0, -0.32102627, 3.2624483, 4.262751, -100.62719)
 
-[node name="Outlet5" parent="SubViewportContainer/SubViewport" unique_id=1283008640 instance=ExtResource("4_s85ri")]
+[node name="Outlet5" parent="SubViewportContainer/SubViewport" unique_id=1283008640 instance=ExtResource("4_2d5hj")]
 transform = Transform3D(-0.67995346, 0, 0.7332554, 0, 1, 0, -0.7332554, 0, -0.67995346, 36.19059, 8.917342, -82.30878)
 
-[node name="Outlet6" parent="SubViewportContainer/SubViewport" unique_id=320886439 instance=ExtResource("4_s85ri")]
+[node name="Outlet6" parent="SubViewportContainer/SubViewport" unique_id=320886439 instance=ExtResource("4_2d5hj")]
 transform = Transform3D(0.042468548, 0, -0.99909794, 0, 1, 0, 0.99909794, 0, 0.042468548, 67.14669, 17.298252, -100.600464)
 
-[node name="Outlet7" parent="SubViewportContainer/SubViewport" unique_id=1817942794 instance=ExtResource("4_s85ri")]
+[node name="Outlet7" parent="SubViewportContainer/SubViewport" unique_id=1817942794 instance=ExtResource("4_2d5hj")]
 transform = Transform3D(0.1210912, 0.026580906, 0.9922855, -0.9717566, 0.20715217, 0.11303692, -0.20254949, -0.9779477, 0.05091448, -1.4046725, 23.51984, -56.12144)
 
 [node name="CSGBox3D" type="CSGBox3D" parent="SubViewportContainer/SubViewport" unique_id=1104496788]
@@ -245,8 +247,15 @@ use_collision = true
 flip_faces = true
 size = Vector3(22.815525, 3.6559296, 14.378496)
 
-[node name="terminal1" parent="SubViewportContainer/SubViewport" unique_id=526457845 instance=ExtResource("6_bqgks")]
+[node name="terminal1" parent="SubViewportContainer/SubViewport" unique_id=526457845 instance=ExtResource("5_ry05d")]
 transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, -0.19242764, 1.9477816, 11.122065)
 
-[node name="PullObject" parent="." unique_id=1603127869 instance=ExtResource("7_xsq7s")]
-transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 9.186081, 20.863552, -4.679742)
+[node name="CeilingPullObject" parent="SubViewportContainer/SubViewport" unique_id=1577106152 instance=ExtResource("6_wm0ah")]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, -5.172578, 10.601984, -0.33995152)
+release_impulse = Vector3(0, 2, 0)
+
+[node name="PullObject" parent="SubViewportContainer/SubViewport" unique_id=1603127869 instance=ExtResource("6_0qhf1")]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, -10.305807, 9.718537, -6.227066)
+
+[node name="PropTank" parent="SubViewportContainer/SubViewport" unique_id=304644945 instance=ExtResource("8_8wmop")]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, -15.313344, 7.4045143, -2.0479412)

@@ -1,0 +1,56 @@
+[gd_scene format=3 uid="uid://dh7n4cq2bm8xk"]
+
+[ext_resource type="Script" uid="uid://dn3p8v1qr5ty6" path="res://Enemies/Small Interactions/prop_tank.gd" id="1_tank"]
+[ext_resource type="PackedScene" uid="uid://bxgwgbkpugt5j" path="res://World/Outlet/outlet.tscn" id="2_tank"]
+[ext_resource type="Script" uid="uid://batnaixn8y7nu" path="res://World/Outlet/OutletPull.gd" id="3_tank"]
+
+[sub_resource type="SphereShape3D" id="SphereShape3D_outlet"]
+radius = 2.0
+
+[sub_resource type="StandardMaterial3D" id="StandardMaterial3D_glow"]
+vertex_color_use_as_albedo = true
+albedo_color = Color(0, 1, 0.2, 1)
+emission_enabled = true
+emission = Color(0, 1, 0.2, 1)
+emission_energy_multiplier = 16.0
+
+[sub_resource type="SphereMesh" id="SphereMesh_glow"]
+radius = 0.2
+height = 0.4
+
+[sub_resource type="CapsuleMesh" id="CapsuleMesh_tank"]
+radius = 0.35
+height = 0.9
+
+[sub_resource type="SphereShape3D" id="SphereShape3D_body"]
+radius = 0.4
+
+[sub_resource type="SphereShape3D" id="SphereShape3D_explosion"]
+radius = 5.0
+
+[node name="PropTank" type="Node3D"]
+script = ExtResource("1_tank")
+
+[node name="Outlet" parent="." instance=ExtResource("2_tank")]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 0, 0)
+script = ExtResource("3_tank")
+
+[node name="CollisionShape3D2" type="CollisionShape3D" parent="Outlet"]
+shape = SubResource("SphereShape3D_outlet")
+
+[node name="OutletLight2" type="MeshInstance3D" parent="Outlet"]
+material_override = SubResource("StandardMaterial3D_glow")
+mesh = SubResource("SphereMesh_glow")
+
+[node name="RigidBody3D" type="RigidBody3D" parent="."]
+
+[node name="MeshInstance3D" type="MeshInstance3D" parent="RigidBody3D"]
+mesh = SubResource("CapsuleMesh_tank")
+
+[node name="CollisionShape3D" type="CollisionShape3D" parent="RigidBody3D"]
+shape = SubResource("SphereShape3D_body")
+
+[node name="ExplosionArea" type="Area3D" parent="RigidBody3D"]
+
+[node name="CollisionShape3D" type="CollisionShape3D" parent="RigidBody3D/ExplosionArea"]
+shape = SubResource("SphereShape3D_explosion")

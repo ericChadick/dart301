@@ -32,7 +32,6 @@ func _process(delta: float) -> void:
 func _on_area_entered(area: Area3D) -> void:
 	if area.name.contains("OutletProjectile"):
 		_plug = area
-		connected = area
 		print("[Outlet] PLUG CONNECTED:", area.name)
 
 func _on_area_exited(area: Area3D) -> void:
