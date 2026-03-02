@@ -175,7 +175,7 @@ use_collision = true
 size = Vector3(7.2214594, 3.6559296, 14.378496)
 
 [node name="CSGBox3D2" type="CSGBox3D" parent="SubViewportContainer/SubViewport" unique_id=1757651386]
-transform = Transform3D(0.99999994, 0, 0, 0, 0.99999994, 0, 0, 0, 1, 2.8591537, 18.531487, 11.527504)
+transform = Transform3D(0.99999994, 0, 0, 0, 0.99999994, 0, 0, 0, 1, 2.8817625, 18.531487, 11.566042)
 use_collision = true
 flip_faces = true
 size = Vector3(64.39685, 40.315308, 58.436356)
