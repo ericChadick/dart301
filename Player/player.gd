@@ -388,7 +388,10 @@ func _unhandled_input(event):
 	
 func _physics_process(delta: float) -> void:
 	var input_dir = Input.get_vector("left", "right", "up", "down");
-
+	
+	#switch between default, crouching speeds
+	var curSpd := speed;
+	
 	wallBuffer -= delta;
 	if is_on_wall_only():
 		wallBuffer = .1;
@@ -436,6 +439,8 @@ func _physics_process(delta: float) -> void:
 		if groundBuffer > 0.0 and Input.is_action_pressed("slide"):
 			collision_shape_3d.shape.height = 1.0;
 			crouching = true;
+			curSpd = speed*.3;
+			
 	if ceiling_ray.is_colliding():
 		crouching = true;
 		collision_shape_3d.shape.height = 1.0;
@@ -541,8 +546,8 @@ func _physics_process(delta: float) -> void:
 	var slideRatioAcc = clamp(1.0-slide_timer.time_left/slide_timer.wait_time, .1, 1.0);
 	var slideRatioSpd = clamp((slide_timer.time_left/slide_timer.wait_time)*2.0, 1.0, 2.0);
 	
-	velocity.x = lerp(velocity.x, direction.x*pullRatioDir * speed*slideRatioSpd, delta * inc * pullRatioAcc * slideRatioAcc);
-	velocity.z = lerp(velocity.z, direction.z*pullRatioDir * speed*slideRatioSpd, delta * inc * pullRatioAcc * slideRatioAcc);
+	velocity.x = lerp(velocity.x, direction.x*pullRatioDir * curSpd*slideRatioSpd, delta * inc * pullRatioAcc * slideRatioAcc);
+	velocity.z = lerp(velocity.z, direction.z*pullRatioDir * curSpd*slideRatioSpd, delta * inc * pullRatioAcc * slideRatioAcc);
 	
 	#play step sounds
 	var wlrn = wallBuffer > 0.0 and wallRunTime > 0.0;

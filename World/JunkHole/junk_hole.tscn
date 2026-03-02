@@ -153,7 +153,7 @@ transform = Transform3D(0.13690856, 0, -0.99058366, -0.98727834, -0.08162534, -0
 transform = Transform3D(-0.32102627, 0, -0.94707036, 0, 1, 0, 0.94707036, 0, -0.32102627, 3.2624483, 4.262751, -100.62719)
 
 [node name="Outlet5" parent="SubViewportContainer/SubViewport" unique_id=1283008640 instance=ExtResource("4_wfacm")]
-transform = Transform3D(-0.67995346, 0, 0.7332554, 0, 1, 0, -0.7332554, 0, -0.67995346, 36.19059, 8.917342, -82.30878)
+transform = Transform3D(-0.67995346, 0, 0.7332554, 0, 1, 0, -0.7332554, 0, -0.67995346, 36.19059, 12.193712, -82.30878)
 
 [node name="Outlet6" parent="SubViewportContainer/SubViewport" unique_id=320886439 instance=ExtResource("4_wfacm")]
 transform = Transform3D(0.042468548, 0, -0.99909794, 0, 1, 0, 0.99909794, 0, 0.042468548, 67.14669, 17.298252, -100.600464)

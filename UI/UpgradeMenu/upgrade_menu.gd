@@ -50,11 +50,13 @@ func _process(delta: float) -> void:
 	Global.cordLengthMin = cord_debug.value;
 	
 	
-	weapon_loadout_slot.call_deferred("grab_focus")
-	var focused = get_viewport().gui_get_focus_owner();
-	print(focused);
-	if focused != null:
-		focus_debug.global_position = focused.global_position;
+	
+	
+	#weapon_loadout_slot.call_deferred("grab_focus")
+	#var focused = get_viewport().gui_get_focus_owner();
+	#print(focused);
+	#if focused != null:
+	#	focus_debug.global_position = focused.global_position;
 
 func _on_go_button_pressed() -> void:
 	get_tree().change_scene_to_file(Global.mainScene);
@@ -63,6 +65,10 @@ func _on_go_button_pressed() -> void:
 
 func _on_battery_debug_pressed() -> void:
 	Global.batteryDecreaseDebug = !Global.batteryDecreaseDebug;
+	if Global.batteryDecreaseDebug:
+		battery_debug.modulate = Color.YELLOW;
+	else:
+		battery_debug.modulate = Color.WHITE;
 
 
 func _on_control_focus_entered() -> void:
