@@ -2,7 +2,9 @@ extends Resource
 class_name equipPart
 
 @export var partName : String = "PartName";
+@export var partDescription : String = "PartDescription";
 @export var partEnum : Global.PlayerParts;
+@export var partCost : int = 2;
 @export var partIcon : AtlasTexture;
 #upgrade menu visuals
 @export var partHighlightTexture : AtlasTexture;

@@ -1,22 +1,44 @@
 [gd_scene format=3 uid="uid://c1ukt5sqs0152"]
 
-[ext_resource type="Texture2D" uid="uid://bmmmchlg8ivik" path="res://UI/UpgradeMenu/Icons/gunIcon.png" id="1_dq5b0"]
+[ext_resource type="Script" uid="uid://cyme024ppgerm" path="res://UI/UpgradeMenu/WeaponLoadout/weapon_loadout_slot.gd" id="1_qjbtg"]
+[ext_resource type="Resource" uid="uid://b70etp772do5m" path="res://Player/EquipWeapons/weaponEmpty.tres" id="2_qjbtg"]
+[ext_resource type="Texture2D" uid="uid://b40p07pw73onj" path="res://UI/UpgradeMenu/Icons/xicon.png" id="3_22kuo"]
+
+[sub_resource type="Gradient" id="Gradient_dq5b0"]
+offsets = PackedFloat32Array(1)
+colors = PackedColorArray(0.1955451, 0.1955451, 0.19554508, 1)
+
+[sub_resource type="GradientTexture2D" id="GradientTexture2D_qjbtg"]
+gradient = SubResource("Gradient_dq5b0")
 
 [sub_resource type="Gradient" id="Gradient_qjbtg"]
-offsets = PackedFloat32Array(0.7577197, 0.9524941)
-colors = PackedColorArray(0, 0, 0, 0, 0, 0, 0, 1)
+offsets = PackedFloat32Array(1)
+colors = PackedColorArray(0.5, 0, 0, 1)
 
 [sub_resource type="GradientTexture2D" id="GradientTexture2D_22kuo"]
 gradient = SubResource("Gradient_qjbtg")
-fill = 2
-fill_from = Vector2(0.5, 0.5)
 
-[node name="WeaponLoadoutSlot" type="TextureRect" unique_id=586287958]
+[sub_resource type="Gradient" id="Gradient_22kuo"]
+offsets = PackedFloat32Array(1)
+colors = PackedColorArray(0.5370113, 0.5370113, 0.5370113, 1)
+
+[sub_resource type="GradientTexture2D" id="GradientTexture2D_qwy0w"]
+gradient = SubResource("Gradient_22kuo")
+
+[sub_resource type="AtlasTexture" id="AtlasTexture_f0y28"]
+atlas = ExtResource("3_22kuo")
+
+[node name="WeaponLoadoutSlot" type="TextureButton" unique_id=1679960337]
 custom_minimum_size = Vector2(128, 128)
-offset_right = 40.0
-offset_bottom = 40.0
-texture = SubResource("GradientTexture2D_22kuo")
-expand_mode = 1
+offset_right = 128.0
+offset_bottom = 128.0
+texture_normal = SubResource("GradientTexture2D_qjbtg")
+texture_pressed = SubResource("GradientTexture2D_22kuo")
+texture_hover = SubResource("GradientTexture2D_qwy0w")
+texture_focused = SubResource("GradientTexture2D_qwy0w")
+stretch_mode = 0
+script = ExtResource("1_qjbtg")
+weaponInd = ExtResource("2_qjbtg")
 
 [node name="WeaponIcon" type="TextureRect" parent="." unique_id=1112843370]
 layout_mode = 1
@@ -25,5 +47,5 @@ anchor_right = 1.0
 anchor_bottom = 1.0
 grow_horizontal = 2
 grow_vertical = 2
-texture = ExtResource("1_dq5b0")
+texture = SubResource("AtlasTexture_f0y28")
 expand_mode = 1

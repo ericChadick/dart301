@@ -1,0 +1,49 @@
+[gd_scene format=3 uid="uid://dolbdjtkaosjw"]
+
+[ext_resource type="Texture2D" uid="uid://0phkmtbb1dyv" path="res://UI/UpgradeMenu/Icons/partTestIcon.png" id="1_6twiu"]
+[ext_resource type="Script" uid="uid://cod6m0f4ymnak" path="res://UI/UpgradeMenu/EquipParts/equip_part_slot.gd" id="1_fa3rc"]
+[ext_resource type="Resource" uid="uid://b1sjnu3as5j1t" path="res://Player/EquipParts/wallStickPart.tres" id="2_ru2dc"]
+
+[sub_resource type="AtlasTexture" id="AtlasTexture_jmane"]
+atlas = ExtResource("1_6twiu")
+
+[sub_resource type="Gradient" id="Gradient_kxcfo"]
+offsets = PackedFloat32Array(1)
+colors = PackedColorArray(0.44, 0, 0, 1)
+
+[sub_resource type="GradientTexture2D" id="GradientTexture2D_xntmr"]
+gradient = SubResource("Gradient_kxcfo")
+
+[sub_resource type="Gradient" id="Gradient_dqcmg"]
+offsets = PackedFloat32Array(1)
+colors = PackedColorArray(1, 1, 1, 1)
+
+[sub_resource type="GradientTexture2D" id="GradientTexture2D_jmane"]
+gradient = SubResource("Gradient_dqcmg")
+
+[sub_resource type="Gradient" id="Gradient_ru2dc"]
+offsets = PackedFloat32Array(0.5176152, 0.5365854)
+colors = PackedColorArray(1, 1, 1, 1, 1, 1, 1, 0)
+
+[sub_resource type="GradientTexture2D" id="GradientTexture2D_6twiu"]
+gradient = SubResource("Gradient_ru2dc")
+fill = 1
+fill_from = Vector2(0.5, 0.5)
+
+[node name="EquipPartSlot" type="TextureButton" unique_id=1191095639]
+texture_normal = SubResource("AtlasTexture_jmane")
+texture_pressed = SubResource("GradientTexture2D_xntmr")
+texture_hover = SubResource("GradientTexture2D_jmane")
+texture_focused = SubResource("GradientTexture2D_jmane")
+script = ExtResource("1_fa3rc")
+partInd = ExtResource("2_ru2dc")
+
+[node name="EquippedIcon" type="TextureRect" parent="." unique_id=1064492495]
+visible = false
+layout_mode = 0
+offset_left = -18.0
+offset_top = -18.0
+offset_right = 18.0
+offset_bottom = 18.0
+texture = SubResource("GradientTexture2D_6twiu")
+expand_mode = 1

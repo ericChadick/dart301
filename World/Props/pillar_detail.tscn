@@ -1,0 +1,43 @@
+[gd_scene format=3 uid="uid://h0mig6ky6r6b"]
+
+[ext_resource type="PackedScene" uid="uid://dag5wun1b2dl1" path="res://World/Props/LargePillarNoHallwayv4.glb" id="1_cm01j"]
+[ext_resource type="Material" uid="uid://be3aj8qgi7tn7" path="res://World/Props/rustySheetMetal.material" id="2_2saiq"]
+
+[sub_resource type="BoxShape3D" id="BoxShape3D_2lpcs"]
+size = Vector3(74.269, 79.896416, 44.32251)
+
+[sub_resource type="CapsuleShape3D" id="CapsuleShape3D_qdpt3"]
+radius = 36.978027
+height = 93.427246
+
+[node name="PillarDetail" unique_id=1431076528 instance=ExtResource("1_cm01j")]
+
+[node name="Large Pillarv1NoHallway" parent="." index="0" unique_id=480429913]
+material_override = ExtResource("2_2saiq")
+
+[node name="StaticBody3D" type="StaticBody3D" parent="." index="1" unique_id=1183930210]
+
+[node name="CollisionShape3D" type="CollisionShape3D" parent="StaticBody3D" index="0" unique_id=1802118459]
+transform = Transform3D(0.819092, -0.5736622, 0, 0.5736622, 0.819092, 0, 0, 0, 1, -11.359322, 32.74418, 0.2052002)
+shape = SubResource("BoxShape3D_2lpcs")
+
+[node name="StaticBody3D2" type="StaticBody3D" parent="." index="2" unique_id=1435038237]
+transform = Transform3D(0.6359436, 0.77173567, 0, -0.77173567, 0.6359436, 0, 0, 0, 1, -1.3311386, 40.200394, 0)
+
+[node name="CollisionShape3D" type="CollisionShape3D" parent="StaticBody3D2" index="0" unique_id=243807420]
+transform = Transform3D(0.819092, -0.5736622, 0, 0.5736622, 0.819092, 0, 0, 0, 1, -11.359322, 32.74418, 0.2052002)
+shape = SubResource("BoxShape3D_2lpcs")
+
+[node name="StaticBody3D3" type="StaticBody3D" parent="." index="3" unique_id=367716418]
+transform = Transform3D(0.94490886, 0.3273334, 0, -0.3273334, 0.94490886, 0, 0, 0, 1, -15.374191, -65.999466, 0)
+
+[node name="CollisionShape3D" type="CollisionShape3D" parent="StaticBody3D3" index="0" unique_id=1604775517]
+transform = Transform3D(0.819092, -0.5736622, 0, 0.5736622, 0.819092, 0, 0, 0, 1, -11.359322, 32.74418, 0.2052002)
+shape = SubResource("BoxShape3D_2lpcs")
+
+[node name="StaticBody3D4" type="StaticBody3D" parent="." index="4" unique_id=249378060]
+transform = Transform3D(0.85569847, 0.5174746, 0, -0.5174746, 0.85569847, 0, 0, 0, 1, 4.8054695, -85.48573, 0)
+
+[node name="CollisionShape3D" type="CollisionShape3D" parent="StaticBody3D4" index="0" unique_id=738127643]
+transform = Transform3D(0.819092, -0.5736623, 0, 0.5736623, 0.819092, 0, 0, 0, 1, 4.411461, 27.60278, 0.2052002)
+shape = SubResource("CapsuleShape3D_qdpt3")

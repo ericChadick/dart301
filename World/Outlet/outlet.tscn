@@ -109,3 +109,8 @@ one_shot = true
 explosiveness = 0.2
 process_material = SubResource("ParticleProcessMaterial_iw82v")
 draw_pass_1 = SubResource("CapsuleMesh_scrvh")
+
+[node name="OmniLight3D" type="OmniLight3D" parent="." unique_id=399437220]
+light_color = Color(1, 0.86, 0.72, 1)
+light_energy = 3.0
+shadow_enabled = true

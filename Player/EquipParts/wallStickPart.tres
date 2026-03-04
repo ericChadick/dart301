@@ -1,0 +1,27 @@
+[gd_resource type="Resource" script_class="equipPart" format=3 uid="uid://b1sjnu3as5j1t"]
+
+[ext_resource type="Texture2D" uid="uid://ckqn4iob45oxu" path="res://UI/UpgradeMenu/Icons/partTestHighlight.png" id="1_d2hwa"]
+[ext_resource type="Script" uid="uid://6k7ini2cimkq" path="res://Player/EquipParts/equipPart.gd" id="1_jav2e"]
+[ext_resource type="Texture2D" uid="uid://0phkmtbb1dyv" path="res://UI/UpgradeMenu/Icons/partTestIcon.png" id="2_oqofm"]
+[ext_resource type="Texture2D" uid="uid://g7sdh65h7q80" path="res://UI/UpgradeMenu/Icons/partTestSelect.png" id="3_eawjy"]
+
+[sub_resource type="AtlasTexture" id="AtlasTexture_ew4dk"]
+atlas = ExtResource("1_d2hwa")
+
+[sub_resource type="AtlasTexture" id="AtlasTexture_jmane"]
+atlas = ExtResource("2_oqofm")
+
+[sub_resource type="AtlasTexture" id="AtlasTexture_ky7xp"]
+atlas = ExtResource("3_eawjy")
+
+[resource]
+script = ExtResource("1_jav2e")
+partName = "Wall Stick"
+partDescription = "Wall running is only ended by jumping off"
+partEnum = 1
+partCost = 3
+partIcon = SubResource("AtlasTexture_jmane")
+partHighlightTexture = SubResource("AtlasTexture_ew4dk")
+partSelectedTexture = SubResource("AtlasTexture_ky7xp")
+partMenuOffset = Vector2(319, 296)
+metadata/_custom_type_script = "uid://6k7ini2cimkq"

@@ -13,8 +13,6 @@ const TRASH_BLOCK = preload("uid://i88uf8p3y2hu")
 @export var shakeIntensity := .02;
 @export var shakeDistance := 10.0;
 
-
-
 # Called when the node enters the scene tree for the first time.
 func _ready() -> void:
 	trashblockSpawn = false;

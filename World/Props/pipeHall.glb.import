@@ -3,13 +3,13 @@
 importer="scene"
 importer_version=1
 type="PackedScene"
-uid="uid://dd5ncu5yjqpjn"
-path="res://.godot/imported/JunkBinv1.glb-b320a84757854f6b03f7bbeabbc25cb1.scn"
+uid="uid://we1k2xrdym6v"
+path="res://.godot/imported/pipeHall.glb-b1a32e64c83323823d7372e65a36cae5.scn"
 
 [deps]
 
-source_file="res://World/Props/TrashAssets/JunkBinv1.glb"
-dest_files=["res://.godot/imported/JunkBinv1.glb-b320a84757854f6b03f7bbeabbc25cb1.scn"]
+source_file="res://World/Props/pipeHall.glb"
+dest_files=["res://.godot/imported/pipeHall.glb-b1a32e64c83323823d7372e65a36cae5.scn"]
 
 [params]
 
@@ -39,8 +39,9 @@ materials/extract_format=0
 materials/extract_path=""
 _subresources={
 "materials": {
-"@MATERIAL:0": {
+"Material.001": {
 "use_external/enabled": true,
+"use_external/fallback_path": "res://World/Props/rustySheetMetal.material",
 "use_external/path": "uid://be3aj8qgi7tn7"
 }
 }

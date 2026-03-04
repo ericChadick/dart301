@@ -1,0 +1,12 @@
+[gd_resource type="Resource" script_class="weaponUnlock" format=3 uid="uid://b70etp772do5m"]
+
+[ext_resource type="Script" uid="uid://cmfl4kq4wgclj" path="res://Player/EquipWeapons/weaponUnlock.gd" id="1_6ryft"]
+
+[sub_resource type="AtlasTexture" id="AtlasTexture_f0y28"]
+
+[resource]
+script = ExtResource("1_6ryft")
+weaponIcon = SubResource("AtlasTexture_f0y28")
+weaponName = "Empty"
+weaponDescription = ""
+metadata/_custom_type_script = "uid://cmfl4kq4wgclj"

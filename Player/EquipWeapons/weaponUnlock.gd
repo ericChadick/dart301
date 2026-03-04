@@ -3,6 +3,7 @@ class_name weaponUnlock;
 
 #menu
 @export var weaponIcon : AtlasTexture;
+@export var weaponInd : Global.PlayerWeapon;
 @export var weaponName : String = "Weapon";
 @export var weaponDescription : String = "Description";
 

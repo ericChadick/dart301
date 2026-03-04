@@ -1,43 +1,97 @@
 [gd_scene format=3 uid="uid://ccjew7eqgtwfb"]
 
 [ext_resource type="Script" uid="uid://bjjw236q3ru6i" path="res://UI/UpgradeMenu/WeaponLoadout/weapon_container.gd" id="1_xjv1b"]
+[ext_resource type="Resource" uid="uid://ca67bv1jnpy" path="res://Player/EquipWeapons/weaponDebug.tres" id="2_hg1od"]
+[ext_resource type="Texture2D" uid="uid://bj0uifwmaujw0" path="res://UI/UpgradeMenu/Icons/jumpIcon.png" id="3_snt1s"]
 
-[sub_resource type="Gradient" id="Gradient_kxcfo"]
+[sub_resource type="StyleBoxEmpty" id="StyleBoxEmpty_6tqka"]
 
-[sub_resource type="GradientTexture2D" id="GradientTexture2D_bm0sf"]
-gradient = SubResource("Gradient_kxcfo")
+[sub_resource type="StyleBoxFlat" id="StyleBoxFlat_ilyx3"]
+bg_color = Color(0.6, 0, 0, 1)
 
-[node name="WeaponContainer" type="HBoxContainer" unique_id=1035050020]
-custom_minimum_size = Vector2(0, 64)
-offset_right = 40.0
-offset_bottom = 40.0
+[sub_resource type="StyleBoxFlat" id="StyleBoxFlat_hg1od"]
+content_margin_left = 4.0
+content_margin_top = 4.0
+content_margin_right = 4.0
+content_margin_bottom = 4.0
+bg_color = Color(0.225, 0.225, 0.225, 0.6)
+corner_radius_top_left = 3
+corner_radius_top_right = 3
+corner_radius_bottom_right = 3
+corner_radius_bottom_left = 3
+corner_detail = 5
+
+[sub_resource type="AtlasTexture" id="AtlasTexture_f0y28"]
+atlas = ExtResource("3_snt1s")
+
+[sub_resource type="Gradient" id="Gradient_ru2dc"]
+offsets = PackedFloat32Array(0.5176152, 0.5365854)
+colors = PackedColorArray(1, 1, 1, 1, 1, 1, 1, 0)
+
+[sub_resource type="GradientTexture2D" id="GradientTexture2D_snt1s"]
+gradient = SubResource("Gradient_ru2dc")
+fill = 1
+fill_from = Vector2(0.5, 0.5)
+
+[node name="WeaponContainer" type="Button" unique_id=76988020]
+clip_contents = true
+custom_minimum_size = Vector2(400, 64)
+offset_right = 400.0
+offset_bottom = 64.0
+size_flags_vertical = 0
+theme_override_styles/normal = SubResource("StyleBoxEmpty_6tqka")
+theme_override_styles/pressed = SubResource("StyleBoxFlat_ilyx3")
+theme_override_styles/focus = SubResource("StyleBoxFlat_hg1od")
 script = ExtResource("1_xjv1b")
+weaponInd = ExtResource("2_hg1od")
 
-[node name="WeaponIcon" type="TextureRect" parent="." unique_id=1260947381]
+[node name="HBoxContainer" type="HBoxContainer" parent="." unique_id=51861259]
+layout_mode = 0
+offset_right = 400.0
+offset_bottom = 64.0
+
+[node name="WeaponIcon" type="TextureRect" parent="HBoxContainer" unique_id=1260947381]
+custom_minimum_size = Vector2(64, 64)
 layout_mode = 2
-texture = SubResource("GradientTexture2D_bm0sf")
-stretch_mode = 2
+size_flags_horizontal = 0
+size_flags_vertical = 0
+texture = SubResource("AtlasTexture_f0y28")
+expand_mode = 1
 
-[node name="WeaponName" type="RichTextLabel" parent="." unique_id=349843943]
+[node name="WeaponName" type="RichTextLabel" parent="HBoxContainer" unique_id=349843943]
+clip_contents = false
 custom_minimum_size = Vector2(256, 0)
 layout_mode = 2
 size_flags_horizontal = 8
+theme_override_font_sizes/normal_font_size = 32
 bbcode_enabled = true
-text = "WEAPON"
+text = "Weapon"
 
-[node name="WeaponDescription" type="RichTextLabel" parent="WeaponName" unique_id=1179612430]
+[node name="WeaponDescription" type="RichTextLabel" parent="HBoxContainer/WeaponName" unique_id=1179612430]
+clip_contents = false
 custom_minimum_size = Vector2(256, 0)
 layout_mode = 1
 offset_top = 64.0
 offset_right = 256.0
 offset_bottom = 128.0
+theme_override_font_sizes/normal_font_size = 24
 bbcode_enabled = true
-text = "Description
-This item has a purpose!"
+text = "Description"
 
-[node name="Ammo" type="RichTextLabel" parent="." unique_id=212955696]
+[node name="Ammo" type="RichTextLabel" parent="HBoxContainer" unique_id=212955696]
 custom_minimum_size = Vector2(64, 0)
 layout_mode = 2
+theme_override_font_sizes/normal_font_size = 32
 bbcode_enabled = true
 text = "3"
 horizontal_alignment = 1
+
+[node name="EquippedIcon" type="TextureRect" parent="." unique_id=1960434599]
+visible = false
+layout_mode = 0
+offset_left = -18.0
+offset_top = -18.0
+offset_right = 18.0
+offset_bottom = 18.0
+texture = SubResource("GradientTexture2D_snt1s")
+expand_mode = 1

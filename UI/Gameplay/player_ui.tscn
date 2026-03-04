@@ -6,27 +6,10 @@
 [ext_resource type="Texture2D" uid="uid://diu4t01qg1wt5" path="res://UI/Gameplay/battery.png" id="2_xmsn8"]
 [ext_resource type="Texture2D" uid="uid://d1wj28snqsa6y" path="res://UI/Gameplay/outletCrosshair.png" id="5_8w2om"]
 [ext_resource type="FontFile" uid="uid://b5iu436di81lx" path="res://UI/Gameplay/propaganda.ttf" id="5_qf5vc"]
-[ext_resource type="Shader" uid="uid://bbea84b1alg8v" path="res://Shaders/speedlines.gdshader" id="8_byocv"]
 [ext_resource type="Shader" uid="uid://51dxx7ea6mtw" path="res://Shaders/lensflare.gdshader" id="10_fwocb"]
+[ext_resource type="Shader" uid="uid://dvp31qmvkfe0v" path="res://Shaders/glitch.gdshader" id="10_qb4e8"]
 [ext_resource type="Material" uid="uid://g0eihtw4spff" path="res://Shaders/screenMat.tres" id="11_fwocb"]
 [ext_resource type="Texture2D" uid="uid://dlxfdu00bcus5" path="res://UI/UpgradeMenu/Icons/plugIcon.png" id="12_rvkn8"]
-
-[sub_resource type="FastNoiseLite" id="FastNoiseLite_fwocb"]
-
-[sub_resource type="NoiseTexture2D" id="NoiseTexture2D_rvkn8"]
-noise = SubResource("FastNoiseLite_fwocb")
-
-[sub_resource type="ShaderMaterial" id="ShaderMaterial_ixg0m"]
-shader = ExtResource("8_byocv")
-shader_parameter/noise = SubResource("NoiseTexture2D_rvkn8")
-shader_parameter/line_count = 2.0
-shader_parameter/distortion_power = 0.034
-shader_parameter/line_falloff = 1.0
-shader_parameter/mask_size = 0.175
-shader_parameter/mask_edge = 0.195
-shader_parameter/animation_speed = 20.0
-shader_parameter/blur_strength = 0.01
-shader_parameter/effect_power = 0.5
 
 [sub_resource type="Gradient" id="Gradient_dnxry"]
 colors = PackedColorArray(1, 0.26666665, 0, 0.47058824, 1, 0.48333335, 0, 0)
@@ -116,6 +99,14 @@ shader_parameter/MinFlareIntensity = 0.0
 shader_parameter/MaxFlareIntensity = 1.0
 shader_parameter/RainbowIntensity = 5.0
 
+[sub_resource type="ShaderMaterial" id="ShaderMaterial_dnxry"]
+shader = ExtResource("10_qb4e8")
+shader_parameter/shake_power = 0.03
+shader_parameter/shake_rate = 0.2
+shader_parameter/shake_speed = 5.0
+shader_parameter/shake_block_size = 30.5
+shader_parameter/shake_color_rate = 0.01
+
 [node name="PlayerUI" type="CanvasLayer" unique_id=883918654]
 
 [node name="Control" type="Control" parent="." unique_id=1080771731]
@@ -126,16 +117,6 @@ anchor_bottom = 1.0
 grow_horizontal = 2
 grow_vertical = 2
 mouse_filter = 2
-
-[node name="SpeedLines" type="ColorRect" parent="Control" unique_id=93272705]
-visible = false
-material = SubResource("ShaderMaterial_ixg0m")
-layout_mode = 1
-anchors_preset = 15
-anchor_right = 1.0
-anchor_bottom = 1.0
-grow_horizontal = 2
-grow_vertical = 2
 
 [node name="HitFlash" type="TextureRect" parent="Control" unique_id=214710028]
 layout_mode = 1
@@ -244,7 +225,7 @@ mouse_filter = 1
 layout_mode = 2
 theme_override_fonts/normal_font = ExtResource("5_qf5vc")
 theme_override_font_sizes/normal_font_size = 36
-text = "100"
+text = "101011"
 
 [node name="BlueprintText" type="RichTextLabel" parent="Control/MarginContainer" unique_id=1726145664]
 layout_mode = 2
@@ -253,6 +234,7 @@ theme_override_font_sizes/normal_font_size = 48
 horizontal_alignment = 1
 
 [node name="VBoxContainer" type="VBoxContainer" parent="Control/MarginContainer" unique_id=1565216784]
+visible = false
 layout_mode = 2
 size_flags_horizontal = 0
 size_flags_vertical = 8
@@ -356,6 +338,15 @@ grow_vertical = 2
 
 [node name="Screen" type="ColorRect" parent="." unique_id=1373793926]
 material = ExtResource("11_fwocb")
+anchors_preset = 15
+anchor_right = 1.0
+anchor_bottom = 1.0
+grow_horizontal = 2
+grow_vertical = 2
+
+[node name="Glitch" type="ColorRect" parent="." unique_id=1231459365]
+visible = false
+material = SubResource("ShaderMaterial_dnxry")
 anchors_preset = 15
 anchor_right = 1.0
 anchor_bottom = 1.0

@@ -7,6 +7,12 @@ enum PlayerWeapon {FIST, GUN, FLAME}
 enum PlayerParts {WALLASCEND, WALLSTICK, WALLTIMEINCREASE, DOUBLEJUMP, CORDLENGTHEN, CORDFLOAT, 
 PROJECTILEBOUNCE, AIRSLIDE, SCREENCRACKREMOVE}
 
+var weaponSlots := 2;
+var partSlots := 6;
+
+var weaponsEquipped : Array[weaponUnlock];
+var partsEquipped : Array[equipPart];
+
 var hpMin := 10.0; #initial unupgraded value of stat
 var hpMax := 20.0; #max value of stat after all upgrades
 var hpLevel := 0; #current level the stat has been upgraded to

@@ -12,6 +12,7 @@ extends CharacterBody3D
 @onready var leftwall_ray: RayCast3D = $Torso/leftwallRay
 @onready var hit_light: OmniLight3D = $Head/HitLight
 @onready var ceiling_ray: RayCast3D = $ceilingRay
+@onready var cord_point: Marker3D = $Head/cordPoint
 
 @onready var cord_hand_animations: AnimationPlayer = $CordHandAnimations
 @onready var weapon_hand_animations: AnimationPlayer = $WeaponHandAnimations
@@ -53,6 +54,7 @@ var outlet_bar: ProgressBar;
 var plug_icon: TextureRect;
 var screen_cracks: TextureRect;
 var hit_flash_texture: TextureRect;
+var glitch_layer: ColorRect;
 
 @export var playerUI : CanvasLayer;
 
@@ -185,6 +187,8 @@ func _ready() -> void:
 	screen_cracks = playerUI.get_node("Control/ScreenCracks");
 	hit_flash_texture = playerUI.get_node("Control/HitFlash");
 	hit_flash_texture.modulate.a = 0.0;
+	glitch_layer = playerUI.get_node("Glitch");
+	glitch_layer.visible = false;
 	
 	screenMat = SCREEN_MAT.duplicate();
 	screen.material = screenMat;
@@ -212,17 +216,17 @@ func _process(delta):
 		cord.visible = false;
 		if cordProjectile != null:
 			cord.visible = true;
-			cord.global_position = (global_position+cordProjectile.global_position)/2;
+			cord.global_position = (cord_point.global_position+cordProjectile.global_position)/2;
 			cord.look_at(cordProjectile.global_position);
 			cord.rotation_degrees.x += 90;
-			cord.scale.y = global_position.distance_to(cordProjectile.global_position);
+			cord.scale.y = cord_point.global_position.distance_to(cordProjectile.global_position);
 	else:
 		outlet.outlet_light.visible = false;
 		cord.visible = true;
-		cord.global_position = (global_position+outlet.global_position)/2;
+		cord.global_position = (cord_point.global_position+outlet.global_position)/2;
 		cord.look_at(outlet.global_position);
 		cord.rotation_degrees.x += 90;
-		cord.scale.y = global_position.distance_to(outlet.global_position);
+		cord.scale.y = cord_point.global_position.distance_to(outlet.global_position);
 		
 	battery_bar.value = (battery/batteryMax);
 	battery_bar_trail.value = move_toward(battery_bar_trail.value, battery_bar.value, delta*.5);
@@ -239,8 +243,10 @@ func _process(delta):
 	outletBuffer -= delta;
 	if Input.is_action_just_released("RMB"):
 		outletBuffer = outletBufferTime;
-	if Input.is_action_just_pressed("LMB"):
-		weaponBuffer = weaponBufferTime;
+		
+	#DEACTIVATED WEAPONS FOR DEMO
+	#if Input.is_action_just_pressed("LMB"):
+	#	weaponBuffer = weaponBufferTime;
 	
 	if outlet == null and cordProjectile == null and Input.is_action_pressed("RMB"):
 		$Head/CordProtoNode.visible = true;
@@ -636,6 +642,7 @@ func getHit(batteryDamage, knockbackVector, screenShake, screenCrackType) -> voi
 	addScreenCrack(screenCrackType);
 	velocity = knockbackVector;
 	hit_flash_texture.modulate.a = 1.0;
+	glitch_layer.visible = true;
 	crouching = false;
 	
 func addScreenCrack(screenCrackType) -> void:
@@ -676,3 +683,4 @@ func _on_punch_hitbox_body_exited(body: Node3D) -> void:
 
 func _on_hit_cooldown_timer_timeout() -> void:
 	hit_light.visible = false;
+	glitch_layer.visible = false;

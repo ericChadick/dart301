@@ -1,0 +1,14 @@
+[gd_resource type="Resource" script_class="weaponUnlock" format=3 uid="uid://vka3t5nm8bak"]
+
+[ext_resource type="Script" uid="uid://cmfl4kq4wgclj" path="res://Player/EquipWeapons/weaponUnlock.gd" id="1_nhdp0"]
+[ext_resource type="Texture2D" uid="uid://b40p07pw73onj" path="res://UI/UpgradeMenu/Icons/xicon.png" id="2_vbcnd"]
+
+[sub_resource type="AtlasTexture" id="AtlasTexture_f0y28"]
+atlas = ExtResource("2_vbcnd")
+
+[resource]
+script = ExtResource("1_nhdp0")
+weaponIcon = SubResource("AtlasTexture_f0y28")
+weaponName = ""
+weaponDescription = ""
+metadata/_custom_type_script = "uid://cmfl4kq4wgclj"

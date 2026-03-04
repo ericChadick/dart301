@@ -1,0 +1,26 @@
+[gd_resource type="Resource" script_class="equipPart" format=3 uid="uid://ccf2eq1vsqklf"]
+
+[ext_resource type="Texture2D" uid="uid://ckqn4iob45oxu" path="res://UI/UpgradeMenu/Icons/partTestHighlight.png" id="1_err5t"]
+[ext_resource type="Texture2D" uid="uid://0phkmtbb1dyv" path="res://UI/UpgradeMenu/Icons/partTestIcon.png" id="2_xraba"]
+[ext_resource type="Texture2D" uid="uid://g7sdh65h7q80" path="res://UI/UpgradeMenu/Icons/partTestSelect.png" id="3_j0i6k"]
+[ext_resource type="Script" uid="uid://6k7ini2cimkq" path="res://Player/EquipParts/equipPart.gd" id="4_chfvn"]
+
+[sub_resource type="AtlasTexture" id="AtlasTexture_ew4dk"]
+atlas = ExtResource("1_err5t")
+
+[sub_resource type="AtlasTexture" id="AtlasTexture_jmane"]
+atlas = ExtResource("2_xraba")
+
+[sub_resource type="AtlasTexture" id="AtlasTexture_ky7xp"]
+atlas = ExtResource("3_j0i6k")
+
+[resource]
+script = ExtResource("4_chfvn")
+partName = "Double Jump"
+partDescription = "Jump a second time while in the air"
+partEnum = 3
+partIcon = SubResource("AtlasTexture_jmane")
+partHighlightTexture = SubResource("AtlasTexture_ew4dk")
+partSelectedTexture = SubResource("AtlasTexture_ky7xp")
+partMenuOffset = Vector2(243, 514)
+metadata/_custom_type_script = "uid://6k7ini2cimkq"

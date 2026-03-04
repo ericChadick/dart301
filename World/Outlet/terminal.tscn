@@ -13,8 +13,10 @@ transparency = 1
 albedo_color = Color(1, 1, 1, 0.23529412)
 
 [sub_resource type="StandardMaterial3D" id="StandardMaterial3D_rs2nq"]
-shading_mode = 0
 albedo_color = Color(1, 0.9666667, 0, 1)
+emission_enabled = true
+emission = Color(1, 0.857, 0.33999997, 1)
+emission_energy_multiplier = 4.0
 
 [sub_resource type="CylinderMesh" id="CylinderMesh_v6u5i"]
 top_radius = 0.3

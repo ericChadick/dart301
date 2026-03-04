@@ -1,53 +1,100 @@
 [gd_scene format=3 uid="uid://bv1ctickto1om"]
 
 [ext_resource type="Script" uid="uid://d0dch7ajvegkl" path="res://UI/UpgradeMenu/upgrade_menu.gd" id="1_f4tld"]
-[ext_resource type="FontFile" uid="uid://b5iu436di81lx" path="res://UI/Gameplay/propaganda.ttf" id="1_hofnk"]
 [ext_resource type="PackedScene" uid="uid://ccjew7eqgtwfb" path="res://UI/UpgradeMenu/WeaponLoadout/weapon_container.tscn" id="2_l626o"]
+[ext_resource type="Resource" uid="uid://vka3t5nm8bak" path="res://Player/EquipWeapons/weaponDiscardX.tres" id="3_8ak6m"]
+[ext_resource type="Resource" uid="uid://fwhu38p8fg0c" path="res://Player/EquipWeapons/weaponDefault.tres" id="4_hnh00"]
 [ext_resource type="PackedScene" uid="uid://c1ukt5sqs0152" path="res://UI/UpgradeMenu/WeaponLoadout/weapon_loadout_slot.tscn" id="4_kxcfo"]
-[ext_resource type="Texture2D" uid="uid://2sy53byjqv7y" path="res://UI/Gameplay/next.png" id="5_v27ci"]
+[ext_resource type="PackedScene" uid="uid://dolbdjtkaosjw" path="res://UI/UpgradeMenu/EquipParts/equip_part_slot.tscn" id="6_xntmr"]
+[ext_resource type="Texture2D" uid="uid://0phkmtbb1dyv" path="res://UI/UpgradeMenu/Icons/partTestIcon.png" id="9_6mccb"]
 [ext_resource type="AudioStream" uid="uid://dt0dthyx78b8a" path="res://Audio/UpgradeMenu/equip.wav" id="10_8ak6m"]
+[ext_resource type="Resource" uid="uid://c3qtj882mefqb" path="res://Player/EquipParts/wallAscendPart.tres" id="10_dqcmg"]
 [ext_resource type="AudioStream" uid="uid://r73kifb7qpq1" path="res://Audio/UpgradeMenu/weaponEquip.wav" id="11_hnh00"]
 [ext_resource type="AudioStream" uid="uid://daa3r12i25bk0" path="res://Audio/UpgradeMenu/menucycle.wav" id="11_in30h"]
+[ext_resource type="Resource" uid="uid://ccf2eq1vsqklf" path="res://Player/EquipParts/doubleJumpPart.tres" id="11_jmane"]
 [ext_resource type="Texture2D" uid="uid://pkhhx2kkucph" path="res://UI/UpgradeMenu/Icons/prototype.png" id="12_kimnd"]
 [ext_resource type="Shader" uid="uid://bp7q7ubcd4lk4" path="res://Shaders/dither.gdshader" id="13_d67jj"]
-[ext_resource type="Shader" uid="uid://drc60ttp56cn4" path="res://Shaders/screen.gdshader" id="14_hhs1x"]
 [ext_resource type="Texture2D" uid="uid://diu4t01qg1wt5" path="res://UI/Gameplay/battery.png" id="15_g2q6n"]
-
-[sub_resource type="Gradient" id="Gradient_kxcfo"]
-
-[sub_resource type="GradientTexture2D" id="GradientTexture2D_xntmr"]
-gradient = SubResource("Gradient_kxcfo")
+[ext_resource type="Shader" uid="uid://cg424xmxljdnp" path="res://Shaders/analogCRT.gdshader" id="16_jmane"]
 
 [sub_resource type="ShaderMaterial" id="ShaderMaterial_uxsr7"]
 shader = ExtResource("13_d67jj")
 shader_parameter/size = Vector2(1440, 1080)
-shader_parameter/color1 = Color(0.70975083, 0, 0, 0)
-shader_parameter/color2 = Color(0, 0, 0, 1)
+shader_parameter/color1 = Color(1, 1, 1, 0)
+shader_parameter/color2 = Color(0.5, 0.5, 0.5, 1)
 
 [sub_resource type="Gradient" id="Gradient_xntmr"]
 
 [sub_resource type="GradientTexture2D" id="GradientTexture2D_8ak6m"]
 gradient = SubResource("Gradient_xntmr")
 
-[sub_resource type="Gradient" id="Gradient_l626o"]
-offsets = PackedFloat32Array(0.59518075, 0.6240964)
-colors = PackedColorArray(0, 0, 0, 1, 0, 0, 0, 0)
+[sub_resource type="Gradient" id="Gradient_6mccb"]
+interpolation_mode = 1
+offsets = PackedFloat32Array(0.29768786, 0.32947975, 0.50248754, 0.73410404)
+colors = PackedColorArray(0, 0, 0, 0, 0, 0, 0, 1, 1, 1, 1, 1, 1, 1, 1, 0)
 
-[sub_resource type="GradientTexture2D" id="GradientTexture2D_kxcfo"]
-gradient = SubResource("Gradient_l626o")
+[sub_resource type="GradientTexture2D" id="GradientTexture2D_dqcmg"]
+gradient = SubResource("Gradient_6mccb")
 width = 32
 height = 32
 fill = 1
 fill_from = Vector2(0.5, 0.5)
 
-[sub_resource type="Gradient" id="Gradient_8ak6m"]
-offsets = PackedFloat32Array(0.29453683, 0.56057006)
-colors = PackedColorArray(1, 1, 1, 1, 1, 1, 1, 0)
+[sub_resource type="StyleBoxEmpty" id="StyleBoxEmpty_hnh00"]
 
-[sub_resource type="GradientTexture2D" id="GradientTexture2D_hnh00"]
-gradient = SubResource("Gradient_8ak6m")
-fill = 1
-fill_from = Vector2(0.5, 0.5)
+[sub_resource type="StyleBoxFlat" id="StyleBoxFlat_6mccb"]
+bg_color = Color(1, 1, 1, 1)
+corner_radius_top_left = 16
+corner_radius_top_right = 16
+corner_radius_bottom_right = 16
+corner_radius_bottom_left = 16
+
+[sub_resource type="StyleBoxFlat" id="StyleBoxFlat_hnh00"]
+bg_color = Color(1, 1, 1, 1)
+corner_radius_top_left = 16
+corner_radius_top_right = 16
+corner_radius_bottom_right = 16
+corner_radius_bottom_left = 16
+
+[sub_resource type="Gradient" id="Gradient_hnh00"]
+interpolation_mode = 1
+offsets = PackedFloat32Array(0, 0.3791209, 0.43681318, 0.5631868, 0.6291209)
+colors = PackedColorArray(1, 1, 1, 0, 0, 0, 0, 1, 1, 1, 1, 1, 0, 0, 0, 1, 1, 1, 1, 0)
+
+[sub_resource type="GradientTexture2D" id="GradientTexture2D_6mccb"]
+gradient = SubResource("Gradient_hnh00")
+width = 56
+height = 36
+
+[sub_resource type="AtlasTexture" id="AtlasTexture_ggho6"]
+atlas = ExtResource("9_6mccb")
+
+[sub_resource type="AtlasTexture" id="AtlasTexture_jmane"]
+atlas = ExtResource("9_6mccb")
+
+[sub_resource type="AtlasTexture" id="AtlasTexture_g2q6n"]
+atlas = ExtResource("9_6mccb")
+
+[sub_resource type="Gradient" id="Gradient_dqcmg"]
+offsets = PackedFloat32Array(1)
+colors = PackedColorArray(1, 1, 1, 1)
+
+[sub_resource type="GradientTexture2D" id="GradientTexture2D_jmane"]
+gradient = SubResource("Gradient_dqcmg")
+
+[sub_resource type="Gradient" id="Gradient_heicr"]
+offsets = PackedFloat32Array(1)
+colors = PackedColorArray(0.6509804, 0.6509804, 0.6509804, 1)
+
+[sub_resource type="GradientTexture1D" id="GradientTexture1D_bihv4"]
+gradient = SubResource("Gradient_heicr")
+
+[sub_resource type="Gradient" id="Gradient_jmane"]
+offsets = PackedFloat32Array(1)
+colors = PackedColorArray(1, 1, 1, 1)
+
+[sub_resource type="GradientTexture1D" id="GradientTexture1D_g2q6n"]
+gradient = SubResource("Gradient_jmane")
 
 [sub_resource type="AudioStreamRandomizer" id="AudioStreamRandomizer_soptt"]
 random_pitch = 1.0028923
@@ -67,25 +114,61 @@ random_volume_offset_db = 0.05
 streams_count = 1
 stream_0/stream = ExtResource("11_hnh00")
 
-[sub_resource type="ShaderMaterial" id="ShaderMaterial_g0opq"]
-shader = ExtResource("14_hhs1x")
-shader_parameter/grain_intensity = 0.0800000038
-shader_parameter/min_lum = 0.0
-shader_parameter/max_lum = 1.0
-shader_parameter/time_scale = 0.5
-shader_parameter/vignette_darkness = 0.5
-shader_parameter/vignette_outer_radius = 2.0
-shader_parameter/vignette_inner_radius = 1.0000000475
-shader_parameter/scanline_intensity = 0.2
-shader_parameter/barrel_distortion = 0.2000000095
-shader_parameter/chromatic_aberration = 0.002000000095
-shader_parameter/crt_vignette_power = 0.50000002375
-shader_parameter/pixel_resolution_x = 1280
-shader_parameter/pixel_resolution_y = 960
-shader_parameter/enable_color_quantization = false
-shader_parameter/color_quant_steps = 32.0
-shader_parameter/warble_amount = 0.0010000000475
-shader_parameter/warble_speed = 2.000000095
+[sub_resource type="ShaderMaterial" id="ShaderMaterial_g2q6n"]
+shader = ExtResource("16_jmane")
+shader_parameter/screen_size = Vector2(1920, 1080)
+shader_parameter/viewport_size = Vector2(1920, 1080)
+shader_parameter/hardScan = -8.0
+shader_parameter/hardPix = -3.0
+shader_parameter/warpX = 0.031
+shader_parameter/warpY = 0.041
+shader_parameter/maskDark = 0.5
+shader_parameter/maskLight = 1.0000000149012
+shader_parameter/scaleInLinearGamma = true
+shader_parameter/shadowMask = 3
+shader_parameter/brightBoost = 1.5000000223518
+shader_parameter/hardBloomPix = -1.5
+shader_parameter/hardBloomScan = -4.0
+shader_parameter/bloomAmount = 0.15
+shader_parameter/shape = 0.0
+shader_parameter/doBloom = true
+shader_parameter/enable_compression = true
+shader_parameter/compression_intensity = 0.5000000074506
+shader_parameter/compression_quantization = 12.0
+shader_parameter/compression_block_size = 4.0
+shader_parameter/compression_blend = 0.40000000596048
+shader_parameter/enable_chromatic_aberration = true
+shader_parameter/red_shift = Vector2(0.002, 0)
+shader_parameter/green_shift = Vector2(0, 0)
+shader_parameter/blue_shift = Vector2(-0.002, 0)
+shader_parameter/aberration_bias = 1.0
+shader_parameter/aberration_blend = 0.8
+shader_parameter/enable_lens_distortion = true
+shader_parameter/distortion_intensity = 0.15
+shader_parameter/distortion_magnifier = 1.0
+shader_parameter/distortion_invert = false
+shader_parameter/enable_noise = false
+shader_parameter/noise_intensity = 0.51999998837696
+shader_parameter/noise_scale = 50.0
+shader_parameter/noise_framerate = 0.0
+shader_parameter/noise_midtones = 0.0
+shader_parameter/noise_shadows = 0.0
+shader_parameter/noise_highlights = 0.0
+shader_parameter/enable_halation = true
+shader_parameter/halation_amount = 0.3
+shader_parameter/halation_threshold = 0.8
+shader_parameter/halation_size = 2.0000000298024
+shader_parameter/halation_color_filter = Vector3(1, 0.9, 0.8)
+shader_parameter/enable_sharpen = false
+shader_parameter/sharpen_intensity = 1.0
+shader_parameter/sharpen_offset = 1.0
+shader_parameter/enable_soften = false
+shader_parameter/soften_strength = 1.0
+shader_parameter/soften_blend = 0.5
+shader_parameter/enable_vignette = true
+shader_parameter/vignette_intensity = 0.4
+shader_parameter/vignette_size = 0.8
+shader_parameter/vignette_color = Vector3(0, 0, 0)
 
 [node name="UpgradeMenu" type="CanvasLayer" unique_id=11142419]
 script = ExtResource("1_f4tld")
@@ -106,167 +189,273 @@ anchor_right = 1.0
 anchor_bottom = 1.0
 grow_horizontal = 2
 grow_vertical = 2
-theme_override_constants/margin_left = 64
-theme_override_constants/margin_top = 64
-theme_override_constants/margin_right = 64
+theme_override_constants/margin_left = 96
+theme_override_constants/margin_top = 128
+theme_override_constants/margin_right = 96
 theme_override_constants/margin_bottom = 64
 
-[node name="WeaponList" type="VBoxContainer" parent="Control/MarginContainer" unique_id=1918643389]
+[node name="SubmenuContainer" type="HBoxContainer" parent="Control/MarginContainer" unique_id=584514890]
+layout_mode = 2
+size_flags_horizontal = 0
+size_flags_vertical = 0
+theme_override_constants/separation = 64
+
+[node name="WeaponList" type="VBoxContainer" parent="Control/MarginContainer/SubmenuContainer" unique_id=1918643389]
 custom_minimum_size = Vector2(320, 360)
 layout_mode = 2
 size_flags_horizontal = 0
 size_flags_vertical = 4
+focus_mode = 2
 
-[node name="WeaponContainer" parent="Control/MarginContainer/WeaponList" unique_id=1035050020 instance=ExtResource("2_l626o")]
+[node name="WeaponContainerX" parent="Control/MarginContainer/SubmenuContainer/WeaponList" unique_id=76988020 instance=ExtResource("2_l626o")]
+custom_minimum_size = Vector2(400, 0)
+layout_mode = 2
+weaponInd = ExtResource("3_8ak6m")
+
+[node name="WeaponContainer" parent="Control/MarginContainer/SubmenuContainer/WeaponList" unique_id=1035050020 instance=ExtResource("2_l626o")]
 layout_mode = 2
 
-[node name="WeaponContainer2" parent="Control/MarginContainer/WeaponList" unique_id=575048552 instance=ExtResource("2_l626o")]
+[node name="WeaponContainer2" parent="Control/MarginContainer/SubmenuContainer/WeaponList" unique_id=575048552 instance=ExtResource("2_l626o")]
 layout_mode = 2
+weaponInd = ExtResource("4_hnh00")
 
-[node name="WeaponContainer3" parent="Control/MarginContainer/WeaponList" unique_id=191886011 instance=ExtResource("2_l626o")]
+[node name="PlayerEquipContainer" type="HBoxContainer" parent="Control/MarginContainer/SubmenuContainer" unique_id=481768132]
+custom_minimum_size = Vector2(0, 640)
 layout_mode = 2
-
-[node name="GridContainer" type="GridContainer" parent="Control/MarginContainer" unique_id=520906397]
-custom_minimum_size = Vector2(512, 256)
-layout_mode = 2
-size_flags_horizontal = 8
+size_flags_horizontal = 4
 size_flags_vertical = 4
+theme_override_constants/separation = 24
+
+[node name="WeaponLoadoutList" type="VBoxContainer" parent="Control/MarginContainer/SubmenuContainer/PlayerEquipContainer" unique_id=346539770]
+layout_mode = 2
+size_flags_vertical = 4
+focus_behavior_recursive = 2
+theme_override_constants/separation = 36
+
+[node name="WeaponLoadoutSlot" parent="Control/MarginContainer/SubmenuContainer/PlayerEquipContainer/WeaponLoadoutList" unique_id=586287958 instance=ExtResource("4_kxcfo")]
+layout_mode = 2
+focus_neighbor_left = NodePath(".")
+focus_neighbor_top = NodePath(".")
+focus_neighbor_bottom = NodePath("../WeaponLoadoutSlot2")
+
+[node name="WeaponLoadoutSlot2" parent="Control/MarginContainer/SubmenuContainer/PlayerEquipContainer/WeaponLoadoutList" unique_id=756316103 instance=ExtResource("4_kxcfo")]
+layout_mode = 2
+focus_neighbor_left = NodePath(".")
+focus_neighbor_top = NodePath("../WeaponLoadoutSlot")
+focus_neighbor_bottom = NodePath("../WeaponLoadoutSlot3")
+
+[node name="WeaponLoadoutSlot3" parent="Control/MarginContainer/SubmenuContainer/PlayerEquipContainer/WeaponLoadoutList" unique_id=1343725565 instance=ExtResource("4_kxcfo")]
+layout_mode = 2
+focus_neighbor_left = NodePath(".")
+focus_neighbor_top = NodePath("../WeaponLoadoutSlot2")
+focus_neighbor_bottom = NodePath(".")
+
+[node name="PlayerEquipVisual" type="VBoxContainer" parent="Control/MarginContainer/SubmenuContainer/PlayerEquipContainer" unique_id=170894941]
+layout_mode = 2
+size_flags_horizontal = 4
+size_flags_vertical = 4
+theme_override_constants/separation = 12
+
+[node name="PlayerBaseIcon" type="TextureRect" parent="Control/MarginContainer/SubmenuContainer/PlayerEquipContainer/PlayerEquipVisual" unique_id=1431262963]
+material = SubResource("ShaderMaterial_uxsr7")
+custom_minimum_size = Vector2(520, 680)
+layout_mode = 2
+texture = ExtResource("12_kimnd")
+expand_mode = 1
+stretch_mode = 6
+
+[node name="PartHoverPreview" type="TextureRect" parent="Control/MarginContainer/SubmenuContainer/PlayerEquipContainer/PlayerEquipVisual/PlayerBaseIcon" unique_id=550016226]
+layout_mode = 0
+offset_right = 64.0
+offset_bottom = 64.0
+texture = SubResource("GradientTexture2D_8ak6m")
+
+[node name="HardwareBar" type="TextureProgressBar" parent="Control/MarginContainer/SubmenuContainer/PlayerEquipContainer/PlayerEquipVisual" unique_id=1621629075]
+custom_minimum_size = Vector2(320, 48)
+layout_mode = 2
+size_flags_horizontal = 4
+max_value = 1.0
+step = 0.002
+value = 0.33
+nine_patch_stretch = true
+stretch_margin_left = 16
+stretch_margin_top = 16
+stretch_margin_right = 16
+stretch_margin_bottom = 16
+texture_over = SubResource("GradientTexture2D_dqcmg")
+
+[node name="HardwareBar" type="ProgressBar" parent="Control/MarginContainer/SubmenuContainer/PlayerEquipContainer/PlayerEquipVisual/HardwareBar" unique_id=637797221]
+z_index = -1
+layout_mode = 1
+anchors_preset = 15
+anchor_right = 1.0
+anchor_bottom = 1.0
+grow_horizontal = 2
+grow_vertical = 2
+size_flags_vertical = 1
+theme_override_styles/background = SubResource("StyleBoxEmpty_hnh00")
+theme_override_styles/fill = SubResource("StyleBoxFlat_6mccb")
+max_value = 1.0
+value = 0.17
+show_percentage = false
+
+[node name="HardwareBarPreview" type="ProgressBar" parent="Control/MarginContainer/SubmenuContainer/PlayerEquipContainer/PlayerEquipVisual/HardwareBar/HardwareBar" unique_id=1886000007]
+z_index = -1
+layout_mode = 1
+anchors_preset = 15
+anchor_right = 1.0
+anchor_bottom = 1.0
+grow_horizontal = 2
+grow_vertical = 2
+size_flags_vertical = 1
+theme_override_styles/background = SubResource("StyleBoxEmpty_hnh00")
+theme_override_styles/fill = SubResource("StyleBoxFlat_hnh00")
+max_value = 1.0
+value = 0.5
+show_percentage = false
+
+[node name="MarginContainer" type="MarginContainer" parent="Control/MarginContainer/SubmenuContainer/PlayerEquipContainer/PlayerEquipVisual/HardwareBar" unique_id=1817434277]
+layout_mode = 1
+anchors_preset = 15
+anchor_right = 1.0
+anchor_bottom = 1.0
+grow_horizontal = 2
+grow_vertical = 2
+theme_override_constants/margin_left = 18
+theme_override_constants/margin_top = 5
+theme_override_constants/margin_right = 18
+theme_override_constants/margin_bottom = 6
+
+[node name="BarNotches" type="NinePatchRect" parent="Control/MarginContainer/SubmenuContainer/PlayerEquipContainer/PlayerEquipVisual/HardwareBar/MarginContainer" unique_id=52014485]
+z_index = -1
+layout_mode = 2
+texture = SubResource("GradientTexture2D_6mccb")
+axis_stretch_horizontal = 1
+
+[node name="EquipPartsMenu" type="VBoxContainer" parent="Control/MarginContainer/SubmenuContainer" unique_id=899782963]
+layout_mode = 2
+size_flags_vertical = 4
+
+[node name="EquipPartsGrid" type="GridContainer" parent="Control/MarginContainer/SubmenuContainer/EquipPartsMenu" unique_id=520906397]
+custom_minimum_size = Vector2(360, 256)
+layout_mode = 2
+focus_mode = 2
 theme_override_constants/h_separation = 18
 theme_override_constants/v_separation = 18
 columns = 4
 
-[node name="TextureRect" type="TextureRect" parent="Control/MarginContainer/GridContainer" unique_id=1249160417]
+[node name="EquipPartSlot" parent="Control/MarginContainer/SubmenuContainer/EquipPartsMenu/EquipPartsGrid" unique_id=1191095639 instance=ExtResource("6_xntmr")]
 layout_mode = 2
-texture = SubResource("GradientTexture2D_xntmr")
+texture_normal = SubResource("AtlasTexture_ggho6")
+partInd = ExtResource("10_dqcmg")
 
-[node name="TextureRect2" type="TextureRect" parent="Control/MarginContainer/GridContainer" unique_id=1205231380]
+[node name="EquipPartSlot2" parent="Control/MarginContainer/SubmenuContainer/EquipPartsMenu/EquipPartsGrid" unique_id=398333775 instance=ExtResource("6_xntmr")]
+modulate = Color(0.82, 0.82, 0.82, 1)
 layout_mode = 2
-texture = SubResource("GradientTexture2D_xntmr")
+texture_normal = SubResource("AtlasTexture_jmane")
 
-[node name="TextureRect3" type="TextureRect" parent="Control/MarginContainer/GridContainer" unique_id=246800455]
+[node name="EquipPartSlot3" parent="Control/MarginContainer/SubmenuContainer/EquipPartsMenu/EquipPartsGrid" unique_id=1475104245 instance=ExtResource("6_xntmr")]
+modulate = Color(0.54, 0.54, 0.54, 1)
 layout_mode = 2
-texture = SubResource("GradientTexture2D_xntmr")
+texture_normal = SubResource("AtlasTexture_g2q6n")
+partInd = ExtResource("11_jmane")
 
-[node name="TextureRect4" type="TextureRect" parent="Control/MarginContainer/GridContainer" unique_id=1460350143]
+[node name="EquipPartSlot4" parent="Control/MarginContainer/SubmenuContainer/EquipPartsMenu/EquipPartsGrid" unique_id=1626541317 instance=ExtResource("6_xntmr")]
+visible = false
 layout_mode = 2
-texture = SubResource("GradientTexture2D_xntmr")
+texture_normal = SubResource("AtlasTexture_jmane")
 
-[node name="TextureRect5" type="TextureRect" parent="Control/MarginContainer/GridContainer" unique_id=64053965]
+[node name="EquipPartSlot5" parent="Control/MarginContainer/SubmenuContainer/EquipPartsMenu/EquipPartsGrid" unique_id=1732221212 instance=ExtResource("6_xntmr")]
+visible = false
 layout_mode = 2
-texture = SubResource("GradientTexture2D_xntmr")
+texture_normal = SubResource("AtlasTexture_jmane")
 
-[node name="TextureRect6" type="TextureRect" parent="Control/MarginContainer/GridContainer" unique_id=2122639841]
+[node name="EquipPartSlot6" parent="Control/MarginContainer/SubmenuContainer/EquipPartsMenu/EquipPartsGrid" unique_id=69391438 instance=ExtResource("6_xntmr")]
+visible = false
 layout_mode = 2
-texture = SubResource("GradientTexture2D_xntmr")
+texture_normal = SubResource("AtlasTexture_jmane")
 
-[node name="TextureRect7" type="TextureRect" parent="Control/MarginContainer/GridContainer" unique_id=1972618065]
+[node name="EquipPartSlot7" parent="Control/MarginContainer/SubmenuContainer/EquipPartsMenu/EquipPartsGrid" unique_id=1532791065 instance=ExtResource("6_xntmr")]
+visible = false
 layout_mode = 2
-texture = SubResource("GradientTexture2D_xntmr")
+texture_normal = SubResource("AtlasTexture_jmane")
 
-[node name="TextureRect8" type="TextureRect" parent="Control/MarginContainer/GridContainer" unique_id=623591253]
+[node name="EquipPartSlot8" parent="Control/MarginContainer/SubmenuContainer/EquipPartsMenu/EquipPartsGrid" unique_id=1411295172 instance=ExtResource("6_xntmr")]
+visible = false
 layout_mode = 2
-texture = SubResource("GradientTexture2D_xntmr")
+texture_normal = SubResource("AtlasTexture_jmane")
 
-[node name="TextureRect9" type="TextureRect" parent="Control/MarginContainer/GridContainer" unique_id=966985928]
+[node name="EquipPartSlot9" parent="Control/MarginContainer/SubmenuContainer/EquipPartsMenu/EquipPartsGrid" unique_id=1655321297 instance=ExtResource("6_xntmr")]
+visible = false
 layout_mode = 2
-texture = SubResource("GradientTexture2D_xntmr")
+texture_normal = SubResource("AtlasTexture_jmane")
+
+[node name="EquipPartSlot10" parent="Control/MarginContainer/SubmenuContainer/EquipPartsMenu/EquipPartsGrid" unique_id=1599624814 instance=ExtResource("6_xntmr")]
+visible = false
+layout_mode = 2
+texture_normal = SubResource("AtlasTexture_jmane")
+
+[node name="PartInfoPanel" type="MarginContainer" parent="Control/MarginContainer/SubmenuContainer/EquipPartsMenu" unique_id=1432144613]
+clip_contents = true
+layout_mode = 2
+
+[node name="VBoxContainer" type="VBoxContainer" parent="Control/MarginContainer/SubmenuContainer/EquipPartsMenu/PartInfoPanel" unique_id=332603490]
+layout_mode = 2
+
+[node name="SepLine" type="TextureRect" parent="Control/MarginContainer/SubmenuContainer/EquipPartsMenu/PartInfoPanel/VBoxContainer" unique_id=805322114]
+custom_minimum_size = Vector2(0, 4)
+layout_mode = 2
+size_flags_vertical = 4
+texture = SubResource("GradientTexture2D_jmane")
+expand_mode = 1
+
+[node name="PartName" type="RichTextLabel" parent="Control/MarginContainer/SubmenuContainer/EquipPartsMenu/PartInfoPanel/VBoxContainer" unique_id=267349317]
+custom_minimum_size = Vector2(360, 64)
+layout_mode = 2
+theme_override_font_sizes/normal_font_size = 32
+bbcode_enabled = true
+text = "Metal Foot"
+
+[node name="SepLine2" type="TextureRect" parent="Control/MarginContainer/SubmenuContainer/EquipPartsMenu/PartInfoPanel/VBoxContainer" unique_id=1749817438]
+custom_minimum_size = Vector2(0, 4)
+layout_mode = 2
+texture = SubResource("GradientTexture2D_jmane")
+expand_mode = 1
+
+[node name="PartDescription" type="RichTextLabel" parent="Control/MarginContainer/SubmenuContainer/EquipPartsMenu/PartInfoPanel/VBoxContainer" unique_id=1590329023]
+custom_minimum_size = Vector2(360, 128)
+layout_mode = 2
+theme_override_font_sizes/normal_font_size = 24
+bbcode_enabled = true
+text = "When landing on a wall, hold JUMP to ascend the wall"
 
 [node name="Currency" type="RichTextLabel" parent="Control/MarginContainer" unique_id=83709108]
 custom_minimum_size = Vector2(256, 96)
 layout_mode = 2
 size_flags_horizontal = 0
-size_flags_vertical = 0
-theme_override_fonts/normal_font = ExtResource("1_hofnk")
-theme_override_font_sizes/normal_font_size = 64
+size_flags_vertical = 8
+theme_override_font_sizes/normal_font_size = 48
 bbcode_enabled = true
-text = "100"
+text = "101011"
 fit_content = true
-horizontal_alignment = 1
+vertical_alignment = 2
 
-[node name="HBoxContainer" type="HBoxContainer" parent="Control/MarginContainer" unique_id=481768132]
+[node name="DebugToggles" type="HBoxContainer" parent="Control/MarginContainer" unique_id=942299027]
 layout_mode = 2
-size_flags_horizontal = 4
-theme_override_constants/separation = 24
+size_flags_horizontal = 8
+size_flags_vertical = 8
+theme_override_constants/separation = 48
 
-[node name="WeaponLoadout" type="VBoxContainer" parent="Control/MarginContainer/HBoxContainer" unique_id=346539770]
-layout_mode = 2
-size_flags_vertical = 4
-theme_override_constants/separation = 16
-
-[node name="WeaponLoadoutSlot" parent="Control/MarginContainer/HBoxContainer/WeaponLoadout" unique_id=586287958 instance=ExtResource("4_kxcfo")]
-layout_mode = 2
-
-[node name="WeaponLoadoutSlot2" parent="Control/MarginContainer/HBoxContainer/WeaponLoadout" unique_id=756316103 instance=ExtResource("4_kxcfo")]
-layout_mode = 2
-
-[node name="WeaponLoadoutSlot3" parent="Control/MarginContainer/HBoxContainer/WeaponLoadout" unique_id=1343725565 instance=ExtResource("4_kxcfo")]
-layout_mode = 2
-
-[node name="PartsContainer" type="VBoxContainer" parent="Control/MarginContainer/HBoxContainer" unique_id=170894941]
-layout_mode = 2
-size_flags_horizontal = 4
-size_flags_vertical = 4
-theme_override_constants/separation = 12
-
-[node name="PlayerIcon" type="TextureRect" parent="Control/MarginContainer/HBoxContainer/PartsContainer" unique_id=1431262963]
-material = SubResource("ShaderMaterial_uxsr7")
-custom_minimum_size = Vector2(256, 256)
+[node name="BatteryDebug" type="TextureButton" parent="Control/MarginContainer/DebugToggles" unique_id=1364926991]
+custom_minimum_size = Vector2(64, 64)
 layout_mode = 2
 size_flags_horizontal = 0
-size_flags_vertical = 4
-texture = ExtResource("12_kimnd")
-stretch_mode = 6
-
-[node name="PartTex" type="TextureRect" parent="Control/MarginContainer/HBoxContainer/PartsContainer/PlayerIcon" unique_id=550016226]
-layout_mode = 0
-offset_left = 102.0
-offset_top = 137.0
-offset_right = 166.0
-offset_bottom = 201.0
-texture = SubResource("GradientTexture2D_8ak6m")
-
-[node name="EquipPartsContainer" type="HBoxContainer" parent="Control/MarginContainer/HBoxContainer/PartsContainer" unique_id=1283100336]
-layout_mode = 2
-size_flags_horizontal = 4
-size_flags_vertical = 4
-theme_override_constants/separation = 12
-
-[node name="CharmSlot" type="TextureRect" parent="Control/MarginContainer/HBoxContainer/PartsContainer/EquipPartsContainer" unique_id=255311891]
-layout_mode = 2
-texture = SubResource("GradientTexture2D_kxcfo")
-
-[node name="CharmSlot2" type="TextureRect" parent="Control/MarginContainer/HBoxContainer/PartsContainer/EquipPartsContainer" unique_id=542195590]
-layout_mode = 2
-texture = SubResource("GradientTexture2D_kxcfo")
-
-[node name="CharmSlot3" type="TextureRect" parent="Control/MarginContainer/HBoxContainer/PartsContainer/EquipPartsContainer" unique_id=1549845204]
-layout_mode = 2
-texture = SubResource("GradientTexture2D_kxcfo")
-
-[node name="CharmSlot4" type="TextureRect" parent="Control/MarginContainer/HBoxContainer/PartsContainer/EquipPartsContainer" unique_id=647467874]
-layout_mode = 2
-texture = SubResource("GradientTexture2D_kxcfo")
-
-[node name="CharmSlot5" type="TextureRect" parent="Control/MarginContainer/HBoxContainer/PartsContainer/EquipPartsContainer" unique_id=409574878]
-layout_mode = 2
-texture = SubResource("GradientTexture2D_kxcfo")
-
-[node name="CharmSlot6" type="TextureRect" parent="Control/MarginContainer/HBoxContainer/PartsContainer/EquipPartsContainer" unique_id=2013162477]
-layout_mode = 2
-texture = SubResource("GradientTexture2D_kxcfo")
-
-[node name="HBoxContainer2" type="HBoxContainer" parent="Control/MarginContainer" unique_id=942299027]
-layout_mode = 2
-size_flags_horizontal = 8
-size_flags_vertical = 0
-
-[node name="BatteryDebug" type="TextureButton" parent="Control/MarginContainer/HBoxContainer2" unique_id=1364926991]
-layout_mode = 2
-size_flags_horizontal = 8
-size_flags_vertical = 0
+size_flags_vertical = 8
 texture_normal = ExtResource("15_g2q6n")
+ignore_texture_size = true
+stretch_mode = 0
 
-[node name="RichTextLabel" type="RichTextLabel" parent="Control/MarginContainer/HBoxContainer2/BatteryDebug" unique_id=1072793294]
+[node name="RichTextLabel" type="RichTextLabel" parent="Control/MarginContainer/DebugToggles/BatteryDebug" unique_id=1072793294]
 custom_minimum_size = Vector2(128, 0)
 layout_mode = 1
 anchors_preset = 8
@@ -274,23 +463,23 @@ anchor_left = 0.5
 anchor_top = 0.5
 anchor_right = 0.5
 anchor_bottom = 0.5
-offset_left = -72.0
-offset_top = -99.0
-offset_right = 56.0
-offset_bottom = -59.0
+offset_left = -64.0
+offset_top = -68.0
+offset_right = 64.0
+offset_bottom = -28.0
 grow_horizontal = 2
 grow_vertical = 2
 mouse_filter = 2
 text = "Infinite Battery"
 
-[node name="CordDebug" type="HSlider" parent="Control/MarginContainer/HBoxContainer2" unique_id=510066627]
-custom_minimum_size = Vector2(256, 0)
+[node name="CordDebug" type="HSlider" parent="Control/MarginContainer/DebugToggles" unique_id=510066627]
+custom_minimum_size = Vector2(128, 0)
 layout_mode = 2
 min_value = 5.0
 max_value = 30.0
 value = 5.0
 
-[node name="RichTextLabel" type="RichTextLabel" parent="Control/MarginContainer/HBoxContainer2/CordDebug" unique_id=1727274188]
+[node name="RichTextLabel" type="RichTextLabel" parent="Control/MarginContainer/DebugToggles/CordDebug" unique_id=1727274188]
 custom_minimum_size = Vector2(128, 0)
 layout_mode = 1
 anchors_preset = 3
@@ -298,10 +487,10 @@ anchor_left = 1.0
 anchor_top = 1.0
 anchor_right = 1.0
 anchor_bottom = 1.0
-offset_left = -254.0
-offset_top = -51.0
-offset_right = -126.0
-offset_bottom = -11.0
+offset_left = -132.0
+offset_top = -49.0
+offset_right = -4.0
+offset_bottom = -9.0
 grow_horizontal = 0
 grow_vertical = 0
 mouse_filter = 2
@@ -309,19 +498,29 @@ text = "Cord length
 "
 
 [node name="GoButton" type="TextureButton" parent="Control/MarginContainer" unique_id=1693835580]
-custom_minimum_size = Vector2(128, 128)
+custom_minimum_size = Vector2(256, 64)
 layout_mode = 2
-size_flags_horizontal = 8
+size_flags_horizontal = 4
 size_flags_vertical = 8
-texture_normal = ExtResource("5_v27ci")
-stretch_mode = 6
+texture_normal = SubResource("GradientTexture1D_bihv4")
+texture_hover = SubResource("GradientTexture1D_g2q6n")
+texture_focused = SubResource("GradientTexture1D_g2q6n")
+stretch_mode = 0
 
-[node name="FocusDebug" type="TextureRect" parent="Control" unique_id=959162263]
-layout_mode = 0
-offset_right = 64.0
-offset_bottom = 64.0
+[node name="GoText" type="RichTextLabel" parent="Control/MarginContainer/GoButton" unique_id=455186161]
+layout_mode = 1
+anchors_preset = 15
+anchor_right = 1.0
+anchor_bottom = 1.0
+grow_horizontal = 2
+grow_vertical = 2
 mouse_filter = 2
-texture = SubResource("GradientTexture2D_hnh00")
+theme_override_colors/default_color = Color(0, 0, 0, 1)
+theme_override_font_sizes/normal_font_size = 32
+bbcode_enabled = true
+text = "start"
+horizontal_alignment = 1
+vertical_alignment = 1
 
 [node name="Audio" type="Node" parent="." unique_id=1896171430]
 
@@ -335,8 +534,7 @@ stream = SubResource("AudioStreamRandomizer_6mccb")
 stream = SubResource("AudioStreamRandomizer_dqcmg")
 
 [node name="Screen" type="ColorRect" parent="." unique_id=139744653]
-visible = false
-material = SubResource("ShaderMaterial_g0opq")
+material = SubResource("ShaderMaterial_g2q6n")
 anchors_preset = 15
 anchor_right = 1.0
 anchor_bottom = 1.0
@@ -344,6 +542,5 @@ grow_horizontal = 2
 grow_vertical = 2
 mouse_filter = 2
 
-[connection signal="focus_entered" from="Control" to="." method="_on_control_focus_entered"]
-[connection signal="pressed" from="Control/MarginContainer/HBoxContainer2/BatteryDebug" to="." method="_on_battery_debug_pressed"]
+[connection signal="pressed" from="Control/MarginContainer/DebugToggles/BatteryDebug" to="." method="_on_battery_debug_pressed"]
 [connection signal="pressed" from="Control/MarginContainer/GoButton" to="." method="_on_go_button_pressed"]

@@ -14,7 +14,7 @@ var batteryHeight : float;
 
 # Called when the node enters the scene tree for the first time.
 func _ready() -> void:
-	target = get_parent().find_child("Player");
+	target = get_parent().get_parent().find_child("Player");
 	outlet.unlimited = unlimited;
 	outlet.battery = battery;
 	outlet.connected = connected;

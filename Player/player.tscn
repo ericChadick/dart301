@@ -217,8 +217,11 @@ light_energy = 4.0
 omni_range = 1.5
 omni_attenuation = 0.5
 
+[node name="cordPoint" type="Marker3D" parent="Head" unique_id=1563957025]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0.7000141, -0.36189443, -0.40572158)
+
 [node name="CordProtoNode" type="Node3D" parent="Head" unique_id=558342988]
-transform = Transform3D(0.74413925, 0.34298456, 0.57325214, -0.42135835, 0.9068827, 0.004364181, -0.5183764, -0.24479188, 0.8193672, 0.95013034, -0.6977509, -1.2693243)
+transform = Transform3D(0.74413925, 0.34298453, 0.57325214, -0.42135835, 0.90688264, 0.004364181, -0.5183764, -0.24479187, 0.8193672, 0.95013034, -0.6977509, -1.2693243)
 
 [node name="CordProto" type="MeshInstance3D" parent="Head/CordProtoNode" unique_id=1396993993]
 transform = Transform3D(0.9999999, 0, 2.9802322e-08, 4.4703484e-08, 1.0000004, -1.4901161e-08, 0, 0, 1, -0.11860013, 0.8586336, 0.17990345)

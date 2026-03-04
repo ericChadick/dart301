@@ -1,10 +1,9 @@
 [gd_scene format=4 uid="uid://cki8bp3eco3r"]
 
+[ext_resource type="Material" uid="uid://c13ju76ht0xel" path="res://World/Props/TrashAssets/scrap.material" id="1_ebnc7"]
+
 [sub_resource type="BoxShape3D" id="BoxShape3D_6ss0d"]
 size = Vector3(1, 2, 1)
-
-[sub_resource type="StandardMaterial3D" id="StandardMaterial3D_ebnc7"]
-cull_mode = 2
 
 [sub_resource type="StandardMaterial3D" id="StandardMaterial3D_4556q"]
 
@@ -48,6 +47,6 @@ shape = SubResource("BoxShape3D_6ss0d")
 
 [node name="TerminalV1" type="MeshInstance3D" parent="." unique_id=572812665]
 transform = Transform3D(0.34687337, 0, 0, 0, 0.51876605, 0, 0, 0, 0.51876605, 0, 0, 0)
-material_override = SubResource("StandardMaterial3D_ebnc7")
+material_override = ExtResource("1_ebnc7")
 mesh = SubResource("ArrayMesh_tfs12")
 skeleton = NodePath("")
