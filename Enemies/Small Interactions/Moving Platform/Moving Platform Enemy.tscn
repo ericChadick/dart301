@@ -1,0 +1,20 @@
+[gd_scene format=3 uid="uid://b5k3ptjmhedue"]
+
+[ext_resource type="PackedScene" uid="uid://b2rq0kh6qt6k0" path="res://Enemies/Small Interactions/Moving Platform/Moving Platform.fbx" id="1_t4ij2"]
+[ext_resource type="Script" uid="uid://cixfb4unr70jv" path="res://Enemies/Small Interactions/Moving Platform/moving_platform.gd" id="2_t4ij2"]
+[ext_resource type="PackedScene" uid="uid://nkr2g2w4vnro" path="res://Enemies/World_Enemy/Outlet/outlet.tscn" id="3_wk04c"]
+
+[sub_resource type="BoxShape3D" id="BoxShape3D_1"]
+size = Vector3(13.834961, 1.6853516, 13.8237915)
+
+[node name="MovingPlatformEnemy" type="AnimatableBody3D" unique_id=1595337598]
+script = ExtResource("2_t4ij2")
+
+[node name="CollisionShape3D" type="CollisionShape3D" parent="." unique_id=305209559]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, -0.012451172, -0.6926758, -0.019744873)
+shape = SubResource("BoxShape3D_1")
+
+[node name="Moving Platform" parent="." unique_id=305209558 instance=ExtResource("1_t4ij2")]
+
+[node name="Outlet" parent="." unique_id=220038749 instance=ExtResource("3_wk04c")]
+transform = Transform3D(-4.371139e-08, 1, 0, -1, -4.371139e-08, 0, 0, 0, 1, 0, -1.6443017, 0)
