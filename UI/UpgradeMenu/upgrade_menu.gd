@@ -58,6 +58,7 @@ func _ready() -> void:
 	
 	infoPanelHeight = part_info_panel.size.y;
 	
+	
 	#set focus neighbors for weapon list
 	var weaponsUnlocked := weapon_list.get_children();
 	for i in weaponsUnlocked.size():
@@ -220,7 +221,6 @@ func _process(delta: float) -> void:
 		part_hover_preview.modulate.a = round((sin(partHoverTime*10.0)+1.0)*.5);
 		part_hover_preview.texture = partSelect.partHighlightTexture;
 		part_hover_preview.position = partSelect.partMenuOffset;
-		
 		
 		if focusNode.equipped_icon.visible:
 			hardware_bar_preview.value = hardware_bar.value;

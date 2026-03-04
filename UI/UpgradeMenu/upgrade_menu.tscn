@@ -502,6 +502,7 @@ custom_minimum_size = Vector2(256, 64)
 layout_mode = 2
 size_flags_horizontal = 4
 size_flags_vertical = 8
+focus_neighbor_bottom = NodePath(".")
 texture_normal = SubResource("GradientTexture1D_bihv4")
 texture_hover = SubResource("GradientTexture1D_g2q6n")
 texture_focused = SubResource("GradientTexture1D_g2q6n")
