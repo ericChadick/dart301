@@ -9,6 +9,7 @@
 [ext_resource type="PackedScene" uid="uid://cp6w0v6cwhcvu" path="res://Enemies/Small Interactions/Ceiling Pull Object.tscn" id="6_wm0ah"]
 [ext_resource type="PackedScene" uid="uid://dh7n4cq2bm8xk" path="res://Enemies/Small Interactions/Prop Tank.tscn" id="8_8wmop"]
 [ext_resource type="PackedScene" uid="uid://b5k3ptjmhedue" path="res://Enemies/Small Interactions/Moving Platform/Moving Platform Enemy.tscn" id="9_2d5hj"]
+[ext_resource type="PackedScene" uid="uid://nkr2g2w4vnro" path="res://Enemies/World_Enemy/Outlet/outlet.tscn" id="10_ry05d"]
 
 [sub_resource type="Environment" id="Environment_wfacm"]
 background_mode = 1
@@ -196,6 +197,9 @@ transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 1.53086, 9.75734, 92.899826)
 
 [node name="MovingPlatformEnemy4" parent="SubViewportContainer/SubViewport" unique_id=2132316369 instance=ExtResource("9_2d5hj")]
 transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 21.245394, 10.403042, 108.60976)
+
+[node name="Outlet10" parent="SubViewportContainer/SubViewport" unique_id=299263442 instance=ExtResource("10_ry05d")]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, -16.933897, 10.551767, -5.5569344)
 
 [node name="PropTank" parent="SubViewportContainer/SubViewport" unique_id=304644945 instance=ExtResource("8_8wmop")]
 transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, -15.313344, 7.4045143, -2.0479412)

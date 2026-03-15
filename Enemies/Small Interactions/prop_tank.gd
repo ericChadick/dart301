@@ -1,6 +1,6 @@
 extends Node3D
 
-@onready var outlet: Area3D = $Outlet
+@onready var outlet: Area3D = $RigidBody3D/Outlet
 @onready var rb: RigidBody3D = $RigidBody3D
 @onready var explosion_area: Area3D = $RigidBody3D/ExplosionArea
 
@@ -26,12 +26,15 @@ func _ready() -> void:
 
 func _process(_delta: float) -> void:
 	if outlet.pulled:
+		print("[PropTank] cord pulled! current state=", State.keys()[state])
 		outlet.pulled = false
 		match state:
 			State.IDLE:
 				_pull_toward_player()
 			State.PRIMED:
 				_launch()
+			State.LAUNCHED:
+				print("[PropTank] cord pulled but already LAUNCHED — ignoring")
 
 # Required by OutletPull.gd — called when cord disconnects
 func on_pulled_detach() -> void:
@@ -40,6 +43,7 @@ func on_pulled_detach() -> void:
 func _pull_toward_player() -> void:
 	var player = get_tree().get_first_node_in_group("player")
 	if player == null:
+		print("[PropTank] ERROR — no player found in group 'player'")
 		return
 
 	rb.freeze = false
@@ -55,6 +59,7 @@ func _pull_toward_player() -> void:
 func _launch() -> void:
 	var player = get_tree().get_first_node_in_group("player")
 	if player == null:
+		print("[PropTank] ERROR — no player found in group 'player'")
 		return
 
 	rb.freeze = false
@@ -76,6 +81,7 @@ func _launch() -> void:
 	print("[PropTank] LAUNCHED in direction:", dir)
 
 func _on_impact(_body: Node) -> void:
+	print("[PropTank] IMPACT with: ", _body.name, " — triggering explosion")
 	_explode()
 
 func _explode() -> void:
@@ -89,7 +95,10 @@ func _explode() -> void:
 
 	await get_tree().physics_frame
 
-	for body in explosion_area.get_overlapping_bodies():
+	var bodies = explosion_area.get_overlapping_bodies()
+	print("[PropTank] EXPLODE — ", bodies.size(), " bodies in range")
+	for body in bodies:
+		print("[PropTank]   hitting: ", body.name)
 		_apply_damage(body)
 
 	queue_free()
