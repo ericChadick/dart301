@@ -1,0 +1,14 @@
+[gd_resource type="ShaderMaterial" format=3 uid="uid://bhv7x0qlbg1cd"]
+
+[ext_resource type="Shader" uid="uid://nxgas4tlbxqo" path="res://Shaders/progressBarSegment.gdshader" id="1_g0m7c"]
+
+[resource]
+shader = ExtResource("1_g0m7c")
+shader_parameter/stepify = true
+shader_parameter/value = 0.0
+shader_parameter/count = 4
+shader_parameter/margin = Vector2(0.1, 0.2)
+shader_parameter/shear_angle = -0.024999953687499965
+shader_parameter/use_value_gradient = false
+shader_parameter/invert = false
+shader_parameter/alpha = 1.0

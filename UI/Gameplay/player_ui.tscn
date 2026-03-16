@@ -3,10 +3,14 @@
 [ext_resource type="Texture2D" uid="uid://fcmbc0c6wtwk" path="res://UI/Gameplay/power.png" id="1_kwigr"]
 [ext_resource type="Material" uid="uid://f4lyx4wwc4mt" path="res://Shaders/circleBar.tres" id="2_b8q8m"]
 [ext_resource type="Texture2D" uid="uid://bqtmruylxcp8e" path="res://UI/Gameplay/gear.png" id="2_ccqt3"]
+[ext_resource type="Material" uid="uid://b4twqiatupndb" path="res://Shaders/circleBarSegment.tres" id="2_qb4e8"]
 [ext_resource type="Texture2D" uid="uid://diu4t01qg1wt5" path="res://UI/Gameplay/battery.png" id="2_xmsn8"]
+[ext_resource type="Shader" uid="uid://nxgas4tlbxqo" path="res://Shaders/progressBarSegment.gdshader" id="3_16ylj"]
+[ext_resource type="Texture2D" uid="uid://dw8uyl4ug2yen" path="res://UI/UpgradeMenu/Icons/bulletIcon.png" id="4_2s0w1"]
 [ext_resource type="Texture2D" uid="uid://d1wj28snqsa6y" path="res://UI/Gameplay/outletCrosshair.png" id="5_8w2om"]
+[ext_resource type="Texture2D" uid="uid://d1qoe4pt0ko7u" path="res://UI/UpgradeMenu/Icons/arrows.png" id="5_63kgm"]
 [ext_resource type="FontFile" uid="uid://b5iu436di81lx" path="res://UI/Gameplay/propaganda.ttf" id="5_qf5vc"]
-[ext_resource type="Shader" uid="uid://51dxx7ea6mtw" path="res://Shaders/lensflare.gdshader" id="10_fwocb"]
+[ext_resource type="Shader" uid="uid://5vmrpeqx5scg" path="res://Shaders/circleBarSegment.gdshader" id="6_dnxry"]
 [ext_resource type="Shader" uid="uid://dvp31qmvkfe0v" path="res://Shaders/glitch.gdshader" id="10_qb4e8"]
 [ext_resource type="Material" uid="uid://g0eihtw4spff" path="res://Shaders/screenMat.tres" id="11_fwocb"]
 [ext_resource type="Texture2D" uid="uid://dlxfdu00bcus5" path="res://UI/UpgradeMenu/Icons/plugIcon.png" id="12_rvkn8"]
@@ -18,41 +22,92 @@ colors = PackedColorArray(1, 0.26666665, 0, 0.47058824, 1, 0.48333335, 0, 0)
 gradient = SubResource("Gradient_dnxry")
 fill_to = Vector2(0, 1)
 
-[sub_resource type="StyleBoxFlat" id="StyleBoxFlat_xmsn8"]
-bg_color = Color(1, 1, 1, 1)
-border_blend = true
-corner_radius_top_left = 4
-corner_radius_top_right = 4
-corner_radius_bottom_right = 4
-corner_radius_bottom_left = 4
+[sub_resource type="ShaderMaterial" id="ShaderMaterial_8x6xp"]
+shader = ExtResource("3_16ylj")
+shader_parameter/stepify = false
+shader_parameter/value = 0.5630000267425
+shader_parameter/count = 6
+shader_parameter/margin = Vector2(0.05, 0)
+shader_parameter/shear_angle = 0.0
+shader_parameter/use_value_gradient = false
+shader_parameter/invert = false
+shader_parameter/alpha = 1.0
 
-[sub_resource type="StyleBoxFlat" id="StyleBoxFlat_dnxry"]
-bg_color = Color(1, 1, 1, 1)
-border_blend = true
-corner_radius_top_left = 4
-corner_radius_top_right = 4
-corner_radius_bottom_right = 4
-corner_radius_bottom_left = 4
+[sub_resource type="Gradient" id="Gradient_rdoqj"]
 
-[sub_resource type="StyleBoxFlat" id="StyleBoxFlat_b8q8m"]
-bg_color = Color(0, 0, 0, 0.39215687)
-corner_radius_top_left = 12
-corner_radius_top_right = 12
-corner_radius_bottom_right = 12
-corner_radius_bottom_left = 12
+[sub_resource type="GradientTexture1D" id="GradientTexture1D_v8w1e"]
+gradient = SubResource("Gradient_rdoqj")
 
-[sub_resource type="StyleBoxFlat" id="StyleBoxFlat_ccqt3"]
-bg_color = Color(1, 1, 1, 1)
-corner_radius_top_left = 12
-corner_radius_top_right = 12
-corner_radius_bottom_right = 12
-corner_radius_bottom_left = 12
+[sub_resource type="ShaderMaterial" id="ShaderMaterial_63kgm"]
+shader = ExtResource("3_16ylj")
+shader_parameter/stepify = false
+shader_parameter/value = 1.0
+shader_parameter/count = 10
+shader_parameter/margin = Vector2(0.1, 0.2)
+shader_parameter/shear_angle = -0.024999953687499965
+shader_parameter/gradient_x = SubResource("GradientTexture1D_v8w1e")
+shader_parameter/use_value_gradient = true
+shader_parameter/invert = false
+shader_parameter/alpha = 1.0
+
+[sub_resource type="StyleBoxFlat" id="StyleBoxFlat_ywnah"]
+bg_color = Color(0, 0, 0, 0)
+skew = Vector2(0.125, 0)
+border_width_left = 6
+border_width_top = 6
+border_width_right = 6
+border_width_bottom = 6
+border_color = Color(1, 1, 1, 1)
+expand_margin_left = 6.0
+expand_margin_top = 6.0
+expand_margin_right = 6.0
+expand_margin_bottom = 6.0
+
+[sub_resource type="StyleBoxEmpty" id="StyleBoxEmpty_16ylj"]
+
+[sub_resource type="Gradient" id="Gradient_1bgqv"]
+offsets = PackedFloat32Array(0)
+colors = PackedColorArray(1, 0.925, 0.75, 1)
+
+[sub_resource type="GradientTexture1D" id="GradientTexture1D_8x6xp"]
+gradient = SubResource("Gradient_1bgqv")
+
+[sub_resource type="ShaderMaterial" id="ShaderMaterial_2s0w1"]
+shader = ExtResource("3_16ylj")
+shader_parameter/stepify = false
+shader_parameter/value = 1.0
+shader_parameter/count = 2
+shader_parameter/margin = Vector2(0.05, 0.3)
+shader_parameter/shear_angle = -0.049999954874999974
+shader_parameter/gradient_y = SubResource("GradientTexture1D_8x6xp")
+shader_parameter/use_value_gradient = true
+shader_parameter/invert = false
+shader_parameter/alpha = 1.0
+
+[sub_resource type="StyleBoxFlat" id="StyleBoxFlat_63kgm"]
+bg_color = Color(0, 0, 0, 0)
+skew = Vector2(0.5, 0)
+border_width_left = 6
+border_width_top = 6
+border_width_right = 6
+border_width_bottom = 6
+border_color = Color(1, 0.9764706, 0.8, 1)
+expand_margin_left = 6.0
+expand_margin_top = 6.0
+expand_margin_right = 6.0
+expand_margin_bottom = 6.0
 
 [sub_resource type="Gradient" id="Gradient_16ylj"]
 
 [sub_resource type="GradientTexture2D" id="GradientTexture2D_2s0w1"]
 gradient = SubResource("Gradient_16ylj")
 width = 128
+
+[sub_resource type="StyleBoxFlat" id="StyleBoxFlat_16ylj"]
+bg_color = Color(0, 0, 0, 1)
+
+[sub_resource type="StyleBoxFlat" id="StyleBoxFlat_2s0w1"]
+bg_color = Color(1, 1, 1, 1)
 
 [sub_resource type="StyleBoxFlat" id="StyleBoxFlat_8w2om"]
 bg_color = Color(0, 0, 0, 0.39215687)
@@ -65,39 +120,74 @@ expand_margin_top = 8.0
 expand_margin_right = 8.0
 expand_margin_bottom = 8.0
 
-[sub_resource type="Gradient" id="Gradient_rvkn8"]
-offsets = PackedFloat32Array(0, 0.64637)
-colors = PackedColorArray(1, 1, 1, 1, 0, 0, 0, 1)
+[sub_resource type="StyleBoxFlat" id="StyleBoxFlat_xmsn8"]
+bg_color = Color(1, 1, 1, 1)
+border_blend = true
+corner_radius_top_left = 6
+corner_radius_top_right = 6
+corner_radius_bottom_right = 6
+corner_radius_bottom_left = 6
+corner_detail = 1
 
-[sub_resource type="GradientTexture2D" id="GradientTexture2D_ixg0m"]
-gradient = SubResource("Gradient_rvkn8")
-fill = 1
-fill_from = Vector2(0.5, 0.5)
+[sub_resource type="Gradient" id="Gradient_2s0w1"]
+offsets = PackedFloat32Array(0)
+colors = PackedColorArray(1, 0.896, 0.76, 1)
 
-[sub_resource type="Gradient" id="Gradient_s8lkg"]
-colors = PackedColorArray(0.25323758, 0.25323758, 0.25323758, 1, 0, 0, 0, 1)
+[sub_resource type="GradientTexture2D" id="GradientTexture2D_63kgm"]
+gradient = SubResource("Gradient_2s0w1")
 
-[sub_resource type="GradientTexture2D" id="GradientTexture2D_8hdo2"]
-gradient = SubResource("Gradient_s8lkg")
-fill_from = Vector2(1, 1)
+[sub_resource type="ShaderMaterial" id="ShaderMaterial_1bgqv"]
+shader = ExtResource("6_dnxry")
+shader_parameter/value = 0.7310000347225
+shader_parameter/segments = 3
+shader_parameter/radius = 0.475
+shader_parameter/hollow_radius = 0.375
+shader_parameter/margin = 0.050000002375
+shader_parameter/rotation = 0.25000005937500003
+shader_parameter/progress_rotation = 0.3330000633174999
+shader_parameter/gradient = SubResource("GradientTexture2D_63kgm")
+shader_parameter/use_value_gradient = true
+shader_parameter/alpha = 1.0
 
-[sub_resource type="ShaderMaterial" id="ShaderMaterial_k3km2"]
-shader = ExtResource("10_fwocb")
-shader_parameter/FlareMult = SubResource("GradientTexture2D_ixg0m")
-shader_parameter/FlareMult2 = SubResource("GradientTexture2D_8hdo2")
-shader_parameter/Blur = 3.0
-shader_parameter/FlareThreshold = 0.0
-shader_parameter/Thresholdsmoothness = 0.2
-shader_parameter/Flares = 3
-shader_parameter/FlareSpacing = 0.1
-shader_parameter/FlareDistance = 0.5
-shader_parameter/LensThickness = 2.0
-shader_parameter/Intensity = 3.0
-shader_parameter/Saturation_ = 5.0
-shader_parameter/visibility = 1.0
-shader_parameter/MinFlareIntensity = 0.0
-shader_parameter/MaxFlareIntensity = 1.0
-shader_parameter/RainbowIntensity = 5.0
+[sub_resource type="Gradient" id="Gradient_8x6xp"]
+offsets = PackedFloat32Array(1)
+colors = PackedColorArray(1, 0, 0, 1)
+
+[sub_resource type="GradientTexture2D" id="GradientTexture2D_rdoqj"]
+gradient = SubResource("Gradient_8x6xp")
+
+[sub_resource type="ShaderMaterial" id="ShaderMaterial_v8w1e"]
+shader = ExtResource("6_dnxry")
+shader_parameter/value = 0.3330000158175
+shader_parameter/segments = 3
+shader_parameter/radius = 0.475
+shader_parameter/hollow_radius = 0.375
+shader_parameter/margin = 0.050000002375
+shader_parameter/rotation = 0.25000005937500003
+shader_parameter/progress_rotation = 0.3330000633174999
+shader_parameter/gradient = SubResource("GradientTexture2D_rdoqj")
+shader_parameter/use_value_gradient = true
+shader_parameter/alpha = 1.0
+
+[sub_resource type="Gradient" id="Gradient_63kgm"]
+offsets = PackedFloat32Array(1)
+colors = PackedColorArray(0, 0, 0, 1)
+
+[sub_resource type="GradientTexture2D" id="GradientTexture2D_1bgqv"]
+gradient = SubResource("Gradient_63kgm")
+
+[sub_resource type="ShaderMaterial" id="ShaderMaterial_16ylj"]
+shader = ExtResource("6_dnxry")
+shader_parameter/value = 1.0
+shader_parameter/segments = 3
+shader_parameter/radius = 0.45
+shader_parameter/hollow_radius = 0.3
+shader_parameter/margin = 0.1200000057
+shader_parameter/rotation = 0.25000005937500003
+shader_parameter/progress_rotation = 0.3330000633174999
+shader_parameter/gradient = SubResource("GradientTexture2D_1bgqv")
+shader_parameter/use_value_gradient = true
+shader_parameter/alpha = 0.250000011875
 
 [sub_resource type="ShaderMaterial" id="ShaderMaterial_dnxry"]
 shader = ExtResource("10_qb4e8")
@@ -128,7 +218,72 @@ grow_vertical = 2
 texture = SubResource("GradientTexture2D_16ylj")
 
 [node name="ScreenCracks" type="TextureRect" parent="Control" unique_id=1764382184]
-layout_mode = 0
+layout_mode = 1
+anchors_preset = 15
+anchor_right = 1.0
+anchor_bottom = 1.0
+grow_horizontal = 2
+grow_vertical = 2
+
+[node name="BinaryScreen" type="RichTextLabel" parent="Control" unique_id=1272573633]
+visible = false
+layout_mode = 1
+anchors_preset = 15
+anchor_right = 1.0
+anchor_bottom = 1.0
+grow_horizontal = 2
+grow_vertical = 2
+theme_override_font_sizes/normal_font_size = 64
+text = "1001000110010001100100000110010010010001101001010100100011001000110010000011001001001000110100101001100100011001000100100011001000110010000011001001001000110100101010001100100100100011001000110010001100100011001000001100100100100011010010101001000110010001100100000110010010010001101001010011001000110010001001000110010001100100000110010010010001101001010100011001001001000110010001100100011001000110010000011001001001000110100101001100100011001000110010001100100011001011001000110010001100100010110010001100100011001000110010001100101100100011001000110010001011001000110010001001000110010001100100000110010010010001101001010100011001001001000110010001100100011001000110010000011001001001000110100101001100100011001000110010001100100011001
+01100100011001000110010001"
+horizontal_alignment = 1
+vertical_alignment = 1
+
+[node name="BlueprintContainer" type="MarginContainer" parent="Control" unique_id=1155938574]
+layout_mode = 1
+anchors_preset = 8
+anchor_left = 0.5
+anchor_top = 0.5
+anchor_right = 0.5
+anchor_bottom = 0.5
+offset_left = 187.0
+offset_top = -374.0
+offset_right = 699.0
+offset_bottom = 417.0
+grow_horizontal = 2
+grow_vertical = 2
+
+[node name="VBoxContainer" type="VBoxContainer" parent="Control/BlueprintContainer" unique_id=867597271]
+layout_mode = 2
+size_flags_horizontal = 4
+theme_override_constants/separation = 6
+
+[node name="BlueprintText" type="RichTextLabel" parent="Control/BlueprintContainer/VBoxContainer" unique_id=1726145664]
+custom_minimum_size = Vector2(512, 64)
+layout_mode = 2
+size_flags_horizontal = 0
+theme_override_fonts/normal_font = ExtResource("5_qf5vc")
+theme_override_font_sizes/normal_font_size = 24
+text = "Uploading blast.wpn...
+Uploading wallbst.prt..."
+horizontal_alignment = 2
+vertical_alignment = 2
+
+[node name="BlueprintBar" type="ColorRect" parent="Control/BlueprintContainer/VBoxContainer" unique_id=1400962827]
+material = SubResource("ShaderMaterial_8x6xp")
+custom_minimum_size = Vector2(360, 36)
+layout_mode = 2
+size_flags_horizontal = 8
+
+[node name="BlueprintDot" type="RichTextLabel" parent="Control/BlueprintContainer/VBoxContainer" unique_id=131536328]
+custom_minimum_size = Vector2(512, 24)
+layout_mode = 2
+size_flags_horizontal = 0
+theme_override_fonts/normal_font = ExtResource("5_qf5vc")
+theme_override_font_sizes/normal_font_size = 24
+bbcode_enabled = true
+text = " - - - - - - - - - - - - - - - - - "
+horizontal_alignment = 2
 
 [node name="MarginContainer" type="MarginContainer" parent="Control" unique_id=1455631786]
 layout_mode = 1
@@ -147,60 +302,89 @@ layout_mode = 2
 size_flags_vertical = 0
 theme_override_constants/separation = 48
 
-[node name="BatteryBar" type="ProgressBar" parent="Control/MarginContainer/StatBars" unique_id=81806652]
-custom_minimum_size = Vector2(320, 36)
+[node name="BatteryBar" type="ColorRect" parent="Control/MarginContainer/StatBars" unique_id=956549400]
+material = SubResource("ShaderMaterial_63kgm")
+custom_minimum_size = Vector2(320, 48)
 layout_mode = 2
 size_flags_horizontal = 4
-size_flags_vertical = 8
-mouse_filter = 1
-theme_override_styles/fill = SubResource("StyleBoxFlat_xmsn8")
-max_value = 1.0
-step = 0.005
-value = 0.5
-show_percentage = false
 
-[node name="NinePatchRect" type="NinePatchRect" parent="Control/MarginContainer/StatBars/BatteryBar" unique_id=1862426868]
-custom_minimum_size = Vector2(360, 81.515)
+[node name="Back" type="ProgressBar" parent="Control/MarginContainer/StatBars/BatteryBar" unique_id=726921707]
 layout_mode = 1
-offset_left = -19.0
-offset_top = -20.0
-offset_right = 351.0
-offset_bottom = 67.0
-size_flags_horizontal = 4
-texture = ExtResource("2_xmsn8")
-patch_margin_left = 20
-patch_margin_top = 20
-patch_margin_right = 31
-patch_margin_bottom = 31
+anchors_preset = 15
+anchor_right = 1.0
+anchor_bottom = 1.0
+grow_horizontal = 2
+grow_vertical = 2
+theme_override_styles/background = SubResource("StyleBoxFlat_ywnah")
+theme_override_styles/fill = SubResource("StyleBoxEmpty_16ylj")
+show_percentage = false
 
-[node name="BatteryBarTrail" type="ProgressBar" parent="Control/MarginContainer/StatBars/BatteryBar" unique_id=1979182617]
-z_index = -1
-custom_minimum_size = Vector2(320, 36)
+[node name="OutletBar" type="ColorRect" parent="Control/MarginContainer/StatBars/BatteryBar" unique_id=2070678302]
+material = SubResource("ShaderMaterial_2s0w1")
+custom_minimum_size = Vector2(256, 24)
 layout_mode = 1
-offset_right = 320.0
-offset_bottom = 36.0
+anchors_preset = 8
+anchor_left = 0.5
+anchor_top = 0.5
+anchor_right = 0.5
+anchor_bottom = 0.5
+offset_left = -145.0
+offset_top = 45.0
+offset_right = 111.0
+offset_bottom = 69.0
+grow_horizontal = 2
+grow_vertical = 2
 size_flags_horizontal = 4
-size_flags_vertical = 8
-mouse_filter = 1
-theme_override_styles/fill = SubResource("StyleBoxFlat_dnxry")
-max_value = 1.0
-step = 0.005
-value = 0.6
+
+[node name="Back" type="ProgressBar" parent="Control/MarginContainer/StatBars/BatteryBar/OutletBar" unique_id=1101231179]
+layout_mode = 1
+anchors_preset = 15
+anchor_right = 1.0
+anchor_bottom = 1.0
+grow_horizontal = 2
+grow_vertical = 2
+theme_override_styles/background = SubResource("StyleBoxFlat_63kgm")
+theme_override_styles/fill = SubResource("StyleBoxEmpty_16ylj")
 show_percentage = false
 
-[node name="HealthBar" type="ProgressBar" parent="Control/MarginContainer/StatBars" unique_id=13475481]
-visible = false
-custom_minimum_size = Vector2(250, 36)
-layout_mode = 2
-size_flags_horizontal = 4
-size_flags_vertical = 8
-mouse_filter = 1
-theme_override_styles/background = SubResource("StyleBoxFlat_b8q8m")
-theme_override_styles/fill = SubResource("StyleBoxFlat_ccqt3")
-max_value = 1.0
-step = 0.005
-value = 0.5
-show_percentage = false
+[node name="PlugIcon" type="TextureRect" parent="Control/MarginContainer/StatBars/BatteryBar" unique_id=110508154]
+custom_minimum_size = Vector2(64, 64)
+layout_mode = 0
+offset_left = -15.0
+offset_top = 98.0
+offset_right = 49.0
+offset_bottom = 162.0
+rotation = -1.0980413
+scale = Vector2(1, -1)
+texture = ExtResource("12_rvkn8")
+expand_mode = 1
+
+[node name="ReloadIcon" type="TextureRect" parent="Control/MarginContainer/StatBars/BatteryBar" unique_id=959856195]
+custom_minimum_size = Vector2(64, 64)
+layout_mode = 0
+offset_left = 294.0
+offset_top = 68.0
+offset_right = 358.0
+offset_bottom = 132.0
+scale = Vector2(0.4, 0.4)
+texture = ExtResource("4_2s0w1")
+expand_mode = 1
+
+[node name="ReloadSpin" type="TextureRect" parent="Control/MarginContainer/StatBars/BatteryBar/ReloadIcon" unique_id=1937085503]
+custom_minimum_size = Vector2(64, 64)
+layout_mode = 1
+anchors_preset = 15
+anchor_right = 1.0
+anchor_bottom = 1.0
+offset_left = -29.999996
+offset_top = -29.999996
+offset_right = 34.0
+offset_bottom = 34.0
+grow_horizontal = 2
+grow_vertical = 2
+pivot_offset_ratio = Vector2(0.5, 0.5)
+texture = ExtResource("5_63kgm")
+expand_mode = 1
 
 [node name="Crosshair" type="TextureRect" parent="Control/MarginContainer" unique_id=1296205152]
 custom_minimum_size = Vector2(86, 86)
@@ -212,6 +396,7 @@ expand_mode = 1
 stretch_mode = 5
 
 [node name="CircleBar" type="ColorRect" parent="Control/MarginContainer/Crosshair" unique_id=1707341552]
+visible = false
 material = ExtResource("2_b8q8m")
 layout_mode = 1
 anchors_preset = 15
@@ -227,30 +412,51 @@ theme_override_fonts/normal_font = ExtResource("5_qf5vc")
 theme_override_font_sizes/normal_font_size = 36
 text = "101011"
 
-[node name="BlueprintText" type="RichTextLabel" parent="Control/MarginContainer" unique_id=1726145664]
-layout_mode = 2
-theme_override_fonts/normal_font = ExtResource("5_qf5vc")
-theme_override_font_sizes/normal_font_size = 48
-horizontal_alignment = 1
-
 [node name="VBoxContainer" type="VBoxContainer" parent="Control/MarginContainer" unique_id=1565216784]
-visible = false
 layout_mode = 2
 size_flags_horizontal = 0
 size_flags_vertical = 8
 theme_override_constants/separation = 12
 
 [node name="TextureRect" type="TextureRect" parent="Control/MarginContainer/VBoxContainer" unique_id=1775694139]
+visible = false
 layout_mode = 2
 texture = SubResource("GradientTexture2D_2s0w1")
 
 [node name="TextureRect2" type="TextureRect" parent="Control/MarginContainer/VBoxContainer" unique_id=172281655]
+visible = false
 layout_mode = 2
 texture = SubResource("GradientTexture2D_2s0w1")
 
 [node name="TextureRect3" type="TextureRect" parent="Control/MarginContainer/VBoxContainer" unique_id=987776484]
+visible = false
 layout_mode = 2
 texture = SubResource("GradientTexture2D_2s0w1")
+
+[node name="AmmoBarExt" type="ProgressBar" parent="Control/MarginContainer" unique_id=2020581139]
+visible = false
+custom_minimum_size = Vector2(256, 64)
+layout_mode = 2
+size_flags_horizontal = 0
+size_flags_vertical = 8
+theme_override_styles/background = SubResource("StyleBoxFlat_16ylj")
+theme_override_styles/fill = SubResource("StyleBoxFlat_2s0w1")
+max_value = 1.0
+value = 1.0
+show_percentage = false
+
+[node name="AmmoCountExt" type="RichTextLabel" parent="Control/MarginContainer/AmmoBarExt" unique_id=1634716666]
+layout_mode = 1
+anchors_preset = 15
+anchor_right = 1.0
+anchor_bottom = 1.0
+grow_horizontal = 2
+grow_vertical = 2
+theme_override_constants/outline_size = 18
+theme_override_font_sizes/normal_font_size = 45
+text = "3 / 3 "
+horizontal_alignment = 2
+vertical_alignment = 2
 
 [node name="OutletCrosshair" type="TextureRect" parent="Control" unique_id=841454661]
 custom_minimum_size = Vector2(96, 96)
@@ -261,6 +467,7 @@ pivot_offset = Vector2(48, 48)
 texture = ExtResource("5_8w2om")
 
 [node name="OutletBar" type="ProgressBar" parent="Control/OutletCrosshair" unique_id=472474386]
+visible = false
 custom_minimum_size = Vector2(80, 36)
 layout_mode = 0
 offset_left = 49.0
@@ -292,14 +499,94 @@ patch_margin_top = 20
 patch_margin_right = 31
 patch_margin_bottom = 31
 
-[node name="PlugIcon" type="TextureRect" parent="." unique_id=110508154]
+[node name="AmmoBar" type="ColorRect" parent="Control" unique_id=317107948]
+material = ExtResource("2_qb4e8")
+custom_minimum_size = Vector2(186, 186)
+layout_mode = 0
+offset_left = 287.0
+offset_top = 687.0
+offset_right = 473.0
+offset_bottom = 873.0
+size_flags_horizontal = 0
+size_flags_vertical = 4
+mouse_filter = 1
+
+[node name="Follow" type="ColorRect" parent="Control/AmmoBar" unique_id=1828048186]
+z_index = -1
+material = SubResource("ShaderMaterial_1bgqv")
+custom_minimum_size = Vector2(186, 186)
+layout_mode = 0
+offset_right = 186.0
+offset_bottom = 186.0
+size_flags_horizontal = 0
+size_flags_vertical = 4
+mouse_filter = 1
+
+[node name="Reload" type="ColorRect" parent="Control/AmmoBar" unique_id=1466695734]
+material = SubResource("ShaderMaterial_v8w1e")
+custom_minimum_size = Vector2(186, 186)
+layout_mode = 0
+offset_right = 186.0
+offset_bottom = 186.0
+size_flags_horizontal = 0
+size_flags_vertical = 4
+mouse_filter = 1
+
+[node name="Back" type="ColorRect" parent="Control/AmmoBar" unique_id=338538420]
+z_index = -2
+material = SubResource("ShaderMaterial_16ylj")
+custom_minimum_size = Vector2(186, 186)
+layout_mode = 0
+offset_right = 186.0
+offset_bottom = 186.0
+size_flags_horizontal = 0
+size_flags_vertical = 4
+mouse_filter = 1
+
+[node name="MarginContainer" type="MarginContainer" parent="Control/AmmoBar" unique_id=1756285781]
+layout_mode = 1
+anchors_preset = 15
+anchor_right = 1.0
+anchor_bottom = 1.0
+grow_horizontal = 2
+grow_vertical = 2
+theme_override_constants/margin_left = 48
+theme_override_constants/margin_top = 48
+theme_override_constants/margin_right = 48
+theme_override_constants/margin_bottom = 48
+
+[node name="CurrAmmo" type="RichTextLabel" parent="Control/AmmoBar/MarginContainer" unique_id=591896536]
+custom_minimum_size = Vector2(86, 86)
+layout_mode = 2
+size_flags_horizontal = 0
+size_flags_vertical = 0
+theme_override_font_sizes/normal_font_size = 48
+bbcode_enabled = true
+text = "3"
+
+[node name="Slash" type="RichTextLabel" parent="Control/AmmoBar/MarginContainer" unique_id=1959989300]
+modulate = Color(1, 1, 1, 0.5882353)
 custom_minimum_size = Vector2(64, 64)
-offset_left = 717.0
-offset_top = 164.0
-offset_right = 781.0
-offset_bottom = 228.0
-texture = ExtResource("12_rvkn8")
-expand_mode = 1
+layout_mode = 2
+size_flags_horizontal = 4
+size_flags_vertical = 4
+theme_override_font_sizes/normal_font_size = 36
+bbcode_enabled = true
+text = "/"
+horizontal_alignment = 1
+vertical_alignment = 1
+
+[node name="MaxAmmo" type="RichTextLabel" parent="Control/AmmoBar/MarginContainer" unique_id=789115307]
+modulate = Color(1, 1, 1, 0.5882353)
+custom_minimum_size = Vector2(64, 64)
+layout_mode = 2
+size_flags_horizontal = 8
+size_flags_vertical = 8
+theme_override_font_sizes/normal_font_size = 36
+bbcode_enabled = true
+text = "3"
+horizontal_alignment = 2
+vertical_alignment = 2
 
 [node name="GearIcon" type="TextureRect" parent="." unique_id=1794946992]
 visible = false
@@ -326,15 +613,6 @@ size_flags_horizontal = 0
 size_flags_vertical = 8
 texture = ExtResource("2_ccqt3")
 expand_mode = 1
-
-[node name="LensFlare" type="ColorRect" parent="." unique_id=1790180219]
-visible = false
-material = SubResource("ShaderMaterial_k3km2")
-anchors_preset = 15
-anchor_right = 1.0
-anchor_bottom = 1.0
-grow_horizontal = 2
-grow_vertical = 2
 
 [node name="Screen" type="ColorRect" parent="." unique_id=1373793926]
 material = ExtResource("11_fwocb")

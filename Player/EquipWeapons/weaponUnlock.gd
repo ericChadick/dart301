@@ -5,15 +5,19 @@ class_name weaponUnlock;
 @export var weaponIcon : AtlasTexture;
 @export var weaponInd : Global.PlayerWeapon;
 @export var weaponName : String = "Weapon";
+@export var fileName : String = "weapon.wpn";
 @export var weaponDescription : String = "Description";
 
 #in-game
 @export var weaponScene : PackedScene;
+@export var weaponPositionOffset : Vector3;
+@export var weaponRotationOffset : Vector3;
+@export var weaponScaleOffset : Vector3 = Vector3.ONE;
+@export var projectileInst: PackedScene;
 @export var ammo : int = 3;
 @export var energyCost := .25;
 @export var chargeWeapon := false;
 @export var chargeTimeMax := 2.0;
-
 @export var slotSize := 1.0; #if we want certain weapons to take up more than 1 weapon slot
 
 # Called when the node enters the scene tree for the first time.

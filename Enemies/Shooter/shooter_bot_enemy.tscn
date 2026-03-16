@@ -1,0 +1,28 @@
+[gd_scene format=3 uid="uid://wekr65kd82ky"]
+
+[ext_resource type="Script" uid="uid://cva4a1spk4wog" path="res://Enemies/Shooter/shooter_bot_enemy.gd" id="1_4cib8"]
+[ext_resource type="PackedScene" uid="uid://dk7ntspwc4iau" path="res://Enemies/Shooter/shooter_botMod.tscn" id="1_70lhc"]
+[ext_resource type="PackedScene" uid="uid://dcq4u4hsq0jim" path="res://Effects/hit_particles.tscn" id="3_dd47s"]
+
+[sub_resource type="CapsuleShape3D" id="CapsuleShape3D_70lhc"]
+radius = 0.24
+height = 0.9
+
+[node name="ShooterBotEnemy" type="CharacterBody3D" unique_id=264643836]
+script = ExtResource("1_4cib8")
+
+[node name="CollisionShape3D" type="CollisionShape3D" parent="." unique_id=345365307]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 0.45205688, 0)
+shape = SubResource("CapsuleShape3D_70lhc")
+
+[node name="shooterBot" parent="." unique_id=1414694198 instance=ExtResource("1_70lhc")]
+
+[node name="HitParticles" parent="." unique_id=1875539030 instance=ExtResource("3_dd47s")]
+
+[node name="Head" type="Node3D" parent="." unique_id=2061910860]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 0.7617731, 0)
+
+[node name="SightRay" type="RayCast3D" parent="Head" unique_id=485431092]
+target_position = Vector3(0, 0, -1)
+
+[node name="GroundRay" type="RayCast3D" parent="." unique_id=1680120518]

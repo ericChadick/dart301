@@ -1,0 +1,8 @@
+[gd_resource type="Resource" script_class="enemyType" format=3 uid="uid://cmyyygkipgxjf"]
+
+[ext_resource type="Script" uid="uid://cy5jh8nkwopfb" path="res://Enemies/enemyClass.gd" id="1_1p2ca"]
+
+[resource]
+script = ExtResource("1_1p2ca")
+eyeNode = NodePath("Head")
+metadata/_custom_type_script = "uid://cy5jh8nkwopfb"

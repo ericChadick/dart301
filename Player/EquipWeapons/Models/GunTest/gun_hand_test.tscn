@@ -1,0 +1,113 @@
+[gd_scene format=3 uid="uid://dpylpvn23c44l"]
+
+[ext_resource type="PackedScene" uid="uid://bydot58m6vrcn" path="res://Player/EquipWeapons/Models/GunTest/gunHandTest.glb" id="1_rj0hd"]
+[ext_resource type="Script" uid="uid://lvljd7l44e2y" path="res://Player/EquipWeapons/Models/GunTest/gun_hand_test.gd" id="2_i753c"]
+[ext_resource type="PackedScene" uid="uid://h8nfngcoc7cq" path="res://Player/bullet.tscn" id="3_byyo1"]
+
+[sub_resource type="Curve" id="Curve_rj0hd"]
+_data = [Vector2(0, 1), 0.0, 0.0, 0, 0, Vector2(1, 0), -1.7314893, 0.0, 0, 0]
+point_count = 2
+
+[sub_resource type="CurveTexture" id="CurveTexture_byyo1"]
+curve = SubResource("Curve_rj0hd")
+
+[sub_resource type="ParticleProcessMaterial" id="ParticleProcessMaterial_rj0hd"]
+particle_flag_align_y = true
+direction = Vector3(0, 1, 0)
+spread = 5.0
+initial_velocity_min = 8.0
+initial_velocity_max = 12.0
+gravity = Vector3(0, 0, 0)
+scale_min = 0.5
+scale_curve = SubResource("CurveTexture_byyo1")
+
+[sub_resource type="StandardMaterial3D" id="StandardMaterial3D_k1gum"]
+emission_enabled = true
+emission = Color(1, 0.5833334, 0, 1)
+emission_energy_multiplier = 3.0
+
+[sub_resource type="CapsuleMesh" id="CapsuleMesh_i753c"]
+material = SubResource("StandardMaterial3D_k1gum")
+radius = 0.01
+height = 0.2
+radial_segments = 4
+rings = 0
+
+[node name="gunHandTest" unique_id=737188982 instance=ExtResource("1_rj0hd")]
+script = ExtResource("2_i753c")
+shot = true
+projectileInst = ExtResource("3_byyo1")
+
+[node name="Skeleton3D" parent="Armature" parent_id_path=PackedInt32Array(1852164944) index="0" unique_id=1444187841]
+bones/0/position = Vector3(2.6054026e-15, 0.07712212, -0.29040143)
+bones/0/rotation = Quaternion(-1.2302349e-14, 1, -3.67767e-08, -1.3315804e-07)
+bones/1/position = Vector3(-0.27632913, -0.06881268, 0.013129089)
+bones/1/rotation = Quaternion(-0.13869369, -0.23680326, 0.88805825, 0.36883706)
+bones/2/rotation = Quaternion(-0.47286454, -0.26882046, 0.210612, 0.81226677)
+bones/3/rotation = Quaternion(0.2809252, 0.76395315, -0.017493814, 0.58064675)
+bones/4/rotation = Quaternion(-0.031056853, 0.8833723, -0.12880933, -0.44955203)
+bones/5/rotation = Quaternion(0.11096903, -0.10160426, 0.11934322, 0.9813866)
+bones/6/rotation = Quaternion(0.22617087, -0.043803826, 0.0036522397, 0.9730954)
+bones/7/rotation = Quaternion(0.17536128, 0.046493564, -0.022199763, 0.9831551)
+bones/8/rotation = Quaternion(0.19014305, -0.1486585, 0.064200185, 0.9683102)
+bones/9/rotation = Quaternion(0.40668842, 0.023751426, -0.03874487, 0.9124359)
+bones/10/rotation = Quaternion(0.28478938, -0.00052174996, -0.0032723034, 0.9585844)
+bones/11/rotation = Quaternion(0.22759381, -0.23178537, -0.08025479, 0.9423565)
+bones/12/rotation = Quaternion(0.38435093, 0.056796584, 0.00134303, 0.9214373)
+bones/13/rotation = Quaternion(0.227377, 0.023221094, -0.030492045, 0.97305226)
+bones/14/rotation = Quaternion(0.113373145, -0.21816581, -0.10914008, 0.96314)
+bones/15/rotation = Quaternion(0.43409353, -0.010084465, -0.019418774, 0.90060204)
+bones/16/rotation = Quaternion(0.3275068, 0.04478216, -0.006186761, 0.9437667)
+bones/17/rotation = Quaternion(-0.04493609, 0.7565527, -0.3975311, 0.51727927)
+bones/18/rotation = Quaternion(-0.22252078, -0.006831364, -0.0062584365, 0.974884)
+bones/19/rotation = Quaternion(-0.20719601, 0.7341539, -0.18421975, 0.6197991)
+bones/20/position = Vector3(0.10235557, 0.020062558, 0.022818089)
+bones/20/rotation = Quaternion(0.2673723, -0.54634625, 0.7573836, -0.23746137)
+bones/21/rotation = Quaternion(-0.2733958, 0.4692383, -0.19558108, 0.8165894)
+bones/22/rotation = Quaternion(0.16238868, -0.61003345, 0.19845508, 0.7497364)
+bones/23/rotation = Quaternion(-0.12555394, -0.7611698, 0.4393408, 0.46025696)
+bones/24/rotation = Quaternion(-0.34838906, -0.18207484, -0.013235892, 0.9194012)
+bones/25/rotation = Quaternion(-0.3030054, -0.71186274, 0.24657305, 0.58364457)
+bones/27/rotation = Quaternion(-0.058586083, 0.12592828, -0.047568493, 0.98916477)
+bones/28/rotation = Quaternion(0.025955584, 0.043643337, 0.005227058, 0.9986963)
+bones/29/rotation = Quaternion(0.5893209, -0.03202035, 0.040363356, 0.8062546)
+bones/30/rotation = Quaternion(0.5052296, 0.18008149, -0.012128793, 0.8438997)
+bones/31/rotation = Quaternion(0.40767896, -0.023709344, 0.038770735, 0.9119937)
+bones/32/rotation = Quaternion(0.45014364, 0.0010935268, 0.003128246, 0.8929501)
+bones/33/rotation = Quaternion(0.4870726, 0.1703146, -0.09769605, 0.85100454)
+bones/34/rotation = Quaternion(0.29613405, 0.60645854, 0.3160593, 0.66679776)
+bones/35/rotation = Quaternion(0.045491777, 0.029750437, 0.28962916, 0.95559424)
+bones/36/rotation = Quaternion(0.28547862, -0.4381072, -0.3138272, 0.7925128)
+bones/37/rotation = Quaternion(-0.009047279, -0.040982764, -0.43368852, 0.9000849)
+bones/38/rotation = Quaternion(-0.021792432, -0.017516287, -0.4247153, 0.9048952)
+bones/39/position = Vector3(-2.6315414e-15, 0.06462325, 0.21383925)
+bones/39/rotation = Quaternion(0.13579375, -1.1810505e-07, -1.6187883e-08, 0.99073714)
+bones/40/rotation = Quaternion(-0.70094854, 0.093023635, 0.7009745, -0.09301933)
+bones/41/position = Vector3(-5.3095377e-09, 0.10359305, -0.02226983)
+bones/42/rotation = Quaternion(-0.72793055, -2.0334603e-08, 2.5193094e-08, 0.6856509)
+bones/43/position = Vector3(-1.5930196e-09, -0.008918155, -0.006681625)
+bones/43/rotation = Quaternion(-0.012926474, -1.1919941e-07, 4.6228656e-09, 0.99991643)
+bones/44/position = Vector3(-4.312747e-09, 0.09845429, -0.009044435)
+
+[node name="GunBone" type="BoneAttachment3D" parent="Armature/Skeleton3D" index="2" unique_id=1696814793]
+transform = Transform3D(1, -1.7053026e-13, -1.3430885e-06, -1.3430885e-06, 2.2351742e-07, -0.9999999, 4.973799e-13, 0.9999998, 2.682209e-07, -1.9617954e-14, 0.15551588, 0.2202647)
+bone_name = "bullet"
+bone_idx = 44
+
+[node name="ShootParticle" type="GPUParticles3D" parent="Armature/Skeleton3D/GunBone" index="0" unique_id=723865680]
+transform = Transform3D(1, 0, 2.2331269e-13, 0, 1.0000002, 9.313226e-10, -4.1060905e-15, -9.313226e-10, 1.0000002, -1.1877717e-09, 0.20029071, -0.0009291023)
+emitting = false
+amount = 12
+lifetime = 0.25
+one_shot = true
+explosiveness = 1.0
+process_material = SubResource("ParticleProcessMaterial_rj0hd")
+draw_pass_1 = SubResource("CapsuleMesh_i753c")
+
+[node name="MuzzleFlash" type="OmniLight3D" parent="Armature/Skeleton3D/GunBone" index="1" unique_id=1552447719]
+transform = Transform3D(1, -6.838974e-14, 2.235833e-13, 0, 1.0000004, -4.4703484e-08, -4.1060905e-15, -4.656613e-10, 1.0000002, -2.2115785e-09, 0.3729371, -0.0017299801)
+light_color = Color(1, 0.48333335, 0, 1)
+light_energy = 2.0
+
+[node name="ShootPoint" type="Marker3D" parent="Armature/Skeleton3D/GunBone" index="2" unique_id=2087700851]
+transform = Transform3D(1, 0, 1.1368696e-13, 0, 1, 0, -1.1368673e-13, 1.4210855e-14, 1, 1.8474111e-13, 0.39281422, 8.940697e-08)

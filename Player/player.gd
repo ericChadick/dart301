@@ -42,19 +42,31 @@ extends CharacterBody3D
 @onready var sub_viewport_container: SubViewportContainer = $"../.."
 
 var screen: ColorRect;
-var battery_bar: ProgressBar;
-var battery_bar_trail: ProgressBar;
-var health_bar: ProgressBar;
+var battery_bar: ColorRect;
+var battery_bar_back: ProgressBar;
+var outlet_bar_back: ProgressBar;
+var outlet_bar: ColorRect;
+var plug_icon: TextureRect;
+#var battery_bar_trail: ProgressBar;
 var crosshair: TextureRect;
 var circle_bar: ColorRect;
 var outlet_crosshair: TextureRect;
 var currency_text: RichTextLabel;
+
 var blueprint_text: RichTextLabel;
-var outlet_bar: ProgressBar;
-var plug_icon: TextureRect;
+var blueprint_bar: ColorRect;
+var blueprint_container: VBoxContainer;
+
 var screen_cracks: TextureRect;
 var hit_flash_texture: TextureRect;
 var glitch_layer: ColorRect;
+
+var ammo_bar: ColorRect;
+var ammo_bar_follow: ColorRect;
+var ammo_bar_reload: ColorRect;
+var ammo_bar_back: ColorRect;
+var ammo_current: RichTextLabel;
+var ammo_max: RichTextLabel;
 
 @export var playerUI : CanvasLayer;
 
@@ -83,8 +95,6 @@ var pullSpd := 45.0;
 var stepTimerStep := .6;#(1.0-(speed/18.0))*2.0;
 var stepTimer := stepTimerStep;
 
-var weapon := Global.PlayerWeapon.FIST;
-
 var outlet : Area3D;
 var outletSelect := Area3D;
 var cordProjectile : Node3D;
@@ -112,6 +122,9 @@ var chargeSwing := false;
 var weaponBuffer := 0.0;
 var weaponBufferTime := .2;
 var weaponCooldown := 0.0;
+var weaponAmmo := 0;
+var weaponAmmoFollow := 0.0;
+var canUseWeapon := false;
 var shootShakeAmnt := .2;
 var outletShakeAmnt := .1;
 var connectShakeAmnt := .25;
@@ -154,6 +167,8 @@ const bullet = preload("uid://h8nfngcoc7cq")
 const crosshairIcon = preload("uid://dxo87ctx1s615")
 const powerIcon = preload("uid://fcmbc0c6wtwk")
 
+const BINARY_LINE = preload("uid://bjrluhqsh21sb")
+
 var circleBarMat : Resource;
 
 const SCREEN_MAT = preload("uid://g0eihtw4spff")
@@ -164,40 +179,114 @@ const crackTexMed = preload("uid://dgebraj58c247")
 
 const midFalloffCurve = preload("uid://ctokbcp4b3k6s")
 
+#player weapons
+const WEAPON_EMPTY = preload("uid://b70etp772do5m")
+const ENERGY_GUN = preload("uid://uh4d532c1ca7")
+const FLAME_GUN = preload("uid://da1f3cj0g8erj")
+
+#gun is here for debug
+#set weapon array in upgrade menu
+var weapon := WEAPON_EMPTY;
+var weaponIndex := 0;
+var weaponScene : Node3D;
+var weaponAnimPlayer : AnimationPlayer;
+var wepName = "weaponEquipped"; #used for finding current weapon scene node
+
 func _ready() -> void:
+	#Global.weaponsEquipped.append(ENERGY_GUN);
+	
+	#print(Global.partsEquipped);
+	
 	outlet = null;
 	cordProjectile = null;
-	circleBarMat = preload("uid://f4lyx4wwc4mt");
+	#circleBarMat = preload("uid://f4lyx4wwc4mt");
 	outlet_ray.target_position = Vector3(0.0,0.0, -cordLength*.8);
 	targY = head.position.y;
 	
 	playerHeight = collision_shape_3d.shape.height;
 	
 	screen = playerUI.get_node("Screen");
-	battery_bar = playerUI.get_node("Control/MarginContainer/StatBars/BatteryBar");
-	battery_bar_trail = playerUI.get_node("Control/MarginContainer/StatBars/BatteryBar/BatteryBarTrail");
-	health_bar = playerUI.get_node("Control/MarginContainer/StatBars/HealthBar");
+	
 	crosshair = playerUI.get_node("Control/MarginContainer/Crosshair");
 	circle_bar = playerUI.get_node("Control/MarginContainer/Crosshair/CircleBar");
 	outlet_crosshair = playerUI.get_node("Control/OutletCrosshair");
 	currency_text = playerUI.get_node("Control/MarginContainer/Currency");
-	blueprint_text = playerUI.get_node("Control/MarginContainer/BlueprintText");
-	outlet_bar = playerUI.get_node("Control/OutletCrosshair/OutletBar")
-	plug_icon = playerUI.get_node("PlugIcon")
+
+	blueprint_text = playerUI.get_node("Control/BlueprintContainer/VBoxContainer/BlueprintText");
+	blueprint_bar = playerUI.get_node("Control/BlueprintContainer/VBoxContainer/BlueprintBar");
+	blueprint_container = playerUI.get_node("Control/BlueprintContainer/VBoxContainer");
+	
+	battery_bar = playerUI.get_node("Control/MarginContainer/StatBars/BatteryBar");
+	battery_bar_back = playerUI.get_node("Control/MarginContainer/StatBars/BatteryBar/Back");
+	outlet_bar = playerUI.get_node("Control/MarginContainer/StatBars/BatteryBar/OutletBar");
+	outlet_bar_back = playerUI.get_node("Control/MarginContainer/StatBars/BatteryBar/OutletBar/Back");
+	plug_icon = playerUI.get_node("Control/MarginContainer/StatBars/BatteryBar/PlugIcon");
+	
 	screen_cracks = playerUI.get_node("Control/ScreenCracks");
 	hit_flash_texture = playerUI.get_node("Control/HitFlash");
 	hit_flash_texture.modulate.a = 0.0;
 	glitch_layer = playerUI.get_node("Glitch");
 	glitch_layer.visible = false;
+	ammo_bar = playerUI.get_node("Control/AmmoBar");
+	ammo_bar_follow = playerUI.get_node("Control/AmmoBar/Follow");
+	ammo_bar_reload = playerUI.get_node("Control/AmmoBar/Reload");
+	ammo_bar_back = playerUI.get_node("Control/AmmoBar/Back");
+	ammo_current = playerUI.get_node("Control/AmmoBar/MarginContainer/CurrAmmo");
+	ammo_max = playerUI.get_node("Control/AmmoBar/MarginContainer/MaxAmmo");
 	
 	screenMat = SCREEN_MAT.duplicate();
 	screen.material = screenMat;
+	
+	#if you have weapons equipped select that one instead of the default empty
+	if Global.weaponsEquipped.size() == 0: 
+		Global.weaponsEquipped.append(ENERGY_GUN);
+		Global.weaponsEquipped.append(FLAME_GUN);
+		Global.weaponsEquipped.append(WEAPON_EMPTY);
+		#weapon = Global.weaponsEquipped[0];
+	
+	weapon = Global.weaponsEquipped[0]; #default to gun for debug
+	equipWeapon();
 
 #move camera with controller r stick
 func _process(delta):
 	if Global.batteryDecreaseDebug:
 		battery = batteryMax;
+	
+	var bpt = blueprint_timer.time_left;
+	if  bpt > 0.0:
+		blueprint_bar.material.set("shader_parameter/value", bpt/blueprint_timer.wait_time);
+		if bpt > 1.5:
+			while blueprint_container.get_child_count() < 12:
+				var bl = BINARY_LINE.instantiate();
+				blueprint_container.add_child(bl);
+				blueprint_container.move_child(bl, 3);
 		
+	#select weapon loadout
+	if canUseWeapon:
+		for i in 3:
+			if Input.is_action_just_pressed("loadout" + str(i+1)):
+				weaponIndex = i;
+				var selectWeapon = Global.weaponsEquipped[weaponIndex];
+				#include buffer for finishing weapon animation before switching
+				if selectWeapon != WEAPON_EMPTY and selectWeapon != weapon:
+					#print(head.get_children());
+					#weapon scene should be last child of head node
+					var findCurrWeapon = head.get_child(head.get_child_count()-1);
+					print(findCurrWeapon);
+					if findCurrWeapon != null:
+						canUseWeapon = false;
+						weaponAnimPlayer.play("Hide");
+						await weaponAnimPlayer.animation_finished
+						#do after anim finishes
+						canUseWeapon = true;
+						findCurrWeapon.queue_free();
+						weapon = selectWeapon;
+						equipWeapon(); #call after setting weapon
+					
+				#print("loadout" + str(i+1) + str(weapon))
+				#weapon selected leave loop
+				break;
+	
 	var rstickDir = Input.get_vector("camLeft", "camRight", "camUp", "camDown");
 	rotate_from_vector(rstickDir * delta * Vector2(chAccel, cvAccel));
 	
@@ -228,25 +317,20 @@ func _process(delta):
 		cord.rotation_degrees.x += 90;
 		cord.scale.y = cord_point.global_position.distance_to(outlet.global_position);
 		
-	battery_bar.value = (battery/batteryMax);
-	battery_bar_trail.value = move_toward(battery_bar_trail.value, battery_bar.value, delta*.5);
-	health_bar.value = (hp/hpMax);
+	battery_bar.material.set("shader_parameter/value", (battery/batteryMax));
+	
+	#battery_bar_trail.value = move_toward(battery_bar_trail.value, battery_bar.value, delta*.5);
+	#health_bar.value = (hp/hpMax);
 	currency_text.text = str("%.1f" %Global.currency);
 	
 	var fuzz = midFalloffCurve.sample(1.0-(battery/batteryMax)+(hit_cooldown_timer.time_left/hit_cooldown_timer.wait_time)*.5);
 	screenMat.set_shader_parameter("noise_strength", 10.0+(1.0-fuzz)*30.0);
 	hit_flash_texture.modulate.a -= delta;
 	hit_flash_texture.modulate.a = max(hit_flash_texture.modulate.a, 0.0)
-	
-	weaponBuffer -= delta;
-	weaponCooldown -= delta;
+		
 	outletBuffer -= delta;
 	if Input.is_action_just_released("RMB"):
 		outletBuffer = outletBufferTime;
-		
-	#DEACTIVATED WEAPONS FOR DEMO
-	#if Input.is_action_just_pressed("LMB"):
-	#	weaponBuffer = weaponBufferTime;
 	
 	if outlet == null and cordProjectile == null and Input.is_action_pressed("RMB"):
 		$Head/CordProtoNode.visible = true;
@@ -301,14 +385,16 @@ func _process(delta):
 			
 			outlet_bar.modulate = Color.YELLOW;
 			battery_bar.modulate = Color.YELLOW;
+			
 			if !charging_sound.playing:
 				charging_sound.play();
 		else:
 			outlet_bar.modulate = Color.RED;
 			battery_bar.modulate = Color.RED;
+			
 			charging_sound.stop();
 			
-		outlet_bar.value = outlet.battery/outlet.batteryMax;
+		outlet_bar.material.set("shader_parameter/value", outlet.battery/outlet.batteryMax);
 		#Global.currency += delta*dataMultiplier;
 		if cordTugs > 0 and Input.is_action_just_pressed("pull"):
 			var outletVec = (outlet.global_position-global_position).normalized()*(pullSpd+outlet.global_position.distance_to(global_position));
@@ -353,36 +439,82 @@ func _process(delta):
 		crosshair.texture = crosshairIcon
 		self_destruct_sound.stop();
 		
-	circleBarMat.set_shader_parameter("progress", releaseTime/releaseTimeMax);
+	#circleBarMat.set_shader_parameter("progress", releaseTime/releaseTimeMax);
 	
-	if punch_timer.time_left > 0.0 and hitboxEnemy != null:
-		var e = hitboxEnemy.explosion.instantiate();
-		hitboxEnemy.get_parent().add_child(e);
-		e.global_position = hitboxEnemy.global_position;
-		Global.currency += hitboxEnemy.currencyReward;
-		hitboxEnemy.queue_free();
+	#if punch_timer.time_left > 0.0 and hitboxEnemy != null:
+		#var e = hitboxEnemy.explosion.instantiate();
+		#hitboxEnemy.get_parent().add_child(e);
+		#e.global_position = hitboxEnemy.global_position;
+		#Global.currency += hitboxEnemy.currencyReward;
+		#hitboxEnemy.queue_free();
+	
+	#handle weapons
+	weaponBuffer -= delta;
+	weaponCooldown -= delta;
+	if Input.is_action_just_pressed("LMB"):
+		weaponBuffer = weaponBufferTime;
 		
-	match (weapon):
-		Global.PlayerWeapon.FIST:
-			if weaponBuffer > 0.0 and weaponCooldown <= 0.0:
-				shoot_particles.restart();
-				weaponBuffer = 0.0;
-				weaponCooldown = .4;
-				punch_timer.start();
-				punch_sound.play();
-				shake = shootShakeAmnt;
-		Global.PlayerWeapon.GUN:
-			if Global.gunPurchased and weaponBuffer > 0.0:
-				var bulletInstance = bullet.instantiate();
-				get_parent().add_child(bulletInstance);
-				bulletInstance.position = shoot_point.global_position;
-				bulletInstance.direction = -head.transform.basis.z;
-				bulletInstance.creator = self;
-				shoot_particles.restart();
-				weaponBuffer = 0.0;
-				shake = max(shake, shootShakeAmnt);
-				shoot_sound.play();
+	if weapon != WEAPON_EMPTY:
+		var v = float(weaponAmmo)/float(weapon.ammo);
+		ammo_bar.material.set("shader_parameter/value", v);
+		weaponAmmoFollow = lerp(weaponAmmoFollow, v, delta*20.0);
+		ammo_bar_follow.material.set("shader_parameter/value", weaponAmmoFollow);
+		ammo_bar_reload.visible = false;
+
+		#value = float(weaponAmmo)/float(weapon.ammo);
+		ammo_current.text = str(weaponAmmo);# + " / " + str(weapon.ammo) + " ";
+		ammo_max.text = str(weapon.ammo);
 		
+		var bulletsCanReload := 0;
+		if outlet != null:
+			bulletsCanReload = clamp(int(floor(outlet.battery/weapon.energyCost)), 0, weapon.ammo);
+		
+		if weaponAmmo == 0:
+			ammo_bar_reload.visible = true;
+			ammo_bar_reload.material.set("shader_parameter/value", float(bulletsCanReload)/float(weapon.ammo));
+		
+		var wepAnim =  weaponAnimPlayer.current_animation;
+		if wepAnim == "Shoot":
+			await weaponAnimPlayer.animation_finished
+			canUseWeapon = true;
+			weaponAnimPlayer.play("Idle");
+			
+		if wepAnim == "Reload":
+			await weaponAnimPlayer.animation_finished
+			canUseWeapon = true;
+			weaponAnimPlayer.play("Idle");
+			
+		if wepAnim == "Equip":
+			await weaponAnimPlayer.animation_finished
+			weaponAnimPlayer.play("Idle");
+			canUseWeapon = true;
+		
+		
+		#shoot weapon
+		if canUseWeapon and weaponBuffer > 0.0:
+			if weaponAmmo > 0:
+				weaponAnimPlayer.play("Shoot");
+				weaponBuffer = 0.0;
+				weaponAmmo-=1;
+				canUseWeapon = false;
+				
+				#create projectile for weapon
+				#var hitInst = weapon.projectileInst.instantiate();
+				#get_parent().add_child(hitInst);
+				#hitInst.position = shoot_point.global_position;
+				#hitInst.direction = -head.transform.basis.z;
+				#hitInst.creator = self;
+				
+				#shoot_particles.restart();
+				#weaponBuffer = 0.0;
+				#shake = max(shake, shootShakeAmnt);
+				#shoot_sound.play();
+			else:
+				if bulletsCanReload > 0:
+					weaponAnimPlayer.play("Reload");
+					weaponAmmo = bulletsCanReload; #set back to max ammo
+					weaponBuffer = 0.0;
+					canUseWeapon = false;
 		
 	if Input.is_action_just_pressed("ui_cancel"):
 		get_tree().quit();
@@ -633,6 +765,31 @@ func headbob(time) -> Vector3:
 	pos.x = cos(time * BOB_FREQ / 2) * BOB_AMP
 	return pos
 
+func equipWeapon() -> void:
+	#call after setting weapon
+	var newWep = weapon.weaponScene.instantiate();
+	newWep.name = wepName;
+	newWep.position = weapon.weaponPositionOffset;
+	newWep.rotation_degrees = weapon.weaponRotationOffset;
+	newWep.scale = weapon.weaponScaleOffset;
+	newWep.holder = self;
+	head.add_child(newWep, true);
+	weaponScene = newWep;
+	weaponAnimPlayer = weaponScene.find_child("AnimationPlayer");
+	weaponAmmo = weapon.ammo; #adjust later to account for ammo across different weapons
+	weaponAnimPlayer.play("Equip");
+	canUseWeapon = false; #set to true after equip anim finishes
+	
+	ammo_bar.material.set("shader_parameter/segments", weapon.ammo);
+	ammo_bar.material.set("shader_parameter/progress_rotation", 1.0/float(weapon.ammo));
+	ammo_bar_follow.material.set("shader_parameter/segments", weapon.ammo);
+	ammo_bar_follow.material.set("shader_parameter/progress_rotation", 1.0/float(weapon.ammo));
+	ammo_bar_reload.material.set("shader_parameter/segments", weapon.ammo);
+	ammo_bar_reload.material.set("shader_parameter/progress_rotation", 1.0/float(weapon.ammo));
+	ammo_bar_back.material.set("shader_parameter/segments", weapon.ammo);
+	ammo_bar_back.material.set("shader_parameter/progress_rotation", 1.0/float(weapon.ammo));
+	weaponAmmoFollow = weapon.ammo;
+
 func getHit(batteryDamage, knockbackVector, screenShake, screenCrackType) -> void:
 	jumping = false; #prevent variable jump from affecting velocity
 	shake = screenShake;
@@ -662,24 +819,28 @@ func addScreenCrack(screenCrackType) -> void:
 
 func _on_collect_radius_area_entered(area: Area3D) -> void:
 	if area.is_in_group("blueprint"):
-		blueprint_text.text = "Uploading " + str(area.itemName) + " blueprint...";
+		blueprint_container.visible = true;
+		blueprint_text.text = "uploading " + str(area.unlock.fileName) + "...";
+		Global.partsUnlocked.append(area.unlock);
 		blueprint_timer.start();
-		match(area.itemName):
-			"Gun": Global.gunUnlocked = true;
 		area.queue_free();
 
 func _on_blueprint_timer_timeout() -> void:
+	blueprint_container.visible = false;
+	while blueprint_container.get_child_count() > 3:
+		var bl = blueprint_container.get_child(3);
+		bl.queue_free();
 	blueprint_text.text = "";
 
 func _on_slide_timer_timeout() -> void:
 	slide_cooldown_timer.start();
 
-func _on_punch_hitbox_body_entered(body: Node3D) -> void:
-	if body.is_in_group("enemy"):
-		hitboxEnemy = body;
-
-func _on_punch_hitbox_body_exited(body: Node3D) -> void:
-	hitboxEnemy = null;
+#func _on_punch_hitbox_body_entered(body: Node3D) -> void:
+	#if body.is_in_group("enemy"):
+		#hitboxEnemy = body;
+#
+#func _on_punch_hitbox_body_exited(body: Node3D) -> void:
+	#hitboxEnemy = null;
 
 func _on_hit_cooldown_timer_timeout() -> void:
 	hit_light.visible = false;

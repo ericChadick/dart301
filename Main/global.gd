@@ -8,10 +8,13 @@ enum PlayerParts {WALLASCEND, WALLSTICK, WALLTIMEINCREASE, DOUBLEJUMP, CORDLENGT
 PROJECTILEBOUNCE, AIRSLIDE, SCREENCRACKREMOVE}
 
 var weaponSlots := 2;
-var partSlots := 6;
+var partSlots := 4;
 
 var weaponsEquipped : Array[weaponUnlock];
 var partsEquipped : Array[equipPart];
+
+var weaponsUnlocked : Array[weaponUnlock];
+var partsUnlocked : Array[equipPart];
 
 var hpMin := 10.0; #initial unupgraded value of stat
 var hpMax := 20.0; #max value of stat after all upgrades
@@ -70,3 +73,18 @@ var batteryDecreaseDebug := false;
 
 #screen cracks
 enum ScreenCracks {SMALL, MED, LARGE}
+
+
+func _ready() -> void:
+	#for debugging set weapons and parts unlocked by default
+	const ENERGY_GUN = preload("uid://uh4d532c1ca7")
+	const FLAME_GUN = preload("uid://da1f3cj0g8erj")
+	weaponsUnlocked.append(ENERGY_GUN);
+	weaponsUnlocked.append(FLAME_GUN);
+	
+	const DOUBLE_JUMP_PART = preload("uid://ccf2eq1vsqklf")
+	const WALL_ASCEND_PART = preload("uid://c3qtj882mefqb")
+	const WALL_STICK_PART = preload("uid://b1sjnu3as5j1t")
+	partsUnlocked.append(DOUBLE_JUMP_PART);
+	partsUnlocked.append(WALL_ASCEND_PART);
+	partsUnlocked.append(WALL_STICK_PART);

@@ -1,0 +1,21 @@
+[gd_scene format=3 uid="uid://cy7e33ar3vcpl"]
+
+[ext_resource type="Script" uid="uid://desnkwsq3d28q" path="res://Player/Rope/path_3d_rope.gd" id="1_cj5ii"]
+
+[node name="Path3DRope" type="Path3D" unique_id=468209437]
+script = ExtResource("1_cj5ii")
+
+[node name="CSGPolygon3D" type="CSGPolygon3D" parent="." unique_id=1626006617]
+calculate_tangents = false
+mode = 2
+path_node = NodePath("..")
+path_interval_type = 0
+path_interval = 0.2
+path_simplify_angle = 0.0
+path_rotation = 2
+path_rotation_accurate = false
+path_local = false
+path_continuous_u = true
+path_u_distance = 1.0
+path_joined = false
+smooth_faces = true

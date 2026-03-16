@@ -57,9 +57,6 @@ bottom_radius = 0.1
 radius = 0.1
 height = 1.0
 
-[sub_resource type="SphereShape3D" id="SphereShape3D_apopc"]
-radius = 1.25
-
 [sub_resource type="SphereShape3D" id="SphereShape3D_4ntmi"]
 radius = 1.0
 
@@ -230,21 +227,16 @@ skeleton = NodePath("../../../CordHandAnimations")
 
 [node name="IsaacProtagArmAnim" parent="Head" unique_id=485485338 instance=ExtResource("15_dkpta")]
 transform = Transform3D(-0.04455945, -0.46692014, -1.1586633, 1.0185311, 0.6576875, -0.3042064, 0.72326255, -0.95495194, 0.35701317, 1.1592337, -0.92315227, 0.09051019)
+visible = false
 
 [node name="IsaacProtagArmAnim2" parent="Head" unique_id=311115104 instance=ExtResource("15_dkpta")]
 transform = Transform3D(0.6330295, 0.28104, 1.0405724, 0.87370694, 0.5728903, -0.68624556, 0.63119686, -1.0748549, -0.09368784, -1.0231236, -0.8043887, 0.17131811)
+visible = false
 
 [node name="Cord" type="MeshInstance3D" parent="." unique_id=1405577659]
 mesh = SubResource("CapsuleMesh_4ntmi")
 
 [node name="HitParticles" parent="." unique_id=1875539030 instance=ExtResource("2_gwnis")]
-
-[node name="PunchHitbox" type="Area3D" parent="." unique_id=1521492551]
-transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 0, -1.5)
-collision_layer = 2
-
-[node name="CollisionShape3D" type="CollisionShape3D" parent="PunchHitbox" unique_id=1816454880]
-shape = SubResource("SphereShape3D_apopc")
 
 [node name="CollectRadius" type="Area3D" parent="." unique_id=1410740150 groups=["collect"]]
 collision_layer = 2
@@ -323,8 +315,6 @@ libraries/ = SubResource("AnimationLibrary_x3vf3")
 
 [node name="WeaponHandAnimations" type="AnimationPlayer" parent="." unique_id=486828783]
 
-[connection signal="body_entered" from="PunchHitbox" to="." method="_on_punch_hitbox_body_entered"]
-[connection signal="body_exited" from="PunchHitbox" to="." method="_on_punch_hitbox_body_exited"]
 [connection signal="area_entered" from="CollectRadius" to="." method="_on_collect_radius_area_entered"]
 [connection signal="timeout" from="Timers/BlueprintTimer" to="." method="_on_blueprint_timer_timeout"]
 [connection signal="timeout" from="Timers/SlideTimer" to="." method="_on_slide_timer_timeout"]
