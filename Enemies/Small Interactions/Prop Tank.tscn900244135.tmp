@@ -2,14 +2,13 @@
 
 [ext_resource type="Script" uid="uid://yhxfla5wmy0i" path="res://Enemies/Small Interactions/prop_tank.gd" id="1_tank"]
 [ext_resource type="PackedScene" uid="uid://eocgqu1y5l2n" path="res://Enemies/Small Interactions/propane.fbx" id="2_3i6lj"]
-[ext_resource type="PackedScene" uid="uid://crf8gr3nmae1r" path="res://Enemies/Small Interactions/Prop TankEX.tscn" id="3_0ngob"]
-[ext_resource type="PackedScene" uid="uid://bvtar6t3hf12c" path="res://Enemies/Small Interactions/PropaneEX.tscn" id="4_nafhi"]
-
-[sub_resource type="SphereShape3D" id="SphereShape3D_explosion"]
-radius = 5.0
+[ext_resource type="Script" uid="uid://b6lymks71wwrj" path="res://Enemies/Small Interactions/propane.gd" id="3_0ngob"]
 
 [sub_resource type="SphereShape3D" id="SphereShape3D_body"]
 radius = 0.4
+
+[sub_resource type="SphereShape3D" id="SphereShape3D_explosion"]
+radius = 5.0
 
 [node name="PropTank" type="Node3D" unique_id=422323610]
 script = ExtResource("1_tank")
@@ -18,17 +17,15 @@ script = ExtResource("1_tank")
 
 [node name="propane" parent="RigidBody3D" unique_id=625863635 instance=ExtResource("2_3i6lj")]
 transform = Transform3D(0.15, 0, 0, 0, 0.15, 0, 0, 0, 0.15, 0, 0, 0)
+script = ExtResource("3_0ngob")
+unlimited = null
+battery = null
+
+[node name="CollisionShape3D" type="CollisionShape3D" parent="RigidBody3D" unique_id=1233243682]
+shape = SubResource("SphereShape3D_body")
 
 [node name="ExplosionArea" type="Area3D" parent="RigidBody3D" unique_id=1403464617]
 transform = Transform3D(0.515, 0, 0, 0, 0.515, 0, 0, 0, 0.515, 0, 0, 0)
-collision_layer = 0
 
 [node name="CollisionShape3D" type="CollisionShape3D" parent="RigidBody3D/ExplosionArea" unique_id=1167816583]
 shape = SubResource("SphereShape3D_explosion")
-
-[node name="CollisionShape3D" type="CollisionShape3D" parent="RigidBody3D" unique_id=1687922406]
-shape = SubResource("SphereShape3D_body")
-
-[node name="PropTankEX" parent="." unique_id=1968867229 instance=ExtResource("3_0ngob")]
-
-[node name="PropaneEX" parent="." unique_id=2001919534 instance=ExtResource("4_nafhi")]

@@ -19,6 +19,7 @@ func _process(delta: float) -> void:
 		destroy();
 
 func _on_body_entered(body: Node3D) -> void:
+	print("[Projectile] body hit: ", body.name)
 	if body != creator:
 		destroy();
 	#if body.is_in_group("enemy"):
@@ -30,7 +31,9 @@ func _on_body_entered(body: Node3D) -> void:
 		#queue_free();
 
 func _on_area_entered(area: Area3D) -> void:
+	print("[Projectile] area hit: ", area.name, " groups=", area.get_groups())
 	if area.is_in_group("outlet"):
+		print("[Projectile] outlet found! connected=", area.connected)
 		if area.connected == null:
 			area.get_node("PlugSound").play();
 			creator.outlet = area;
