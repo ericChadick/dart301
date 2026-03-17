@@ -1,12 +1,12 @@
-[gd_resource type="ShaderMaterial" load_steps=2 format=3 uid="uid://f4lyx4wwc4mt"]
+[gd_resource type="ShaderMaterial" format=3 uid="uid://f4lyx4wwc4mt"]
 
 [ext_resource type="Shader" uid="uid://c0s4us4f4rehk" path="res://Shaders/circlebar.gdshader" id="1_le4k1"]
 
 [resource]
 shader = ExtResource("1_le4k1")
-shader_parameter/progress = 0.5
-shader_parameter/ring_thickness = 0.1
-shader_parameter/ring_radius = 0.4
+shader_parameter/progress = 0.8990000427025
+shader_parameter/ring_thickness = 0.25000001117647996
+shader_parameter/ring_radius = 0.25000000861512
 shader_parameter/progress_color = Color(1, 1, 1, 1)
 shader_parameter/background_color = Color(0, 0, 0, 0)
 shader_parameter/gradient_color = Color(1, 1, 1, 1)

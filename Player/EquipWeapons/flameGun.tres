@@ -1,0 +1,24 @@
+[gd_resource type="Resource" script_class="weaponUnlock" format=3 uid="uid://da1f3cj0g8erj"]
+
+[ext_resource type="PackedScene" uid="uid://h8nfngcoc7cq" path="res://Player/bullet.tscn" id="1_pnnbr"]
+[ext_resource type="Script" uid="uid://cmfl4kq4wgclj" path="res://Player/EquipWeapons/weaponUnlock.gd" id="2_r3vqi"]
+[ext_resource type="Texture2D" uid="uid://sx4l0hvsdhfg" path="res://Player/EquipWeapons/Icons/gunIcon.png" id="3_25mop"]
+[ext_resource type="PackedScene" uid="uid://dpylpvn23c44l" path="res://Player/EquipWeapons/Models/GunTest/gun_hand_test.tscn" id="4_pnnbr"]
+
+[sub_resource type="AtlasTexture" id="AtlasTexture_8lhb6"]
+atlas = ExtResource("3_25mop")
+
+[resource]
+script = ExtResource("2_r3vqi")
+weaponIcon = SubResource("AtlasTexture_8lhb6")
+weaponInd = 2
+weaponName = "Flame"
+weaponDescription = "Battery-powered energy weapon best used for fast-paced, short-ranged combat."
+weaponScene = ExtResource("4_pnnbr")
+weaponPositionOffset = Vector3(0, -0.75, -0.8)
+weaponRotationOffset = Vector3(0, 170, 0)
+weaponScaleOffset = Vector3(2, 2, 2)
+projectileInst = ExtResource("1_pnnbr")
+ammo = 8
+energyCost = 2.0
+metadata/_custom_type_script = "uid://cmfl4kq4wgclj"

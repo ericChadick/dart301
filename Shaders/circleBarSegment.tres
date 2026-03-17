@@ -1,0 +1,22 @@
+[gd_resource type="ShaderMaterial" format=3 uid="uid://b4twqiatupndb"]
+
+[ext_resource type="Shader" uid="uid://5vmrpeqx5scg" path="res://Shaders/circleBarSegment.gdshader" id="1_dwwxn"]
+
+[sub_resource type="Gradient" id="Gradient_2s0w1"]
+offsets = PackedFloat32Array(1)
+colors = PackedColorArray(1, 1, 1, 1)
+
+[sub_resource type="GradientTexture2D" id="GradientTexture2D_63kgm"]
+gradient = SubResource("Gradient_2s0w1")
+
+[resource]
+shader = ExtResource("1_dwwxn")
+shader_parameter/value = 0.666000031635
+shader_parameter/segments = 3
+shader_parameter/radius = 0.475
+shader_parameter/hollow_radius = 0.375
+shader_parameter/margin = 0.050000002375
+shader_parameter/rotation = 0.25000005937500003
+shader_parameter/progress_rotation = 0.3330000633174999
+shader_parameter/gradient = SubResource("GradientTexture2D_63kgm")
+shader_parameter/use_value_gradient = true

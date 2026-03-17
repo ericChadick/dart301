@@ -1,0 +1,103 @@
+[gd_scene format=3 uid="uid://r3g5xuayp06q"]
+
+[ext_resource type="Script" uid="uid://ccvh68e0m50yk" path="res://World/Blueprints/blueprint_part.gd" id="1_lx66k"]
+[ext_resource type="Shader" uid="uid://caa0mjmy674wf" path="res://Shaders/outline.gdshader" id="2_kwa7f"]
+[ext_resource type="Texture2D" uid="uid://bl5lwl0x7asnj" path="res://UI/Blueprint/save.png" id="2_lx66k"]
+[ext_resource type="Texture2D" uid="uid://cnw2gg8qoh4qe" path="res://UI/Blueprint/binaryNumsAtlas2.png" id="4_mcsde"]
+
+[sub_resource type="SphereShape3D" id="SphereShape3D_fkdi2"]
+radius = 1.0
+
+[sub_resource type="ShaderMaterial" id="ShaderMaterial_kwa7f"]
+render_priority = 0
+shader = ExtResource("2_kwa7f")
+shader_parameter/color = Color(1, 1, 1, 1)
+shader_parameter/thickness = 0.05
+
+[sub_resource type="StandardMaterial3D" id="StandardMaterial3D_lx66k"]
+next_pass = SubResource("ShaderMaterial_kwa7f")
+transparency = 1
+albedo_color = Color(1, 1, 1, 0)
+emission = Color(1, 1, 1, 1)
+
+[sub_resource type="CylinderMesh" id="CylinderMesh_lx66k"]
+material = SubResource("StandardMaterial3D_lx66k")
+top_radius = 0.4
+bottom_radius = 0.2
+height = 1.0
+radial_segments = 8
+
+[sub_resource type="FogMaterial" id="FogMaterial_kwa7f"]
+density = 0.1
+albedo = Color(1, 0.40000004, 0, 1)
+emission = Color(1, 0.5833334, 0, 1)
+edge_fade = 0.2
+
+[sub_resource type="Curve" id="Curve_onfbo"]
+_data = [Vector2(0, 1), 0.0, 0.0, 0, 0, Vector2(1, 0), -2.7415593, 0.0, 0, 0]
+point_count = 2
+
+[sub_resource type="CurveTexture" id="CurveTexture_hbgp0"]
+curve = SubResource("Curve_onfbo")
+
+[sub_resource type="ParticleProcessMaterial" id="ParticleProcessMaterial_oaoyp"]
+lifetime_randomness = 0.2
+angle_min = -14.9999895
+angle_max = 15.0000105
+spread = 180.0
+initial_velocity_min = 0.5
+initial_velocity_max = 1.0
+gravity = Vector3(0, 1, 0)
+scale_min = 0.5
+scale_curve = SubResource("CurveTexture_hbgp0")
+anim_offset_max = 1.0
+
+[sub_resource type="StandardMaterial3D" id="StandardMaterial3D_mcsde"]
+transparency = 1
+shading_mode = 0
+vertex_color_use_as_albedo = true
+albedo_texture = ExtResource("4_mcsde")
+billboard_mode = 3
+billboard_keep_scale = true
+particles_anim_h_frames = 2
+particles_anim_v_frames = 1
+particles_anim_loop = false
+
+[sub_resource type="QuadMesh" id="QuadMesh_onfbo"]
+material = SubResource("StandardMaterial3D_mcsde")
+size = Vector2(0.3, 0.4)
+
+[node name="BlueprintPart" type="Area3D" unique_id=377745351 groups=["blueprint"]]
+script = ExtResource("1_lx66k")
+
+[node name="CollisionShape3D" type="CollisionShape3D" parent="." unique_id=1335705873]
+shape = SubResource("SphereShape3D_fkdi2")
+
+[node name="MeshInstance3D" type="MeshInstance3D" parent="." unique_id=1317610722]
+transform = Transform3D(-4.371139e-08, -1, 0, 1, -4.371139e-08, 0, 0, 0, 1, 0, 0, 0)
+mesh = SubResource("CylinderMesh_lx66k")
+
+[node name="Icon" type="Sprite3D" parent="." unique_id=521837811]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 1, 0)
+pixel_size = 0.02
+billboard = 1
+texture = ExtResource("2_lx66k")
+
+[node name="OmniLight3D" type="OmniLight3D" parent="." unique_id=347466278]
+light_color = Color(1, 0.79333335, 0.6, 1)
+light_energy = 4.0
+omni_range = 3.0
+omni_attenuation = -0.5
+
+[node name="FogVolume" type="FogVolume" parent="." unique_id=808998006]
+size = Vector3(3, 3, 3)
+shape = 0
+material = SubResource("FogMaterial_kwa7f")
+
+[node name="GPUParticles3D" type="GPUParticles3D" parent="." unique_id=1324365903]
+amount = 4
+lifetime = 1.6
+explosiveness = 0.2
+randomness = 0.5
+process_material = SubResource("ParticleProcessMaterial_oaoyp")
+draw_pass_1 = SubResource("QuadMesh_onfbo")

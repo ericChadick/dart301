@@ -1,0 +1,54 @@
+[gd_scene format=3 uid="uid://bk8ec5tu0ul1b"]
+
+[ext_resource type="Texture2D" uid="uid://bfjonw02lcss1" path="res://World/Props/noiseSteam.png" id="2_fsbgt"]
+
+[sub_resource type="Curve" id="Curve_4gfgu"]
+_data = [Vector2(0.5, 1), 0.0, 0.0, 0, 0, Vector2(1, 0), -3.7366505, 0.0, 0, 0]
+point_count = 2
+
+[sub_resource type="CurveTexture" id="CurveTexture_fsbgt"]
+curve = SubResource("Curve_4gfgu")
+
+[sub_resource type="Curve" id="Curve_fsbgt"]
+_data = [Vector2(0.016666666, 0), 0.0, 0.0, 0, 0, Vector2(0.7472222, 1), 0.0, 0.0, 0, 0]
+point_count = 2
+
+[sub_resource type="CurveTexture" id="CurveTexture_2p3lq"]
+curve = SubResource("Curve_fsbgt")
+
+[sub_resource type="ParticleProcessMaterial" id="ParticleProcessMaterial_3b5jg"]
+particle_flag_rotate_y = true
+angle_min = 208.00002
+angle_max = 208.00002
+direction = Vector3(0, 1, 0)
+spread = 0.0
+initial_velocity_min = 1.5
+initial_velocity_max = 2.5
+gravity = Vector3(0, 0, 0)
+scale_max = 2.0
+scale_curve = SubResource("CurveTexture_2p3lq")
+color = Color(0.38, 0.36062, 0.34579998, 1)
+alpha_curve = SubResource("CurveTexture_fsbgt")
+
+[sub_resource type="StandardMaterial3D" id="StandardMaterial3D_6r26m"]
+transparency = 1
+blend_mode = 1
+shading_mode = 0
+vertex_color_use_as_albedo = true
+albedo_texture = ExtResource("2_fsbgt")
+disable_receive_shadows = true
+billboard_mode = 1
+billboard_keep_scale = true
+
+[sub_resource type="QuadMesh" id="QuadMesh_r2qte"]
+material = SubResource("StandardMaterial3D_6r26m")
+
+[node name="SteamEmitter" type="GPUParticles3D" unique_id=240385797]
+amount = 48
+lifetime = 2.0
+preprocess = 2.0
+speed_scale = 0.5
+explosiveness = 0.15
+randomness = 0.3
+process_material = SubResource("ParticleProcessMaterial_3b5jg")
+draw_pass_1 = SubResource("QuadMesh_r2qte")

@@ -1,0 +1,48 @@
+[gd_scene format=3 uid="uid://ckmb1xlv7h5m5"]
+
+[sub_resource type="Curve" id="Curve_kpgkh"]
+_data = [Vector2(0, 1), 0.0, 0.0, 0, 0, Vector2(0.7472222, 0), 0.0, 0.0, 0, 0]
+point_count = 2
+
+[sub_resource type="CurveTexture" id="CurveTexture_ndwgm"]
+curve = SubResource("Curve_kpgkh")
+
+[sub_resource type="Curve" id="Curve_x18jc"]
+_data = [Vector2(0, 1), 0.0, 0.0, 0, 0, Vector2(1, 0), 0.0, 0.0, 0, 0]
+point_count = 2
+
+[sub_resource type="CurveTexture" id="CurveTexture_snr13"]
+curve = SubResource("Curve_x18jc")
+
+[sub_resource type="ParticleProcessMaterial" id="ParticleProcessMaterial_tgand"]
+lifetime_randomness = 0.2
+particle_flag_align_y = true
+spread = 30.0
+initial_velocity_min = 3.0
+initial_velocity_max = 8.0
+gravity = Vector3(0, -6, 0)
+scale_min = 0.5
+scale_curve = SubResource("CurveTexture_snr13")
+emission_curve = SubResource("CurveTexture_ndwgm")
+
+[sub_resource type="StandardMaterial3D" id="StandardMaterial3D_kpgkh"]
+emission_enabled = true
+emission = Color(1, 0.5, 0, 1)
+emission_energy_multiplier = 10.0
+
+[sub_resource type="CapsuleMesh" id="CapsuleMesh_ndwgm"]
+material = SubResource("StandardMaterial3D_kpgkh")
+radius = 0.02
+height = 0.5
+radial_segments = 4
+rings = 0
+
+[node name="SparkEmitter" type="GPUParticles3D" unique_id=157858754]
+cast_shadow = 0
+emitting = false
+amount = 6
+lifetime = 0.5
+one_shot = true
+explosiveness = 0.85
+process_material = SubResource("ParticleProcessMaterial_tgand")
+draw_pass_1 = SubResource("CapsuleMesh_ndwgm")

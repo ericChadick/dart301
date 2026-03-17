@@ -26,11 +26,19 @@ var prevFocusNode : Control;
 @onready var part_hover_preview: TextureRect = $Control/MarginContainer/SubmenuContainer/PlayerEquipContainer/PlayerEquipVisual/PlayerBaseIcon/PartHoverPreview
 @onready var player_base_icon: TextureRect = $Control/MarginContainer/SubmenuContainer/PlayerEquipContainer/PlayerEquipVisual/PlayerBaseIcon
 
-@onready var hardware_bar: ProgressBar = $Control/MarginContainer/SubmenuContainer/PlayerEquipContainer/PlayerEquipVisual/HardwareBar/HardwareBar
-@onready var hardware_bar_preview: ProgressBar = $Control/MarginContainer/SubmenuContainer/PlayerEquipContainer/PlayerEquipVisual/HardwareBar/HardwareBar/HardwareBarPreview
+@onready var hardware_bar: ColorRect = $Control/MarginContainer/SubmenuContainer/PlayerEquipContainer/PlayerEquipVisual/HardwareBar
+@onready var hardware_bar_preview: ColorRect = $Control/MarginContainer/SubmenuContainer/PlayerEquipContainer/PlayerEquipVisual/HardwareBar/Preview
+@onready var hardware_bar_unequip: ColorRect = $Control/MarginContainer/SubmenuContainer/PlayerEquipContainer/PlayerEquipVisual/HardwareBar/Unequip
+@onready var hardware_bar_over: ColorRect = $Control/MarginContainer/SubmenuContainer/PlayerEquipContainer/PlayerEquipVisual/HardwareBar/Over
+
+var redC : Color = Color("e3715d");
 
 var infoPanelHeight := 0.0;
 var partHoverTime := 0.0;
+
+#add nodes with unlocked weapons and parts
+const WEAPON_CONTAINER = preload("uid://ccjew7eqgtwfb");
+const EQUIP_PART_SLOT = preload("uid://dolbdjtkaosjw");
 
 #@onready var part_name: RichTextLabel = $Control/MarginContainer/SubmenuContainer/EquipPartsMenu/PartName
 #@onready var part_description: RichTextLabel = $Control/MarginContainer/SubmenuContainer/EquipPartsMenu/PartDescription
@@ -55,9 +63,30 @@ func _ready() -> void:
 	weapon_loadout_slot.grab_focus();
 	
 	#add weapon containers to weapon list based on number of weapons unlocked
-	
 	infoPanelHeight = part_info_panel.size.y;
 	
+	hardware_bar.material.set("shader_parameter/count", Global.partSlots);
+	hardware_bar_preview.material.set("shader_parameter/count", Global.partSlots);
+	hardware_bar_unequip.material.set("shader_parameter/count", Global.partSlots);
+	hardware_bar_over.material.set("shader_parameter/count", Global.partSlots);
+	
+	hardware_bar_preview.visible = false;
+	hardware_bar_unequip.visible = false;
+	hardware_bar_over.visible = false;
+	
+	#add weapons containers
+	for i in Global.weaponsUnlocked.size():
+		var wi = Global.weaponsUnlocked[i];
+		var wcontain = WEAPON_CONTAINER.instantiate();
+		wcontain.weaponInd = wi;
+		weapon_list.add_child(wcontain);
+	
+	#add equip part slots
+	for i in Global.partsUnlocked.size():
+		var pi = Global.partsUnlocked[i];
+		var pcontain = EQUIP_PART_SLOT.instantiate();
+		pcontain.partInd = pi;
+		equip_parts_grid.add_child(pcontain);
 	
 	#set focus neighbors for weapon list
 	var weaponsUnlocked := weapon_list.get_children();
@@ -175,7 +204,7 @@ func _process(delta: float) -> void:
 		go_button.focus_neighbor_right = go_button.get_path_to(equip_parts_grid);
 		
 		if prevFocusNode != null and prevFocusNode.topRow:
-			go_button.focus_neighbor_bottom = go_button.get_path_to(prevFocusNode);
+			go_button.focus_neighbor_bottom = go_button.get_path_to(go_button);#prevFocusNode);
 			match (prevFocusNode.get_parent()):
 				equip_parts_grid: go_button.focus_neighbor_top = go_button.get_path_to(equip_parts_grid.get_child(0));
 				weapon_loadout_list: go_button.focus_neighbor_top = go_button.get_path_to(weapon_loadout_list.get_child(weapon_loadout_list.get_child_count()-1));
@@ -209,8 +238,12 @@ func _process(delta: float) -> void:
 	var targValue := 0;
 	for i in Global.partsEquipped:
 		targValue += i.partCost;
-	hardware_bar.value = float(targValue)/float(Global.partSlots);
-	hardware_bar_preview.modulate = Color("a6a6a6");
+	var barFill = float(targValue)/float(Global.partSlots) - .02;
+	
+	hardware_bar_preview.visible = false;
+	hardware_bar_unequip.visible = false;
+	hardware_bar_over.visible = false;
+	
 	if focusNode.get_parent() == equip_parts_grid:
 		var partSelect = focusNode.partInd;
 		part_name.text = partSelect.partName;
@@ -218,18 +251,28 @@ func _process(delta: float) -> void:
 		
 		partHoverTime += delta;
 		part_hover_preview.visible = true;
-		part_hover_preview.modulate.a = round((sin(partHoverTime*10.0)+1.0)*.5);
 		part_hover_preview.texture = partSelect.partHighlightTexture;
 		part_hover_preview.position = partSelect.partMenuOffset;
+		part_hover_preview.modulate = Color.WHITE;
 		
 		if focusNode.equipped_icon.visible:
-			hardware_bar_preview.value = hardware_bar.value;
-			hardware_bar.value -= partSelect.partCost*equipBarIncrement;
+			hardware_bar_unequip.visible = true;
+			hardware_bar_unequip.material.set("shader_parameter/value", barFill);
+			hardware_bar_unequip.material.set("shader_parameter/alpha", round((sin(partHoverTime*10.0)+1.0)*.5));
+			barFill -= partSelect.partCost*equipBarIncrement;
 		else:
-			hardware_bar_preview.value = hardware_bar.value + partSelect.partCost*equipBarIncrement;
 			if targValue+partSelect.partCost > Global.partSlots:
-				hardware_bar_preview.modulate = Color.RED;
+				part_hover_preview.modulate = redC;
+				
+				hardware_bar_over.visible = true;
+				hardware_bar_over.material.set("shader_parameter/alpha", round((sin(partHoverTime*10.0)+1.0)*.5));
+				hardware_bar_over.material.set("shader_parameter/value", barFill + partSelect.partCost*equipBarIncrement);
+			else:
+				hardware_bar_preview.visible = true;
+				hardware_bar_preview.material.set("shader_parameter/alpha", round((sin(partHoverTime*10.0)+1.0)*.5));
+				hardware_bar_preview.material.set("shader_parameter/value", barFill + partSelect.partCost*equipBarIncrement);
 		
+		hardware_bar.material.set("shader_parameter/value", barFill);
 		#part_info_panel.size.y = lerp(part_info_panel.size.y, infoPanelHeight, 10*delta);
 	else:
 		partHoverTime = 0.0;
@@ -237,7 +280,8 @@ func _process(delta: float) -> void:
 		part_name.text = "";
 		part_description.text = "";
 		
-		hardware_bar_preview.value = 0.0;
+		#hardware_bar_preview.value = 0.0;
+		
 		#part_info_panel.size.y = lerp(part_info_panel.size.y, 0.0, 10*delta);
 		
 	#hoverPrev = hoverCurrent;
@@ -316,6 +360,11 @@ func onEquipPartPressed() -> void:
 		
 		
 func _on_go_button_pressed() -> void:
+	#set weapons for run
+	for i in weapon_loadout_list.get_child_count():
+		var ind = weapon_loadout_list.get_child(i).weaponInd;
+		Global.weaponsEquipped[i] = ind;
+		
 	get_tree().change_scene_to_file(Global.mainScene);
 
 func _on_battery_debug_pressed() -> void:

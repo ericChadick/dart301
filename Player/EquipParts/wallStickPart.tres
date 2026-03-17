@@ -17,6 +17,7 @@ atlas = ExtResource("3_eawjy")
 [resource]
 script = ExtResource("1_jav2e")
 partName = "Wall Stick"
+fileName = "wallstk.prt"
 partDescription = "Wall running is only ended by jumping off"
 partEnum = 1
 partCost = 3

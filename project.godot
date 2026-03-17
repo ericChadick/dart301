@@ -48,7 +48,8 @@ folder_colors={
 "res://Shaders/": "pink",
 "res://UI/": "green",
 "res://World/": "yellow",
-"res://World/JunkHole/": "green"
+"res://World/JunkHole/": "green",
+"res://World/Props/Lighting/": "red"
 }
 
 [filesystem]
@@ -59,10 +60,10 @@ import/blender/enabled=false
 
 outlet=""
 enemy=""
-blueprint=""
 collect=""
 character=""
 player=""
+blueprint=""
 
 [input]
 

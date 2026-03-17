@@ -8,7 +8,7 @@
 [sub_resource type="AtlasTexture" id="AtlasTexture_ew4dk"]
 atlas = ExtResource("1_err5t")
 
-[sub_resource type="AtlasTexture" id="AtlasTexture_jmane"]
+[sub_resource type="AtlasTexture" id="AtlasTexture_g2q6n"]
 atlas = ExtResource("2_xraba")
 
 [sub_resource type="AtlasTexture" id="AtlasTexture_ky7xp"]
@@ -19,7 +19,7 @@ script = ExtResource("4_chfvn")
 partName = "Double Jump"
 partDescription = "Jump a second time while in the air"
 partEnum = 3
-partIcon = SubResource("AtlasTexture_jmane")
+partIcon = SubResource("AtlasTexture_g2q6n")
 partHighlightTexture = SubResource("AtlasTexture_ew4dk")
 partSelectedTexture = SubResource("AtlasTexture_ky7xp")
 partMenuOffset = Vector2(243, 514)
