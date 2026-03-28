@@ -1,0 +1,19 @@
+[remap]
+
+importer="mp3"
+type="AudioStreamMP3"
+uid="uid://dhpjib4ydudew"
+path="res://.godot/imported/Propane.MP3-63957afabe7a26b51983308145a53b81.mp3str"
+
+[deps]
+
+source_file="res://Enemies/Small Interactions/Propane.MP3"
+dest_files=["res://.godot/imported/Propane.MP3-63957afabe7a26b51983308145a53b81.mp3str"]
+
+[params]
+
+loop=false
+loop_offset=0
+bpm=0
+beat_count=0
+bar_beats=4
