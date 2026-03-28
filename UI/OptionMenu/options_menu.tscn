@@ -1,0 +1,93 @@
+[gd_scene format=3 uid="uid://e0tjmrxjjx12"]
+
+[ext_resource type="Texture2D" uid="uid://bqtmruylxcp8e" path="res://UI/Gameplay/gear.png" id="1_etoy3"]
+
+[sub_resource type="Gradient" id="Gradient_etoy3"]
+offsets = PackedFloat32Array(1)
+colors = PackedColorArray(0.5449743, 0.54497427, 0.54497427, 1)
+
+[sub_resource type="GradientTexture2D" id="GradientTexture2D_pga6c"]
+gradient = SubResource("Gradient_etoy3")
+width = 12
+height = 12
+
+[sub_resource type="GradientTexture2D" id="GradientTexture2D_tmb5m"]
+gradient = SubResource("Gradient_etoy3")
+width = 12
+height = 12
+
+[sub_resource type="Gradient" id="Gradient_4u0k5"]
+offsets = PackedFloat32Array(0)
+colors = PackedColorArray(0, 0, 0, 1)
+
+[sub_resource type="GradientTexture2D" id="GradientTexture2D_1p1tj"]
+gradient = SubResource("Gradient_4u0k5")
+width = 2
+height = 12
+
+[node name="OptionsMenu" type="MarginContainer" unique_id=1754063228]
+anchors_preset = 15
+anchor_right = 1.0
+anchor_bottom = 1.0
+grow_horizontal = 2
+grow_vertical = 2
+theme_override_constants/margin_left = 256
+theme_override_constants/margin_top = 256
+theme_override_constants/margin_right = 256
+theme_override_constants/margin_bottom = 256
+
+[node name="ListContainer" type="VBoxContainer" parent="." unique_id=1678689237]
+layout_mode = 2
+
+[node name="RichTextLabel" type="RichTextLabel" parent="ListContainer" unique_id=1352704195]
+custom_minimum_size = Vector2(0, 128)
+layout_mode = 2
+theme_override_font_sizes/normal_font_size = 64
+text = "options"
+
+[node name="ButtonContainer" type="VBoxContainer" parent="ListContainer" unique_id=417740017]
+layout_mode = 2
+
+[node name="HBoxContainer" type="HBoxContainer" parent="ListContainer/ButtonContainer" unique_id=1404680741]
+layout_mode = 2
+size_flags_horizontal = 0
+
+[node name="OptionIcon" type="TextureRect" parent="ListContainer/ButtonContainer/HBoxContainer" unique_id=1642706125]
+custom_minimum_size = Vector2(64, 64)
+layout_mode = 2
+texture = ExtResource("1_etoy3")
+expand_mode = 1
+
+[node name="MarginContainer" type="MarginContainer" parent="ListContainer/ButtonContainer/HBoxContainer" unique_id=1653184544]
+custom_minimum_size = Vector2(360, 64)
+layout_mode = 2
+theme_override_constants/margin_top = 5
+theme_override_constants/margin_bottom = 5
+
+[node name="Slider" type="HSlider" parent="ListContainer/ButtonContainer/HBoxContainer/MarginContainer" unique_id=1298021021]
+layout_mode = 2
+size_flags_vertical = 8
+theme_override_constants/center_grabber = 0
+theme_override_constants/tick_offset = -6
+theme_override_icons/grabber = SubResource("GradientTexture2D_pga6c")
+theme_override_icons/grabber_highlight = SubResource("GradientTexture2D_pga6c")
+theme_override_icons/grabber_disabled = SubResource("GradientTexture2D_tmb5m")
+theme_override_icons/tick = SubResource("GradientTexture2D_1p1tj")
+tick_count = 10
+ticks_on_borders = true
+
+[node name="HBoxContainer" type="HBoxContainer" parent="ListContainer/ButtonContainer/HBoxContainer/MarginContainer" unique_id=1788283732]
+layout_mode = 2
+size_flags_vertical = 0
+
+[node name="OptionName" type="RichTextLabel" parent="ListContainer/ButtonContainer/HBoxContainer/MarginContainer/HBoxContainer" unique_id=844501328]
+custom_minimum_size = Vector2(96, 32)
+layout_mode = 2
+size_flags_vertical = 0
+text = "volume."
+
+[node name="OptionValue" type="RichTextLabel" parent="ListContainer/ButtonContainer/HBoxContainer/MarginContainer/HBoxContainer" unique_id=614228028]
+custom_minimum_size = Vector2(96, 32)
+layout_mode = 2
+size_flags_vertical = 0
+text = "100"

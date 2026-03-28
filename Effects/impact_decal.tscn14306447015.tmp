@@ -1,0 +1,28 @@
+[gd_scene format=3 uid="uid://ph763b2s41br"]
+
+[ext_resource type="Texture2D" uid="uid://cuo7pofrwhtww" path="res://Effects/impactNormal.png" id="2_nurtl"]
+[ext_resource type="Script" uid="uid://cscqy4riv6c4r" path="res://Effects/impact_decal.gd" id="2_uy1hs"]
+[ext_resource type="Texture2D" uid="uid://e5c304s7i4i3" path="res://Effects/impactEmiss.png" id="2_y7s31"]
+
+[sub_resource type="Gradient" id="Gradient_q2bol"]
+offsets = PackedFloat32Array(1)
+colors = PackedColorArray(1, 1, 1, 1)
+
+[sub_resource type="GradientTexture1D" id="GradientTexture1D_orj45"]
+gradient = SubResource("Gradient_q2bol")
+
+[node name="ImpactDecal" type="Decal" unique_id=1598431512]
+transform = Transform3D(0.999966, 0, 0, 0, 0.9999999, 0, 0, 0, 0.999966, 0, 0, 0)
+size = Vector3(1, 0.25, 1)
+texture_albedo = SubResource("GradientTexture1D_orj45")
+texture_normal = ExtResource("2_nurtl")
+texture_emission = ExtResource("2_y7s31")
+emission_energy = 8.0
+modulate = Color(1, 0.82, 0.7, 1)
+albedo_mix = 0.0
+normal_fade = 0.999
+script = ExtResource("2_uy1hs")
+
+[node name="RayCast3D" type="RayCast3D" parent="." unique_id=2123764386]
+target_position = Vector3(0, -0.5, 0)
+hit_from_inside = true

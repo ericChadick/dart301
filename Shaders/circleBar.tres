@@ -4,13 +4,13 @@
 
 [resource]
 shader = ExtResource("1_le4k1")
-shader_parameter/progress = 0.8990000427025
-shader_parameter/ring_thickness = 0.25000001117647996
-shader_parameter/ring_radius = 0.25000000861512
+shader_parameter/progress = 1.0
+shader_parameter/ring_thickness = 0.08400000329148
+shader_parameter/ring_radius = 0.36800001422012
 shader_parameter/progress_color = Color(1, 1, 1, 1)
 shader_parameter/background_color = Color(0, 0, 0, 0)
 shader_parameter/gradient_color = Color(1, 1, 1, 1)
-shader_parameter/smoothness = 0.0130000006175
+shader_parameter/smoothness = 0.0010000000475
 shader_parameter/gradient_strength = 0.5
 shader_parameter/use_gradient = true
 shader_parameter/rotation_offset = 3.14000014915

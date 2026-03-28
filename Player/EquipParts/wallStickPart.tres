@@ -3,6 +3,7 @@
 [ext_resource type="Texture2D" uid="uid://ckqn4iob45oxu" path="res://UI/UpgradeMenu/Icons/partTestHighlight.png" id="1_d2hwa"]
 [ext_resource type="Script" uid="uid://6k7ini2cimkq" path="res://Player/EquipParts/equipPart.gd" id="1_jav2e"]
 [ext_resource type="Texture2D" uid="uid://0phkmtbb1dyv" path="res://UI/UpgradeMenu/Icons/partTestIcon.png" id="2_oqofm"]
+[ext_resource type="PackedScene" uid="uid://dbbikp3umm1u3" path="res://Player/EquipWeapons/Models/weapon_model_empty.tscn" id="3_cni7b"]
 [ext_resource type="Texture2D" uid="uid://g7sdh65h7q80" path="res://UI/UpgradeMenu/Icons/partTestSelect.png" id="3_eawjy"]
 
 [sub_resource type="AtlasTexture" id="AtlasTexture_ew4dk"]
@@ -25,4 +26,8 @@ partIcon = SubResource("AtlasTexture_jmane")
 partHighlightTexture = SubResource("AtlasTexture_ew4dk")
 partSelectedTexture = SubResource("AtlasTexture_ky7xp")
 partMenuOffset = Vector2(319, 296)
+partMenuModel = ExtResource("3_cni7b")
+partMenuPosition = Vector3(0.12252164, 0.6473366, -0.044220924)
+partMenuRotation = Vector3(0, 0, -1.3420534)
+partMenuScale = Vector3(0.1, 0.1, 0.1)
 metadata/_custom_type_script = "uid://6k7ini2cimkq"

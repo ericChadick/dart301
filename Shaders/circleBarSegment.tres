@@ -20,3 +20,4 @@ shader_parameter/rotation = 0.25000005937500003
 shader_parameter/progress_rotation = 0.3330000633174999
 shader_parameter/gradient = SubResource("GradientTexture2D_63kgm")
 shader_parameter/use_value_gradient = true
+shader_parameter/alpha = 1.0

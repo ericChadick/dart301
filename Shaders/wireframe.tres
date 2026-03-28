@@ -1,0 +1,20 @@
+[gd_resource type="ShaderMaterial" format=3 uid="uid://cuu8bpygtdto2"]
+
+[ext_resource type="Shader" uid="uid://bsg47ex6gbnvm" path="res://Shaders/wireframe.gdshader" id="1_b0p2v"]
+[ext_resource type="NoiseTexture3D" uid="uid://cqnwr2vnpvlwl" path="res://Shaders/noise3D.tres" id="2_166k5"]
+
+[resource]
+render_priority = 0
+shader = ExtResource("1_b0p2v")
+shader_parameter/wireframe_color = Color(1, 1, 1, 1)
+shader_parameter/shake_power = 0.02
+shader_parameter/shake_rate = 0.5
+shader_parameter/shake_speed = 5.0
+shader_parameter/shake_block_size = 25.0
+shader_parameter/spin_enabled = false
+shader_parameter/spin_speed = 1.0
+shader_parameter/spin_axis = 1
+shader_parameter/wobble_enabled = true
+shader_parameter/wobble_amount = 0.03
+shader_parameter/wobble_speed = 2.0
+shader_parameter/vertRemoveTex = ExtResource("2_166k5")

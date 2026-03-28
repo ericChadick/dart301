@@ -29,9 +29,11 @@ gradient = SubResource("Gradient_22kuo")
 atlas = ExtResource("3_22kuo")
 
 [node name="WeaponLoadoutSlot" type="TextureButton" unique_id=1679960337]
-custom_minimum_size = Vector2(128, 128)
-offset_right = 128.0
-offset_bottom = 128.0
+custom_minimum_size = Vector2(96, 64)
+offset_right = 64.0
+offset_bottom = 64.0
+size_flags_horizontal = 0
+size_flags_vertical = 0
 texture_normal = SubResource("GradientTexture2D_qjbtg")
 texture_pressed = SubResource("GradientTexture2D_22kuo")
 texture_hover = SubResource("GradientTexture2D_qwy0w")
@@ -49,3 +51,4 @@ grow_horizontal = 2
 grow_vertical = 2
 texture = SubResource("AtlasTexture_f0y28")
 expand_mode = 1
+stretch_mode = 5

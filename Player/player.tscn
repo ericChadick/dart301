@@ -4,6 +4,7 @@
 [ext_resource type="PackedScene" uid="uid://dcq4u4hsq0jim" path="res://Effects/hit_particles.tscn" id="2_gwnis"]
 [ext_resource type="AudioStream" uid="uid://cckkey6se7c0o" path="res://Audio/Player/robotShoot1.wav" id="3_btcbx"]
 [ext_resource type="AudioStream" uid="uid://eig5vaq87den" path="res://Audio/Player/player_takingdamage.wav" id="3_fhl08"]
+[ext_resource type="PackedScene" uid="uid://c4slt2w6meqmb" path="res://Player/CordArm/cord_arm_test.tscn" id="3_pisgm"]
 [ext_resource type="AudioStream" uid="uid://srd73yumjpfs" path="res://Audio/Player/player_footsteps_v1.wav" id="4_vtle1"]
 [ext_resource type="AudioStream" uid="uid://mw7sm40yjyft" path="res://Audio/Player/player_footsteps_v2.wav" id="5_od3ui"]
 [ext_resource type="AudioStream" uid="uid://b4yd4581pueuc" path="res://Audio/Player/player_charginghum.wav" id="7_vtle1"]
@@ -14,7 +15,6 @@
 [ext_resource type="AudioStream" uid="uid://2s3bfvs0fusv" path="res://Audio/Player/robotPunch.wav" id="12_5htga"]
 [ext_resource type="AudioStream" uid="uid://33q7i74dhbfn" path="res://Audio/Player/robotJump.wav" id="13_gu6f8"]
 [ext_resource type="AudioStream" uid="uid://dhh1c2ig825e7" path="res://Audio/Player/robotLand.wav" id="14_dkpta"]
-[ext_resource type="PackedScene" uid="uid://cqa3uexvcxuc4" path="res://Player/IsaacProtagArmAnim.glb" id="15_dkpta"]
 [ext_resource type="AudioStream" uid="uid://bbtm1c2dalc6f" path="res://Audio/Player/glasscrack.wav" id="16_lfmf2"]
 
 [sub_resource type="CapsuleShape3D" id="CapsuleShape3D_4ntmi"]
@@ -225,13 +225,8 @@ transform = Transform3D(0.9999999, 0, 2.9802322e-08, 4.4703484e-08, 1.0000004, -
 mesh = SubResource("CylinderMesh_od3ui")
 skeleton = NodePath("../../../CordHandAnimations")
 
-[node name="IsaacProtagArmAnim" parent="Head" unique_id=485485338 instance=ExtResource("15_dkpta")]
-transform = Transform3D(-0.04455945, -0.46692014, -1.1586633, 1.0185311, 0.6576875, -0.3042064, 0.72326255, -0.95495194, 0.35701317, 1.1592337, -0.92315227, 0.09051019)
-visible = false
-
-[node name="IsaacProtagArmAnim2" parent="Head" unique_id=311115104 instance=ExtResource("15_dkpta")]
-transform = Transform3D(0.6330295, 0.28104, 1.0405724, 0.87370694, 0.5728903, -0.68624556, 0.63119686, -1.0748549, -0.09368784, -1.0231236, -0.8043887, 0.17131811)
-visible = false
+[node name="cordArmTest" parent="Head" unique_id=456992930 instance=ExtResource("3_pisgm")]
+transform = Transform3D(-0.25, 0, -3.774895e-08, 0, 0.25, 0, 3.774895e-08, 0, -0.25, 0.1368101, -0.7773359, 0.4642597)
 
 [node name="Cord" type="MeshInstance3D" parent="." unique_id=1405577659]
 mesh = SubResource("CapsuleMesh_4ntmi")

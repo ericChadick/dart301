@@ -1,0 +1,134 @@
+[gd_scene format=3 uid="uid://db5a8n3l5x6jc"]
+
+[ext_resource type="Texture2D" uid="uid://dw8uyl4ug2yen" path="res://UI/UpgradeMenu/Icons/bulletIcon.png" id="1_o4ygd"]
+[ext_resource type="Script" uid="uid://d1y1fi4mtg8lw" path="res://UI/UpgradeMenu/WeaponLoadout/weapon_stat_container.gd" id="1_t0y4t"]
+[ext_resource type="Resource" uid="uid://b70etp772do5m" path="res://Player/EquipWeapons/weaponEmpty.tres" id="2_vdmx3"]
+[ext_resource type="Texture2D" uid="uid://dravgircq7nmh" path="res://UI/UpgradeMenu/Icons/arrowUp.png" id="3_t0y4t"]
+[ext_resource type="Texture2D" uid="uid://glhwy7h5wv6y" path="res://UI/UpgradeMenu/Icons/arrowRight.png" id="3_wxv32"]
+
+[sub_resource type="StyleBoxFlat" id="StyleBoxFlat_214f0"]
+bg_color = Color(0, 0, 0, 0)
+border_width_left = 2
+border_width_top = 2
+border_width_right = 2
+border_width_bottom = 2
+border_color = Color(1, 1, 1, 1)
+
+[sub_resource type="StyleBoxFlat" id="StyleBoxFlat_o4ygd"]
+bg_color = Color(1, 1, 1, 1)
+
+[sub_resource type="StyleBoxFlat" id="StyleBoxFlat_q4esy"]
+bg_color = Color(0.6, 0.6, 0.6, 0)
+
+[sub_resource type="StyleBoxFlat" id="StyleBoxFlat_t0y4t"]
+bg_color = Color(1, 1, 1, 1)
+
+[sub_resource type="Gradient" id="Gradient_o4ygd"]
+offsets = PackedFloat32Array(1)
+colors = PackedColorArray(1, 1, 1, 1)
+
+[sub_resource type="GradientTexture2D" id="GradientTexture2D_q4esy"]
+gradient = SubResource("Gradient_o4ygd")
+fill_from = Vector2(1, 1)
+
+[node name="WeaponStatContainer" type="MarginContainer" unique_id=100033575]
+custom_minimum_size = Vector2(216, 32)
+offset_right = 216.0
+offset_bottom = 32.0
+size_flags_vertical = 0
+script = ExtResource("1_t0y4t")
+weaponType = ExtResource("2_vdmx3")
+
+[node name="DisplayStats" type="HBoxContainer" parent="." unique_id=1311145116]
+layout_mode = 2
+size_flags_horizontal = 0
+size_flags_vertical = 0
+
+[node name="StatIcon" type="TextureRect" parent="DisplayStats" unique_id=1404427892]
+custom_minimum_size = Vector2(18, 18)
+layout_mode = 2
+size_flags_vertical = 0
+texture = ExtResource("1_o4ygd")
+expand_mode = 1
+stretch_mode = 5
+
+[node name="StatBar" type="ProgressBar" parent="DisplayStats" unique_id=1016468343]
+custom_minimum_size = Vector2(96, 12)
+layout_mode = 2
+size_flags_vertical = 4
+theme_override_styles/background = SubResource("StyleBoxFlat_214f0")
+theme_override_styles/fill = SubResource("StyleBoxFlat_o4ygd")
+max_value = 1.0
+value = 0.5
+show_percentage = false
+
+[node name="PreviewBar" type="ProgressBar" parent="DisplayStats/StatBar" unique_id=1420372443]
+modulate = Color(0.72, 0.72, 0.72, 1)
+show_behind_parent = true
+layout_mode = 1
+anchors_preset = 15
+anchor_right = 1.0
+anchor_bottom = 1.0
+grow_horizontal = 2
+grow_vertical = 2
+size_flags_vertical = 4
+theme_override_styles/background = SubResource("StyleBoxFlat_q4esy")
+theme_override_styles/fill = SubResource("StyleBoxFlat_t0y4t")
+max_value = 1.0
+value = 0.6
+show_percentage = false
+
+[node name="SliderPoint" type="TextureRect" parent="DisplayStats/StatBar" unique_id=1506734967]
+visible = false
+custom_minimum_size = Vector2(3, 18)
+layout_mode = 1
+offset_left = 76.0
+offset_top = -3.0
+offset_right = 79.0
+offset_bottom = 15.0
+pivot_offset_ratio = Vector2(0.5, 0.5)
+texture = SubResource("GradientTexture2D_q4esy")
+expand_mode = 1
+
+[node name="StatValue" type="RichTextLabel" parent="DisplayStats" unique_id=1891216324]
+custom_minimum_size = Vector2(32, 24)
+layout_mode = 2
+size_flags_vertical = 8
+theme_override_font_sizes/normal_font_size = 12
+text = "2.25"
+horizontal_alignment = 2
+vertical_alignment = 1
+
+[node name="UpgradeNewIcon" type="TextureRect" parent="DisplayStats" unique_id=86881147]
+custom_minimum_size = Vector2(16, 16)
+layout_mode = 2
+size_flags_horizontal = 0
+size_flags_vertical = 4
+texture = ExtResource("3_wxv32")
+expand_mode = 1
+stretch_mode = 5
+
+[node name="StatNewValue" type="RichTextLabel" parent="DisplayStats" unique_id=1491304040]
+custom_minimum_size = Vector2(32, 24)
+layout_mode = 2
+size_flags_vertical = 8
+theme_override_font_sizes/normal_font_size = 12
+text = "3.5"
+vertical_alignment = 1
+
+[node name="UpgradeDifferenceIcon" type="TextureRect" parent="DisplayStats" unique_id=1011111592]
+visible = false
+custom_minimum_size = Vector2(16, 16)
+layout_mode = 2
+size_flags_vertical = 4
+texture = ExtResource("3_t0y4t")
+expand_mode = 1
+stretch_mode = 5
+
+[node name="DottedLine" type="RichTextLabel" parent="." unique_id=257999298]
+custom_minimum_size = Vector2(0, 24)
+layout_mode = 2
+size_flags_vertical = 8
+text = "_ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ "
+scroll_active = false
+vertical_alignment = 2

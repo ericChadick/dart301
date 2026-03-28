@@ -2,17 +2,19 @@
 
 [ext_resource type="Script" uid="uid://cva4a1spk4wog" path="res://Enemies/Shooter/shooter_bot_enemy.gd" id="1_4cib8"]
 [ext_resource type="PackedScene" uid="uid://dk7ntspwc4iau" path="res://Enemies/Shooter/shooter_botMod.tscn" id="1_70lhc"]
+[ext_resource type="Resource" uid="uid://cmyyygkipgxjf" path="res://Enemies/Shooter/shooterType.tres" id="2_528an"]
 [ext_resource type="PackedScene" uid="uid://dcq4u4hsq0jim" path="res://Effects/hit_particles.tscn" id="3_dd47s"]
 
 [sub_resource type="CapsuleShape3D" id="CapsuleShape3D_70lhc"]
-radius = 0.24
-height = 0.9
+radius = 1.25
+height = 3.6
 
-[node name="ShooterBotEnemy" type="CharacterBody3D" unique_id=264643836]
+[node name="ShooterBotEnemy" type="CharacterBody3D" unique_id=264643836 groups=["character", "enemy"]]
 script = ExtResource("1_4cib8")
+enemyClass = ExtResource("2_528an")
 
 [node name="CollisionShape3D" type="CollisionShape3D" parent="." unique_id=345365307]
-transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 0.45205688, 0)
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 1.8447328, 0)
 shape = SubResource("CapsuleShape3D_70lhc")
 
 [node name="shooterBot" parent="." unique_id=1414694198 instance=ExtResource("1_70lhc")]

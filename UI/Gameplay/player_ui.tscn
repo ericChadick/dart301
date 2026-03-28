@@ -1,19 +1,22 @@
 [gd_scene format=3 uid="uid://dckfnquaidfil"]
 
+[ext_resource type="Script" uid="uid://dieaed47d8eul" path="res://UI/Gameplay/player_ui.gd" id="1_8x6xp"]
 [ext_resource type="Texture2D" uid="uid://fcmbc0c6wtwk" path="res://UI/Gameplay/power.png" id="1_kwigr"]
 [ext_resource type="Material" uid="uid://f4lyx4wwc4mt" path="res://Shaders/circleBar.tres" id="2_b8q8m"]
-[ext_resource type="Texture2D" uid="uid://bqtmruylxcp8e" path="res://UI/Gameplay/gear.png" id="2_ccqt3"]
 [ext_resource type="Material" uid="uid://b4twqiatupndb" path="res://Shaders/circleBarSegment.tres" id="2_qb4e8"]
-[ext_resource type="Texture2D" uid="uid://diu4t01qg1wt5" path="res://UI/Gameplay/battery.png" id="2_xmsn8"]
 [ext_resource type="Shader" uid="uid://nxgas4tlbxqo" path="res://Shaders/progressBarSegment.gdshader" id="3_16ylj"]
 [ext_resource type="Texture2D" uid="uid://dw8uyl4ug2yen" path="res://UI/UpgradeMenu/Icons/bulletIcon.png" id="4_2s0w1"]
-[ext_resource type="Texture2D" uid="uid://d1wj28snqsa6y" path="res://UI/Gameplay/outletCrosshair.png" id="5_8w2om"]
 [ext_resource type="Texture2D" uid="uid://d1qoe4pt0ko7u" path="res://UI/UpgradeMenu/Icons/arrows.png" id="5_63kgm"]
 [ext_resource type="FontFile" uid="uid://b5iu436di81lx" path="res://UI/Gameplay/propaganda.ttf" id="5_qf5vc"]
 [ext_resource type="Shader" uid="uid://5vmrpeqx5scg" path="res://Shaders/circleBarSegment.gdshader" id="6_dnxry"]
+[ext_resource type="Texture2D" uid="uid://sx4l0hvsdhfg" path="res://Player/EquipWeapons/Icons/gunIcon.png" id="8_1bgqv"]
 [ext_resource type="Shader" uid="uid://dvp31qmvkfe0v" path="res://Shaders/glitch.gdshader" id="10_qb4e8"]
+[ext_resource type="PackedScene" uid="uid://c4yothiowxlh0" path="res://UI/MainMenu/menu_button.tscn" id="11_63kgm"]
 [ext_resource type="Material" uid="uid://g0eihtw4spff" path="res://Shaders/screenMat.tres" id="11_fwocb"]
+[ext_resource type="Texture2D" uid="uid://6i55omlplija" path="res://UI/Gameplay/skullIcon.png" id="12_rdoqj"]
 [ext_resource type="Texture2D" uid="uid://dlxfdu00bcus5" path="res://UI/UpgradeMenu/Icons/plugIcon.png" id="12_rvkn8"]
+[ext_resource type="Shader" uid="uid://cwnx73hbxifrt" path="res://Shaders/outlineDotted.gdshader" id="13_1bgqv"]
+[ext_resource type="Texture2D" uid="uid://db6po26ywpgg1" path="res://UI/UpgradeMenu/EquipParts/gridSelect.png" id="13_8x6xp"]
 
 [sub_resource type="Gradient" id="Gradient_dnxry"]
 colors = PackedColorArray(1, 0.26666665, 0, 0.47058824, 1, 0.48333335, 0, 0)
@@ -21,17 +24,6 @@ colors = PackedColorArray(1, 0.26666665, 0, 0.47058824, 1, 0.48333335, 0, 0)
 [sub_resource type="GradientTexture2D" id="GradientTexture2D_16ylj"]
 gradient = SubResource("Gradient_dnxry")
 fill_to = Vector2(0, 1)
-
-[sub_resource type="ShaderMaterial" id="ShaderMaterial_8x6xp"]
-shader = ExtResource("3_16ylj")
-shader_parameter/stepify = false
-shader_parameter/value = 0.5630000267425
-shader_parameter/count = 6
-shader_parameter/margin = Vector2(0.05, 0)
-shader_parameter/shear_angle = 0.0
-shader_parameter/use_value_gradient = false
-shader_parameter/invert = false
-shader_parameter/alpha = 1.0
 
 [sub_resource type="Gradient" id="Gradient_rdoqj"]
 
@@ -41,11 +33,30 @@ gradient = SubResource("Gradient_rdoqj")
 [sub_resource type="ShaderMaterial" id="ShaderMaterial_63kgm"]
 shader = ExtResource("3_16ylj")
 shader_parameter/stepify = false
+shader_parameter/value = 0.800000038
+shader_parameter/count = 10
+shader_parameter/margin = Vector2(0.1, 0.2)
+shader_parameter/shear_angle = -0.02499995368749996
+shader_parameter/gradient_x = SubResource("GradientTexture1D_v8w1e")
+shader_parameter/use_value_gradient = true
+shader_parameter/invert = false
+shader_parameter/alpha = 1.0
+
+[sub_resource type="Gradient" id="Gradient_v8w1e"]
+offsets = PackedFloat32Array(0)
+colors = PackedColorArray(1, 0, 0, 1)
+
+[sub_resource type="GradientTexture1D" id="GradientTexture1D_ywnah"]
+gradient = SubResource("Gradient_v8w1e")
+
+[sub_resource type="ShaderMaterial" id="ShaderMaterial_onej3"]
+shader = ExtResource("3_16ylj")
+shader_parameter/stepify = false
 shader_parameter/value = 1.0
 shader_parameter/count = 10
 shader_parameter/margin = Vector2(0.1, 0.2)
-shader_parameter/shear_angle = -0.024999953687499965
-shader_parameter/gradient_x = SubResource("GradientTexture1D_v8w1e")
+shader_parameter/shear_angle = -0.02499995368749996
+shader_parameter/gradient_y = SubResource("GradientTexture1D_ywnah")
 shader_parameter/use_value_gradient = true
 shader_parameter/invert = false
 shader_parameter/alpha = 1.0
@@ -75,11 +86,30 @@ gradient = SubResource("Gradient_1bgqv")
 [sub_resource type="ShaderMaterial" id="ShaderMaterial_2s0w1"]
 shader = ExtResource("3_16ylj")
 shader_parameter/stepify = false
+shader_parameter/value = 0.800000038
+shader_parameter/count = 2
+shader_parameter/margin = Vector2(0.05, 0.3)
+shader_parameter/shear_angle = -0.04999995487499997
+shader_parameter/gradient_y = SubResource("GradientTexture1D_8x6xp")
+shader_parameter/use_value_gradient = true
+shader_parameter/invert = false
+shader_parameter/alpha = 1.0
+
+[sub_resource type="Gradient" id="Gradient_ywnah"]
+offsets = PackedFloat32Array(0)
+colors = PackedColorArray(1, 0.11764706, 0, 1)
+
+[sub_resource type="GradientTexture1D" id="GradientTexture1D_onej3"]
+gradient = SubResource("Gradient_ywnah")
+
+[sub_resource type="ShaderMaterial" id="ShaderMaterial_2ixty"]
+shader = ExtResource("3_16ylj")
+shader_parameter/stepify = false
 shader_parameter/value = 1.0
 shader_parameter/count = 2
 shader_parameter/margin = Vector2(0.05, 0.3)
-shader_parameter/shear_angle = -0.049999954874999974
-shader_parameter/gradient_y = SubResource("GradientTexture1D_8x6xp")
+shader_parameter/shear_angle = -0.04999995487499997
+shader_parameter/gradient_y = SubResource("GradientTexture1D_onej3")
 shader_parameter/use_value_gradient = true
 shader_parameter/invert = false
 shader_parameter/alpha = 1.0
@@ -97,37 +127,44 @@ expand_margin_top = 6.0
 expand_margin_right = 6.0
 expand_margin_bottom = 6.0
 
-[sub_resource type="Gradient" id="Gradient_16ylj"]
-
-[sub_resource type="GradientTexture2D" id="GradientTexture2D_2s0w1"]
-gradient = SubResource("Gradient_16ylj")
-width = 128
-
 [sub_resource type="StyleBoxFlat" id="StyleBoxFlat_16ylj"]
 bg_color = Color(0, 0, 0, 1)
 
 [sub_resource type="StyleBoxFlat" id="StyleBoxFlat_2s0w1"]
 bg_color = Color(1, 1, 1, 1)
 
-[sub_resource type="StyleBoxFlat" id="StyleBoxFlat_8w2om"]
-bg_color = Color(0, 0, 0, 0.39215687)
-corner_radius_top_left = 2
-corner_radius_top_right = 2
-corner_radius_bottom_right = 2
-corner_radius_bottom_left = 6
-expand_margin_left = 8.0
-expand_margin_top = 8.0
-expand_margin_right = 8.0
-expand_margin_bottom = 8.0
+[sub_resource type="Gradient" id="Gradient_63kgm"]
+offsets = PackedFloat32Array(1)
+colors = PackedColorArray(1, 1, 1, 1)
 
-[sub_resource type="StyleBoxFlat" id="StyleBoxFlat_xmsn8"]
-bg_color = Color(1, 1, 1, 1)
-border_blend = true
-corner_radius_top_left = 6
-corner_radius_top_right = 6
-corner_radius_bottom_right = 6
-corner_radius_bottom_left = 6
-corner_detail = 1
+[sub_resource type="GradientTexture2D" id="GradientTexture2D_1bgqv"]
+gradient = SubResource("Gradient_63kgm")
+
+[sub_resource type="ShaderMaterial" id="ShaderMaterial_rdoqj"]
+shader = ExtResource("6_dnxry")
+shader_parameter/value = 1.0
+shader_parameter/segments = 0
+shader_parameter/radius = 0.36
+shader_parameter/hollow_radius = 0.31
+shader_parameter/margin = 0.2010000095475
+shader_parameter/rotation = 0.286000061085
+shader_parameter/progress_rotation = 0.3330000633174999
+shader_parameter/gradient = SubResource("GradientTexture2D_1bgqv")
+shader_parameter/use_value_gradient = true
+shader_parameter/alpha = 1.0
+
+[sub_resource type="ShaderMaterial" id="ShaderMaterial_16ylj"]
+shader = ExtResource("6_dnxry")
+shader_parameter/value = 1.0
+shader_parameter/segments = 4
+shader_parameter/radius = 0.32
+shader_parameter/hollow_radius = 0.29
+shader_parameter/margin = 0.2570000122075
+shader_parameter/rotation = 0.5030000713925
+shader_parameter/progress_rotation = 0.3330000633174999
+shader_parameter/gradient = SubResource("GradientTexture2D_1bgqv")
+shader_parameter/use_value_gradient = true
+shader_parameter/alpha = 1.0
 
 [sub_resource type="Gradient" id="Gradient_2s0w1"]
 offsets = PackedFloat32Array(0)
@@ -138,7 +175,7 @@ gradient = SubResource("Gradient_2s0w1")
 
 [sub_resource type="ShaderMaterial" id="ShaderMaterial_1bgqv"]
 shader = ExtResource("6_dnxry")
-shader_parameter/value = 0.7310000347225
+shader_parameter/value = 0.8110000385225
 shader_parameter/segments = 3
 shader_parameter/radius = 0.475
 shader_parameter/hollow_radius = 0.375
@@ -158,7 +195,7 @@ gradient = SubResource("Gradient_8x6xp")
 
 [sub_resource type="ShaderMaterial" id="ShaderMaterial_v8w1e"]
 shader = ExtResource("6_dnxry")
-shader_parameter/value = 0.3330000158175
+shader_parameter/value = 0.7530000357675
 shader_parameter/segments = 3
 shader_parameter/radius = 0.475
 shader_parameter/hollow_radius = 0.375
@@ -169,25 +206,73 @@ shader_parameter/gradient = SubResource("GradientTexture2D_rdoqj")
 shader_parameter/use_value_gradient = true
 shader_parameter/alpha = 1.0
 
-[sub_resource type="Gradient" id="Gradient_63kgm"]
+[sub_resource type="ShaderMaterial" id="ShaderMaterial_8x6xp"]
+shader = ExtResource("3_16ylj")
+shader_parameter/stepify = false
+shader_parameter/value = 0.5630000267425
+shader_parameter/count = 6
+shader_parameter/margin = Vector2(0.05, 0)
+shader_parameter/shear_angle = 0.0
+shader_parameter/use_value_gradient = false
+shader_parameter/invert = false
+shader_parameter/alpha = 1.0
+
+[sub_resource type="Gradient" id="Gradient_o6p4t"]
 offsets = PackedFloat32Array(1)
-colors = PackedColorArray(0, 0, 0, 1)
+colors = PackedColorArray(1, 0.20000005, 0, 1)
 
-[sub_resource type="GradientTexture2D" id="GradientTexture2D_1bgqv"]
-gradient = SubResource("Gradient_63kgm")
+[sub_resource type="GradientTexture1D" id="GradientTexture1D_nmeci"]
+gradient = SubResource("Gradient_o6p4t")
 
-[sub_resource type="ShaderMaterial" id="ShaderMaterial_16ylj"]
-shader = ExtResource("6_dnxry")
+[sub_resource type="ShaderMaterial" id="ShaderMaterial_m4574"]
+shader = ExtResource("3_16ylj")
+shader_parameter/stepify = true
 shader_parameter/value = 1.0
-shader_parameter/segments = 3
-shader_parameter/radius = 0.45
-shader_parameter/hollow_radius = 0.3
-shader_parameter/margin = 0.1200000057
-shader_parameter/rotation = 0.25000005937500003
-shader_parameter/progress_rotation = 0.3330000633174999
-shader_parameter/gradient = SubResource("GradientTexture2D_1bgqv")
+shader_parameter/count = 32
+shader_parameter/margin = Vector2(0.1, 0.2)
+shader_parameter/shear_angle = 0.03000004892500007
+shader_parameter/gradient_y = SubResource("GradientTexture1D_nmeci")
 shader_parameter/use_value_gradient = true
-shader_parameter/alpha = 0.250000011875
+shader_parameter/invert = false
+shader_parameter/alpha = 1.0
+
+[sub_resource type="StyleBoxFlat" id="StyleBoxFlat_v8w1e"]
+bg_color = Color(0, 0, 0, 0)
+skew = Vector2(-0.3, 0)
+border_width_left = 6
+border_width_top = 6
+border_width_right = 6
+border_width_bottom = 6
+border_color = Color(1, 1, 1, 1)
+expand_margin_left = 6.0
+expand_margin_top = 6.0
+expand_margin_right = 6.0
+expand_margin_bottom = 6.0
+
+[sub_resource type="StyleBoxEmpty" id="StyleBoxEmpty_rdoqj"]
+
+[sub_resource type="Gradient" id="Gradient_2ixty"]
+offsets = PackedFloat32Array(0)
+colors = PackedColorArray(0, 0, 0, 0.39215687)
+
+[sub_resource type="GradientTexture1D" id="GradientTexture1D_o6p4t"]
+gradient = SubResource("Gradient_2ixty")
+
+[sub_resource type="ShaderMaterial" id="ShaderMaterial_ywnah"]
+shader = ExtResource("13_1bgqv")
+shader_parameter/rotation_speed = 0.3
+shader_parameter/stripes = 16.0
+shader_parameter/stripe_width = 0.5
+shader_parameter/outline_color = Color(1, 1, 1, 1)
+
+[sub_resource type="Gradient" id="Gradient_onej3"]
+offsets = PackedFloat32Array(0.8, 0.94545454)
+colors = PackedColorArray(1, 1, 1, 1, 1, 1, 1, 0)
+
+[sub_resource type="GradientTexture2D" id="GradientTexture2D_2ixty"]
+gradient = SubResource("Gradient_onej3")
+fill = 2
+fill_from = Vector2(0.5, 0.5)
 
 [sub_resource type="ShaderMaterial" id="ShaderMaterial_dnxry"]
 shader = ExtResource("10_qb4e8")
@@ -198,6 +283,8 @@ shader_parameter/shake_block_size = 30.5
 shader_parameter/shake_color_rate = 0.01
 
 [node name="PlayerUI" type="CanvasLayer" unique_id=883918654]
+process_mode = 3
+script = ExtResource("1_8x6xp")
 
 [node name="Control" type="Control" parent="." unique_id=1080771731]
 layout_mode = 3
@@ -239,52 +326,6 @@ text = "100100011001000110010000011001001001000110100101010010001100100011001000
 horizontal_alignment = 1
 vertical_alignment = 1
 
-[node name="BlueprintContainer" type="MarginContainer" parent="Control" unique_id=1155938574]
-layout_mode = 1
-anchors_preset = 8
-anchor_left = 0.5
-anchor_top = 0.5
-anchor_right = 0.5
-anchor_bottom = 0.5
-offset_left = 187.0
-offset_top = -374.0
-offset_right = 699.0
-offset_bottom = 417.0
-grow_horizontal = 2
-grow_vertical = 2
-
-[node name="VBoxContainer" type="VBoxContainer" parent="Control/BlueprintContainer" unique_id=867597271]
-layout_mode = 2
-size_flags_horizontal = 4
-theme_override_constants/separation = 6
-
-[node name="BlueprintText" type="RichTextLabel" parent="Control/BlueprintContainer/VBoxContainer" unique_id=1726145664]
-custom_minimum_size = Vector2(512, 64)
-layout_mode = 2
-size_flags_horizontal = 0
-theme_override_fonts/normal_font = ExtResource("5_qf5vc")
-theme_override_font_sizes/normal_font_size = 24
-text = "Uploading blast.wpn...
-Uploading wallbst.prt..."
-horizontal_alignment = 2
-vertical_alignment = 2
-
-[node name="BlueprintBar" type="ColorRect" parent="Control/BlueprintContainer/VBoxContainer" unique_id=1400962827]
-material = SubResource("ShaderMaterial_8x6xp")
-custom_minimum_size = Vector2(360, 36)
-layout_mode = 2
-size_flags_horizontal = 8
-
-[node name="BlueprintDot" type="RichTextLabel" parent="Control/BlueprintContainer/VBoxContainer" unique_id=131536328]
-custom_minimum_size = Vector2(512, 24)
-layout_mode = 2
-size_flags_horizontal = 0
-theme_override_fonts/normal_font = ExtResource("5_qf5vc")
-theme_override_font_sizes/normal_font_size = 24
-bbcode_enabled = true
-text = " - - - - - - - - - - - - - - - - - "
-horizontal_alignment = 2
-
 [node name="MarginContainer" type="MarginContainer" parent="Control" unique_id=1455631786]
 layout_mode = 1
 anchors_preset = 15
@@ -293,12 +334,13 @@ anchor_bottom = 1.0
 grow_horizontal = 2
 grow_vertical = 2
 theme_override_constants/margin_left = 256
-theme_override_constants/margin_top = 192
+theme_override_constants/margin_top = 164
 theme_override_constants/margin_right = 256
-theme_override_constants/margin_bottom = 192
+theme_override_constants/margin_bottom = 164
 
 [node name="StatBars" type="VBoxContainer" parent="Control/MarginContainer" unique_id=2047396080]
 layout_mode = 2
+size_flags_horizontal = 4
 size_flags_vertical = 0
 theme_override_constants/separation = 48
 
@@ -306,6 +348,18 @@ theme_override_constants/separation = 48
 material = SubResource("ShaderMaterial_63kgm")
 custom_minimum_size = Vector2(320, 48)
 layout_mode = 2
+size_flags_horizontal = 4
+
+[node name="ReloadPreview" type="ColorRect" parent="Control/MarginContainer/StatBars/BatteryBar" unique_id=1159818645]
+z_index = -1
+material = SubResource("ShaderMaterial_onej3")
+custom_minimum_size = Vector2(320, 48)
+layout_mode = 1
+anchors_preset = 15
+anchor_right = 1.0
+anchor_bottom = 1.0
+grow_horizontal = 2
+grow_vertical = 2
 size_flags_horizontal = 4
 
 [node name="Back" type="ProgressBar" parent="Control/MarginContainer/StatBars/BatteryBar" unique_id=726921707]
@@ -336,6 +390,18 @@ grow_horizontal = 2
 grow_vertical = 2
 size_flags_horizontal = 4
 
+[node name="ReloadPreview" type="ColorRect" parent="Control/MarginContainer/StatBars/BatteryBar/OutletBar" unique_id=1991009617]
+z_index = -1
+material = SubResource("ShaderMaterial_2ixty")
+custom_minimum_size = Vector2(256, 24)
+layout_mode = 1
+anchors_preset = 15
+anchor_right = 1.0
+anchor_bottom = 1.0
+grow_horizontal = 2
+grow_vertical = 2
+size_flags_horizontal = 4
+
 [node name="Back" type="ProgressBar" parent="Control/MarginContainer/StatBars/BatteryBar/OutletBar" unique_id=1101231179]
 layout_mode = 1
 anchors_preset = 15
@@ -360,6 +426,7 @@ texture = ExtResource("12_rvkn8")
 expand_mode = 1
 
 [node name="ReloadIcon" type="TextureRect" parent="Control/MarginContainer/StatBars/BatteryBar" unique_id=959856195]
+visible = false
 custom_minimum_size = Vector2(64, 64)
 layout_mode = 0
 offset_left = 294.0
@@ -396,7 +463,6 @@ expand_mode = 1
 stretch_mode = 5
 
 [node name="CircleBar" type="ColorRect" parent="Control/MarginContainer/Crosshair" unique_id=1707341552]
-visible = false
 material = ExtResource("2_b8q8m")
 layout_mode = 1
 anchors_preset = 15
@@ -407,31 +473,14 @@ grow_vertical = 2
 mouse_filter = 1
 
 [node name="Currency" type="RichTextLabel" parent="Control/MarginContainer" unique_id=896725824]
+visible = false
+custom_minimum_size = Vector2(186, 36)
 layout_mode = 2
+size_flags_horizontal = 0
+size_flags_vertical = 0
 theme_override_fonts/normal_font = ExtResource("5_qf5vc")
 theme_override_font_sizes/normal_font_size = 36
 text = "101011"
-
-[node name="VBoxContainer" type="VBoxContainer" parent="Control/MarginContainer" unique_id=1565216784]
-layout_mode = 2
-size_flags_horizontal = 0
-size_flags_vertical = 8
-theme_override_constants/separation = 12
-
-[node name="TextureRect" type="TextureRect" parent="Control/MarginContainer/VBoxContainer" unique_id=1775694139]
-visible = false
-layout_mode = 2
-texture = SubResource("GradientTexture2D_2s0w1")
-
-[node name="TextureRect2" type="TextureRect" parent="Control/MarginContainer/VBoxContainer" unique_id=172281655]
-visible = false
-layout_mode = 2
-texture = SubResource("GradientTexture2D_2s0w1")
-
-[node name="TextureRect3" type="TextureRect" parent="Control/MarginContainer/VBoxContainer" unique_id=987776484]
-visible = false
-layout_mode = 2
-texture = SubResource("GradientTexture2D_2s0w1")
 
 [node name="AmmoBarExt" type="ProgressBar" parent="Control/MarginContainer" unique_id=2020581139]
 visible = false
@@ -458,60 +507,77 @@ text = "3 / 3 "
 horizontal_alignment = 2
 vertical_alignment = 2
 
-[node name="OutletCrosshair" type="TextureRect" parent="Control" unique_id=841454661]
-custom_minimum_size = Vector2(96, 96)
-layout_mode = 1
-offset_right = 96.0
-offset_bottom = 96.0
-pivot_offset = Vector2(48, 48)
-texture = ExtResource("5_8w2om")
-
-[node name="OutletBar" type="ProgressBar" parent="Control/OutletCrosshair" unique_id=472474386]
-visible = false
-custom_minimum_size = Vector2(80, 36)
-layout_mode = 0
-offset_left = 49.0
-offset_top = -9.999989
-offset_right = 129.0
-offset_bottom = 26.000011
-rotation = -1.5592283
-size_flags_horizontal = 4
+[node name="WeaponInfo" type="HBoxContainer" parent="Control/MarginContainer" unique_id=1471302776]
+layout_mode = 2
+size_flags_horizontal = 0
 size_flags_vertical = 8
-mouse_filter = 1
-theme_override_styles/background = SubResource("StyleBoxFlat_8w2om")
-theme_override_styles/fill = SubResource("StyleBoxFlat_xmsn8")
-max_value = 1.0
-step = 0.005
-value = 1.0
-show_percentage = false
 
-[node name="NinePatchRect" type="NinePatchRect" parent="Control/OutletCrosshair/OutletBar" unique_id=11562061]
-custom_minimum_size = Vector2(128, 81.515)
-layout_mode = 1
-offset_left = -19.0
-offset_top = -20.0
-offset_right = 109.0
-offset_bottom = 67.0
-size_flags_horizontal = 4
-texture = ExtResource("2_xmsn8")
-patch_margin_left = 20
-patch_margin_top = 20
-patch_margin_right = 31
-patch_margin_bottom = 31
+[node name="LoadoutIcon" type="VBoxContainer" parent="Control/MarginContainer/WeaponInfo" unique_id=294701850]
+layout_mode = 2
+size_flags_vertical = 0
+theme_override_constants/separation = 2
 
-[node name="AmmoBar" type="ColorRect" parent="Control" unique_id=317107948]
+[node name="Loadout1" type="TextureRect" parent="Control/MarginContainer/WeaponInfo/LoadoutIcon" unique_id=680287875]
+custom_minimum_size = Vector2(64, 64)
+layout_mode = 2
+size_flags_horizontal = 0
+size_flags_vertical = 0
+texture = ExtResource("8_1bgqv")
+expand_mode = 1
+stretch_mode = 5
+
+[node name="Loadout2" type="TextureRect" parent="Control/MarginContainer/WeaponInfo/LoadoutIcon" unique_id=714913662]
+modulate = Color(1, 1, 1, 0.3137255)
+custom_minimum_size = Vector2(48, 48)
+layout_mode = 2
+size_flags_horizontal = 0
+size_flags_vertical = 0
+texture = ExtResource("8_1bgqv")
+expand_mode = 1
+stretch_mode = 5
+
+[node name="Loadout3" type="TextureRect" parent="Control/MarginContainer/WeaponInfo/LoadoutIcon" unique_id=418770033]
+modulate = Color(1, 1, 1, 0.3137255)
+custom_minimum_size = Vector2(48, 48)
+layout_mode = 2
+size_flags_horizontal = 0
+size_flags_vertical = 0
+texture = ExtResource("8_1bgqv")
+expand_mode = 1
+stretch_mode = 5
+
+[node name="AmmoBar" type="ColorRect" parent="Control/MarginContainer/WeaponInfo" unique_id=317107948]
 material = ExtResource("2_qb4e8")
 custom_minimum_size = Vector2(186, 186)
+layout_mode = 2
+size_flags_horizontal = 0
+size_flags_vertical = 8
+mouse_filter = 1
+
+[node name="Back" type="ColorRect" parent="Control/MarginContainer/WeaponInfo/AmmoBar" unique_id=63524434]
+material = SubResource("ShaderMaterial_rdoqj")
+custom_minimum_size = Vector2(186, 186)
 layout_mode = 0
-offset_left = 287.0
-offset_top = 687.0
-offset_right = 473.0
-offset_bottom = 873.0
+offset_right = 186.0
+offset_bottom = 186.0
+rotation = -6.2831855
+pivot_offset_ratio = Vector2(0.5, 0.5)
 size_flags_horizontal = 0
 size_flags_vertical = 4
 mouse_filter = 1
 
-[node name="Follow" type="ColorRect" parent="Control/AmmoBar" unique_id=1828048186]
+[node name="Back2" type="ColorRect" parent="Control/MarginContainer/WeaponInfo/AmmoBar/Back" unique_id=338538420]
+visible = false
+material = SubResource("ShaderMaterial_16ylj")
+custom_minimum_size = Vector2(186, 186)
+layout_mode = 0
+offset_right = 186.0
+offset_bottom = 186.0
+size_flags_horizontal = 0
+size_flags_vertical = 4
+mouse_filter = 1
+
+[node name="Follow" type="ColorRect" parent="Control/MarginContainer/WeaponInfo/AmmoBar" unique_id=1828048186]
 z_index = -1
 material = SubResource("ShaderMaterial_1bgqv")
 custom_minimum_size = Vector2(186, 186)
@@ -522,7 +588,8 @@ size_flags_horizontal = 0
 size_flags_vertical = 4
 mouse_filter = 1
 
-[node name="Reload" type="ColorRect" parent="Control/AmmoBar" unique_id=1466695734]
+[node name="Reload" type="ColorRect" parent="Control/MarginContainer/WeaponInfo/AmmoBar" unique_id=1466695734]
+z_index = -1
 material = SubResource("ShaderMaterial_v8w1e")
 custom_minimum_size = Vector2(186, 186)
 layout_mode = 0
@@ -532,18 +599,7 @@ size_flags_horizontal = 0
 size_flags_vertical = 4
 mouse_filter = 1
 
-[node name="Back" type="ColorRect" parent="Control/AmmoBar" unique_id=338538420]
-z_index = -2
-material = SubResource("ShaderMaterial_16ylj")
-custom_minimum_size = Vector2(186, 186)
-layout_mode = 0
-offset_right = 186.0
-offset_bottom = 186.0
-size_flags_horizontal = 0
-size_flags_vertical = 4
-mouse_filter = 1
-
-[node name="MarginContainer" type="MarginContainer" parent="Control/AmmoBar" unique_id=1756285781]
+[node name="MarginContainer" type="MarginContainer" parent="Control/MarginContainer/WeaponInfo/AmmoBar" unique_id=1756285781]
 layout_mode = 1
 anchors_preset = 15
 anchor_right = 1.0
@@ -555,7 +611,7 @@ theme_override_constants/margin_top = 48
 theme_override_constants/margin_right = 48
 theme_override_constants/margin_bottom = 48
 
-[node name="CurrAmmo" type="RichTextLabel" parent="Control/AmmoBar/MarginContainer" unique_id=591896536]
+[node name="CurrAmmo" type="RichTextLabel" parent="Control/MarginContainer/WeaponInfo/AmmoBar/MarginContainer" unique_id=591896536]
 custom_minimum_size = Vector2(86, 86)
 layout_mode = 2
 size_flags_horizontal = 0
@@ -564,7 +620,7 @@ theme_override_font_sizes/normal_font_size = 48
 bbcode_enabled = true
 text = "3"
 
-[node name="Slash" type="RichTextLabel" parent="Control/AmmoBar/MarginContainer" unique_id=1959989300]
+[node name="Slash" type="RichTextLabel" parent="Control/MarginContainer/WeaponInfo/AmmoBar/MarginContainer" unique_id=1959989300]
 modulate = Color(1, 1, 1, 0.5882353)
 custom_minimum_size = Vector2(64, 64)
 layout_mode = 2
@@ -576,7 +632,7 @@ text = "/"
 horizontal_alignment = 1
 vertical_alignment = 1
 
-[node name="MaxAmmo" type="RichTextLabel" parent="Control/AmmoBar/MarginContainer" unique_id=789115307]
+[node name="MaxAmmo" type="RichTextLabel" parent="Control/MarginContainer/WeaponInfo/AmmoBar/MarginContainer" unique_id=789115307]
 modulate = Color(1, 1, 1, 0.5882353)
 custom_minimum_size = Vector2(64, 64)
 layout_mode = 2
@@ -588,33 +644,194 @@ text = "3"
 horizontal_alignment = 2
 vertical_alignment = 2
 
-[node name="GearIcon" type="TextureRect" parent="." unique_id=1794946992]
-visible = false
-custom_minimum_size = Vector2(86, 86)
-offset_left = 456.0
-offset_top = 767.0
-offset_right = 542.0
-offset_bottom = 853.0
+[node name="CurrencyContainer" type="MarginContainer" parent="Control/MarginContainer" unique_id=33767672]
+layout_mode = 2
+size_flags_horizontal = 8
+
+[node name="VBoxContainer" type="VBoxContainer" parent="Control/MarginContainer/CurrencyContainer" unique_id=821645396]
+layout_mode = 2
+size_flags_horizontal = 8
+
+[node name="CurrencyTotal" type="RichTextLabel" parent="Control/MarginContainer/CurrencyContainer/VBoxContainer" unique_id=844352567]
+custom_minimum_size = Vector2(512, 24)
+layout_mode = 2
 size_flags_horizontal = 0
+theme_override_fonts/normal_font = ExtResource("5_qf5vc")
+theme_override_font_sizes/normal_font_size = 48
+bbcode_enabled = true
+text = "100000"
+fit_content = true
+scroll_active = false
+horizontal_alignment = 2
+
+[node name="CurrencyDot" type="RichTextLabel" parent="Control/MarginContainer/CurrencyContainer/VBoxContainer" unique_id=1803437446]
+custom_minimum_size = Vector2(512, 24)
+layout_mode = 2
+size_flags_horizontal = 0
+theme_override_fonts/normal_font = ExtResource("5_qf5vc")
+theme_override_font_sizes/normal_font_size = 24
+bbcode_enabled = true
+text = " - - - - - - - - - - - - - - - - - "
+horizontal_alignment = 2
+
+[node name="BlueprintContainer" type="MarginContainer" parent="Control/MarginContainer/CurrencyContainer/VBoxContainer" unique_id=1155938574]
+layout_mode = 2
+size_flags_horizontal = 8
+
+[node name="VBoxContainer" type="VBoxContainer" parent="Control/MarginContainer/CurrencyContainer/VBoxContainer/BlueprintContainer" unique_id=867597271]
+layout_mode = 2
+size_flags_horizontal = 8
+theme_override_constants/separation = 6
+
+[node name="BlueprintText" type="RichTextLabel" parent="Control/MarginContainer/CurrencyContainer/VBoxContainer/BlueprintContainer/VBoxContainer" unique_id=1726145664]
+custom_minimum_size = Vector2(512, 64)
+layout_mode = 2
+size_flags_horizontal = 0
+theme_override_fonts/normal_font = ExtResource("5_qf5vc")
+theme_override_font_sizes/normal_font_size = 24
+text = "- - - - - - - - - - - - - - - - - 
+Uploading blast.wpn...
+Uploading wallbst.prt..."
+horizontal_alignment = 2
+vertical_alignment = 2
+
+[node name="BlueprintBar" type="ColorRect" parent="Control/MarginContainer/CurrencyContainer/VBoxContainer/BlueprintContainer/VBoxContainer" unique_id=1400962827]
+material = SubResource("ShaderMaterial_8x6xp")
+custom_minimum_size = Vector2(360, 36)
+layout_mode = 2
+size_flags_horizontal = 8
+
+[node name="BlueprintDot" type="RichTextLabel" parent="Control/MarginContainer/CurrencyContainer/VBoxContainer/BlueprintContainer/VBoxContainer" unique_id=131536328]
+custom_minimum_size = Vector2(512, 24)
+layout_mode = 2
+size_flags_horizontal = 0
+theme_override_fonts/normal_font = ExtResource("5_qf5vc")
+theme_override_font_sizes/normal_font_size = 24
+bbcode_enabled = true
+text = " - - - - - - - - - - - - - - - - - "
+horizontal_alignment = 2
+
+[node name="BossContainer" type="HBoxContainer" parent="Control/MarginContainer" unique_id=411404004]
+modulate = Color(1, 0.2, 0, 1)
+layout_mode = 2
+size_flags_horizontal = 4
 size_flags_vertical = 8
-texture = ExtResource("2_ccqt3")
+theme_override_constants/separation = 4
+
+[node name="MarginContainer" type="MarginContainer" parent="Control/MarginContainer/BossContainer" unique_id=367358814]
+custom_minimum_size = Vector2(64, 64)
+layout_mode = 2
+size_flags_vertical = 0
+theme_override_constants/margin_left = 6
+theme_override_constants/margin_top = 6
+theme_override_constants/margin_right = 6
+theme_override_constants/margin_bottom = 6
+
+[node name="SkullIcon" type="TextureRect" parent="Control/MarginContainer/BossContainer/MarginContainer" unique_id=1499870349]
+layout_mode = 2
+texture = ExtResource("12_rdoqj")
 expand_mode = 1
 
-[node name="GearIconBG" type="TextureRect" parent="GearIcon" unique_id=198772200]
-modulate = Color(0, 0, 0, 0.3137255)
-z_index = -1
-custom_minimum_size = Vector2(86, 86)
-layout_mode = 0
-offset_left = 4.0
-offset_top = 3.0
-offset_right = 90.0
-offset_bottom = 89.0
+[node name="BossBar" type="ColorRect" parent="Control/MarginContainer/BossContainer" unique_id=36031445]
+material = SubResource("ShaderMaterial_m4574")
+custom_minimum_size = Vector2(512, 36)
+layout_mode = 2
+size_flags_horizontal = 4
+size_flags_vertical = 4
+
+[node name="Back" type="ProgressBar" parent="Control/MarginContainer/BossContainer/BossBar" unique_id=1401418454]
+custom_minimum_size = Vector2(320, 0)
+layout_mode = 1
+anchors_preset = 15
+anchor_right = 1.0
+anchor_bottom = 1.0
+grow_horizontal = 2
+grow_vertical = 2
+theme_override_styles/background = SubResource("StyleBoxFlat_v8w1e")
+theme_override_styles/fill = SubResource("StyleBoxEmpty_rdoqj")
+max_value = 1.0
+value = 0.5
+show_percentage = false
+
+[node name="PauseBG" type="TextureRect" parent="Control" unique_id=1552075199]
+visible = false
+layout_mode = 1
+anchors_preset = 15
+anchor_right = 1.0
+anchor_bottom = 1.0
+grow_horizontal = 2
+grow_vertical = 2
+mouse_filter = 2
+texture = SubResource("GradientTexture1D_o6p4t")
+
+[node name="PauseMenu" type="MarginContainer" parent="Control" unique_id=2127981742]
+visible = false
+layout_mode = 1
+anchors_preset = 15
+anchor_right = 1.0
+anchor_bottom = 1.0
+grow_horizontal = 2
+grow_vertical = 2
+theme_override_constants/margin_left = 256
+theme_override_constants/margin_top = 192
+theme_override_constants/margin_right = 256
+theme_override_constants/margin_bottom = 192
+
+[node name="ListContainer" type="VBoxContainer" parent="Control/PauseMenu" unique_id=1098019]
+layout_mode = 2
+theme_override_constants/separation = 36
+
+[node name="RichTextLabel" type="RichTextLabel" parent="Control/PauseMenu/ListContainer" unique_id=1123109660]
+custom_minimum_size = Vector2(512, 128)
+layout_mode = 2
 size_flags_horizontal = 0
-size_flags_vertical = 8
-texture = ExtResource("2_ccqt3")
+size_flags_vertical = 0
+theme_override_font_sizes/normal_font_size = 64
+text = "pause"
+
+[node name="ButtonContainer" type="VBoxContainer" parent="Control/PauseMenu/ListContainer" unique_id=1631239736]
+layout_mode = 2
+theme_override_constants/separation = 36
+
+[node name="ResumeButton" parent="Control/PauseMenu/ListContainer/ButtonContainer" unique_id=2040158163 instance=ExtResource("11_63kgm")]
+layout_mode = 2
+size_flags_horizontal = 0
+buttonText = "resume"
+
+[node name="OptionsButton" parent="Control/PauseMenu/ListContainer/ButtonContainer" unique_id=694896862 instance=ExtResource("11_63kgm")]
+layout_mode = 2
+size_flags_horizontal = 0
+buttonText = "options"
+
+[node name="ExitButton" parent="Control/PauseMenu/ListContainer/ButtonContainer" unique_id=1496398196 instance=ExtResource("11_63kgm")]
+layout_mode = 2
+size_flags_horizontal = 0
+buttonText = "exit"
+
+[node name="OutletCrosshair" type="TextureRect" parent="Control" unique_id=841454661]
+custom_minimum_size = Vector2(96, 96)
+layout_mode = 1
+offset_right = 96.0
+offset_bottom = 96.0
+rotation = 0.7853982
+pivot_offset_ratio = Vector2(0.5, 0.5)
+texture = ExtResource("13_8x6xp")
 expand_mode = 1
+
+[node name="ButtonSelect" type="NinePatchRect" parent="Control" unique_id=2073546254]
+material = SubResource("ShaderMaterial_ywnah")
+custom_minimum_size = Vector2(64, 64)
+layout_mode = 1
+offset_right = 64.0
+offset_bottom = 64.0
+texture = SubResource("GradientTexture2D_2ixty")
+patch_margin_left = 12
+patch_margin_top = 12
+patch_margin_right = 12
+patch_margin_bottom = 12
 
 [node name="Screen" type="ColorRect" parent="." unique_id=1373793926]
+visible = false
 material = ExtResource("11_fwocb")
 anchors_preset = 15
 anchor_right = 1.0
@@ -630,3 +847,6 @@ anchor_right = 1.0
 anchor_bottom = 1.0
 grow_horizontal = 2
 grow_vertical = 2
+
+[connection signal="pressed" from="Control/PauseMenu/ListContainer/ButtonContainer/ResumeButton" to="." method="_on_resume_button_pressed"]
+[connection signal="pressed" from="Control/PauseMenu/ListContainer/ButtonContainer/ExitButton" to="." method="_on_exit_button_pressed"]

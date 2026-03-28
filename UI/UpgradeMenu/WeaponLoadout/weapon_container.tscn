@@ -2,7 +2,10 @@
 
 [ext_resource type="Script" uid="uid://bjjw236q3ru6i" path="res://UI/UpgradeMenu/WeaponLoadout/weapon_container.gd" id="1_xjv1b"]
 [ext_resource type="Resource" uid="uid://ca67bv1jnpy" path="res://Player/EquipWeapons/weaponDebug.tres" id="2_hg1od"]
-[ext_resource type="Texture2D" uid="uid://bj0uifwmaujw0" path="res://UI/UpgradeMenu/Icons/jumpIcon.png" id="3_snt1s"]
+[ext_resource type="Texture2D" uid="uid://sx4l0hvsdhfg" path="res://Player/EquipWeapons/Icons/gunIcon.png" id="3_cpy3j"]
+[ext_resource type="Texture2D" uid="uid://bqtmruylxcp8e" path="res://UI/Gameplay/gear.png" id="4_32fnw"]
+[ext_resource type="Shader" uid="uid://c0s4us4f4rehk" path="res://Shaders/circlebar.gdshader" id="4_cpy3j"]
+[ext_resource type="Shader" uid="uid://5vmrpeqx5scg" path="res://Shaders/circleBarSegment.gdshader" id="6_1oqmb"]
 
 [sub_resource type="StyleBoxEmpty" id="StyleBoxEmpty_6tqka"]
 
@@ -21,22 +24,66 @@ corner_radius_bottom_right = 3
 corner_radius_bottom_left = 3
 corner_detail = 5
 
+[sub_resource type="StyleBoxFlat" id="StyleBoxFlat_32fnw"]
+bg_color = Color(0, 0, 0, 0)
+
+[sub_resource type="StyleBoxFlat" id="StyleBoxFlat_1oqmb"]
+bg_color = Color(1, 1, 1, 0.09803922)
+
 [sub_resource type="AtlasTexture" id="AtlasTexture_f0y28"]
-atlas = ExtResource("3_snt1s")
+atlas = ExtResource("3_cpy3j")
 
-[sub_resource type="Gradient" id="Gradient_ru2dc"]
-offsets = PackedFloat32Array(0.5176152, 0.5365854)
-colors = PackedColorArray(1, 1, 1, 1, 1, 1, 1, 0)
+[sub_resource type="ShaderMaterial" id="ShaderMaterial_32fnw"]
+shader = ExtResource("4_cpy3j")
+shader_parameter/progress = 1.0
+shader_parameter/ring_thickness = 0.12500000523898
+shader_parameter/ring_radius = 0.24300000828262
+shader_parameter/progress_color = Color(1, 1, 1, 1)
+shader_parameter/background_color = Color(0, 0, 0, 0)
+shader_parameter/gradient_color = Color(1, 1, 1, 1)
+shader_parameter/smoothness = 0.0010000000475
+shader_parameter/gradient_strength = 0.5
+shader_parameter/use_gradient = true
+shader_parameter/rotation_offset = 6.2800002983
+shader_parameter/alpha = 1.0
 
-[sub_resource type="GradientTexture2D" id="GradientTexture2D_snt1s"]
-gradient = SubResource("Gradient_ru2dc")
-fill = 1
-fill_from = Vector2(0.5, 0.5)
+[sub_resource type="Gradient" id="Gradient_j8bnf"]
+offsets = PackedFloat32Array(1)
+colors = PackedColorArray(1, 1, 1, 1)
+
+[sub_resource type="GradientTexture2D" id="GradientTexture2D_mpxym"]
+gradient = SubResource("Gradient_j8bnf")
+
+[sub_resource type="ShaderMaterial" id="ShaderMaterial_dcclf"]
+shader = ExtResource("6_1oqmb")
+shader_parameter/value = 1.0
+shader_parameter/segments = 5
+shader_parameter/radius = 0.43
+shader_parameter/hollow_radius = 0.4
+shader_parameter/margin = 0.2000000095
+shader_parameter/rotation = -0.5289999776275001
+shader_parameter/progress_rotation = 0.3330000633174999
+shader_parameter/gradient = SubResource("GradientTexture2D_mpxym")
+shader_parameter/use_value_gradient = true
+shader_parameter/alpha = 1.0
+
+[sub_resource type="ShaderMaterial" id="ShaderMaterial_1oqmb"]
+shader = ExtResource("6_1oqmb")
+shader_parameter/value = 1.0
+shader_parameter/segments = 6
+shader_parameter/radius = 0.49
+shader_parameter/hollow_radius = 0.46
+shader_parameter/margin = 0.2000000095
+shader_parameter/rotation = 0.7360000824599999
+shader_parameter/progress_rotation = 0.3330000633174999
+shader_parameter/gradient = SubResource("GradientTexture2D_mpxym")
+shader_parameter/use_value_gradient = true
+shader_parameter/alpha = 1.0
 
 [node name="WeaponContainer" type="Button" unique_id=76988020]
 clip_contents = true
-custom_minimum_size = Vector2(400, 64)
-offset_right = 400.0
+custom_minimum_size = Vector2(256, 64)
+offset_right = 256.0
 offset_bottom = 64.0
 size_flags_vertical = 0
 theme_override_styles/normal = SubResource("StyleBoxEmpty_6tqka")
@@ -45,53 +92,119 @@ theme_override_styles/focus = SubResource("StyleBoxFlat_hg1od")
 script = ExtResource("1_xjv1b")
 weaponInd = ExtResource("2_hg1od")
 
-[node name="HBoxContainer" type="HBoxContainer" parent="." unique_id=51861259]
-layout_mode = 0
-offset_right = 400.0
-offset_bottom = 64.0
+[node name="UpgradeBar" type="ProgressBar" parent="." unique_id=20478105]
+layout_mode = 1
+anchors_preset = 15
+anchor_right = 1.0
+anchor_bottom = 1.0
+grow_horizontal = 2
+grow_vertical = 2
+theme_override_styles/background = SubResource("StyleBoxFlat_32fnw")
+theme_override_styles/fill = SubResource("StyleBoxFlat_1oqmb")
+max_value = 1.0
+show_percentage = false
 
-[node name="WeaponIcon" type="TextureRect" parent="HBoxContainer" unique_id=1260947381]
-custom_minimum_size = Vector2(64, 64)
+[node name="HBoxContainer" type="HBoxContainer" parent="." unique_id=51861259]
+layout_mode = 1
+anchors_preset = 15
+anchor_right = 1.0
+anchor_bottom = 1.0
+grow_horizontal = 2
+grow_vertical = 2
+theme_override_constants/separation = 4
+
+[node name="MarginContainer" type="MarginContainer" parent="HBoxContainer" unique_id=1742048765]
+custom_minimum_size = Vector2(96, 64)
 layout_mode = 2
 size_flags_horizontal = 0
 size_flags_vertical = 0
+theme_override_constants/margin_left = 8
+theme_override_constants/margin_top = 8
+theme_override_constants/margin_right = 8
+theme_override_constants/margin_bottom = 8
+
+[node name="WeaponIcon" type="TextureRect" parent="HBoxContainer/MarginContainer" unique_id=1260947381]
+layout_mode = 2
 texture = SubResource("AtlasTexture_f0y28")
 expand_mode = 1
+stretch_mode = 5
 
-[node name="WeaponName" type="RichTextLabel" parent="HBoxContainer" unique_id=349843943]
-clip_contents = false
-custom_minimum_size = Vector2(256, 0)
+[node name="InfoContainer" type="VBoxContainer" parent="HBoxContainer" unique_id=1897835770]
 layout_mode = 2
-size_flags_horizontal = 8
-theme_override_font_sizes/normal_font_size = 32
+size_flags_horizontal = 0
+theme_override_constants/separation = 4
+
+[node name="WeaponName" type="RichTextLabel" parent="HBoxContainer/InfoContainer" unique_id=349843943]
+clip_contents = false
+custom_minimum_size = Vector2(96, 0)
+layout_mode = 2
+size_flags_horizontal = 0
+theme_override_font_sizes/normal_font_size = 18
 bbcode_enabled = true
 text = "Weapon"
+fit_content = true
 
-[node name="WeaponDescription" type="RichTextLabel" parent="HBoxContainer/WeaponName" unique_id=1179612430]
-clip_contents = false
-custom_minimum_size = Vector2(256, 0)
+[node name="DottedLine" type="RichTextLabel" parent="HBoxContainer/InfoContainer/WeaponName" unique_id=819216760]
+custom_minimum_size = Vector2(0, 24)
 layout_mode = 1
-offset_top = 64.0
-offset_right = 256.0
-offset_bottom = 128.0
-theme_override_font_sizes/normal_font_size = 24
-bbcode_enabled = true
-text = "Description"
+anchors_preset = 15
+anchor_right = 1.0
+anchor_bottom = 1.0
+offset_top = 8.0
+offset_bottom = 8.0
+grow_horizontal = 2
+grow_vertical = 2
+size_flags_vertical = 8
+text = "_ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ "
+scroll_active = false
+vertical_alignment = 2
 
-[node name="Ammo" type="RichTextLabel" parent="HBoxContainer" unique_id=212955696]
+[node name="UpgradeContainer" type="HBoxContainer" parent="HBoxContainer/InfoContainer" unique_id=1046525071]
+layout_mode = 2
+size_flags_horizontal = 0
+theme_override_constants/separation = 4
+
+[node name="TextureRect" type="TextureRect" parent="HBoxContainer/InfoContainer/UpgradeContainer" unique_id=687584924]
+custom_minimum_size = Vector2(24, 24)
+layout_mode = 2
+texture = ExtResource("4_32fnw")
+expand_mode = 1
+stretch_mode = 5
+
+[node name="UpgradeCost" type="RichTextLabel" parent="HBoxContainer/InfoContainer/UpgradeContainer" unique_id=44137157]
 custom_minimum_size = Vector2(64, 0)
 layout_mode = 2
-theme_override_font_sizes/normal_font_size = 32
-bbcode_enabled = true
-text = "3"
-horizontal_alignment = 1
+size_flags_vertical = 0
+theme_override_font_sizes/normal_font_size = 18
+text = "100000"
+fit_content = true
 
-[node name="EquippedIcon" type="TextureRect" parent="." unique_id=1960434599]
-visible = false
-layout_mode = 0
-offset_left = -18.0
-offset_top = -18.0
-offset_right = 18.0
-offset_bottom = 18.0
-texture = SubResource("GradientTexture2D_snt1s")
-expand_mode = 1
+[node name="UpgradeConfirm" type="ColorRect" parent="HBoxContainer" unique_id=1734727277]
+material = SubResource("ShaderMaterial_32fnw")
+custom_minimum_size = Vector2(48, 48)
+layout_mode = 2
+size_flags_vertical = 4
+
+[node name="UpgradeBack" type="ColorRect" parent="HBoxContainer/UpgradeConfirm" unique_id=1767438753]
+material = SubResource("ShaderMaterial_dcclf")
+custom_minimum_size = Vector2(48, 48)
+layout_mode = 1
+anchors_preset = 15
+anchor_right = 1.0
+anchor_bottom = 1.0
+grow_horizontal = 2
+grow_vertical = 2
+pivot_offset_ratio = Vector2(0.5, 0.5)
+size_flags_vertical = 4
+
+[node name="UpgradeBack2" type="ColorRect" parent="HBoxContainer/UpgradeConfirm" unique_id=1154862463]
+material = SubResource("ShaderMaterial_1oqmb")
+custom_minimum_size = Vector2(48, 48)
+layout_mode = 1
+anchors_preset = 15
+anchor_right = 1.0
+anchor_bottom = 1.0
+grow_horizontal = 2
+grow_vertical = 2
+pivot_offset_ratio = Vector2(0.5, 0.5)
+size_flags_vertical = 4

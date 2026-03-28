@@ -1,0 +1,25 @@
+[gd_scene format=3 uid="uid://2f5prh32shpw"]
+
+[ext_resource type="PackedScene" uid="uid://dontpg5bgrr5b" path="res://Enemies/Bosses/TrashDogBoss/trash_botBossMod.tscn" id="1_pavgj"]
+[ext_resource type="Script" uid="uid://bl5ktj2hm03v7" path="res://Enemies/Bosses/TrashDogBoss/trash_dog_boss.gd" id="1_tvpgt"]
+[ext_resource type="Resource" uid="uid://c7cmdcbb0i0de" path="res://Enemies/Bosses/TrashDogBoss/trashDogBoss.tres" id="2_f68hw"]
+
+[sub_resource type="CapsuleShape3D" id="CapsuleShape3D_pavgj"]
+radius = 3.284668
+height = 6.569336
+
+[node name="TrashDogBoss" type="CharacterBody3D" unique_id=163506739 groups=["character", "enemy"]]
+script = ExtResource("1_tvpgt")
+enemyClass = ExtResource("2_f68hw")
+
+[node name="CollisionShape3D" type="CollisionShape3D" parent="." unique_id=635399855]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 3.2767944, 0)
+shape = SubResource("CapsuleShape3D_pavgj")
+
+[node name="trashBot" parent="." unique_id=7624336 instance=ExtResource("1_pavgj")]
+transform = Transform3D(-1, 0, -1.509958e-07, 0, 1, 0, 1.509958e-07, 0, -1, 0, 0, 0)
+
+[node name="GroundRay" type="RayCast3D" parent="." unique_id=3514539]
+
+[node name="Head" type="Node3D" parent="." unique_id=264298708]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 5, -3.5)

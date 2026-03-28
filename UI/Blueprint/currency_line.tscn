@@ -1,0 +1,20 @@
+[gd_scene format=3 uid="uid://fp63ws5q74ii"]
+
+[ext_resource type="FontFile" uid="uid://b5iu436di81lx" path="res://UI/Gameplay/propaganda.ttf" id="1_b744j"]
+[ext_resource type="Script" uid="uid://c13sh0rqiu5b8" path="res://UI/Blueprint/currency_line.gd" id="2_b744j"]
+
+[node name="CurrencyLine" type="RichTextLabel" unique_id=913324543]
+custom_minimum_size = Vector2(512, 24)
+offset_right = 512.0
+offset_bottom = 24.0
+size_flags_horizontal = 0
+theme_override_colors/font_outline_color = Color(1, 1, 1, 1)
+theme_override_constants/outline_size = 0
+theme_override_fonts/normal_font = ExtResource("1_b744j")
+theme_override_font_sizes/normal_font_size = 24
+bbcode_enabled = true
+text = "+50"
+fit_content = true
+scroll_active = false
+horizontal_alignment = 2
+script = ExtResource("2_b744j")

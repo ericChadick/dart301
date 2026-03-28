@@ -1,0 +1,9 @@
+[gd_resource type="Resource" script_class="enemyType" format=3 uid="uid://c7cmdcbb0i0de"]
+
+[ext_resource type="Script" uid="uid://cy5jh8nkwopfb" path="res://Enemies/enemyClass.gd" id="1_qyu5p"]
+
+[resource]
+script = ExtResource("1_qyu5p")
+hp = 100.0
+currencyReward = 1000.0
+metadata/_custom_type_script = "uid://cy5jh8nkwopfb"

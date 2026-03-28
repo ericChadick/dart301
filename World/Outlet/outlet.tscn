@@ -3,13 +3,10 @@
 [ext_resource type="AudioStream" uid="uid://ndp0v2vlid62" path="res://Audio/Player/player_pluggingIN.wav" id="1_gl5ih"]
 [ext_resource type="Script" uid="uid://bs57agia8vb4j" path="res://World/Outlet/outlet.gd" id="1_iw82v"]
 [ext_resource type="Material" uid="uid://c0uh2y7lgbtc4" path="res://World/Outlet/outletGlow.material" id="2_scrvh"]
+[ext_resource type="Material" uid="uid://2y10k3as4j7o" path="res://World/Materials/scrapMetalDirt.material" id="3_spbea"]
 
 [sub_resource type="SphereShape3D" id="SphereShape3D_qknly"]
-radius = 2.0
-
-[sub_resource type="SphereMesh" id="SphereMesh_uxtxx"]
-radius = 0.2
-height = 0.4
+radius = 3.0
 
 [sub_resource type="AudioStreamRandomizer" id="AudioStreamRandomizer_iw82v"]
 random_pitch = 1.0028923
@@ -80,6 +77,22 @@ height = 0.8
 radial_segments = 4
 rings = 0
 
+[sub_resource type="CylinderMesh" id="CylinderMesh_spbea"]
+material = ExtResource("3_spbea")
+top_radius = 1.5
+bottom_radius = 1.25
+height = 0.25
+
+[sub_resource type="CylinderMesh" id="CylinderMesh_scrvh"]
+material = ExtResource("2_scrvh")
+top_radius = 0.2
+bottom_radius = 0.2
+height = 0.1
+
+[sub_resource type="BoxMesh" id="BoxMesh_scrvh"]
+material = ExtResource("2_scrvh")
+size = Vector3(0.1, 0.5, 0.2)
+
 [node name="Outlet" type="Area3D" unique_id=220038749 groups=["outlet"]]
 collision_layer = 4
 collision_mask = 4
@@ -88,15 +101,12 @@ script = ExtResource("1_iw82v")
 [node name="CollisionShape3D" type="CollisionShape3D" parent="." unique_id=593381698]
 shape = SubResource("SphereShape3D_qknly")
 
-[node name="OutletLight" type="MeshInstance3D" parent="." unique_id=391716278]
-material_override = ExtResource("2_scrvh")
-mesh = SubResource("SphereMesh_uxtxx")
-
 [node name="PlugSound" type="AudioStreamPlayer3D" parent="." unique_id=1489634662]
 stream = SubResource("AudioStreamRandomizer_iw82v")
 
 [node name="TerminalOutlet_001" type="MeshInstance3D" parent="." unique_id=107799262]
 transform = Transform3D(0.668651, 0, 0, 0, 1, 0, 0, 0, 1, -0.46947527, -1.33751, 0)
+visible = false
 mesh = SubResource("ArrayMesh_iw82v")
 skeleton = NodePath("")
 
@@ -109,7 +119,33 @@ explosiveness = 0.2
 process_material = SubResource("ParticleProcessMaterial_iw82v")
 draw_pass_1 = SubResource("CapsuleMesh_scrvh")
 
-[node name="OmniLight3D" type="OmniLight3D" parent="." unique_id=399437220]
+[node name="Light" type="OmniLight3D" parent="." unique_id=399437220]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0.1, 0, 0)
 light_color = Color(1, 0.86, 0.72, 1)
 light_energy = 3.0
-shadow_enabled = true
+
+[node name="Base" type="MeshInstance3D" parent="." unique_id=2096139431]
+transform = Transform3D(-4.3711385e-08, -0.99999994, 0, 0.99999994, -4.3711385e-08, 0, 0, 0, 1, -0.1, 0, 0)
+mesh = SubResource("CylinderMesh_spbea")
+
+[node name="LightModels" type="Node3D" parent="." unique_id=1576521723]
+
+[node name="OutletLight" type="MeshInstance3D" parent="LightModels" unique_id=391716278]
+transform = Transform3D(-4.371139e-08, -1, 0, 1, -4.371139e-08, 0, 0, 0, 1, 0, 0, 0)
+mesh = SubResource("CylinderMesh_scrvh")
+skeleton = NodePath("../..")
+
+[node name="Prong1" type="MeshInstance3D" parent="LightModels" unique_id=988811263]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 0.63781345, 0)
+mesh = SubResource("BoxMesh_scrvh")
+skeleton = NodePath("../..")
+
+[node name="Prong2" type="MeshInstance3D" parent="LightModels" unique_id=891398559]
+transform = Transform3D(1, 0, 0, 0, -0.5, 0.8660253, 0, -0.8660253, -0.5, 0, -0.3780482, -0.57938)
+mesh = SubResource("BoxMesh_scrvh")
+skeleton = NodePath("../..")
+
+[node name="Prong3" type="MeshInstance3D" parent="LightModels" unique_id=528555609]
+transform = Transform3D(1, 0, 0, 0, -0.5, -0.8660253, 0, 0.8660253, -0.5, 0, -0.378, 0.579)
+mesh = SubResource("BoxMesh_scrvh")
+skeleton = NodePath("../..")

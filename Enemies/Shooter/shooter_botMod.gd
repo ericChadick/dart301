@@ -21,6 +21,10 @@ func _ready() -> void:
 	partsBreak.append(side_panel_l);
 	partsBreak.append(leg_panel_r);
 	partsBreak.append(side_panel_r);
+	
+	shot = false;
+
+	#apply_material_to_children(self)
 
 # Called every frame. 'delta' is the elapsed time since the previous frame.
 func _process(delta: float) -> void:
@@ -30,7 +34,9 @@ func _process(delta: float) -> void:
 		var hitInst = projectileInst.instantiate();
 		get_parent().get_parent().add_child(hitInst);
 		hitInst.position = shoot_point.global_position;
-		hitInst.look_at();
+		hitInst.direction = (get_parent().target.global_position-shoot_point.global_position).normalized();
+		hitInst.creator = get_parent();
+		
 		#hitInst.direction = -holder.head.transform.basis.z;
 		#hitInst.creator = holder;
 				
@@ -39,3 +45,16 @@ func _process(delta: float) -> void:
 		shot = false;
 	
 	muzzle_flash.visible = flashTimer > 0.0;
+
+func apply_material_to_children(root_node: Node, mat:Material):
+	var stack = [root_node]
+	while stack.size() > 0:
+		var node = stack.pop_back()
+		
+		# Apply to MeshInstance3D nodes
+		if node is MeshInstance3D:
+			node.get_active_material(0).next_pass = mat;
+			
+		# Continue searching children
+		for child in node.get_children():
+			stack.append(child)

@@ -51,12 +51,13 @@ func _ready() -> void:
 	target = get_parent().find_child("Player");
 	animPlayer = trash_bot.get_node("AnimationPlayer");
 	
-	outlet = terminal.outlet;
+	if terminal != null:
+		outlet = terminal.outlet;
+		outlet.connected = self;
+		outlet.outlet_light.visible = false;
+		
 	animPlayer.play("EatIdle");
 	initPos = global_position;
-	
-	outlet.connected = self;
-	outlet.outlet_light.visible = false;
 	
 func _physics_process(delta: float) -> void:
 	var targetDist = global_position.distance_to(target.global_position)

@@ -1,10 +1,10 @@
 [gd_scene format=3 uid="uid://dolbdjtkaosjw"]
 
-[ext_resource type="Texture2D" uid="uid://0phkmtbb1dyv" path="res://UI/UpgradeMenu/Icons/partTestIcon.png" id="1_6twiu"]
+[ext_resource type="Texture2D" uid="uid://ckqn4iob45oxu" path="res://UI/UpgradeMenu/Icons/partTestHighlight.png" id="1_6twiu"]
 [ext_resource type="Script" uid="uid://cod6m0f4ymnak" path="res://UI/UpgradeMenu/EquipParts/equip_part_slot.gd" id="1_fa3rc"]
-[ext_resource type="Resource" uid="uid://b1sjnu3as5j1t" path="res://Player/EquipParts/wallStickPart.tres" id="2_ru2dc"]
+[ext_resource type="Resource" uid="uid://d0y5txletecl5" path="res://UI/UpgradeMenu/EquipParts/partEmpty.tres" id="3_5b4xj"]
 
-[sub_resource type="AtlasTexture" id="AtlasTexture_jmane"]
+[sub_resource type="AtlasTexture" id="AtlasTexture_jqi2c"]
 atlas = ExtResource("1_6twiu")
 
 [sub_resource type="Gradient" id="Gradient_kxcfo"]
@@ -31,19 +31,24 @@ fill = 1
 fill_from = Vector2(0.5, 0.5)
 
 [node name="EquipPartSlot" type="TextureButton" unique_id=1191095639]
-texture_normal = SubResource("AtlasTexture_jmane")
+custom_minimum_size = Vector2(72, 72)
+offset_right = 72.0
+offset_bottom = 72.0
+texture_normal = SubResource("AtlasTexture_jqi2c")
 texture_pressed = SubResource("GradientTexture2D_xntmr")
 texture_hover = SubResource("GradientTexture2D_jmane")
 texture_focused = SubResource("GradientTexture2D_jmane")
+ignore_texture_size = true
+stretch_mode = 0
 script = ExtResource("1_fa3rc")
-partInd = ExtResource("2_ru2dc")
+partInd = ExtResource("3_5b4xj")
 
 [node name="EquippedIcon" type="TextureRect" parent="." unique_id=1064492495]
 visible = false
 layout_mode = 0
-offset_left = -18.0
-offset_top = -18.0
-offset_right = 18.0
-offset_bottom = 18.0
+offset_left = -12.0
+offset_top = -12.0
+offset_right = 12.0
+offset_bottom = 12.0
 texture = SubResource("GradientTexture2D_6twiu")
 expand_mode = 1

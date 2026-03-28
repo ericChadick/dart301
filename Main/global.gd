@@ -4,7 +4,7 @@ extends Node
 var currency := 100.0;
 
 enum PlayerWeapon {FIST, GUN, FLAME}
-enum PlayerParts {WALLASCEND, WALLSTICK, WALLTIMEINCREASE, DOUBLEJUMP, CORDLENGTHEN, CORDFLOAT, 
+enum PlayerParts {EMPTY, WALLASCEND, WALLSTICK, WALLTIMEINCREASE, DOUBLEJUMP, CORDLENGTHEN, CORDFLOAT, 
 PROJECTILEBOUNCE, AIRSLIDE, SCREENCRACKREMOVE}
 
 var weaponSlots := 2;
@@ -67,7 +67,9 @@ var musicVolume := .75;
 
 #debug
 var mainScene : NodePath;
-var batteryDecreaseDebug := false;
+var batteryDecreaseDebug := true;
+
+var flipHands := false;
 
 #input rebinding
 
@@ -88,3 +90,4 @@ func _ready() -> void:
 	partsUnlocked.append(DOUBLE_JUMP_PART);
 	partsUnlocked.append(WALL_ASCEND_PART);
 	partsUnlocked.append(WALL_STICK_PART);
+	#partsUnlocked.append(DOUBLE_JUMP_PART);

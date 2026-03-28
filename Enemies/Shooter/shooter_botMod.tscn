@@ -2,6 +2,7 @@
 
 [ext_resource type="PackedScene" uid="uid://d2vn3aklwuy2r" path="res://Enemies/Shooter/shooterBot.glb" id="1_4v4da"]
 [ext_resource type="Script" uid="uid://dgd7scixqdth2" path="res://Enemies/Shooter/shooter_botMod.gd" id="2_mc4su"]
+[ext_resource type="PackedScene" uid="uid://h8nfngcoc7cq" path="res://Player/bullet.tscn" id="3_6ptyu"]
 
 [sub_resource type="Curve" id="Curve_mc4su"]
 _data = [Vector2(0, 1), 0.0, 0.0, 0, 0, Vector2(1, 0), -1.7314893, 0.0, 0, 0]
@@ -35,34 +36,35 @@ rings = 0
 [node name="shooterBot" unique_id=1414694198 instance=ExtResource("1_4v4da")]
 script = ExtResource("2_mc4su")
 shot = true
+projectileInst = ExtResource("3_6ptyu")
 
 [node name="ShooterArmature" parent="." index="0" unique_id=657118288]
-transform = Transform3D(0.1, 0, 0, 0, 0.1, 0, 0, 0, 0.1, 0, 0, 0)
+transform = Transform3D(0.4, 0, 0, 0, 0.4, 0, 0, 0, 0.4, 0, 0, 0)
 
 [node name="Skeleton3D" parent="ShooterArmature" index="0" unique_id=1386596297]
 bones/0/position = Vector3(0, 5.8657274, 2.1175824e-22)
 bones/0/rotation = Quaternion(-0.1183534, 1.3805066e-30, 1.8128488e-31, 0.99297154)
-bones/2/rotation = Quaternion(0.043247864, 0.03828316, 0.627392, 0.77655864)
-bones/4/rotation = Quaternion(0.5904359, 0.006561934, -0.8063965, 0.032665398)
+bones/2/rotation = Quaternion(-0.05242376, -0.06257654, 0.5961375, 0.79872155)
+bones/4/rotation = Quaternion(0.7897214, 0.03957626, -0.6120404, 0.013428284)
 bones/6/rotation = Quaternion(-1.13856146e-07, -8.17285e-08, -0.7392597, 0.6734204)
-bones/7/rotation = Quaternion(-0.0837216, 0.0995131, -0.56765795, 0.81292826)
+bones/7/rotation = Quaternion(0.06304107, 0.20259632, -0.5824344, 0.78469795)
 bones/7/scale = Vector3(1, 1, 0.9999999)
-bones/8/rotation = Quaternion(0.7917311, -0.0403553, 0.6094639, 0.009339788)
+bones/8/rotation = Quaternion(0.60777026, -0.0055351555, 0.7933762, 0.033749014)
 
 [node name="arm_l_001" parent="ShooterArmature/Skeleton3D" index="0" unique_id=1968850303]
-transform = Transform3D(-0.9930025, -0.117789544, 0.008470927, 0.11345397, -0.9316226, 0.34526452, -0.03277684, 0.34380966, 0.93846697, -1.3872395, 7.6834292, -0.38239637)
+transform = Transform3D(-0.980874, -0.19455083, 0.006014514, 0.19445871, -0.9781266, 0.07385493, -0.008485583, 0.073612, 0.9972506, -1.4222748, 7.679031, -0.50992393)
 
 [node name="arm_l" parent="ShooterArmature/Skeleton3D" index="1" unique_id=1583715236]
-transform = Transform3D(-0.9930024, -0.1177898, 0.008471382, 0.11345438, -0.93162245, 0.3452645, -0.032776505, 0.34380963, 0.938467, -1.1023707, 8.11635, -0.5442406)
+transform = Transform3D(-0.98087394, -0.19455107, 0.0060149613, 0.194459, -0.9781264, 0.073854834, -0.008485146, 0.073611975, 0.9972507, -1.1023707, 8.11635, -0.5442406)
 
 [node name="leg_l" parent="ShooterArmature/Skeleton3D" index="2" unique_id=285760791]
-transform = Transform3D(-0.30063665, 0.06043131, -0.9518216, -0.26759565, -0.96324766, 0.023364387, -0.9154288, 0.26172763, 0.30575874, -0.8052337, 4.847285, 0.24627745)
+transform = Transform3D(0.24768043, 0.078945726, -0.96561944, -0.18268153, -0.9749911, -0.12656948, -0.951463, 0.20774972, -0.22706442, -0.8052337, 4.847285, 0.24627745)
 
 [node name="sidePanel_l" parent="ShooterArmature/Skeleton3D" index="3" unique_id=2040943004]
 transform = Transform3D(1, 3.9704666e-23, -1.571643e-22, -1.6519505e-24, 0.97198486, 0.23504308, 1.6209365e-22, -0.23504308, 0.97198486, -0.7430605, 6.078397, -0.051427256)
 
 [node name="arm_r" parent="ShooterArmature/Skeleton3D" index="4" unique_id=777771297]
-transform = Transform3D(-0.9667457, 0.2557382, -0.00084881444, -0.25564787, -0.9664827, -0.023565575, -0.006846957, -0.022564903, 0.9997217, 1.1023709, 8.11635, -0.54424065)
+transform = Transform3D(-0.90694594, 0.22483931, -0.35622522, -0.2433995, -0.9698969, 0.007521048, -0.34381074, 0.09352629, 0.9343696, 1.1023709, 8.11635, -0.54424065)
 
 [node name="ShootParticle" type="GPUParticles3D" parent="ShooterArmature/Skeleton3D/arm_r" index="1" unique_id=1511154824]
 transform = Transform3D(1, 2.0679491e-25, -3.725289e-09, 0, 1, 5.5511105e-17, 3.725289e-09, -5.5511105e-17, 1, -0.20080024, 5.141733, 0.0040016174)
@@ -83,10 +85,10 @@ light_energy = 2.0
 transform = Transform3D(1, 0, -3.725289e-09, 0, 1, 0, 3.725289e-09, 0, 1, -0.20080072, 5.334256, 0.00493145)
 
 [node name="leg_r_001" parent="ShooterArmature/Skeleton3D" index="5" unique_id=1148879113]
-transform = Transform3D(0.25385085, -0.07528554, 0.9643084, 0.17596355, -0.976735, -0.12257737, 0.9511028, 0.20079961, -0.23469731, 1.010131, 4.4977202, 0.2562634)
+transform = Transform3D(-0.25895253, -0.06027965, 0.96400666, 0.27227056, -0.96213317, 0.012975095, 0.9267212, 0.26583076, 0.26555905, 1.0149812, 4.534784, 0.39670017)
 
 [node name="leg_r" parent="ShooterArmature/Skeleton3D" index="6" unique_id=132037044]
-transform = Transform3D(0.25385064, -0.07528559, 0.96430844, 0.17596325, -0.97673506, -0.1225773, 0.9511029, 0.20079927, -0.23469715, 0.8052337, 4.8472853, 0.24627745)
+transform = Transform3D(-0.25895274, -0.060279522, 0.9640066, 0.27227023, -0.9621333, 0.012975182, 0.9267213, 0.26583043, 0.2655592, 0.8052337, 4.8472853, 0.24627745)
 
 [node name="sidePanel_r" parent="ShooterArmature/Skeleton3D" index="7" unique_id=732825175]
 transform = Transform3D(1, 3.9704666e-23, -1.571643e-22, -1.6519505e-24, 0.97198486, 0.23504308, 1.6209365e-22, -0.23504308, 0.97198486, 0.7430605, 6.078397, -0.05142726)

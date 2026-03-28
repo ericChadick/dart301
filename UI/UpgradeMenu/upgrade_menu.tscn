@@ -1,18 +1,37 @@
 [gd_scene format=3 uid="uid://bv1ctickto1om"]
 
 [ext_resource type="Script" uid="uid://d0dch7ajvegkl" path="res://UI/UpgradeMenu/upgrade_menu.gd" id="1_f4tld"]
+[ext_resource type="PackedScene" uid="uid://dolbdjtkaosjw" path="res://UI/UpgradeMenu/EquipParts/equip_part_slot.tscn" id="2_dqcmg"]
 [ext_resource type="PackedScene" uid="uid://ccjew7eqgtwfb" path="res://UI/UpgradeMenu/WeaponLoadout/weapon_container.tscn" id="2_l626o"]
 [ext_resource type="Resource" uid="uid://vka3t5nm8bak" path="res://Player/EquipWeapons/weaponDiscardX.tres" id="3_8ak6m"]
+[ext_resource type="Texture2D" uid="uid://ckqn4iob45oxu" path="res://UI/UpgradeMenu/Icons/partTestHighlight.png" id="3_g2q6n"]
 [ext_resource type="PackedScene" uid="uid://c1ukt5sqs0152" path="res://UI/UpgradeMenu/WeaponLoadout/weapon_loadout_slot.tscn" id="4_kxcfo"]
+[ext_resource type="PackedScene" uid="uid://wdjkscqfsxc5" path="res://Player/testPlayer.glb" id="6_km76d"]
+[ext_resource type="Shader" uid="uid://rs1crhguniq" path="res://Shaders/outline2D.gdshader" id="6_ofyhn"]
 [ext_resource type="Shader" uid="uid://nxgas4tlbxqo" path="res://Shaders/progressBarSegment.gdshader" id="8_g2q6n"]
 [ext_resource type="Material" uid="uid://bhv7x0qlbg1cd" path="res://Shaders/progressBarSegment.tres" id="8_heicr"]
+[ext_resource type="PackedScene" uid="uid://db5a8n3l5x6jc" path="res://UI/UpgradeMenu/WeaponLoadout/weapon_stat_container.tscn" id="9_heicr"]
 [ext_resource type="AudioStream" uid="uid://dt0dthyx78b8a" path="res://Audio/UpgradeMenu/equip.wav" id="10_8ak6m"]
+[ext_resource type="Texture2D" uid="uid://dw8uyl4ug2yen" path="res://UI/UpgradeMenu/Icons/bulletIcon.png" id="10_bihv4"]
 [ext_resource type="AudioStream" uid="uid://r73kifb7qpq1" path="res://Audio/UpgradeMenu/weaponEquip.wav" id="11_hnh00"]
 [ext_resource type="AudioStream" uid="uid://daa3r12i25bk0" path="res://Audio/UpgradeMenu/menucycle.wav" id="11_in30h"]
+[ext_resource type="Texture2D" uid="uid://dlxfdu00bcus5" path="res://UI/UpgradeMenu/Icons/plugIcon.png" id="11_ssodr"]
 [ext_resource type="Texture2D" uid="uid://pkhhx2kkucph" path="res://UI/UpgradeMenu/Icons/prototype.png" id="12_kimnd"]
+[ext_resource type="Texture2D" uid="uid://1wu46p4iroyh" path="res://UI/Gameplay/fire.png" id="12_km76d"]
 [ext_resource type="Shader" uid="uid://bp7q7ubcd4lk4" path="res://Shaders/dither.gdshader" id="13_d67jj"]
 [ext_resource type="Texture2D" uid="uid://diu4t01qg1wt5" path="res://UI/Gameplay/battery.png" id="15_g2q6n"]
 [ext_resource type="Shader" uid="uid://cg424xmxljdnp" path="res://Shaders/analogCRT.gdshader" id="16_jmane"]
+[ext_resource type="Shader" uid="uid://cwnx73hbxifrt" path="res://Shaders/outlineDotted.gdshader" id="19_4y77a"]
+
+[sub_resource type="AtlasTexture" id="AtlasTexture_jqi2c"]
+atlas = ExtResource("3_g2q6n")
+
+[sub_resource type="Gradient" id="Gradient_dqcmg"]
+offsets = PackedFloat32Array(1)
+colors = PackedColorArray(1, 1, 1, 1)
+
+[sub_resource type="GradientTexture2D" id="GradientTexture2D_jmane"]
+gradient = SubResource("Gradient_dqcmg")
 
 [sub_resource type="ShaderMaterial" id="ShaderMaterial_uxsr7"]
 shader = ExtResource("13_d67jj")
@@ -24,6 +43,14 @@ shader_parameter/color2 = Color(0.5, 0.5, 0.5, 1)
 
 [sub_resource type="GradientTexture2D" id="GradientTexture2D_8ak6m"]
 gradient = SubResource("Gradient_xntmr")
+
+[sub_resource type="ShaderMaterial" id="ShaderMaterial_4y77a"]
+shader = ExtResource("6_ofyhn")
+shader_parameter/color = Color(1, 1, 1, 1)
+shader_parameter/width = 1.0
+shader_parameter/pattern = 0
+shader_parameter/inside = false
+shader_parameter/add_margins = true
 
 [sub_resource type="Gradient" id="Gradient_g2q6n"]
 offsets = PackedFloat32Array(0)
@@ -89,13 +116,6 @@ corner_radius_bottom_left = 3
 
 [sub_resource type="StyleBoxEmpty" id="StyleBoxEmpty_heicr"]
 
-[sub_resource type="Gradient" id="Gradient_dqcmg"]
-offsets = PackedFloat32Array(1)
-colors = PackedColorArray(1, 1, 1, 1)
-
-[sub_resource type="GradientTexture2D" id="GradientTexture2D_jmane"]
-gradient = SubResource("Gradient_dqcmg")
-
 [sub_resource type="Gradient" id="Gradient_heicr"]
 offsets = PackedFloat32Array(1)
 colors = PackedColorArray(0.6509804, 0.6509804, 0.6509804, 1)
@@ -109,6 +129,22 @@ colors = PackedColorArray(1, 1, 1, 1)
 
 [sub_resource type="GradientTexture1D" id="GradientTexture1D_g2q6n"]
 gradient = SubResource("Gradient_jmane")
+
+[sub_resource type="ShaderMaterial" id="ShaderMaterial_6382h"]
+shader = ExtResource("19_4y77a")
+shader_parameter/rotation_speed = 0.3
+shader_parameter/stripes = 16.0
+shader_parameter/stripe_width = 0.3190000151525
+shader_parameter/outline_color = Color(1, 1, 1, 1)
+
+[sub_resource type="Gradient" id="Gradient_ofyhn"]
+offsets = PackedFloat32Array(0.8077922, 0.94025975)
+colors = PackedColorArray(1, 1, 1, 1, 1, 1, 1, 0)
+
+[sub_resource type="GradientTexture2D" id="GradientTexture2D_4y77a"]
+gradient = SubResource("Gradient_ofyhn")
+fill = 2
+fill_from = Vector2(0.5, 0.5)
 
 [sub_resource type="AudioStreamRandomizer" id="AudioStreamRandomizer_soptt"]
 random_pitch = 1.0028923
@@ -204,69 +240,151 @@ anchor_bottom = 1.0
 grow_horizontal = 2
 grow_vertical = 2
 theme_override_constants/margin_left = 96
-theme_override_constants/margin_top = 128
+theme_override_constants/margin_top = 96
 theme_override_constants/margin_right = 96
-theme_override_constants/margin_bottom = 64
+theme_override_constants/margin_bottom = 96
 
 [node name="SubmenuContainer" type="HBoxContainer" parent="Control/MarginContainer" unique_id=584514890]
 layout_mode = 2
-size_flags_horizontal = 0
+size_flags_horizontal = 4
 size_flags_vertical = 0
-theme_override_constants/separation = 64
 
-[node name="WeaponList" type="VBoxContainer" parent="Control/MarginContainer/SubmenuContainer" unique_id=1918643389]
-custom_minimum_size = Vector2(320, 360)
+[node name="EquipPartsMenu" type="VBoxContainer" parent="Control/MarginContainer/SubmenuContainer" unique_id=899782963]
 layout_mode = 2
-size_flags_horizontal = 0
-size_flags_vertical = 4
+size_flags_horizontal = 8
+size_flags_vertical = 8
+theme_override_constants/separation = 32
+
+[node name="EquipPartsGrid" type="GridContainer" parent="Control/MarginContainer/SubmenuContainer/EquipPartsMenu" unique_id=520906397]
+custom_minimum_size = Vector2(360, 256)
+layout_mode = 2
 focus_mode = 2
+theme_override_constants/h_separation = 18
+theme_override_constants/v_separation = 18
+columns = 4
 
-[node name="WeaponContainerX" parent="Control/MarginContainer/SubmenuContainer/WeaponList" unique_id=76988020 instance=ExtResource("2_l626o")]
-custom_minimum_size = Vector2(400, 0)
+[node name="EquipPartSlot" parent="Control/MarginContainer/SubmenuContainer/EquipPartsMenu/EquipPartsGrid" unique_id=1191095639 instance=ExtResource("2_dqcmg")]
 layout_mode = 2
-weaponInd = ExtResource("3_8ak6m")
+texture_normal = SubResource("AtlasTexture_jqi2c")
+
+[node name="EquipPartSlot2" parent="Control/MarginContainer/SubmenuContainer/EquipPartsMenu/EquipPartsGrid" unique_id=1509299316 instance=ExtResource("2_dqcmg")]
+layout_mode = 2
+texture_normal = SubResource("AtlasTexture_jqi2c")
+
+[node name="EquipPartSlot3" parent="Control/MarginContainer/SubmenuContainer/EquipPartsMenu/EquipPartsGrid" unique_id=1045542038 instance=ExtResource("2_dqcmg")]
+layout_mode = 2
+texture_normal = SubResource("AtlasTexture_jqi2c")
+
+[node name="EquipPartSlot4" parent="Control/MarginContainer/SubmenuContainer/EquipPartsMenu/EquipPartsGrid" unique_id=694801468 instance=ExtResource("2_dqcmg")]
+layout_mode = 2
+texture_normal = SubResource("AtlasTexture_jqi2c")
+
+[node name="EquipPartSlot5" parent="Control/MarginContainer/SubmenuContainer/EquipPartsMenu/EquipPartsGrid" unique_id=1808087912 instance=ExtResource("2_dqcmg")]
+layout_mode = 2
+texture_normal = SubResource("AtlasTexture_jqi2c")
+
+[node name="EquipPartSlot6" parent="Control/MarginContainer/SubmenuContainer/EquipPartsMenu/EquipPartsGrid" unique_id=949812329 instance=ExtResource("2_dqcmg")]
+layout_mode = 2
+texture_normal = SubResource("AtlasTexture_jqi2c")
+
+[node name="EquipPartSlot7" parent="Control/MarginContainer/SubmenuContainer/EquipPartsMenu/EquipPartsGrid" unique_id=2018870941 instance=ExtResource("2_dqcmg")]
+layout_mode = 2
+texture_normal = SubResource("AtlasTexture_jqi2c")
+
+[node name="EquipPartSlot8" parent="Control/MarginContainer/SubmenuContainer/EquipPartsMenu/EquipPartsGrid" unique_id=657071632 instance=ExtResource("2_dqcmg")]
+layout_mode = 2
+texture_normal = SubResource("AtlasTexture_jqi2c")
+
+[node name="EquipPartSlot9" parent="Control/MarginContainer/SubmenuContainer/EquipPartsMenu/EquipPartsGrid" unique_id=920413200 instance=ExtResource("2_dqcmg")]
+layout_mode = 2
+texture_normal = SubResource("AtlasTexture_jqi2c")
+
+[node name="EquipPartSlot10" parent="Control/MarginContainer/SubmenuContainer/EquipPartsMenu/EquipPartsGrid" unique_id=399954276 instance=ExtResource("2_dqcmg")]
+layout_mode = 2
+texture_normal = SubResource("AtlasTexture_jqi2c")
+
+[node name="EquipPartSlot11" parent="Control/MarginContainer/SubmenuContainer/EquipPartsMenu/EquipPartsGrid" unique_id=200441346 instance=ExtResource("2_dqcmg")]
+layout_mode = 2
+texture_normal = SubResource("AtlasTexture_jqi2c")
+
+[node name="EquipPartSlot12" parent="Control/MarginContainer/SubmenuContainer/EquipPartsMenu/EquipPartsGrid" unique_id=1185562664 instance=ExtResource("2_dqcmg")]
+layout_mode = 2
+texture_normal = SubResource("AtlasTexture_jqi2c")
+
+[node name="PartInfoPanel" type="MarginContainer" parent="Control/MarginContainer/SubmenuContainer/EquipPartsMenu" unique_id=1432144613]
+clip_contents = true
+layout_mode = 2
+
+[node name="VBoxContainer" type="VBoxContainer" parent="Control/MarginContainer/SubmenuContainer/EquipPartsMenu/PartInfoPanel" unique_id=332603490]
+layout_mode = 2
+
+[node name="SepLine" type="TextureRect" parent="Control/MarginContainer/SubmenuContainer/EquipPartsMenu/PartInfoPanel/VBoxContainer" unique_id=805322114]
+custom_minimum_size = Vector2(0, 4)
+layout_mode = 2
+size_flags_vertical = 4
+texture = SubResource("GradientTexture2D_jmane")
+expand_mode = 1
+
+[node name="PartName" type="RichTextLabel" parent="Control/MarginContainer/SubmenuContainer/EquipPartsMenu/PartInfoPanel/VBoxContainer" unique_id=267349317]
+custom_minimum_size = Vector2(360, 64)
+layout_mode = 2
+theme_override_font_sizes/normal_font_size = 32
+bbcode_enabled = true
+text = "Metal Foot"
+
+[node name="SepLine2" type="TextureRect" parent="Control/MarginContainer/SubmenuContainer/EquipPartsMenu/PartInfoPanel/VBoxContainer" unique_id=1749817438]
+custom_minimum_size = Vector2(0, 4)
+layout_mode = 2
+texture = SubResource("GradientTexture2D_jmane")
+expand_mode = 1
+
+[node name="PartDescription" type="RichTextLabel" parent="Control/MarginContainer/SubmenuContainer/EquipPartsMenu/PartInfoPanel/VBoxContainer" unique_id=1590329023]
+custom_minimum_size = Vector2(360, 128)
+layout_mode = 2
+theme_override_font_sizes/normal_font_size = 24
+bbcode_enabled = true
+text = "When landing on a wall, hold JUMP to ascend the wall"
+
+[node name="SepLine3" type="TextureRect" parent="Control/MarginContainer/SubmenuContainer/EquipPartsMenu/PartInfoPanel/VBoxContainer" unique_id=1375757430]
+custom_minimum_size = Vector2(0, 4)
+layout_mode = 2
+texture = SubResource("GradientTexture2D_jmane")
+expand_mode = 1
+
+[node name="PartPreview" type="SubViewportContainer" parent="Control/MarginContainer/SubmenuContainer/EquipPartsMenu" unique_id=309044638]
+custom_minimum_size = Vector2(360, 240)
+layout_mode = 2
+stretch = true
+
+[node name="SubViewport" type="SubViewport" parent="Control/MarginContainer/SubmenuContainer/EquipPartsMenu/PartPreview" unique_id=1436088031]
+transparent_bg = true
+handle_input_locally = false
+size = Vector2i(360, 240)
+render_target_update_mode = 4
+
+[node name="Camera3D" type="Camera3D" parent="Control/MarginContainer/SubmenuContainer/EquipPartsMenu/PartPreview/SubViewport" unique_id=1098424349]
+cull_mask = 1048562
+projection = 1
 
 [node name="PlayerEquipContainer" type="HBoxContainer" parent="Control/MarginContainer/SubmenuContainer" unique_id=481768132]
 custom_minimum_size = Vector2(0, 640)
 layout_mode = 2
 size_flags_horizontal = 4
-size_flags_vertical = 4
+size_flags_vertical = 8
 theme_override_constants/separation = 24
-
-[node name="WeaponLoadoutList" type="VBoxContainer" parent="Control/MarginContainer/SubmenuContainer/PlayerEquipContainer" unique_id=346539770]
-layout_mode = 2
-size_flags_vertical = 4
-focus_behavior_recursive = 2
-theme_override_constants/separation = 36
-
-[node name="WeaponLoadoutSlot" parent="Control/MarginContainer/SubmenuContainer/PlayerEquipContainer/WeaponLoadoutList" unique_id=586287958 instance=ExtResource("4_kxcfo")]
-layout_mode = 2
-focus_neighbor_left = NodePath(".")
-focus_neighbor_top = NodePath(".")
-focus_neighbor_bottom = NodePath("../WeaponLoadoutSlot2")
-
-[node name="WeaponLoadoutSlot2" parent="Control/MarginContainer/SubmenuContainer/PlayerEquipContainer/WeaponLoadoutList" unique_id=756316103 instance=ExtResource("4_kxcfo")]
-layout_mode = 2
-focus_neighbor_left = NodePath(".")
-focus_neighbor_top = NodePath("../WeaponLoadoutSlot")
-focus_neighbor_bottom = NodePath("../WeaponLoadoutSlot3")
-
-[node name="WeaponLoadoutSlot3" parent="Control/MarginContainer/SubmenuContainer/PlayerEquipContainer/WeaponLoadoutList" unique_id=1343725565 instance=ExtResource("4_kxcfo")]
-layout_mode = 2
-focus_neighbor_left = NodePath(".")
-focus_neighbor_top = NodePath("../WeaponLoadoutSlot2")
-focus_neighbor_bottom = NodePath(".")
 
 [node name="PlayerEquipVisual" type="VBoxContainer" parent="Control/MarginContainer/SubmenuContainer/PlayerEquipContainer" unique_id=170894941]
 layout_mode = 2
 size_flags_horizontal = 4
 size_flags_vertical = 4
-theme_override_constants/separation = 12
+theme_override_constants/separation = 32
 
 [node name="PlayerBaseIcon" type="TextureRect" parent="Control/MarginContainer/SubmenuContainer/PlayerEquipContainer/PlayerEquipVisual" unique_id=1431262963]
+visible = false
 material = SubResource("ShaderMaterial_uxsr7")
-custom_minimum_size = Vector2(520, 680)
+custom_minimum_size = Vector2(520, 640)
 layout_mode = 2
+size_flags_vertical = 0
 texture = ExtResource("12_kimnd")
 expand_mode = 1
 stretch_mode = 6
@@ -276,6 +394,32 @@ layout_mode = 0
 offset_right = 64.0
 offset_bottom = 64.0
 texture = SubResource("GradientTexture2D_8ak6m")
+
+[node name="PlayerPreview" type="SubViewportContainer" parent="Control/MarginContainer/SubmenuContainer/PlayerEquipContainer/PlayerEquipVisual" unique_id=1107094229]
+material = SubResource("ShaderMaterial_4y77a")
+custom_minimum_size = Vector2(480, 640)
+layout_mode = 2
+focus_neighbor_left = NodePath("../../../EquipPartsMenu/EquipPartsGrid")
+focus_neighbor_top = NodePath(".")
+focus_neighbor_right = NodePath("../../../EquipWeaponsMenu/HBoxContainer/WeaponLoadoutList/WeaponLoadoutSlot")
+focus_neighbor_bottom = NodePath("../../../../GoButton")
+stretch = true
+
+[node name="SubViewport" type="SubViewport" parent="Control/MarginContainer/SubmenuContainer/PlayerEquipContainer/PlayerEquipVisual/PlayerPreview" unique_id=1335580837]
+transparent_bg = true
+handle_input_locally = false
+size = Vector2i(480, 640)
+render_target_update_mode = 4
+
+[node name="Camera3D" type="Camera3D" parent="Control/MarginContainer/SubmenuContainer/PlayerEquipContainer/PlayerEquipVisual/PlayerPreview/SubViewport" unique_id=426593829]
+cull_mask = 1048561
+projection = 1
+
+[node name="PlayerModels" type="Node3D" parent="Control/MarginContainer/SubmenuContainer/PlayerEquipContainer/PlayerEquipVisual/PlayerPreview/SubViewport" unique_id=572503446]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, -0.4, -2)
+
+[node name="playerBody" parent="Control/MarginContainer/SubmenuContainer/PlayerEquipContainer/PlayerEquipVisual/PlayerPreview/SubViewport/PlayerModels" unique_id=1988512523 instance=ExtResource("6_km76d")]
+transform = Transform3D(-0.04, 0, -6.0398317e-09, 0, 0.04, 0, 6.0398317e-09, 0, -0.04, 0, 0, 0)
 
 [node name="HardwareBar" type="ColorRect" parent="Control/MarginContainer/SubmenuContainer/PlayerEquipContainer/PlayerEquipVisual" unique_id=852578255]
 material = ExtResource("8_heicr")
@@ -337,62 +481,142 @@ theme_override_styles/background = SubResource("StyleBoxFlat_g2q6n")
 theme_override_styles/fill = SubResource("StyleBoxEmpty_heicr")
 show_percentage = false
 
-[node name="EquipPartsMenu" type="VBoxContainer" parent="Control/MarginContainer/SubmenuContainer" unique_id=899782963]
+[node name="EquipWeaponsMenu" type="VBoxContainer" parent="Control/MarginContainer/SubmenuContainer" unique_id=2058975565]
 layout_mode = 2
-size_flags_vertical = 4
+size_flags_horizontal = 8
+theme_override_constants/separation = 6
 
-[node name="EquipPartsGrid" type="GridContainer" parent="Control/MarginContainer/SubmenuContainer/EquipPartsMenu" unique_id=520906397]
-custom_minimum_size = Vector2(360, 256)
-layout_mode = 2
-focus_mode = 2
-theme_override_constants/h_separation = 18
-theme_override_constants/v_separation = 18
-columns = 4
-
-[node name="PartInfoPanel" type="MarginContainer" parent="Control/MarginContainer/SubmenuContainer/EquipPartsMenu" unique_id=1432144613]
+[node name="VBoxContainer" type="VBoxContainer" parent="Control/MarginContainer/SubmenuContainer/EquipWeaponsMenu" unique_id=1635979103]
 clip_contents = true
 layout_mode = 2
+size_flags_horizontal = 0
+size_flags_vertical = 0
+theme_override_constants/separation = 4
 
-[node name="VBoxContainer" type="VBoxContainer" parent="Control/MarginContainer/SubmenuContainer/EquipPartsMenu/PartInfoPanel" unique_id=332603490]
+[node name="WeaponPreview" type="SubViewportContainer" parent="Control/MarginContainer/SubmenuContainer/EquipWeaponsMenu/VBoxContainer" unique_id=1641325957]
+custom_minimum_size = Vector2(480, 240)
 layout_mode = 2
+size_flags_horizontal = 0
+stretch = true
 
-[node name="SepLine" type="TextureRect" parent="Control/MarginContainer/SubmenuContainer/EquipPartsMenu/PartInfoPanel/VBoxContainer" unique_id=805322114]
+[node name="SubViewport" type="SubViewport" parent="Control/MarginContainer/SubmenuContainer/EquipWeaponsMenu/VBoxContainer/WeaponPreview" unique_id=1398751004]
+transparent_bg = true
+handle_input_locally = false
+size = Vector2i(480, 240)
+render_target_update_mode = 4
+
+[node name="Camera3D" type="Camera3D" parent="Control/MarginContainer/SubmenuContainer/EquipWeaponsMenu/VBoxContainer/WeaponPreview/SubViewport" unique_id=307124484]
+cull_mask = 1048564
+projection = 1
+
+[node name="SepLine" type="TextureRect" parent="Control/MarginContainer/SubmenuContainer/EquipWeaponsMenu/VBoxContainer" unique_id=325418401]
 custom_minimum_size = Vector2(0, 4)
 layout_mode = 2
 size_flags_vertical = 4
 texture = SubResource("GradientTexture2D_jmane")
 expand_mode = 1
 
-[node name="PartName" type="RichTextLabel" parent="Control/MarginContainer/SubmenuContainer/EquipPartsMenu/PartInfoPanel/VBoxContainer" unique_id=267349317]
-custom_minimum_size = Vector2(360, 64)
+[node name="HBoxContainer" type="HBoxContainer" parent="Control/MarginContainer/SubmenuContainer/EquipWeaponsMenu/VBoxContainer" unique_id=1449260169]
 layout_mode = 2
-theme_override_font_sizes/normal_font_size = 32
-bbcode_enabled = true
-text = "Metal Foot"
 
-[node name="SepLine2" type="TextureRect" parent="Control/MarginContainer/SubmenuContainer/EquipPartsMenu/PartInfoPanel/VBoxContainer" unique_id=1749817438]
+[node name="WeaponStatList" type="VBoxContainer" parent="Control/MarginContainer/SubmenuContainer/EquipWeaponsMenu/VBoxContainer/HBoxContainer" unique_id=2023609186]
+layout_mode = 2
+theme_override_constants/separation = 0
+
+[node name="WeaponStatContainer" parent="Control/MarginContainer/SubmenuContainer/EquipWeaponsMenu/VBoxContainer/HBoxContainer/WeaponStatList" unique_id=100033575 instance=ExtResource("9_heicr")]
+modulate = Color(0.74509805, 0.74509805, 0.74509805, 1)
+layout_mode = 2
+statIcon = ExtResource("10_bihv4")
+
+[node name="WeaponStatContainer2" parent="Control/MarginContainer/SubmenuContainer/EquipWeaponsMenu/VBoxContainer/HBoxContainer/WeaponStatList" unique_id=1008713396 instance=ExtResource("9_heicr")]
+modulate = Color(0.74509805, 0.74509805, 0.74509805, 1)
+layout_mode = 2
+statBarType = 1
+statIcon = ExtResource("11_ssodr")
+
+[node name="WeaponStatContainer3" parent="Control/MarginContainer/SubmenuContainer/EquipWeaponsMenu/VBoxContainer/HBoxContainer/WeaponStatList" unique_id=1741299808 instance=ExtResource("9_heicr")]
+modulate = Color(0.74509805, 0.74509805, 0.74509805, 1)
+layout_mode = 2
+statBarType = 2
+statIcon = ExtResource("12_km76d")
+
+[node name="SepLine" type="RichTextLabel" parent="Control/MarginContainer/SubmenuContainer/EquipWeaponsMenu/VBoxContainer/HBoxContainer" unique_id=71972758]
+custom_minimum_size = Vector2(10, 0)
+layout_mode = 2
+size_flags_horizontal = 0
+theme_override_font_sizes/normal_font_size = 10
+text = "|||||||"
+fit_content = true
+
+[node name="Description" type="RichTextLabel" parent="Control/MarginContainer/SubmenuContainer/EquipWeaponsMenu/VBoxContainer/HBoxContainer" unique_id=242761588]
+custom_minimum_size = Vector2(244, 96)
+layout_mode = 2
+size_flags_vertical = 0
+theme_override_font_sizes/normal_font_size = 12
+bbcode_enabled = true
+text = "Battery-powered energy weapon best used for fast-paced, short-ranged combat. "
+fit_content = true
+
+[node name="SepLine" type="TextureRect" parent="Control/MarginContainer/SubmenuContainer/EquipWeaponsMenu" unique_id=1898425718]
 custom_minimum_size = Vector2(0, 4)
 layout_mode = 2
+size_flags_vertical = 4
 texture = SubResource("GradientTexture2D_jmane")
 expand_mode = 1
 
-[node name="PartDescription" type="RichTextLabel" parent="Control/MarginContainer/SubmenuContainer/EquipPartsMenu/PartInfoPanel/VBoxContainer" unique_id=1590329023]
-custom_minimum_size = Vector2(360, 128)
+[node name="HBoxContainer" type="HBoxContainer" parent="Control/MarginContainer/SubmenuContainer/EquipWeaponsMenu" unique_id=1352754184]
 layout_mode = 2
-theme_override_font_sizes/normal_font_size = 24
-bbcode_enabled = true
-text = "When landing on a wall, hold JUMP to ascend the wall"
+size_flags_horizontal = 0
+size_flags_vertical = 4
+theme_override_constants/separation = 12
+
+[node name="WeaponLoadoutList" type="VBoxContainer" parent="Control/MarginContainer/SubmenuContainer/EquipWeaponsMenu/HBoxContainer" unique_id=346539770]
+layout_mode = 2
+size_flags_vertical = 0
+focus_behavior_recursive = 2
+theme_override_constants/separation = 4
+
+[node name="WeaponLoadoutSlot" parent="Control/MarginContainer/SubmenuContainer/EquipWeaponsMenu/HBoxContainer/WeaponLoadoutList" unique_id=586287958 instance=ExtResource("4_kxcfo")]
+layout_mode = 2
+focus_neighbor_left = NodePath(".")
+focus_neighbor_top = NodePath(".")
+focus_neighbor_bottom = NodePath("../WeaponLoadoutSlot2")
+
+[node name="WeaponLoadoutSlot2" parent="Control/MarginContainer/SubmenuContainer/EquipWeaponsMenu/HBoxContainer/WeaponLoadoutList" unique_id=756316103 instance=ExtResource("4_kxcfo")]
+layout_mode = 2
+focus_neighbor_left = NodePath(".")
+focus_neighbor_top = NodePath("../WeaponLoadoutSlot")
+focus_neighbor_bottom = NodePath("../WeaponLoadoutSlot3")
+
+[node name="WeaponLoadoutSlot3" parent="Control/MarginContainer/SubmenuContainer/EquipWeaponsMenu/HBoxContainer/WeaponLoadoutList" unique_id=1343725565 instance=ExtResource("4_kxcfo")]
+layout_mode = 2
+focus_neighbor_left = NodePath(".")
+focus_neighbor_top = NodePath("../WeaponLoadoutSlot2")
+focus_neighbor_bottom = NodePath(".")
+
+[node name="WeaponList" type="VBoxContainer" parent="Control/MarginContainer/SubmenuContainer/EquipWeaponsMenu/HBoxContainer" unique_id=1918643389]
+custom_minimum_size = Vector2(320, 360)
+layout_mode = 2
+size_flags_horizontal = 0
+size_flags_vertical = 0
+focus_mode = 2
+theme_override_constants/separation = 4
+
+[node name="WeaponContainerX" parent="Control/MarginContainer/SubmenuContainer/EquipWeaponsMenu/HBoxContainer/WeaponList" unique_id=76988020 instance=ExtResource("2_l626o")]
+custom_minimum_size = Vector2(320, 0)
+layout_mode = 2
+weaponInd = ExtResource("3_8ak6m")
 
 [node name="Currency" type="RichTextLabel" parent="Control/MarginContainer" unique_id=83709108]
 custom_minimum_size = Vector2(256, 96)
 layout_mode = 2
-size_flags_horizontal = 0
-size_flags_vertical = 8
+size_flags_horizontal = 8
+size_flags_vertical = 0
 theme_override_font_sizes/normal_font_size = 48
 bbcode_enabled = true
 text = "101011"
 fit_content = true
-vertical_alignment = 2
+horizontal_alignment = 2
 
 [node name="DebugToggles" type="HBoxContainer" parent="Control/MarginContainer" unique_id=942299027]
 layout_mode = 2
@@ -456,6 +680,7 @@ custom_minimum_size = Vector2(256, 64)
 layout_mode = 2
 size_flags_horizontal = 4
 size_flags_vertical = 8
+focus_neighbor_left = NodePath("../ExitButton")
 focus_neighbor_bottom = NodePath(".")
 texture_normal = SubResource("GradientTexture1D_bihv4")
 texture_hover = SubResource("GradientTexture1D_g2q6n")
@@ -477,6 +702,54 @@ text = "start"
 horizontal_alignment = 1
 vertical_alignment = 1
 
+[node name="ExitButton" type="TextureButton" parent="Control/MarginContainer" unique_id=1552476602]
+custom_minimum_size = Vector2(256, 64)
+layout_mode = 2
+size_flags_horizontal = 0
+size_flags_vertical = 8
+focus_neighbor_left = NodePath(".")
+focus_neighbor_top = NodePath("../SubmenuContainer/EquipPartsMenu/EquipPartsGrid")
+focus_neighbor_right = NodePath("../GoButton")
+focus_neighbor_bottom = NodePath(".")
+texture_normal = SubResource("GradientTexture1D_bihv4")
+texture_hover = SubResource("GradientTexture1D_g2q6n")
+texture_focused = SubResource("GradientTexture1D_g2q6n")
+stretch_mode = 0
+
+[node name="ExitText" type="RichTextLabel" parent="Control/MarginContainer/ExitButton" unique_id=1494464288]
+layout_mode = 1
+anchors_preset = 15
+anchor_right = 1.0
+anchor_bottom = 1.0
+grow_horizontal = 2
+grow_vertical = 2
+mouse_filter = 2
+theme_override_colors/default_color = Color(0, 0, 0, 1)
+theme_override_font_sizes/normal_font_size = 32
+bbcode_enabled = true
+text = "Exit"
+horizontal_alignment = 1
+vertical_alignment = 1
+
+[node name="WeaponConnectionLine" type="Line2D" parent="." unique_id=2106420278]
+z_index = -1
+width = 4.0
+
+[node name="GridSelect" type="NinePatchRect" parent="." unique_id=1099196910]
+material = SubResource("ShaderMaterial_6382h")
+custom_minimum_size = Vector2(36, 36)
+offset_right = 48.0
+offset_bottom = 48.0
+pivot_offset_ratio = Vector2(0.5, 0.5)
+size_flags_horizontal = 0
+size_flags_vertical = 0
+texture = SubResource("GradientTexture2D_4y77a")
+region_rect = Rect2(0, 0, 64, 64)
+patch_margin_left = 24
+patch_margin_top = 24
+patch_margin_right = 24
+patch_margin_bottom = 24
+
 [node name="Audio" type="Node" parent="." unique_id=1896171430]
 
 [node name="CycleSound" type="AudioStreamPlayer" parent="Audio" unique_id=1596670953]
@@ -489,6 +762,7 @@ stream = SubResource("AudioStreamRandomizer_6mccb")
 stream = SubResource("AudioStreamRandomizer_dqcmg")
 
 [node name="Screen" type="ColorRect" parent="." unique_id=139744653]
+visible = false
 material = SubResource("ShaderMaterial_g2q6n")
 anchors_preset = 15
 anchor_right = 1.0
@@ -499,3 +773,4 @@ mouse_filter = 2
 
 [connection signal="pressed" from="Control/MarginContainer/DebugToggles/BatteryDebug" to="." method="_on_battery_debug_pressed"]
 [connection signal="pressed" from="Control/MarginContainer/GoButton" to="." method="_on_go_button_pressed"]
+[connection signal="pressed" from="Control/MarginContainer/ExitButton" to="." method="_on_exit_button_pressed"]

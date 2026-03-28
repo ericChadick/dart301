@@ -17,10 +17,14 @@ class_name equipPart
 @export var boneAttach : NodePath;
 @export var partModel : PackedScene; #contains offset, extra effects
 
+@export var partMenuModel : PackedScene; #contains offset, extra effects
+@export var partMenuPosition : Vector3;
+@export var partMenuRotation : Vector3;
+@export var partMenuScale : Vector3;
+
 # Called when the node enters the scene tree for the first time.
 func _ready() -> void:
 	pass # Replace with function body.
-
 
 # Called every frame. 'delta' is the elapsed time since the previous frame.
 func _process(delta: float) -> void:

@@ -1,0 +1,23 @@
+[gd_scene format=3 uid="uid://6uk8lxylvwoj"]
+
+[ext_resource type="Script" uid="uid://qgb1lv4rboab" path="res://World/Void/fall_void.gd" id="1_gpdev"]
+
+[sub_resource type="FogMaterial" id="FogMaterial_ewib8"]
+density = 5.0
+albedo = Color(0, 0, 0, 1)
+height_falloff = 35.055244
+edge_fade = 1e-05
+
+[sub_resource type="BoxShape3D" id="BoxShape3D_gpdev"]
+
+[node name="FallVoid" type="FogVolume" unique_id=199958430]
+size = Vector3(1, 1, 1)
+material = SubResource("FogMaterial_ewib8")
+script = ExtResource("1_gpdev")
+
+[node name="StaticBody3D" type="Area3D" parent="." unique_id=643287002]
+
+[node name="CollisionShape3D" type="CollisionShape3D" parent="StaticBody3D" unique_id=1069082996]
+shape = SubResource("BoxShape3D_gpdev")
+
+[connection signal="body_entered" from="StaticBody3D" to="." method="_on_static_body_3d_body_entered"]

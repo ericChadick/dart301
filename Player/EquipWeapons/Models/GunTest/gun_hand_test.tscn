@@ -3,6 +3,7 @@
 [ext_resource type="PackedScene" uid="uid://bydot58m6vrcn" path="res://Player/EquipWeapons/Models/GunTest/gunHandTest.glb" id="1_rj0hd"]
 [ext_resource type="Script" uid="uid://lvljd7l44e2y" path="res://Player/EquipWeapons/Models/GunTest/gun_hand_test.gd" id="2_i753c"]
 [ext_resource type="PackedScene" uid="uid://h8nfngcoc7cq" path="res://Player/bullet.tscn" id="3_byyo1"]
+[ext_resource type="PackedScene" uid="uid://bblhd55d2lha5" path="res://Player/EquipWeapons/Models/NailGun/nailgun.glb" id="4_k1gum"]
 
 [sub_resource type="Curve" id="Curve_rj0hd"]
 _data = [Vector2(0, 1), 0.0, 0.0, 0, 0, Vector2(1, 0), -1.7314893, 0.0, 0, 0]
@@ -35,10 +36,12 @@ rings = 0
 
 [node name="gunHandTest" unique_id=737188982 instance=ExtResource("1_rj0hd")]
 script = ExtResource("2_i753c")
-shot = true
 projectileInst = ExtResource("3_byyo1")
 
-[node name="Skeleton3D" parent="Armature" parent_id_path=PackedInt32Array(1852164944) index="0" unique_id=1444187841]
+[node name="Armature" parent="." index="0" unique_id=1852164944]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, -0.1, 0.1, 0)
+
+[node name="Skeleton3D" parent="Armature" index="0" unique_id=1444187841]
 bones/0/position = Vector3(2.6054026e-15, 0.07712212, -0.29040143)
 bones/0/rotation = Quaternion(-1.2302349e-14, 1, -3.67767e-08, -1.3315804e-07)
 bones/1/position = Vector3(-0.27632913, -0.06881268, 0.013129089)
@@ -89,6 +92,9 @@ bones/43/position = Vector3(-1.5930196e-09, -0.008918155, -0.006681625)
 bones/43/rotation = Quaternion(-0.012926474, -1.1919941e-07, 4.6228656e-09, 0.99991643)
 bones/44/position = Vector3(-4.312747e-09, 0.09845429, -0.009044435)
 
+[node name="pistol" parent="Armature/Skeleton3D" index="1" unique_id=1691001930]
+visible = false
+
 [node name="GunBone" type="BoneAttachment3D" parent="Armature/Skeleton3D" index="2" unique_id=1696814793]
 transform = Transform3D(1, -1.7053026e-13, -1.3430885e-06, -1.3430885e-06, 2.2351742e-07, -0.9999999, 4.973799e-13, 0.9999998, 2.682209e-07, -1.9617954e-14, 0.15551588, 0.2202647)
 bone_name = "bullet"
@@ -111,3 +117,9 @@ light_energy = 2.0
 
 [node name="ShootPoint" type="Marker3D" parent="Armature/Skeleton3D/GunBone" index="2" unique_id=2087700851]
 transform = Transform3D(1, 0, 1.1368696e-13, 0, 1, 0, -1.1368673e-13, 1.4210855e-14, 1, 1.8474111e-13, 0.39281422, 8.940697e-08)
+
+[node name="nailgun" parent="Armature/Skeleton3D/GunBone" index="3" unique_id=1723218850 instance=ExtResource("4_k1gum")]
+transform = Transform3D(-0.60370165, -8.1047943e-07, 0.010453315, -0.010453315, 1.0797053e-07, -0.6037019, 8.0848855e-07, -0.60379225, -1.4897765e-07, 0.00245364, 0.04549174, 0.01188539)
+
+[node name="AnimationPlayer" parent="." index="1" unique_id=2106950465]
+speed_scale = 2.0

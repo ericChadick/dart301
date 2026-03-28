@@ -1,0 +1,22 @@
+[gd_resource type="Resource" script_class="equipPart" format=3 uid="uid://d0y5txletecl5"]
+
+[ext_resource type="Texture2D" uid="uid://ckqn4iob45oxu" path="res://UI/UpgradeMenu/Icons/partTestHighlight.png" id="1_88d6h"]
+[ext_resource type="Script" uid="uid://6k7ini2cimkq" path="res://Player/EquipParts/equipPart.gd" id="1_nlcci"]
+
+[sub_resource type="AtlasTexture" id="AtlasTexture_0uctm"]
+
+[sub_resource type="AtlasTexture" id="AtlasTexture_jqi2c"]
+atlas = ExtResource("1_88d6h")
+
+[sub_resource type="AtlasTexture" id="AtlasTexture_4pnkx"]
+
+[resource]
+script = ExtResource("1_nlcci")
+partName = "---"
+fileName = "---"
+partDescription = "---"
+partCost = 0
+partIcon = SubResource("AtlasTexture_jqi2c")
+partHighlightTexture = SubResource("AtlasTexture_0uctm")
+partSelectedTexture = SubResource("AtlasTexture_4pnkx")
+metadata/_custom_type_script = "uid://6k7ini2cimkq"

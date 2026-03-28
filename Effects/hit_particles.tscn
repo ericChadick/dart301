@@ -1,6 +1,7 @@
 [gd_scene format=3 uid="uid://dcq4u4hsq0jim"]
 
 [ext_resource type="Texture2D" uid="uid://bfg5niyy10kcd" path="res://Effects/Flare00.PNG" id="1_1kdmq"]
+[ext_resource type="Script" uid="uid://yahqp88gma2i" path="res://Effects/hit_particles.gd" id="1_to7jw"]
 
 [sub_resource type="Curve" id="Curve_to7jw"]
 _data = [Vector2(0, 1), 0.0, 0.0, 0, 0, Vector2(1, 0), 0.0, 0.0, 0, 0]
@@ -94,6 +95,7 @@ particles_anim_loop = false
 material = SubResource("StandardMaterial3D_j0tst")
 
 [node name="HitParticles" type="Node3D" unique_id=1875539030]
+script = ExtResource("1_to7jw")
 
 [node name="HitParticle" type="GPUParticles3D" parent="." unique_id=1269786726]
 transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 0.5, 0)

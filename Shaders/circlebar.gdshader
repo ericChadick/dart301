@@ -16,6 +16,8 @@ uniform bool use_gradient = true;
 
 uniform float rotation_offset : hint_range(0.0, 6.28318) = 0.0;
 
+uniform float alpha : hint_range(0.0, 1.0) = 1.0;
+
 vec2 rotate(vec2 uv, float angle) {
     float s = sin(angle);
     float c = cos(angle);
@@ -52,5 +54,5 @@ void fragment() {
     
     vec4 ring_color = mix(background_color, final_color, progress_mask);
     
-    COLOR = vec4(ring_color.rgb, ring_color.a * ring_mask);
+    COLOR = vec4(ring_color.rgb, ring_color.a * ring_mask * alpha);
 }

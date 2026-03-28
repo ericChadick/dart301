@@ -1,8 +1,8 @@
 [gd_resource type="Resource" script_class="weaponUnlock" format=3 uid="uid://uh4d532c1ca7"]
 
-[ext_resource type="PackedScene" uid="uid://h8nfngcoc7cq" path="res://Player/bullet.tscn" id="1_36e6b"]
 [ext_resource type="Script" uid="uid://cmfl4kq4wgclj" path="res://Player/EquipWeapons/weaponUnlock.gd" id="1_036m0"]
 [ext_resource type="Texture2D" uid="uid://sx4l0hvsdhfg" path="res://Player/EquipWeapons/Icons/gunIcon.png" id="2_hw4ii"]
+[ext_resource type="PackedScene" uid="uid://bblhd55d2lha5" path="res://Player/EquipWeapons/Models/NailGun/nailgun.glb" id="3_36e6b"]
 [ext_resource type="PackedScene" uid="uid://dpylpvn23c44l" path="res://Player/EquipWeapons/Models/GunTest/gun_hand_test.tscn" id="4_36e6b"]
 
 [sub_resource type="AtlasTexture" id="AtlasTexture_8lhb6"]
@@ -15,9 +15,10 @@ weaponInd = 1
 weaponName = "Gun"
 weaponDescription = "Battery-powered energy weapon best used for fast-paced, short-ranged combat."
 weaponScene = ExtResource("4_36e6b")
-weaponPositionOffset = Vector3(0, -0.65, -0.65)
+weaponPositionOffset = Vector3(-0.45, -0.65, -0.65)
 weaponRotationOffset = Vector3(0, 180, 0)
-weaponScaleOffset = Vector3(1.5, 1.5, 1.5)
-projectileInst = ExtResource("1_36e6b")
-energyCost = 2.0
+weaponScaleOffset = Vector3(-1.5, 1.5, 1.5)
+weaponModelScene = ExtResource("3_36e6b")
+ammo = 6
+energyCost = 0.5
 metadata/_custom_type_script = "uid://cmfl4kq4wgclj"

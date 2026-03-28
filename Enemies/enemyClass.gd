@@ -22,10 +22,9 @@ class_name enemyType;
 @export_category("Visual")
 @export var partsBreak : Array;
 
-#remove part from enemy model
-func removePart():
-	var parts = partsBreak;
-	if parts.size() > 0:
-		var partSelect = parts[randi_range(0, parts.size()-1)];
-		parts[partSelect].visible = false;
-		parts.remove_at(partSelect);
+var eye : Node3D;
+var sightRay : Node3D;
+
+func updatePaths():
+	pass;#eye.get_node()
+	#eye = get_node(eyeNode);

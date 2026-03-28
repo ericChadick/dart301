@@ -13,7 +13,7 @@ var flashTimer := 0.0;
 
 # Called when the node enters the scene tree for the first time.
 func _ready() -> void:
-	pass;
+	shot = false;
 
 # Called every frame. 'delta' is the elapsed time since the previous frame.
 func _process(delta: float) -> void:
@@ -30,4 +30,8 @@ func _process(delta: float) -> void:
 		flashTimer = .1;
 		shot = false;
 	
+	#gun recoil
+	if flashTimer > 0.0:
+		holder.rotate_from_vector(Vector2(0.0, -flashTimer*delta*8.0));
+		
 	muzzle_flash.visible = flashTimer > 0.0;

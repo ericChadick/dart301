@@ -1,0 +1,57 @@
+[gd_scene format=3 uid="uid://081j1eod6654"]
+
+[ext_resource type="PackedScene" uid="uid://c4yothiowxlh0" path="res://UI/MainMenu/menu_button.tscn" id="1_jld46"]
+[ext_resource type="Script" uid="uid://bano0eojk5t1t" path="res://UI/MainMenu/main_menu.gd" id="1_t17p2"]
+
+[node name="MainMenu" type="CanvasLayer" unique_id=793937689]
+script = ExtResource("1_t17p2")
+
+[node name="Control" type="Control" parent="." unique_id=1832150830]
+layout_mode = 3
+anchors_preset = 15
+anchor_right = 1.0
+anchor_bottom = 1.0
+grow_horizontal = 2
+grow_vertical = 2
+
+[node name="MarginContainer" type="MarginContainer" parent="Control" unique_id=1270312765]
+layout_mode = 1
+anchors_preset = 15
+anchor_right = 1.0
+anchor_bottom = 1.0
+grow_horizontal = 2
+grow_vertical = 2
+theme_override_constants/margin_left = 64
+theme_override_constants/margin_top = 128
+theme_override_constants/margin_right = 64
+theme_override_constants/margin_bottom = 64
+
+[node name="ListContainer" type="VBoxContainer" parent="Control/MarginContainer" unique_id=936435349]
+layout_mode = 2
+
+[node name="RichTextLabel" type="RichTextLabel" parent="Control/MarginContainer/ListContainer" unique_id=16066579]
+custom_minimum_size = Vector2(0, 320)
+layout_mode = 2
+theme_override_font_sizes/normal_font_size = 128
+text = "W h i p c o r d"
+
+[node name="ButtonContainer" type="VBoxContainer" parent="Control/MarginContainer/ListContainer" unique_id=676721382]
+layout_mode = 2
+size_flags_horizontal = 0
+size_flags_vertical = 4
+theme_override_constants/separation = 36
+
+[node name="StartButton" parent="Control/MarginContainer/ListContainer/ButtonContainer" unique_id=2040158163 instance=ExtResource("1_jld46")]
+layout_mode = 2
+buttonText = "start"
+
+[node name="OptionsButton" parent="Control/MarginContainer/ListContainer/ButtonContainer" unique_id=1323670374 instance=ExtResource("1_jld46")]
+layout_mode = 2
+buttonText = "options"
+
+[node name="ExitButton" parent="Control/MarginContainer/ListContainer/ButtonContainer" unique_id=1460970795 instance=ExtResource("1_jld46")]
+layout_mode = 2
+buttonText = "exit"
+
+[connection signal="pressed" from="Control/MarginContainer/ListContainer/ButtonContainer/StartButton" to="." method="_on_start_button_pressed"]
+[connection signal="pressed" from="Control/MarginContainer/ListContainer/ButtonContainer/ExitButton" to="." method="_on_exit_button_pressed"]

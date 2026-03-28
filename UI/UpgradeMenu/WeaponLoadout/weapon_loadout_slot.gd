@@ -18,4 +18,8 @@ func _ready() -> void:
 func _process(delta: float) -> void:
 	if slotIndex <= Global.weaponSlots:
 		weapon_icon.texture = weaponInd.weaponIcon;
+	else:
+		self_modulate.a = 0.0;
+		mouse_filter = Control.MOUSE_FILTER_IGNORE;
+		
 	queue_redraw();
