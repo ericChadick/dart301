@@ -1,0 +1,244 @@
+[gd_scene format=3 uid="uid://curgveruunnsb"]
+
+[ext_resource type="Material" uid="uid://2y10k3as4j7o" path="res://World/Materials/scrapMetalDirt.material" id="1_7bkvk"]
+[ext_resource type="Script" uid="uid://bevf68wrkg7sv" path="res://World/world.gd" id="1_ap6p0"]
+[ext_resource type="PackedScene" uid="uid://dckfnquaidfil" path="res://UI/Gameplay/player_ui.tscn" id="1_tue86"]
+[ext_resource type="PackedScene" uid="uid://cqrenk8ue8j8v" path="res://Player/player.tscn" id="2_tue86"]
+[ext_resource type="PackedScene" uid="uid://bjeb04pmdncsl" path="res://World/Pipes/pipe_hall.tscn" id="5_skr4i"]
+[ext_resource type="PackedScene" uid="uid://6uk8lxylvwoj" path="res://World/Void/fall_void.tscn" id="6_akeky"]
+
+[sub_resource type="Environment" id="Environment_ap6p0"]
+background_mode = 1
+background_energy_multiplier = 0.5
+tonemap_mode = 3
+sdfgi_enabled = true
+sdfgi_use_occlusion = true
+sdfgi_read_sky_light = false
+glow_enabled = true
+glow_normalized = true
+fog_enabled = true
+fog_light_color = Color(0, 0, 0, 1)
+volumetric_fog_enabled = true
+volumetric_fog_density = 0.002
+volumetric_fog_albedo = Color(0.8, 0.78800005, 0.75200003, 1)
+volumetric_fog_emission = Color(0.41, 0.25597665, 0.008199992, 1)
+volumetric_fog_length = 86.0
+
+[sub_resource type="Gradient" id="Gradient_ap6p0"]
+offsets = PackedFloat32Array(0.2, 1)
+colors = PackedColorArray(1, 1, 1, 1, 0, 0, 0, 1)
+
+[sub_resource type="FastNoiseLite" id="FastNoiseLite_skr4i"]
+noise_type = 2
+frequency = 0.03
+cellular_jitter = 3.0
+cellular_return_type = 0
+domain_warp_enabled = true
+domain_warp_type = 1
+domain_warp_amplitude = 50.0
+domain_warp_fractal_type = 2
+domain_warp_fractal_lacunarity = 1.5
+domain_warp_fractal_gain = 1.0
+
+[sub_resource type="NoiseTexture2D" id="NoiseTexture2D_akeky"]
+noise = SubResource("FastNoiseLite_skr4i")
+color_ramp = SubResource("Gradient_ap6p0")
+seamless = true
+
+[sub_resource type="Terrain3DMaterial" id="Terrain3DMaterial_47odx"]
+_shader_parameters = {
+&"bias_distance": 512.0,
+&"blend_sharpness": 0.87,
+&"depth_blur": 0.0,
+&"enable_macro_variation": true,
+&"enable_projection": true,
+&"height_blending": true,
+&"macro_variation1": Color(1, 1, 1, 1),
+&"macro_variation2": Color(1, 1, 1, 1),
+&"macro_variation_slope": 0.333,
+&"mipmap_bias": 1.0,
+&"noise1_angle": 0.0,
+&"noise1_offset": Vector2(0.5, 0.5),
+&"noise1_scale": 0.04,
+&"noise2_scale": 0.076,
+&"noise3_scale": 0.225,
+&"noise_texture": SubResource("NoiseTexture2D_akeky"),
+&"projection_angular_division": 2.0,
+&"projection_threshold": 0.8,
+&"world_space_normal_blend": true
+}
+show_checkered = true
+
+[sub_resource type="StandardMaterial3D" id="StandardMaterial3D_hvt4s"]
+transparency = 4
+cull_mode = 2
+vertex_color_use_as_albedo = true
+backlight_enabled = true
+backlight = Color(0.5, 0.5, 0.5, 1)
+distance_fade_mode = 1
+distance_fade_min_distance = 128.0
+distance_fade_max_distance = 96.0
+
+[sub_resource type="Terrain3DMeshAsset" id="Terrain3DMeshAsset_ystpo"]
+generated_type = 1
+height_offset = 0.5
+material_override = SubResource("StandardMaterial3D_hvt4s")
+last_lod = 0
+last_shadow_lod = 0
+lod0_range = 128.0
+
+[sub_resource type="Terrain3DAssets" id="Terrain3DAssets_2jwnv"]
+mesh_list = Array[Terrain3DMeshAsset]([SubResource("Terrain3DMeshAsset_ystpo")])
+
+[node name="Blockout" type="Node" unique_id=341768561]
+script = ExtResource("1_ap6p0")
+
+[node name="PlayerUI" parent="." unique_id=883918654 instance=ExtResource("1_tue86")]
+
+[node name="WorldEnvironment" type="WorldEnvironment" parent="." unique_id=632819584]
+environment = SubResource("Environment_ap6p0")
+
+[node name="DirectionalLight3D" type="DirectionalLight3D" parent="." unique_id=926732198]
+transform = Transform3D(1, 0, 0, 0, -4.371139e-08, 1, 0, -1, -4.371139e-08, 0, 190.78119, 0)
+
+[node name="SubViewportContainer" type="SubViewportContainer" parent="." unique_id=518700832]
+anchors_preset = 15
+anchor_right = 1.0
+anchor_bottom = 1.0
+grow_horizontal = 2
+grow_vertical = 2
+stretch = true
+stretch_shrink = 2
+
+[node name="SubViewport" type="SubViewport" parent="SubViewportContainer" unique_id=911998229]
+handle_input_locally = false
+size = Vector2i(960, 540)
+render_target_update_mode = 4
+
+[node name="Player" parent="SubViewportContainer/SubViewport" unique_id=1517765959 node_paths=PackedStringArray("playerUI") instance=ExtResource("2_tue86")]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, -62.51593, 115.60982, -341.54843)
+playerUI = NodePath("../../../PlayerUI")
+
+[node name="Areas" type="Node" parent="." unique_id=1533366284]
+
+[node name="PipeHall" parent="Areas" unique_id=332389854 instance=ExtResource("5_skr4i")]
+transform = Transform3D(3, 0, 0, 0, 3, 0, 0, 0, 3, -63.521935, 114.55707, -462.15042)
+
+[node name="CSGBox3D" type="CSGBox3D" parent="Areas" unique_id=649445561]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 167.90024, 12)
+use_collision = true
+flip_faces = true
+size = Vector3(20, 20, 35)
+material = ExtResource("1_7bkvk")
+
+[node name="CSGBox3D2" type="CSGBox3D" parent="Areas/CSGBox3D" unique_id=1258594690]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, -1.4792614, -31.884)
+flip_faces = true
+size = Vector3(10, 10, 35)
+material = ExtResource("1_7bkvk")
+
+[node name="CSGBox3D3" type="CSGBox3D" parent="Areas/CSGBox3D" unique_id=776115821]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 29.613815, -104.64989, -132.70653)
+flip_faces = true
+size = Vector3(189.01129, 80, 206.7522)
+material = ExtResource("1_7bkvk")
+
+[node name="CSGBox3D4" type="CSGBox3D" parent="Areas/CSGBox3D" unique_id=38584413]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, -104.704, -104.65, -160)
+flip_faces = true
+size = Vector3(91.631836, 20, 20)
+material = ExtResource("1_7bkvk")
+
+[node name="CSGBox3D5" type="CSGBox3D" parent="Areas/CSGBox3D" unique_id=1330770380]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, -149.4873, -97.67399, -160)
+flip_faces = true
+size = Vector3(39.326622, 33.952026, 35)
+material = ExtResource("1_7bkvk")
+
+[node name="CSGBox3D6" type="CSGBox3D" parent="Areas/CSGBox3D" unique_id=489391148]
+transform = Transform3D(1, 0, 0, 0, 0.97641295, 0.21591136, 0, -0.21591136, 0.97641295, 30.917648, -128.09482, -263.76685)
+flip_faces = true
+size = Vector3(8, 16.73, 80.974)
+material = ExtResource("1_7bkvk")
+
+[node name="CSGBox3D11" type="CSGBox3D" parent="Areas/CSGBox3D" unique_id=1914785614]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, -44.593864, -134.05658, -313.50665)
+flip_faces = true
+size = Vector3(173.67256, 23.701305, 28.847412)
+material = ExtResource("1_7bkvk")
+
+[node name="CSGBox3D13" type="CSGBox3D" parent="Areas/CSGBox3D" unique_id=1241405762]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, -79.50727, -139.1487, -314.8504)
+flip_faces = true
+size = Vector3(183.44693, 19.42339, 26.159912)
+material = ExtResource("1_7bkvk")
+
+[node name="CSGBox3D7" type="CSGBox3D" parent="Areas/CSGBox3D" unique_id=929813007]
+transform = Transform3D(0.8346653, 0, -0.55075765, 0, 1, 0, 0.55075765, 0, 0.8346653, 115.66451, -108.43821, -66.75815)
+operation = 2
+flip_faces = true
+size = Vector3(103.05602, 117.30728, 211.22482)
+material = ExtResource("1_7bkvk")
+
+[node name="CSGBox3D8" type="CSGBox3D" parent="Areas/CSGBox3D" unique_id=413984057]
+transform = Transform3D(0.7779143, 0, 0.62837046, 0, 1, 0, -0.62837046, 0, 0.7779143, -101.14747, -104.86249, -29.836817)
+operation = 2
+flip_faces = true
+size = Vector3(103.05602, 110.15584, 102.907135)
+material = ExtResource("1_7bkvk")
+
+[node name="CSGBox3D9" type="CSGBox3D" parent="Areas/CSGBox3D" unique_id=1010068933]
+transform = Transform3D(0.7779143, 0, 0.62837046, 0, 1, 0, -0.62837046, 0, 0.7779143, 143.42789, -104.86249, -252.7301)
+operation = 2
+flip_faces = true
+size = Vector3(103.05602, 110.15584, 102.907135)
+material = ExtResource("1_7bkvk")
+
+[node name="CSGBox3D10" type="CSGBox3D" parent="Areas/CSGBox3D" unique_id=1352911986]
+transform = Transform3D(0.7779143, 0, 0.62837046, 0, 1, 0, -0.62837046, 0, 0.7779143, -55.923233, -104.86249, -235.42426)
+operation = 2
+flip_faces = true
+size = Vector3(103.05602, 110.15584, 49.854225)
+material = ExtResource("1_7bkvk")
+
+[node name="CSGCylinder3D" type="CSGCylinder3D" parent="Areas/CSGBox3D" unique_id=1937569211]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, -35.79416, -43.63623)
+flip_faces = true
+radius = 3.5
+height = 61.723633
+sides = 24
+material = ExtResource("1_7bkvk")
+
+[node name="Terrain3D" type="Terrain3D" parent="Areas" unique_id=136576296]
+data_directory = "res://World/Blockout/TerrainData"
+material = SubResource("Terrain3DMaterial_47odx")
+assets = SubResource("Terrain3DAssets_2jwnv")
+collision_mode = 3
+show_checkered = true
+top_level = true
+metadata/_edit_lock_ = true
+
+[node name="CSGCylinder3D" type="CSGCylinder3D" parent="Areas" unique_id=123609189]
+transform = Transform3D(1, 0, 0, 0, -4.371139e-08, -1, 0, 1, -4.371139e-08, -64.01692, 108.668816, -468.69812)
+use_collision = true
+radius = 5.0
+height = 300.0
+sides = 12
+
+[node name="CSGCylinder3D2" type="CSGCylinder3D" parent="Areas" unique_id=671991779]
+transform = Transform3D(1, 0, 0, 0, -4.371139e-08, -1, 0, 1, -4.371139e-08, -72.83479, 115.538025, -591.15955)
+use_collision = true
+radius = 3.0
+height = 300.0
+sides = 12
+
+[node name="CSGCylinder3D3" type="CSGCylinder3D" parent="Areas" unique_id=2084445410]
+transform = Transform3D(1, 0, 0, 0, -4.371139e-08, -1, 0, 1, -4.371139e-08, -54.76276, 113.96933, -591.15955)
+use_collision = true
+radius = 3.0
+height = 300.0
+sides = 12
+
+[node name="FallVoid" parent="." unique_id=199958430 instance=ExtResource("6_akeky")]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, -63.82518, 104.04596, -468.0782)
+size = Vector3(100, 9.916306, 252.15356)

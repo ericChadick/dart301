@@ -1,15 +1,17 @@
 shader_type spatial;
-//render_mode unshaded;
 
 uniform sampler2D screen_texture: hint_screen_texture;
 uniform sampler2D depth_texture: hint_depth_texture;
 uniform sampler2D normal_texture: hint_normal_roughness_texture;
 
-uniform sampler2D edge_texture: hint_default_white;
+//uniform sampler2D edge_texture: hint_default_white;
 uniform vec3 outline_color: source_color;
 uniform float outline_threshold = 0.2;
 uniform float outline_thickness = 3.0;
 
+uniform float noise_scale = 2.0;
+varying float edge_factor;
+uniform sampler3D edge_texture;
 
 const float sobel_x[8] = float[](
         -1.0,  0.0,  1.0,
@@ -31,6 +33,11 @@ vec3 get_view_pos(vec2 uv, float depth, mat4 inv_proj_m){
 	vec4 ncd = vec4((uv*2.0)-1.0,depth,1.0);
 	vec4 veiw_pos = inv_proj_m*ncd;
 	return veiw_pos.xyz /= veiw_pos.w;
+}
+
+void vertex() {
+	vec3 vPos = VERTEX;
+	edge_factor = texture(edge_texture, vPos*noise_scale).r;
 }
 
 void fragment() {
@@ -64,18 +71,21 @@ void fragment() {
 		depth_edge_y += dist * sobel_y[i];
 
 		norm_edge_x += diff * sobel_x[i];
-		norm_edge_y += diff * sobel_y[i];	
+		norm_edge_y += diff * sobel_y[i];
 	}
-	vec3 edge_color = texture(edge_texture, vec2(norm_edge_x, norm_edge_y)*.02).rgb;
 	
-	float depth_edge = sqrt(depth_edge_x * depth_edge_x + depth_edge_y * depth_edge_y)*10.0;
+	float depth_edge = sqrt(depth_edge_x * depth_edge_x + depth_edge_y * depth_edge_y);//*10.0;
 	depth_edge = clamp(depth_edge, 0.0, 1.0);
 	
 	float gradient = sqrt(norm_edge_x * norm_edge_x + norm_edge_y * norm_edge_y);
-	float normal_edge = float(gradient > outline_threshold);
+	float normal_edge = float(gradient > clamp(outline_threshold*edge_factor, outline_threshold, 10.0));;
 
 	float combined_edge = max(normal_edge, depth_edge);
 
-	ALBEDO = mix(screen_color, outline_color, combined_edge);
+	ALBEDO = mix(screen_color, outline_color*min(edge_factor+.5, 1.0), combined_edge);
 	ALPHA = combined_edge;
+	
+	ROUGHNESS = .8;
+	METALLIC = .9;
+	SPECULAR = .5;
 }

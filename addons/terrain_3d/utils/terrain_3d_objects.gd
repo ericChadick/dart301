@@ -55,7 +55,6 @@ func get_terrain() -> Terrain3D:
 	
 	return terrain
 
-
 func _get_terrain_height(p_global_position: Vector3) -> float:
 	var terrain: Terrain3D = get_terrain()
 	if not terrain or not terrain.data:
