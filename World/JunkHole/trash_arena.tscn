@@ -117,7 +117,7 @@ transform = Transform3D(1, 0, 0, 0, -4.371139e-08, 1, 0, -1, -4.371139e-08, 115.
 visible = false
 
 [node name="Player" parent="SubViewportContainer/SubViewport" unique_id=1517765959 node_paths=PackedStringArray("playerUI") instance=ExtResource("3_nedke")]
-transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, -0.33064032, -3.033432, 31.043713)
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, -0.33064032, -3.4211254, 33.68783)
 playerUI = NodePath("../../../PlayerUI")
 
 [node name="TrashDogBoss" parent="SubViewportContainer/SubViewport" unique_id=163506739 instance=ExtResource("4_1hevd")]
@@ -181,14 +181,69 @@ battery = 0.0
 [node name="Lights" type="Node" parent="SubViewportContainer/SubViewport" unique_id=1390851435]
 
 [node name="FlickerLight" parent="SubViewportContainer/SubViewport/Lights" unique_id=1557074308 instance=ExtResource("6_xlf4q")]
+<<<<<<< HEAD
 transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 6.551751, 0)
 light_energy = 0.0
+=======
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 10.5, 16)
+light_energy = 7.1638703
+>>>>>>> adb64b3465b71e308c3d2e032ca8f72d504e7502
 omni_range = 36.0
+omni_attenuation = 0.75
 lightEnergy = 10.0
 lightRange = 36.0
-flickerSpd = 1.0
-flickerMinEnergy = 0.8
-canShutOff = false
+lightAttenuation = 0.75
+flickerSpd = 3.0
+flickerMinEnergy = 0.6
+shutOffChance = 0.02
+showBeam = false
+beamLength = 24.0
+beamRadius = 36.0
+beamDensity = 0.004
+
+[node name="FlickerLight2" parent="SubViewportContainer/SubViewport/Lights" unique_id=630917716 instance=ExtResource("6_xlf4q")]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 10.5, -16)
+light_energy = 8.387742
+omni_range = 36.0
+omni_attenuation = 0.75
+lightEnergy = 10.0
+lightRange = 36.0
+lightAttenuation = 0.75
+flickerSpd = 3.0
+flickerMinEnergy = 0.6
+shutOffChance = 0.02
+showBeam = false
+beamLength = 24.0
+beamRadius = 36.0
+beamDensity = 0.004
+
+[node name="FlickerLight3" parent="SubViewportContainer/SubViewport/Lights" unique_id=2132982221 instance=ExtResource("6_xlf4q")]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 16, 10.5, 0)
+light_energy = 6.1355987
+omni_range = 36.0
+omni_attenuation = 0.75
+lightEnergy = 10.0
+lightRange = 36.0
+lightAttenuation = 0.75
+flickerSpd = 3.0
+flickerMinEnergy = 0.6
+shutOffChance = 0.02
+showBeam = false
+beamLength = 24.0
+beamRadius = 36.0
+beamDensity = 0.004
+
+[node name="FlickerLight4" parent="SubViewportContainer/SubViewport/Lights" unique_id=1232648790 instance=ExtResource("6_xlf4q")]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, -16, 10.5, 0)
+light_energy = 7.5026126
+omni_range = 36.0
+omni_attenuation = 0.75
+lightEnergy = 10.0
+lightRange = 36.0
+lightAttenuation = 0.75
+flickerSpd = 3.0
+flickerMinEnergy = 0.6
+shutOffChance = 0.02
 showBeam = false
 beamLength = 24.0
 beamRadius = 36.0

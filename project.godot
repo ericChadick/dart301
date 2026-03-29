@@ -49,9 +49,11 @@ folder_colors={
 "res://Shaders/": "pink",
 "res://UI/": "green",
 "res://World/": "yellow",
+"res://World/Blockout/": "gray",
 "res://World/JunkHole/": "green",
 "res://World/Lighting/": "red",
 "res://World/Materials/": "blue",
+"res://World/Pipes/": "orange",
 "res://World/Void/": "gray"
 }
 
