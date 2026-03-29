@@ -1,18 +1,15 @@
 [gd_scene format=4 uid="uid://bs263kfe42plo"]
 
-[ext_resource type="Texture2D" uid="uid://o72cn4sk3ye1" path="res://World/Props/MainLareg pillar texture/Bridge/siDE/Side_DefaultMaterial_BaseColor.png" id="1_hk75q"]
-[ext_resource type="Texture2D" uid="uid://8wjfthw2urpj" path="res://World/Props/MainLareg pillar texture/Bridge/siDE/Side_DefaultMaterial_Metallic.png" id="2_gdcjo"]
-[ext_resource type="Texture2D" uid="uid://cdyfx1ofiwfvu" path="res://World/Props/MainLareg pillar texture/Bridge/siDE/Side_DefaultMaterial_Normal.png" id="3_uq8t0"]
-[ext_resource type="Texture2D" uid="uid://bh5q5cxyan1m5" path="res://World/Props/MainLareg pillar texture/Bridge/siDE/Side_DefaultMaterial_Roughness.png" id="4_ww4b4"]
-[ext_resource type="Texture2D" uid="uid://b4u6t3aubrkiv" path="res://World/Props/MainLareg pillar texture/Bridge/Main/Main_DefaultMaterial_BaseColor.png" id="5_reqg2"]
-[ext_resource type="Texture2D" uid="uid://c588p702py7vo" path="res://World/Props/MainLareg pillar texture/Bridge/Main/Main_DefaultMaterial_Metallic.png" id="6_7xoxx"]
-[ext_resource type="Texture2D" uid="uid://dyqi2a6ja1d17" path="res://World/Props/MainLareg pillar texture/Bridge/Main/Main_DefaultMaterial_Normal.png" id="7_5300i"]
-[ext_resource type="Texture2D" uid="uid://b3v1b878kjjve" path="res://World/Props/MainLareg pillar texture/Bridge/Main/Main_DefaultMaterial_Roughness.png" id="8_4uvop"]
+[ext_resource type="Material" uid="uid://c2c3tjim2m2bg" path="res://World/Props/MainLareg pillar texture/Bridge/Metal.material" id="1_8b3tx"]
+[ext_resource type="Material" uid="uid://bgjojy7rg5ncx" path="res://World/Props/MainLareg pillar texture/Bridge/ConcreateNew.tres" id="2_c446b"]
 
 [sub_resource type="StandardMaterial3D" id="StandardMaterial3D_3o4n8"]
+metallic = 1.0
+metallic_specular = 0.0
+roughness = 0.0
 emission_enabled = true
 emission = Color(1, 1, 1, 1)
-emission_energy_multiplier = 16.0
+emission_energy_multiplier = 0.8
 
 [sub_resource type="StandardMaterial3D" id="StandardMaterial3D_1nqbs"]
 
@@ -45,14 +42,6 @@ _surfaces = [{
 }]
 blend_shape_mode = 0
 shadow_mesh = SubResource("ArrayMesh_cevvm")
-
-[sub_resource type="StandardMaterial3D" id="StandardMaterial3D_2ajwm"]
-albedo_texture = ExtResource("1_hk75q")
-metallic = 1.0
-metallic_texture = ExtResource("2_gdcjo")
-roughness_texture = ExtResource("4_ww4b4")
-normal_enabled = true
-normal_texture = ExtResource("3_uq8t0")
 
 [sub_resource type="StandardMaterial3D" id="StandardMaterial3D_7s7uo"]
 vertex_color_use_as_albedo = true
@@ -88,14 +77,6 @@ _surfaces = [{
 }]
 blend_shape_mode = 0
 shadow_mesh = SubResource("ArrayMesh_wd3k6")
-
-[sub_resource type="StandardMaterial3D" id="StandardMaterial3D_x6qfd"]
-albedo_texture = ExtResource("5_reqg2")
-metallic = 1.0
-metallic_texture = ExtResource("6_7xoxx")
-roughness_texture = ExtResource("8_4uvop")
-normal_enabled = true
-normal_texture = ExtResource("7_5300i")
 
 [sub_resource type="StandardMaterial3D" id="StandardMaterial3D_vc1ku"]
 vertex_color_use_as_albedo = true
@@ -141,13 +122,13 @@ mesh = SubResource("ArrayMesh_oklrr")
 skeleton = NodePath("")
 
 [node name="Plane_007" type="MeshInstance3D" parent="." unique_id=891677685]
-transform = Transform3D(100, 0, 0, 0, -1.1920929e-05, 99.99999, 0, -99.99999, -1.1920929e-05, 0, 0, 0)
-material_override = SubResource("StandardMaterial3D_2ajwm")
+transform = Transform3D(100, 0, 0, 0, -1.1920929e-05, 99.99999, 0, -99.99999, -1.1920929e-05, 0, -0.89907265, 0)
+material_override = ExtResource("1_8b3tx")
 mesh = SubResource("ArrayMesh_djil4")
 skeleton = NodePath("")
 
 [node name="Plane_006" type="MeshInstance3D" parent="." unique_id=1234675064]
-transform = Transform3D(100, 0, 0, 0, -1.1920929e-05, 99.99999, 0, -99.99999, -1.1920929e-05, 0, 0, 0)
-material_override = SubResource("StandardMaterial3D_x6qfd")
+transform = Transform3D(99.99988, -0.04162429, 0.16128731, -0.16125566, 0.07642743, 99.99984, -0.041746743, -99.99997, 0.07636061, 0, 0, 0)
+material_override = ExtResource("2_c446b")
 mesh = SubResource("ArrayMesh_0x2fr")
 skeleton = NodePath("")
