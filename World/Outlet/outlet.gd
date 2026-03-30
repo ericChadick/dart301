@@ -17,10 +17,10 @@ var unplugged := false;
 
 const OUTLET_GLOW = preload("uid://c0uh2y7lgbtc4")
 var mat : StandardMaterial3D;
-
+	
 # Called when the node enters the scene tree for the first time.
 func _ready() -> void:
-	batteryMax = battery;
+	setBattery(battery);
 	mat = OUTLET_GLOW.duplicate();
 	#outlet_light.material_override = mat;
 	
@@ -50,3 +50,8 @@ func _process(delta: float) -> void:
 			light_models.visible = false;
 		else:
 			light_models.visible = true;
+
+
+func setBattery(value : float):
+	battery = value;
+	batteryMax = value;

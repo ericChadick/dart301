@@ -16,8 +16,10 @@
 [ext_resource type="AudioStream" uid="uid://33q7i74dhbfn" path="res://Audio/Player/robotJump.wav" id="13_gu6f8"]
 [ext_resource type="AudioStream" uid="uid://dhh1c2ig825e7" path="res://Audio/Player/robotLand.wav" id="14_dkpta"]
 [ext_resource type="AudioStream" uid="uid://bbtm1c2dalc6f" path="res://Audio/Player/glasscrack.wav" id="16_lfmf2"]
+[ext_resource type="PackedScene" uid="uid://wdjkscqfsxc5" path="res://Player/testPlayer.glb" id="17_pisgm"]
 
 [sub_resource type="CapsuleShape3D" id="CapsuleShape3D_4ntmi"]
+height = 1.0
 
 [sub_resource type="CapsuleMesh" id="CapsuleMesh_l8h54"]
 radial_segments = 8
@@ -53,7 +55,26 @@ rings = 0
 top_radius = 0.2
 bottom_radius = 0.1
 
+[sub_resource type="Gradient" id="Gradient_pisgm"]
+offsets = PackedFloat32Array(0.49723756, 0.5828729, 0.71823204)
+colors = PackedColorArray(0.56393313, 0.89746255, 0.8888235, 1, 0.5019608, 0.5019608, 1, 1, 0.58000004, 1, 0.86, 1)
+
+[sub_resource type="GradientTexture2D" id="GradientTexture2D_b1ygp"]
+gradient = SubResource("Gradient_pisgm")
+fill_from = Vector2(1, 1)
+
+[sub_resource type="StandardMaterial3D" id="StandardMaterial3D_o28un"]
+albedo_color = Color(0.1, 0.089999996, 0.089999996, 1)
+metallic = 0.5
+metallic_specular = 0.75
+roughness = 0.6
+normal_enabled = true
+normal_texture = SubResource("GradientTexture2D_b1ygp")
+uv1_scale = Vector3(1, 40, 1)
+uv1_triplanar = true
+
 [sub_resource type="CapsuleMesh" id="CapsuleMesh_4ntmi"]
+material = SubResource("StandardMaterial3D_o28un")
 radius = 0.1
 height = 1.0
 
@@ -154,9 +175,11 @@ floor_snap_length = 0.5
 script = ExtResource("1_l8h54")
 
 [node name="CollisionShape3D" type="CollisionShape3D" parent="." unique_id=2095073883]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, -0.5, 0)
 shape = SubResource("CapsuleShape3D_4ntmi")
 
 [node name="MeshInstance3D" type="MeshInstance3D" parent="." unique_id=266665977]
+visible = false
 mesh = SubResource("CapsuleMesh_l8h54")
 
 [node name="ceilingRay" type="RayCast3D" parent="." unique_id=448533729]
@@ -175,9 +198,13 @@ target_position = Vector3(-0.3, 0, 0)
 hit_from_inside = true
 
 [node name="Head" type="Node3D" parent="." unique_id=365589558]
-transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 0.5, 0)
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 1, 0)
+
+[node name="testPlayer" parent="Head" unique_id=1988512523 instance=ExtResource("17_pisgm")]
+transform = Transform3D(0.09, 0, 0, 0, 0.09, 0, 0, 0, 0.09, 0, -2, 0.1)
 
 [node name="Camera3D" type="Camera3D" parent="Head" unique_id=1876147184]
+cull_mask = 1048063
 
 [node name="shootPoint" type="Marker3D" parent="Head" unique_id=33418163]
 transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, -0.29121658, -0.80566555)
@@ -229,6 +256,7 @@ skeleton = NodePath("../../../CordHandAnimations")
 transform = Transform3D(-0.25, 0, -3.774895e-08, 0, 0.25, 0, 3.774895e-08, 0, -0.25, 0.1368101, -0.7773359, 0.4642597)
 
 [node name="Cord" type="MeshInstance3D" parent="." unique_id=1405577659]
+visible = false
 mesh = SubResource("CapsuleMesh_4ntmi")
 
 [node name="HitParticles" parent="." unique_id=1875539030 instance=ExtResource("2_gwnis")]

@@ -29,7 +29,8 @@ func _process(delta: float) -> void:
 		if creatorDist < 2.0:
 			destroy();
 	else:
-		if creatorDist > creator.cordLength:
+		if creatorDist >= creator.cordLength:
+			position -= direction*(creatorDist-creator.cordLength);
 			returning = true;
 	
 	#print(direction);
@@ -60,6 +61,8 @@ func _on_area_entered(area: Area3D) -> void:
 			creator.cordAction = false;
 			creator.shake = max(creator.shake, creator.connectShakeAmnt);
 			creator.cordTugs = creator.cordTugsMax;
+			creator.attachTimer = .25;
+			
 			#creator.addBullets(1);
 
 			#creator.velocity = (area.global_position-creator.global_position).normalized()*area.global_position.distance_to(creator.global_position);

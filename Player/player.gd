@@ -143,6 +143,7 @@ var shakeJumpAmnt := .2;
 var shakeLandAmnt := .25;
 var reloadBuffer := 0.0;
 var unplugBuffer := 0.0;
+var attachTimer := 0.0;
 
 var hitboxEnemy : Node3D;
 
@@ -500,18 +501,22 @@ func _process(delta):
 		
 		#Global.currency += delta*dataMultiplier;
 		if cordTugs > 0 and Input.is_action_just_pressed("pull"):
-			var outletVec = (outlet.global_position-global_position).normalized()*(pullSpd+outlet.global_position.distance_to(global_position));
-			var lookVec = -head.transform.basis.z*(pullSpd+outlet.global_position.distance_to(global_position));
+			var pullVel = pullSpd+outlet.global_position.distance_to(global_position);
+			var outletVec = (outlet.global_position-global_position).normalized()*pullVel;
+			var lookVec = -head.transform.basis.z*pullVel;
 			var pullVec = (lookVec+outletVec)/2;
-			pullVec.y = min(pullVec.y, jumpSpd*1.5)
+			pullVec.y = min(pullVec.y, jumpSpd);#1.5
 			canWallRun = true;
 			wallRunTime = wallRunTimeMax;
+			
+			velocity *= .25;
 			
 			#using as placeholder for Cord Pull
 			cordArmCordAnimation("Throw");
 			
 			createCordProjectile(outlet.global_position, true);
 			
+			await get_tree().create_timer(.1).timeout
 			velocity = pullVec;
 			pull_sound.play();
 			#cordTugs -= 1;
@@ -698,20 +703,36 @@ func _physics_process(delta: float) -> void:
 	torso.rotation.y = head.rotation.y;
 	
 	crouching = false;
-	if !slide_cooldown_timer.is_stopped():
-		collision_shape_3d.shape.height = move_toward(collision_shape_3d.shape.height, playerHeight, 10*delta);
-	else:
+	if slide_cooldown_timer.is_stopped():#!
+	#	collision_shape_3d.shape.height = move_toward(collision_shape_3d.shape.height, playerHeight, 10*delta);
+	#else:
 		if groundBuffer > 0.0 and Input.is_action_pressed("slide"):
-			collision_shape_3d.shape.height = 1.0;
+			#collision_shape_3d.shape.height = 1.0;
 			crouching = true;
-			curSpd = speed*.3;
+			if velocity.length() > speed*.5:
+				setBodySlide(false);#true
+				
+				var normal = get_floor_normal();
+				var slide_dir = Vector3.DOWN.slide(normal)
+				var slope_factor = 1.0 - normal.dot(Vector3.UP)
+				var slideSpd = move_toward(0.0, speed*2.0, clamp(slope_factor*10.0, 0.0, 1.0));
+				if slideSpd > speed*.5:
+					velocity += slide_dir*slideSpd*delta;#slideInput*
+				
+				slide_timer.start();
+			else:
+				curSpd = speed*.3;
+				setBodySlide(false);
+				
+
+
 			
 	if ceiling_ray.is_colliding():
 		crouching = true;
-		collision_shape_3d.shape.height = 1.0;
-	collision_shape_3d.position.y = -(playerHeight-collision_shape_3d.shape.height)*.5;
-	if !crouching and slide_timer.is_stopped():
-		collision_shape_3d.shape.height = move_toward(collision_shape_3d.shape.height, playerHeight, 10*delta);
+		#collision_shape_3d.shape.height = 1.0;
+	#collision_shape_3d.position.y = -(playerHeight-collision_shape_3d.shape.height)*.5;
+	#if !crouching and slide_timer.is_stopped():
+		#collision_shape_3d.shape.height = move_toward(collision_shape_3d.shape.height, playerHeight, 10*delta);
 	heightTarget = move_toward(heightTarget, collision_shape_3d.shape.height, 5.0*delta);
 	
 	#print(collision_shape_3d.position.y);
@@ -728,19 +749,24 @@ func _physics_process(delta: float) -> void:
 			cordArmActiveAnimation("Run", "cordOut");
 				
 			if slideBuffer > 0.0 and Input.is_action_just_released("slide") and slide_timer.is_stopped() and slide_cooldown_timer.is_stopped():
-				slide_timer.start();
-				slide_sound.play();
-				
-				var slideSpd := 2000.0
-				var normal = get_floor_normal()
-				var slide_dir = Vector3.DOWN.slide(normal)
-				var slideInput = (direction + slide_dir)/2.0;
-				
-				velocity += slideInput*slideSpd*delta;
-				#velocity.z += 1.8;
-				slideBuffer = 0.0;
 				#slide_cooldown_timer.start();
-				collision_shape_3d.shape.height = 1.0;
+				#slide_timer.emit_signal("timeout");
+				slide_timer.start();
+				
+				#slide_sound.play();
+				#
+				#var slideSpd := 2000.0
+				#var normal = get_floor_normal()
+				#var slide_dir = Vector3.DOWN.slide(normal)
+				#var slideInput = (direction + slide_dir)/2.0;
+				#
+				#velocity += slideInput*slideSpd*delta;
+				##velocity.z += 1.8;
+				#slideBuffer = 0.0;
+				##slide_cooldown_timer.start();
+				#collision_shape_3d.shape.height = 1.0;
+				
+				cordArmActiveAnimation("Idle", "cordOut");
 		else:
 			cordArmActiveAnimation("Idle", "cordOut");
 				
@@ -835,22 +861,30 @@ func _physics_process(delta: float) -> void:
 		else:
 			stepTimer = stepTimerStep;
 	
-	dashCooldown -= delta;
-	dashInputBuffer -= delta;
-	if Input.is_action_just_pressed("dash"):
-		dashInputBuffer = .2;
-	if Global.dashPurchased and dashInputBuffer > 0.0 and dashCooldown <= 0.0:
-		velocity.x = direction.x * dashSpd
-		velocity.z = direction.z * dashSpd
-		dashCooldown = dashCooldownAmnt;
-		dashInputBuffer = 0.0;
+	#dashCooldown -= delta;
+	#dashInputBuffer -= delta;
+	#if Input.is_action_just_pressed("dash"):
+		#dashInputBuffer = .2;
+	#if Global.dashPurchased and dashInputBuffer > 0.0 and dashCooldown <= 0.0:
+		#velocity.x = direction.x * dashSpd
+		#velocity.z = direction.z * dashSpd
+		#dashCooldown = dashCooldownAmnt;
+		#dashInputBuffer = 0.0;
 	
+	attachTimer -= delta;
 	#tether to outlet
 	if outlet != null:
 		var dist = global_position.distance_to(outlet.global_position)
-		if dist > cordLength:
+		if dist >= cordLength and attachTimer <= 0.0:
 			var cordDir = outlet.global_position - global_position;
 			velocity += cordDir.normalized() * velocity.length();
+			#unplug player from outlet
+			createCordProjectile(outlet.global_position, true);
+			outlet.outlet_light.visible = true;
+			outlet.connected = null;
+			outlet = null;
+			unplug_sound.play();
+			
 	
 	#if power runs out or hp drops below 0	
 	if battery <= 0.0: # or hp <= 0.0
@@ -998,6 +1032,19 @@ func createCordProjectile(spawnPoint : Vector3, returnCord : bool):
 	bulletInstance.returning = returnCord;#true;
 	cordProjectile = bulletInstance;
 
+func setBodySlide(on : bool = false):
+	if on:
+		floor_stop_on_slope = false;
+		floor_max_angle = deg_to_rad(30);
+		floor_snap_length = 0.0;
+		var normal = get_floor_normal()
+		up_direction = normal;
+	else:
+		floor_stop_on_slope = true;
+		floor_max_angle = deg_to_rad(80);
+		floor_snap_length = .5;
+		up_direction = Vector3.UP;
+		
 func addScreenCrack(screenCrackType) -> void:
 	var viewsize = get_viewport().get_visible_rect();
 	var newTex = TextureRect.new();
@@ -1029,6 +1076,7 @@ func _on_blueprint_timer_timeout() -> void:
 	blueprint_text.text = "";
 
 func _on_slide_timer_timeout() -> void:
+	setBodySlide(false);
 	slide_cooldown_timer.start();
 
 #func _on_punch_hitbox_body_entered(body: Node3D) -> void:

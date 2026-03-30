@@ -1,0 +1,38 @@
+[gd_scene format=3 uid="uid://cdpow1s3338qc"]
+
+[ext_resource type="Script" uid="uid://dhtmvgdorwjyc" path="res://World/Doors/arena_door.gd" id="1_cqwjk"]
+
+[sub_resource type="BoxMesh" id="BoxMesh_ixxt5"]
+size = Vector3(4, 5.5, 0.5)
+
+[sub_resource type="BoxShape3D" id="BoxShape3D_rwe1c"]
+size = Vector3(4, 5.5, 0.5)
+
+[node name="ArenaDoor" type="Node3D" unique_id=103166181]
+script = ExtResource("1_cqwjk")
+doorSize = Vector2(4, 5)
+doorFrameWidth = 1.0
+
+[node name="DoorFrame" type="CSGBox3D" parent="." unique_id=170933169]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 3, 0)
+use_collision = true
+size = Vector3(5, 6, 0.5)
+
+[node name="DoorFrameCutout" type="CSGBox3D" parent="DoorFrame" unique_id=1221814447]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, -0.25, 0)
+operation = 2
+size = Vector3(4, 5.5, 0.5)
+
+[node name="Door" type="Node3D" parent="." unique_id=1163655771]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, -5.5, 0)
+
+[node name="DoorMesh" type="MeshInstance3D" parent="Door" unique_id=2110360192]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 2.75, 0)
+mesh = SubResource("BoxMesh_ixxt5")
+skeleton = NodePath("../StaticBody3D")
+
+[node name="StaticBody3D" type="StaticBody3D" parent="Door" unique_id=1775495515]
+
+[node name="CollisionShape3D" type="CollisionShape3D" parent="Door/StaticBody3D" unique_id=26313219]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 2.75, 0)
+shape = SubResource("BoxShape3D_rwe1c")
