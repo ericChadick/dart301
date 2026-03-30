@@ -7,11 +7,8 @@
 [ext_resource type="Texture2D" uid="uid://crtjkvfggd4tw" path="res://World/Props/MainLareg pillar texture/Pillar/Pillar Textures/SceneTunnel/SideSide/SidePillar_DefaultMaterial_BaseColor.png" id="6_xd8f3"]
 [ext_resource type="Texture2D" uid="uid://7vvp0ej5rbdt" path="res://World/Props/MainLareg pillar texture/Pillar/Pillar Textures/SceneTunnel/SideSide/SidePillar_DefaultMaterial_Metallic.png" id="7_4plt2"]
 [ext_resource type="Texture2D" uid="uid://d1sd1wa5eyddu" path="res://World/Props/MainLareg pillar texture/Pillar/Pillar Textures/SceneTunnel/SideSide/SidePillar_DefaultMaterial_Normal.png" id="8_lsn57"]
-[ext_resource type="Texture2D" uid="uid://dji3w0keyfq41" path="res://World/Props/MainLareg pillar texture/Pillar/Pillar Textures/SceneTunnel/MainPillar/Large Pillar_DefaultMaterial_BaseColor.png" id="9_jwk87"]
 [ext_resource type="Texture2D" uid="uid://d30b6a38cvtc2" path="res://World/Props/MainLareg pillar texture/Pillar/Pillar Textures/SceneTunnel/SideSide/SidePillar_DefaultMaterial_Roughness.png" id="9_o0yqr"]
-[ext_resource type="Texture2D" uid="uid://dx7syw2ijolix" path="res://World/Props/MainLareg pillar texture/Pillar/Pillar Textures/SceneTunnel/MainPillar/Large Pillar_DefaultMaterial_Metallic.png" id="10_jrc6p"]
-[ext_resource type="Texture2D" uid="uid://wy1gmva4l0sm" path="res://World/Props/MainLareg pillar texture/Pillar/Pillar Textures/SceneTunnel/MainPillar/Large Pillar_DefaultMaterial_Normal.png" id="11_o3h0v"]
-[ext_resource type="Texture2D" uid="uid://dw7y3ei2j7orh" path="res://World/Props/MainLareg pillar texture/Pillar/Pillar Textures/SceneTunnel/MainPillar/Large Pillar_DefaultMaterial_Roughness.png" id="12_03e7h"]
+[ext_resource type="Material" uid="uid://bgjojy7rg5ncx" path="res://World/Props/MainLareg pillar texture/Bridge/ConcreateNew.tres" id="9_xd8f3"]
 
 [sub_resource type="StandardMaterial3D" id="StandardMaterial3D_jrc6p"]
 albedo_texture = ExtResource("3_xd8f3")
@@ -103,14 +100,6 @@ roughness_texture = ExtResource("9_o0yqr")
 normal_enabled = true
 normal_texture = ExtResource("8_lsn57")
 
-[sub_resource type="StandardMaterial3D" id="StandardMaterial3D_wqbpc"]
-albedo_texture = ExtResource("9_jwk87")
-metallic = 1.0
-metallic_texture = ExtResource("10_jrc6p")
-roughness_texture = ExtResource("12_03e7h")
-normal_enabled = true
-normal_texture = ExtResource("11_o3h0v")
-
 [sub_resource type="StandardMaterial3D" id="StandardMaterial3D_5i7w2"]
 
 [sub_resource type="ArrayMesh" id="ArrayMesh_k158k"]
@@ -161,6 +150,6 @@ surface_material_override/0 = SubResource("StandardMaterial3D_o3h0v")
 
 [node name="Plane_002" type="MeshInstance3D" parent="." unique_id=2046034186]
 transform = Transform3D(100, 0, 0, 0, -1.1920929e-05, 99.99999, 0, -99.99999, -1.1920929e-05, 0, 9.536743e-07, 0)
-material_override = SubResource("StandardMaterial3D_wqbpc")
+material_override = ExtResource("9_xd8f3")
 mesh = SubResource("ArrayMesh_bdc4u")
 skeleton = NodePath("")

@@ -2,15 +2,17 @@
 
 [ext_resource type="PackedScene" uid="uid://bs263kfe42plo" path="res://World/Props/MainLareg pillar texture/Pillar/Bridge.tscn" id="3_4e2ul"]
 [ext_resource type="PackedScene" uid="uid://bbo01giq25jel" path="res://World/Props/wires.glb" id="3_4png0"]
+[ext_resource type="VoxelGIData" uid="uid://egnbpi2mdyl0" path="res://World/pillarRoom.VoxelGI_data.res" id="4_eliei"]
 [ext_resource type="PackedScene" uid="uid://b2n0fkm77bvas" path="res://World/Props/MainLareg pillar texture/Pillar/Pillar.tscn" id="5_4png0"]
+[ext_resource type="PackedScene" uid="uid://c1gtbdq7vl40y" path="res://World/Lighting/flicker_light.tscn" id="5_wlewv"]
 
 [sub_resource type="Environment" id="Environment_4fiyw"]
-background_color = Color(0.4206559, 0.38930398, 0.31931964, 1)
+background_mode = 1
+background_energy_multiplier = 0.0
 glow_enabled = true
-fog_enabled = true
-fog_light_color = Color(0.39, 0.3601, 0.35099998, 1)
+fog_light_color = Color(0.40069774, 0.40069774, 0.40069768, 1)
 volumetric_fog_enabled = true
-volumetric_fog_density = 0.01
+volumetric_fog_density = 0.02
 
 [sub_resource type="CapsuleMesh" id="CapsuleMesh_dgp27"]
 
@@ -163,10 +165,6 @@ transform = Transform3D(10.426653, 0, 10.425925, 0, 14.745, 0, -10.425925, 0, 10
 [node name="wires48" parent="." unique_id=1017274620 instance=ExtResource("3_4png0")]
 transform = Transform3D(5.5192213, 0, -10.457954, 0, 11.825, 0, 10.457954, 0, 5.5192213, 107.68741, 77.88954, -335.4099)
 
-[node name="DirectionalLight3D" type="DirectionalLight3D" parent="." unique_id=1738268311]
-transform = Transform3D(0.18777716, -0.8360769, 0.51547563, -0.3094528, 0.44772536, 0.8389166, -0.93219024, -0.31704476, -0.17465377, 0, 0, 0)
-light_volumetric_fog_energy = 0.0
-
 [node name="MeshInstance3D3" type="MeshInstance3D" parent="." unique_id=562751480]
 transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, -64.68202, -39.383213, -4.409079)
 mesh = SubResource("CapsuleMesh_dgp27")
@@ -263,8 +261,105 @@ transform = Transform3D(-1, 0, -8.742278e-08, 0, 1, 0, 8.742278e-08, 0, -1, 198.
 transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 42.337704, -45.708534, -100.44391)
 
 [node name="SpotLight3D" type="SpotLight3D" parent="." unique_id=1209113507]
-transform = Transform3D(0.956585, -1.273984e-08, 0.29145357, -0.29145357, -4.1813657e-08, 0.956585, 0, -1, -4.371139e-08, 112.48632, -25.610733, 0)
-shadow_enabled = true
+transform = Transform3D(0.956585, -1.273984e-08, 0.29145357, -0.29145357, -4.1813657e-08, 0.956585, 0, -1, -4.371139e-08, 112.48632, 81.99147, 0)
+light_color = Color(0.9982658, 1, 0.9563101, 1)
+light_energy = 50.0
 distance_fade_enabled = true
+distance_fade_length = 100000000.0
 spot_range = 149.01529
 spot_angle = 26.04609
+
+[node name="SpotLight3D5" type="SpotLight3D" parent="." unique_id=1689709494]
+transform = Transform3D(0.956585, -1.273984e-08, 0.29145357, -0.29145357, -4.1813657e-08, 0.956585, 0, -1, -4.371139e-08, 112.48632, 81.99147, -106.24277)
+light_color = Color(0.9982658, 1, 0.9563101, 1)
+light_energy = 50.0
+distance_fade_enabled = true
+distance_fade_length = 100000000.0
+spot_range = 149.01529
+spot_angle = 26.04609
+
+[node name="SpotLight3D6" type="SpotLight3D" parent="." unique_id=79602977]
+transform = Transform3D(0.956585, -1.273984e-08, 0.29145357, -0.29145357, -4.1813657e-08, 0.956585, 0, -1, -4.371139e-08, 112.48632, 81.99147, -216.5415)
+light_color = Color(0.9982658, 1, 0.9563101, 1)
+light_energy = 50.0
+distance_fade_enabled = true
+distance_fade_length = 100000000.0
+spot_range = 149.01529
+spot_angle = 26.04609
+
+[node name="SpotLight3D7" type="SpotLight3D" parent="." unique_id=899505646]
+transform = Transform3D(0.956585, -1.273984e-08, 0.29145357, -0.29145357, -4.1813657e-08, 0.956585, 0, -1, -4.371139e-08, 112.48632, 81.99147, -329.49817)
+light_color = Color(0.9982658, 1, 0.9563101, 1)
+light_energy = 50.0
+distance_fade_enabled = true
+distance_fade_length = 100000000.0
+spot_range = 149.01529
+spot_angle = 26.04609
+
+[node name="SpotLight3D2" type="SpotLight3D" parent="." unique_id=1723961617]
+transform = Transform3D(0.956585, -1.273984e-08, 0.29145357, -0.29145357, -4.1813657e-08, 0.956585, 0, -1, -4.371139e-08, 112.48632, 81.99147, 114.60972)
+light_color = Color(0.9982658, 1, 0.9563101, 1)
+light_energy = 50.0
+distance_fade_enabled = true
+distance_fade_length = 100000000.0
+spot_range = 149.01529
+spot_angle = 26.04609
+
+[node name="SpotLight3D3" type="SpotLight3D" parent="." unique_id=1609301808]
+transform = Transform3D(0.956585, -1.273984e-08, 0.29145357, -0.29145357, -4.1813657e-08, 0.956585, 0, -1, -4.371139e-08, 112.48632, 81.99147, 239.82797)
+light_color = Color(0.9982658, 1, 0.9563101, 1)
+light_energy = 50.0
+distance_fade_enabled = true
+distance_fade_length = 100000000.0
+spot_range = 149.01529
+spot_angle = 26.04609
+
+[node name="SpotLight3D4" type="SpotLight3D" parent="." unique_id=835464247]
+transform = Transform3D(0.956585, -1.273984e-08, 0.29145357, -0.29145357, -4.1813657e-08, 0.956585, 0, -1, -4.371139e-08, 112.48632, 81.99147, 346.9211)
+light_color = Color(0.9982658, 1, 0.9563101, 1)
+light_energy = 50.0
+distance_fade_enabled = true
+distance_fade_length = 100000000.0
+spot_range = 149.01529
+spot_angle = 26.04609
+
+[node name="VoxelGI" type="VoxelGI" parent="." unique_id=1627784687]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 56.810394, 11.399376, -2.5911942)
+size = Vector3(374.54437, 164.12108, 40.094437)
+data = ExtResource("4_eliei")
+
+[node name="FlickerLight" parent="." unique_id=1557074308 instance=ExtResource("5_wlewv")]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, -28.213238, 3.2673397)
+light_energy = 2.2231698
+
+[node name="FlickerLight2" parent="." unique_id=1538703935 instance=ExtResource("5_wlewv")]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 39.824104, -28.213238, -4.8573475)
+light_energy = 0.0
+
+[node name="FlickerLight3" parent="." unique_id=1442826392 instance=ExtResource("5_wlewv")]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 66.23227, -28.213238, 0.9982548)
+light_energy = 1.5825685
+
+[node name="FlickerLight4" parent="." unique_id=237660191 instance=ExtResource("5_wlewv")]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 104.56608, -28.213238, 3.2673397)
+light_energy = 0.0
+
+[node name="FlickerLight5" parent="." unique_id=851061431 instance=ExtResource("5_wlewv")]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 144.39018, -28.213238, -4.8573475)
+light_energy = 1.7094821
+
+[node name="FlickerLight6" parent="." unique_id=487499777 instance=ExtResource("5_wlewv")]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 170.79834, -28.213238, 0.9982548)
+light_energy = 1.4205927
+
+[node name="FlickerLight7" parent="." unique_id=2129196640 instance=ExtResource("5_wlewv")]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, -93.73205, -28.213238, 3.2673397)
+light_energy = 2.109738
+
+[node name="FlickerLight8" parent="." unique_id=1633936462 instance=ExtResource("5_wlewv")]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, -53.907944, -28.213238, -4.8573475)
+light_energy = 1.4511538
+
+[node name="FlickerLight9" parent="." unique_id=1166424190 instance=ExtResource("5_wlewv")]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, -27.499786, -28.213238, 0.9982548)
+light_energy = 1.497528

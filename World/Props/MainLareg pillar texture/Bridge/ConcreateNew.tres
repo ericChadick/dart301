@@ -1,0 +1,39 @@
+[gd_resource type="StandardMaterial3D" format=3 uid="uid://bgjojy7rg5ncx"]
+
+[ext_resource type="Texture2D" uid="uid://c0v1iu257nmcx" path="res://World/Props/MainLareg pillar texture/Bridge/concrete_floor_worn_001_nor_gl_2k.png" id="1_4l046"]
+[ext_resource type="Texture2D" uid="uid://dngiicu6oo3d6" path="res://World/Props/MainLareg pillar texture/Bridge/concrete_floor_worn_001_rough_2k.jpg" id="2_387tq"]
+
+[sub_resource type="Gradient" id="Gradient_spbea"]
+offsets = PackedFloat32Array(0.85281384, 1)
+colors = PackedColorArray(1, 1, 1, 0, 0, 0, 0, 1)
+
+[sub_resource type="FastNoiseLite" id="FastNoiseLite_euont"]
+offset = Vector3(150, 150, 150)
+
+[sub_resource type="NoiseTexture2D" id="NoiseTexture2D_pw6uv"]
+width = 1000
+noise = SubResource("FastNoiseLite_euont")
+color_ramp = SubResource("Gradient_spbea")
+seamless = true
+
+[sub_resource type="StandardMaterial3D" id="StandardMaterial3D_qsboh"]
+transparency = 1
+blend_mode = 2
+albedo_color = Color(0.5850621, 0.585062, 0.5850622, 1)
+albedo_texture = SubResource("NoiseTexture2D_pw6uv")
+metallic_specular = 0.0
+uv1_scale = Vector3(0.1, 0.1, 0.1)
+uv1_triplanar = true
+uv1_world_triplanar = true
+
+[resource]
+next_pass = SubResource("StandardMaterial3D_qsboh")
+albedo_color = Color(0.5529556, 0.55295557, 0.55295557, 1)
+metallic_specular = 0.0
+roughness_texture = ExtResource("2_387tq")
+normal_enabled = true
+normal_scale = 15.0
+normal_texture = ExtResource("1_4l046")
+uv1_scale = Vector3(0.2, 0.2, 0.2)
+uv1_triplanar = true
+uv1_world_triplanar = true
