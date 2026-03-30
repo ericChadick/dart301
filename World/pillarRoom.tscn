@@ -5,14 +5,20 @@
 [ext_resource type="VoxelGIData" uid="uid://egnbpi2mdyl0" path="res://World/pillarRoom.VoxelGI_data.res" id="4_eliei"]
 [ext_resource type="PackedScene" uid="uid://b2n0fkm77bvas" path="res://World/Props/MainLareg pillar texture/Pillar/Pillar.tscn" id="5_4png0"]
 [ext_resource type="PackedScene" uid="uid://c1gtbdq7vl40y" path="res://World/Lighting/flicker_light.tscn" id="5_wlewv"]
+[ext_resource type="PackedScene" uid="uid://cguy2xjspouhw" path="res://World/Outlet/terminal.tscn" id="6_wlewv"]
+[ext_resource type="PackedScene" uid="uid://bxgwgbkpugt5j" path="res://World/Outlet/outlet.tscn" id="7_nioa8"]
+[ext_resource type="PackedScene" uid="uid://dh7n4cq2bm8xk" path="res://Enemies/Small Interactions/Prop Tank.tscn" id="8_4fiyw"]
 
 [sub_resource type="Environment" id="Environment_4fiyw"]
 background_mode = 1
 background_energy_multiplier = 0.0
+ambient_light_color = Color(1, 1, 1, 1)
+ambient_light_energy = 0.2
 glow_enabled = true
 fog_light_color = Color(0.40069774, 0.40069774, 0.40069768, 1)
 volumetric_fog_enabled = true
-volumetric_fog_density = 0.02
+volumetric_fog_density = 0.005
+volumetric_fog_length = 1024.0
 
 [sub_resource type="CapsuleMesh" id="CapsuleMesh_dgp27"]
 
@@ -269,6 +275,15 @@ distance_fade_length = 100000000.0
 spot_range = 149.01529
 spot_angle = 26.04609
 
+[node name="SpotLight3D8" type="SpotLight3D" parent="." unique_id=532912623]
+transform = Transform3D(0.9999964, 1.1748798e-10, -0.0026878119, 0.0026878119, -4.371123e-08, 0.9999964, 0, -1, -4.371139e-08, 58.79104, 171.78052, 0)
+light_energy = 0.0
+light_volumetric_fog_energy = 0.0
+distance_fade_enabled = true
+distance_fade_length = 100000000.0
+spot_range = 297.42563
+spot_angle = 52.968407
+
 [node name="SpotLight3D5" type="SpotLight3D" parent="." unique_id=1689709494]
 transform = Transform3D(0.956585, -1.273984e-08, 0.29145357, -0.29145357, -4.1813657e-08, 0.956585, 0, -1, -4.371139e-08, 112.48632, 81.99147, -106.24277)
 light_color = Color(0.9982658, 1, 0.9563101, 1)
@@ -330,36 +345,40 @@ data = ExtResource("4_eliei")
 
 [node name="FlickerLight" parent="." unique_id=1557074308 instance=ExtResource("5_wlewv")]
 transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, -28.213238, 3.2673397)
-light_energy = 2.2231698
-
-[node name="FlickerLight2" parent="." unique_id=1538703935 instance=ExtResource("5_wlewv")]
-transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 39.824104, -28.213238, -4.8573475)
-light_energy = 0.0
-
-[node name="FlickerLight3" parent="." unique_id=1442826392 instance=ExtResource("5_wlewv")]
-transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 66.23227, -28.213238, 0.9982548)
-light_energy = 1.5825685
-
-[node name="FlickerLight4" parent="." unique_id=237660191 instance=ExtResource("5_wlewv")]
-transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 104.56608, -28.213238, 3.2673397)
-light_energy = 0.0
-
-[node name="FlickerLight5" parent="." unique_id=851061431 instance=ExtResource("5_wlewv")]
-transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 144.39018, -28.213238, -4.8573475)
-light_energy = 1.7094821
-
-[node name="FlickerLight6" parent="." unique_id=487499777 instance=ExtResource("5_wlewv")]
-transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 170.79834, -28.213238, 0.9982548)
-light_energy = 1.4205927
+light_energy = 2.2158542
 
 [node name="FlickerLight7" parent="." unique_id=2129196640 instance=ExtResource("5_wlewv")]
 transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, -93.73205, -28.213238, 3.2673397)
-light_energy = 2.109738
+light_energy = 1.4087167
 
 [node name="FlickerLight8" parent="." unique_id=1633936462 instance=ExtResource("5_wlewv")]
 transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, -53.907944, -28.213238, -4.8573475)
-light_energy = 1.4511538
+light_energy = 0.0
 
 [node name="FlickerLight9" parent="." unique_id=1166424190 instance=ExtResource("5_wlewv")]
 transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, -27.499786, -28.213238, 0.9982548)
-light_energy = 1.497528
+light_energy = 2.202409
+
+[node name="terminal" parent="." unique_id=1241557404 instance=ExtResource("6_wlewv")]
+transform = Transform3D(0.9999963, 1.1748824e-10, -0.0026878105, -1.1748795e-10, 1.0000001, 1.5276669e-13, 0.0026878102, 1.5987212e-13, 0.9999962, 62.803524, -40.66223, 0.227292)
+
+[node name="Outlet9" parent="." unique_id=220038749 instance=ExtResource("7_nioa8")]
+transform = Transform3D(0.042468533, -2.187005e-09, -0.99909776, 0.27865586, -0.96031797, 0.011844793, -0.9594516, -0.27890727, -0.040783305, 77.407974, -42.151356, -7.599659)
+
+[node name="Outlet10" parent="." unique_id=154422730 instance=ExtResource("7_nioa8")]
+transform = Transform3D(0.042468533, -2.187005e-09, -0.99909776, 0.27865586, -0.96031797, 0.011844793, -0.9594516, -0.27890727, -0.040783305, 114.74133, -42.151356, -7.599659)
+
+[node name="Outlet11" parent="." unique_id=877664704 instance=ExtResource("7_nioa8")]
+transform = Transform3D(0.042468533, -2.187005e-09, -0.99909776, 0.27865586, -0.96031797, 0.011844793, -0.9594516, -0.27890727, -0.040783305, 2.185462, -42.151356, -7.599659)
+
+[node name="Outlet12" parent="." unique_id=1968393191 instance=ExtResource("7_nioa8")]
+transform = Transform3D(0.042468537, -2.5362867e-10, -0.99909776, 0.23840281, 0.9711134, 0.010133767, 0.9702375, -0.2386183, 0.041241784, 31.712738, -42.151356, 8.145294)
+
+[node name="PropTank" parent="." unique_id=422323610 instance=ExtResource("8_4fiyw")]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 9.121079, -40.16975, -6.1299024)
+
+[node name="PropTank2" parent="." unique_id=415016506 instance=ExtResource("8_4fiyw")]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 8.251283, -40.16975, -6.1299024)
+
+[node name="PropTank3" parent="." unique_id=1023955965 instance=ExtResource("8_4fiyw")]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 10.089097, -40.16975, -6.1299024)
