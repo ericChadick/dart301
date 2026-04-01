@@ -10,6 +10,7 @@
 [ext_resource type="PackedScene" uid="uid://dh7n4cq2bm8xk" path="res://Enemies/Small Interactions/Prop Tank.tscn" id="8_4fiyw"]
 [ext_resource type="PackedScene" uid="uid://b080q0yevuvlc" path="res://World/Pipes/90_degree_pipe.tscn" id="9_hyj3y"]
 [ext_resource type="PackedScene" uid="uid://xw1fbmy41v6y" path="res://World/Pipes/square_pipe.tscn" id="10_dgp27"]
+[ext_resource type="PackedScene" uid="uid://vkbjmrkbrd1i" path="res://World/Lighting/Lights/ceiling_light.tscn" id="11_dgp27"]
 
 [sub_resource type="Environment" id="Environment_4fiyw"]
 background_mode = 1
@@ -476,21 +477,9 @@ transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 56.810394, 11.399376, -2.5911
 size = Vector3(374.54437, 164.12108, 40.094437)
 data = ExtResource("4_eliei")
 
-[node name="FlickerLight" parent="Lights" unique_id=1557074308 instance=ExtResource("5_wlewv")]
-transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, -28.213238, 3.2673397)
-light_energy = 1.8169522
-
 [node name="FlickerLight7" parent="Lights" unique_id=2129196640 instance=ExtResource("5_wlewv")]
 transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, -93.73205, -28.213238, 3.2673397)
-light_energy = 0.0
-
-[node name="FlickerLight8" parent="Lights" unique_id=1633936462 instance=ExtResource("5_wlewv")]
-transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, -53.907944, -28.213238, -4.8573475)
-light_energy = 1.3374461
-
-[node name="FlickerLight9" parent="Lights" unique_id=1166424190 instance=ExtResource("5_wlewv")]
-transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, -27.499786, -28.213238, 0.9982548)
-light_energy = 1.5036273
+light_energy = 1.5228777
 
 [node name="Outlets" type="Node3D" parent="." unique_id=1793653263]
 
@@ -525,7 +514,10 @@ transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 10.089097, -40.16975, -6.1299
 [node name="Pipes" type="Node3D" parent="." unique_id=1433264008]
 
 [node name="90Degree_pipe" parent="Pipes" unique_id=809370669 instance=ExtResource("9_hyj3y")]
-transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, -36.608276, -13.722173)
+transform = Transform3D(0.99998903, 0.004333526, -0.0017820084, -0.0043381983, 0.9999871, -0.0026309197, 0.0017706035, 0.0026386087, 0.999995, 0, -36.608276, -13.722173)
 
 [node name="Square_Pipe" parent="Pipes" unique_id=2092629954 instance=ExtResource("10_dgp27")]
 transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, -18.04317, -30.643227, -14.732875)
+
+[node name="Ceiling Light" parent="Pipes" unique_id=691408130 instance=ExtResource("11_dgp27")]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, -10.874329, -29.081385, 1.9061613)
