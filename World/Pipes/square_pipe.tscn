@@ -1,0 +1,10 @@
+[gd_scene format=3 uid="uid://xw1fbmy41v6y"]
+
+[ext_resource type="Material" uid="uid://be3aj8qgi7tn7" path="res://World/Props/rustySheetMetal.material" id="1_b4rvo"]
+[ext_resource type="ArrayMesh" uid="uid://cxl507kds6ovx" path="res://World/Pipes/Square.obj" id="2_6dk43"]
+
+[node name="Square_Pipe" type="Node3D" unique_id=2092629954]
+
+[node name="Square" type="MeshInstance3D" parent="." unique_id=1291816945]
+material_override = ExtResource("1_b4rvo")
+mesh = ExtResource("2_6dk43")

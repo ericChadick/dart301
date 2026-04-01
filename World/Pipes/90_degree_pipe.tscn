@@ -1,0 +1,10 @@
+[gd_scene format=3 uid="uid://b080q0yevuvlc"]
+
+[ext_resource type="Material" uid="uid://be3aj8qgi7tn7" path="res://World/Props/rustySheetMetal.material" id="1_4vsy3"]
+[ext_resource type="ArrayMesh" uid="uid://ch6s6dx125fbk" path="res://World/Pipes/90Degree.obj" id="2_0uyrc"]
+
+[node name="90Degree_pipe" type="Node3D" unique_id=809370669]
+
+[node name="90Degree" type="MeshInstance3D" parent="." unique_id=1253469140]
+material_override = ExtResource("1_4vsy3")
+mesh = ExtResource("2_0uyrc")
