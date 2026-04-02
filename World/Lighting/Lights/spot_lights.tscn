@@ -1,0 +1,89 @@
+[gd_scene format=3 uid="uid://dhq3mcvbshx1x"]
+
+[ext_resource type="PackedScene" uid="uid://cqyf70r8raykk" path="res://World/Lighting/Lights/Spot Lights.glb" id="1_2whpq"]
+[ext_resource type="Material" uid="uid://yuwc74komv7s" path="res://World/Lighting/Lights/Siren light_metal.material" id="2_6idsk"]
+[ext_resource type="Material" uid="uid://ckso4tefmi0ge" path="res://World/Lighting/Lights/Black Metal.tres" id="3_cwv26"]
+[ext_resource type="Material" uid="uid://chlx3mh57cyhq" path="res://World/Lighting/Lights/Gray Metal.tres" id="4_ed73q"]
+[ext_resource type="Material" uid="uid://c312x2oan0q84" path="res://World/Lighting/Lights/CellingLightGlass.tres" id="5_hrbve"]
+[ext_resource type="Material" uid="uid://cvqbw8a578bdf" path="res://World/Lighting/Lights/CellingLightGlow.tres" id="6_1u2cj"]
+
+[node name="Spot Lights" unique_id=645123207 instance=ExtResource("1_2whpq")]
+
+[node name="Cylinder_002" parent="." index="0" unique_id=1294771405]
+material_override = ExtResource("2_6idsk")
+
+[node name="Cube_006" parent="." index="1" unique_id=1689291722]
+material_override = ExtResource("3_cwv26")
+
+[node name="Cylinder_003" parent="." index="2" unique_id=1086654576]
+material_override = ExtResource("2_6idsk")
+
+[node name="Cylinder_004" parent="." index="3" unique_id=611226915]
+material_override = ExtResource("3_cwv26")
+
+[node name="Cylinder_005" parent="." index="4" unique_id=18684996]
+material_override = ExtResource("3_cwv26")
+
+[node name="Cylinder_006" parent="." index="5" unique_id=1447103352]
+material_override = ExtResource("3_cwv26")
+
+[node name="Cylinder_007" parent="." index="6" unique_id=1563897561]
+material_override = ExtResource("3_cwv26")
+
+[node name="Cylinder_008" parent="." index="7" unique_id=1669787928]
+material_override = ExtResource("2_6idsk")
+
+[node name="Cylinder_009" parent="." index="8" unique_id=152195059]
+material_override = ExtResource("2_6idsk")
+
+[node name="Cylinder_010" parent="." index="9" unique_id=1614840754]
+material_override = ExtResource("3_cwv26")
+
+[node name="Cylinder_011" parent="." index="10" unique_id=1238626980]
+material_override = ExtResource("4_ed73q")
+
+[node name="Cylinder_012" parent="." index="11" unique_id=1014502083]
+material_override = ExtResource("3_cwv26")
+
+[node name="Cube_007" parent="." index="13" unique_id=192458245]
+material_override = ExtResource("3_cwv26")
+
+[node name="Cube_008" parent="." index="14" unique_id=2073362321]
+material_override = ExtResource("4_ed73q")
+
+[node name="Cube_009" parent="." index="15" unique_id=1167749951]
+material_override = ExtResource("4_ed73q")
+
+[node name="Cube_010" parent="." index="16" unique_id=1126026504]
+material_override = ExtResource("4_ed73q")
+
+[node name="Cube_011" parent="." index="17" unique_id=1738285107]
+material_override = ExtResource("4_ed73q")
+
+[node name="Cube_012" parent="." index="18" unique_id=1010215441]
+material_override = ExtResource("4_ed73q")
+
+[node name="Cube_013" parent="." index="19" unique_id=893369023]
+material_override = ExtResource("4_ed73q")
+
+[node name="Cube_014" parent="." index="20" unique_id=1713026419]
+material_override = ExtResource("4_ed73q")
+
+[node name="Cube_015" parent="." index="21" unique_id=645073116]
+material_override = ExtResource("4_ed73q")
+
+[node name="Torus" parent="." index="22" unique_id=986150196]
+material_override = ExtResource("4_ed73q")
+
+[node name="Cylinder_014" parent="." index="23" unique_id=1398601344]
+material_override = ExtResource("5_hrbve")
+
+[node name="Cylinder_015" parent="." index="24" unique_id=797609546]
+transform = Transform3D(2.670587, 0, 0, 0, 1, 0, 0, 0, 2.670587, 0, -1.6046723, 0)
+material_override = ExtResource("6_1u2cj")
+
+[node name="SpotLight3D" type="SpotLight3D" parent="." index="25" unique_id=531701493]
+transform = Transform3D(1, 0, 0, 0, -4.371139e-08, 1, 0, -1, -4.371139e-08, 0, 0, 0)
+light_energy = 10.0
+spot_range = 31.423609
+spot_angle = 30.367725

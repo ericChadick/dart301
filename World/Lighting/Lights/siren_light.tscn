@@ -1,34 +1,5 @@
 [gd_scene format=3 uid="uid://c7rvgjigqfdyi"]
 
 [ext_resource type="PackedScene" uid="uid://hj0j7lirurjf" path="res://World/Lighting/Lights/Siren light.glb" id="1_xlomu"]
-[ext_resource type="Material" uid="uid://yuwc74komv7s" path="res://World/Lighting/Lights/Siren light_metal.material" id="2_wf6l4"]
-[ext_resource type="Material" uid="uid://c312x2oan0q84" path="res://World/Lighting/Lights/CellingLightGlass.tres" id="3_176oi"]
 
-[node name="Siren light" unique_id=167224996 instance=ExtResource("1_xlomu")]
-
-[node name="Circle_009" parent="." index="0" unique_id=2111119512]
-material_override = ExtResource("2_wf6l4")
-
-[node name="Cube_005" parent="." index="1" unique_id=1515427564]
-material_override = ExtResource("2_wf6l4")
-
-[node name="Circle_010" parent="." index="2" unique_id=1425327329]
-material_override = ExtResource("3_176oi")
-
-[node name="Circle_012" parent="." index="3" unique_id=1837949847]
-material_override = ExtResource("2_wf6l4")
-
-[node name="Circle_013" parent="." index="4" unique_id=2010799666]
-material_override = ExtResource("2_wf6l4")
-
-[node name="Circle_014" parent="." index="5" unique_id=1448453933]
-material_override = ExtResource("2_wf6l4")
-
-[node name="Circle_015" parent="." index="6" unique_id=2139087141]
-material_override = ExtResource("2_wf6l4")
-
-[node name="Circle_016" parent="." index="7" unique_id=1451787412]
-material_override = ExtResource("2_wf6l4")
-
-[node name="Circle_017" parent="." index="8" unique_id=1071742566]
-material_override = ExtResource("2_wf6l4")
+[node name="Siren light" unique_id=533915158 instance=ExtResource("1_xlomu")]

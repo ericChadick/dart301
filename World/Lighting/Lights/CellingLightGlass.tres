@@ -8,13 +8,20 @@ height = 1000
 noise = SubResource("FastNoiseLite_mjjt2")
 seamless = true
 
+[sub_resource type="FastNoiseLite" id="FastNoiseLite_axk2e"]
+
+[sub_resource type="NoiseTexture2D" id="NoiseTexture2D_cbyjf"]
+noise = SubResource("FastNoiseLite_axk2e")
+
 [resource]
 blend_mode = 1
 albedo_color = Color(0.54763263, 0.54763263, 0.54763246, 1)
 albedo_texture = SubResource("NoiseTexture2D_wq700")
 metallic = 1.0
 metallic_specular = 1.0
+roughness = 0.0
 clearcoat_enabled = true
-subsurf_scatter_enabled = true
-subsurf_scatter_strength = 0.99
+clearcoat_roughness = 1.0
+subsurf_scatter_strength = 1.0
+subsurf_scatter_texture = SubResource("NoiseTexture2D_cbyjf")
 refraction_enabled = true

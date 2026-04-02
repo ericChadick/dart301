@@ -1,0 +1,66 @@
+[gd_scene format=3 uid="uid://m5vpbitmdjgx"]
+
+[ext_resource type="PackedScene" uid="uid://bp6kxj6ymxybp" path="res://World/Lighting/Lights/Siren Lights.glb" id="1_eqscj"]
+[ext_resource type="Material" uid="uid://cei3byqal3n6k" path="res://World/Lighting/Lights/Ceiling LightMetal.material" id="2_6e2vl"]
+[ext_resource type="Material" uid="uid://c312x2oan0q84" path="res://World/Lighting/Lights/CellingLightGlass.tres" id="2_l1gik"]
+[ext_resource type="Material" uid="uid://ckso4tefmi0ge" path="res://World/Lighting/Lights/Black Metal.tres" id="3_skyoq"]
+[ext_resource type="Material" uid="uid://b6ueo7k2w3a14" path="res://World/Lighting/Lights/Black Plastic.tres" id="5_30g12"]
+[ext_resource type="Material" uid="uid://cxuiqk8oxs7lr" path="res://World/Lighting/Lights/Siren Light.tres" id="6_6e2vl"]
+
+[node name="Siren Lights" unique_id=674397960 instance=ExtResource("1_eqscj")]
+
+[node name="Circle_009" parent="." index="0" unique_id=1829677733]
+material_override = ExtResource("2_6e2vl")
+
+[node name="Cube_005" parent="." index="1" unique_id=1006577821]
+material_override = ExtResource("3_skyoq")
+
+[node name="Circle_010" parent="." index="2" unique_id=1182846765]
+material_override = ExtResource("2_l1gik")
+
+[node name="Circle_012" parent="." index="3" unique_id=1500347212]
+material_override = ExtResource("3_skyoq")
+
+[node name="Circle_013" parent="." index="4" unique_id=869260403]
+material_override = ExtResource("3_skyoq")
+
+[node name="Circle_014" parent="." index="5" unique_id=68299481]
+material_override = ExtResource("3_skyoq")
+
+[node name="Circle_015" parent="." index="6" unique_id=148069533]
+material_override = ExtResource("3_skyoq")
+
+[node name="Circle_016" parent="." index="7" unique_id=711731302]
+material_override = ExtResource("3_skyoq")
+
+[node name="Circle_017" parent="." index="8" unique_id=628127334]
+material_override = ExtResource("3_skyoq")
+
+[node name="Cone" parent="." index="9" unique_id=1292272046]
+material_override = ExtResource("5_30g12")
+
+[node name="Cone_001" parent="." index="10" unique_id=249992179]
+material_override = ExtResource("5_30g12")
+
+[node name="Cylinder_001" parent="." index="11" unique_id=1801546166]
+material_override = ExtResource("5_30g12")
+
+[node name="Sphere" parent="." index="12" unique_id=749659012]
+material_override = ExtResource("6_6e2vl")
+
+[node name="Sphere_001" parent="." index="13" unique_id=638692722]
+material_override = ExtResource("6_6e2vl")
+
+[node name="SpotLight3D2" type="SpotLight3D" parent="." index="14" unique_id=1778968143]
+transform = Transform3D(1, 0, 0, 0, -1, -8.742278e-08, 0, 8.742278e-08, -1, 0, -2.2810483, 0.12623)
+light_color = Color(1, 0, 0, 1)
+light_volumetric_fog_energy = 25.0
+spot_range = 10.00547
+spot_angle = 23.507267
+
+[node name="SpotLight3D" type="SpotLight3D" parent="." index="15" unique_id=393238774]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, -2.2260628, -0.37146318)
+light_color = Color(1, 0, 0, 1)
+light_volumetric_fog_energy = 25.0
+spot_range = 8.6738615
+spot_angle = 19.2604

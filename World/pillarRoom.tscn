@@ -11,6 +11,8 @@
 [ext_resource type="PackedScene" uid="uid://b080q0yevuvlc" path="res://World/Pipes/90_degree_pipe.tscn" id="9_hyj3y"]
 [ext_resource type="PackedScene" uid="uid://xw1fbmy41v6y" path="res://World/Pipes/square_pipe.tscn" id="10_dgp27"]
 [ext_resource type="PackedScene" uid="uid://vkbjmrkbrd1i" path="res://World/Lighting/Lights/ceiling_light.tscn" id="11_dgp27"]
+[ext_resource type="PackedScene" uid="uid://dhq3mcvbshx1x" path="res://World/Lighting/Lights/spot_lights.tscn" id="12_wwu72"]
+[ext_resource type="PackedScene" uid="uid://m5vpbitmdjgx" path="res://World/Lighting/Lights/siren_lights.tscn" id="13_3ki2p"]
 
 [sub_resource type="Environment" id="Environment_4fiyw"]
 background_mode = 1
@@ -479,7 +481,7 @@ data = ExtResource("4_eliei")
 
 [node name="FlickerLight7" parent="Lights" unique_id=2129196640 instance=ExtResource("5_wlewv")]
 transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, -93.73205, -28.213238, 3.2673397)
-light_energy = 1.5228777
+light_energy = 1.3783985
 
 [node name="Outlets" type="Node3D" parent="." unique_id=1793653263]
 
@@ -521,3 +523,9 @@ transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, -18.04317, -30.643227, -14.73
 
 [node name="Ceiling Light" parent="Pipes" unique_id=691408130 instance=ExtResource("11_dgp27")]
 transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, -10.874329, -29.081385, 1.9061613)
+
+[node name="Spot Lights" parent="." unique_id=645123207 instance=ExtResource("12_wwu72")]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 16.136412, -25.442945, -0.5946379)
+
+[node name="Siren Lights" parent="." unique_id=674397960 instance=ExtResource("13_3ki2p")]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 29.385376, -25.064514, -0.66378355)
