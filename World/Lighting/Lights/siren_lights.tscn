@@ -54,13 +54,13 @@ material_override = ExtResource("6_6e2vl")
 [node name="SpotLight3D2" type="SpotLight3D" parent="." index="14" unique_id=1778968143]
 transform = Transform3D(1, 0, 0, 0, -1, -8.742278e-08, 0, 8.742278e-08, -1, 0, -2.2810483, 0.12623)
 light_color = Color(1, 0, 0, 1)
-light_volumetric_fog_energy = 25.0
+light_volumetric_fog_energy = 60.0
 spot_range = 10.00547
 spot_angle = 23.507267
 
 [node name="SpotLight3D" type="SpotLight3D" parent="." index="15" unique_id=393238774]
 transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, -2.2260628, -0.37146318)
 light_color = Color(1, 0, 0, 1)
-light_volumetric_fog_energy = 25.0
+light_volumetric_fog_energy = 60.0
 spot_range = 8.6738615
 spot_angle = 19.2604

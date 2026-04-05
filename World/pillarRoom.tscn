@@ -481,7 +481,11 @@ data = ExtResource("4_eliei")
 
 [node name="FlickerLight7" parent="Lights" unique_id=2129196640 instance=ExtResource("5_wlewv")]
 transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, -93.73205, -28.213238, 3.2673397)
-light_energy = 1.3783985
+light_energy = 2.106287
+
+[node name="FlickerLight8" parent="Lights" unique_id=1557074308 instance=ExtResource("5_wlewv")]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, -56.714783, -28.213238, 3.2673397)
+light_energy = 1.4050424
 
 [node name="Outlets" type="Node3D" parent="." unique_id=1793653263]
 
@@ -516,13 +520,53 @@ transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 10.089097, -40.16975, -6.1299
 [node name="Pipes" type="Node3D" parent="." unique_id=1433264008]
 
 [node name="90Degree_pipe" parent="Pipes" unique_id=809370669 instance=ExtResource("9_hyj3y")]
-transform = Transform3D(0.99998903, 0.004333526, -0.0017820084, -0.0043381983, 0.9999871, -0.0026309197, 0.0017706035, 0.0026386087, 0.999995, 0, -36.608276, -13.722173)
+transform = Transform3D(2.6499708, 0.011483823, -0.004722373, -0.011496226, 2.649966, -0.0069719036, 0.0046920995, 0.006992314, 2.6499867, 0, -36.608276, -13.722173)
+
+[node name="90Degree_pipe2" parent="Pipes" unique_id=302763140 instance=ExtResource("9_hyj3y")]
+transform = Transform3D(-0.011496343, 2.649966, -0.0069719036, -2.649971, -0.011483939, 0.0047223717, 0.0046920995, 0.0069923145, 2.649987, 54.260925, -68.383705, -13.722173)
 
 [node name="Square_Pipe" parent="Pipes" unique_id=2092629954 instance=ExtResource("10_dgp27")]
-transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, -18.04317, -30.643227, -14.732875)
+transform = Transform3D(2.715, 0, 0, 0, 2.715, 0, 0, 0, 2.715, 44.810696, -30.749987, -13.557479)
+
+[node name="90Degree_pipe3" parent="Pipes" unique_id=770112945 instance=ExtResource("9_hyj3y")]
+transform = Transform3D(-0.060479887, -7.849739, 0.020819584, 7.8497543, -0.06051644, -0.013739192, 0.013899235, 0.020713082, 7.8499603, 138.045, 113.42706, -31.944)
+
+[node name="90Degree_pipe4" parent="Pipes" unique_id=2046061192 instance=ExtResource("9_hyj3y")]
+transform = Transform3D(-0.041026164, -5.324823, 0.01412284, 5.3248334, -0.04105096, -0.009319898, 0.009428462, 0.0140505945, 5.3249726, 28.324566, -22.457586, -24.779043)
+
+[node name="Square_Pipe3" parent="Pipes" unique_id=950866455 instance=ExtResource("10_dgp27")]
+transform = Transform3D(-0.059610438, -4.9496408, 0, 4.9496408, -0.059610438, 0, 0, 0, 4.95, 51.32428, -1.3097048, -35.84368)
+
+[node name="Square_Pipe2" parent="Pipes" unique_id=828494556 instance=ExtResource("10_dgp27")]
+transform = Transform3D(2.715, 0, 0, 0, 2.715, 0, 0, 0, 2.715, 136.01755, -28.368261, -13.557479)
 
 [node name="Ceiling Light" parent="Pipes" unique_id=691408130 instance=ExtResource("11_dgp27")]
 transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, -10.874329, -29.081385, 1.9061613)
+
+[node name="Pipes2" type="Node3D" parent="." unique_id=388332612]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 0, 68.989975)
+
+[node name="90Degree_pipe" parent="Pipes2" unique_id=56671863 instance=ExtResource("9_hyj3y")]
+transform = Transform3D(2.6499708, 0.011483823, -0.004722373, -0.011496226, 2.649966, -0.0069719036, 0.0046920995, 0.006992314, 2.6499867, 0, -36.608276, -13.722173)
+
+[node name="90Degree_pipe2" parent="Pipes2" unique_id=1836982583 instance=ExtResource("9_hyj3y")]
+transform = Transform3D(-0.011496343, 2.649966, -0.0069719036, -2.649971, -0.011483939, 0.0047223717, 0.0046920995, 0.0069923145, 2.649987, 54.260925, -68.383705, -30.091434)
+
+[node name="Square_Pipe" parent="Pipes2" unique_id=342919437 instance=ExtResource("10_dgp27")]
+transform = Transform3D(2.715, 0, 0, 0, 2.715, 0, 0, 0, 2.715, 44.810696, -30.749987, -13.557479)
+
+[node name="90Degree_pipe4" parent="Pipes2" unique_id=2081202882 instance=ExtResource("9_hyj3y")]
+transform = Transform3D(-0.041026164, -5.324823, 0.01412284, 5.3248334, -0.04105096, -0.009319898, 0.009428462, 0.0140505945, 5.3249726, 28.324566, -22.457586, -26.28968)
+
+[node name="Square_Pipe3" parent="Pipes2" unique_id=1165639800 instance=ExtResource("10_dgp27")]
+transform = Transform3D(-0.059610438, -4.9496408, 0, 4.9496408, -0.059610438, 0, 0, 0, 4.95, 51.32428, -1.3097048, -35.84368)
+
+[node name="Square_Pipe2" parent="Pipes2" unique_id=392368231 instance=ExtResource("10_dgp27")]
+transform = Transform3D(2.715, 0, 0, 0, 2.715, 0, 0, 0, 2.715, 136.01755, -28.368261, -13.557479)
+
+[node name="Ceiling Light" parent="Pipes2" unique_id=1554048021 instance=ExtResource("11_dgp27")]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, -10.874329, -29.081385, 1.9061613)
+visible = false
 
 [node name="Spot Lights" parent="." unique_id=645123207 instance=ExtResource("12_wwu72")]
 transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 16.136412, -25.442945, -0.5946379)
