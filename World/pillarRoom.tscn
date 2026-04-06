@@ -769,11 +769,11 @@ data = ExtResource("4_eliei")
 
 [node name="FlickerLight7" parent="Lights" unique_id=2129196640 instance=ExtResource("5_wlewv")]
 transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, -93.73205, -28.213238, 3.2673397)
-light_energy = 1.4074285
+light_energy = 2.3414226
 
 [node name="FlickerLight8" parent="Lights" unique_id=1557074308 instance=ExtResource("5_wlewv")]
 transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, -56.714783, -28.213238, 3.2673397)
-light_energy = 1.813773
+light_energy = 2.267704
 
 [node name="Outlets" type="Node3D" parent="." unique_id=1793653263]
 
