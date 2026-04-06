@@ -1,0 +1,5 @@
+[gd_scene format=3 uid="uid://c7rvgjigqfdyi"]
+
+[ext_resource type="PackedScene" uid="uid://hj0j7lirurjf" path="res://World/Lighting/Lights/Siren light.glb" id="1_xlomu"]
+
+[node name="Siren light" unique_id=533915158 instance=ExtResource("1_xlomu")]

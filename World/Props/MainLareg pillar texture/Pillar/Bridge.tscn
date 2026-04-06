@@ -116,7 +116,13 @@ shadow_mesh = SubResource("ArrayMesh_ath2k")
 [node name="Bridge" type="Node3D" unique_id=295333083]
 
 [node name="Plane_008" type="MeshInstance3D" parent="." unique_id=1937526246]
-transform = Transform3D(100, 0, 0, 0, -5.2449295e-06, 100, 0, -119.99, -4.371139e-06, 5.075, 5.085, 0)
+transform = Transform3D(100, 0, 0, 0, -1.2739573e-05, 100.000015, 0, -291.44745, -4.3711393e-06, 5.075, 4.770988, 0)
+material_override = SubResource("StandardMaterial3D_3o4n8")
+mesh = SubResource("ArrayMesh_oklrr")
+skeleton = NodePath("")
+
+[node name="Plane_009" type="MeshInstance3D" parent="." unique_id=326782903]
+transform = Transform3D(100, 0, 0, 0, -1.2739573e-05, 100.000015, 0, -291.44745, -4.3711393e-06, 5.075, 4.770988, 0)
 material_override = SubResource("StandardMaterial3D_3o4n8")
 mesh = SubResource("ArrayMesh_oklrr")
 skeleton = NodePath("")

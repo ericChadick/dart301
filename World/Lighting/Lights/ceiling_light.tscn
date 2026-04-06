@@ -1,0 +1,72 @@
+[gd_scene format=3 uid="uid://vkbjmrkbrd1i"]
+
+[ext_resource type="PackedScene" uid="uid://dw0rvykqd6wf8" path="res://World/Lighting/Lights/Ceiling Light.glb" id="1_sykb8"]
+[ext_resource type="Material" uid="uid://cvqbw8a578bdf" path="res://World/Lighting/Lights/CellingLightGlow.tres" id="2_qkeux"]
+[ext_resource type="Material" uid="uid://c312x2oan0q84" path="res://World/Lighting/Lights/CellingLightGlass.tres" id="2_w7ycu"]
+[ext_resource type="Material" uid="uid://cei3byqal3n6k" path="res://World/Lighting/Lights/Ceiling LightMetal.material" id="4_ktj6b"]
+[ext_resource type="Material" uid="uid://b6ueo7k2w3a14" path="res://World/Lighting/Lights/Black Plastic.tres" id="5_el3tg"]
+[ext_resource type="Material" uid="uid://ckso4tefmi0ge" path="res://World/Lighting/Lights/Black Metal.tres" id="6_hvw4r"]
+[ext_resource type="Material" uid="uid://chlx3mh57cyhq" path="res://World/Lighting/Lights/Gray Metal.tres" id="7_dbvl6"]
+
+[node name="Ceiling Light" unique_id=691408130 instance=ExtResource("1_sykb8")]
+
+[node name="Circle" parent="." index="0" unique_id=609325213]
+material_override = ExtResource("2_qkeux")
+
+[node name="Circle_001" parent="." index="1" unique_id=1609346293]
+material_override = ExtResource("2_w7ycu")
+
+[node name="Circle_002" parent="." index="2" unique_id=702488773]
+material_override = ExtResource("4_ktj6b")
+
+[node name="Plane" parent="." index="3" unique_id=817360548]
+material_override = ExtResource("4_ktj6b")
+
+[node name="Circle_004" parent="." index="4" unique_id=734530065]
+material_override = ExtResource("5_el3tg")
+
+[node name="Circle_003" parent="." index="5" unique_id=1160084810]
+material_override = ExtResource("5_el3tg")
+
+[node name="Cylinder" parent="." index="6" unique_id=891223916]
+material_override = ExtResource("5_el3tg")
+
+[node name="Cube" parent="." index="7" unique_id=1502941189]
+material_override = ExtResource("6_hvw4r")
+
+[node name="Cube_001" parent="." index="8" unique_id=441457522]
+material_override = ExtResource("6_hvw4r")
+
+[node name="Plane_001" parent="." index="9" unique_id=1616466648]
+material_override = ExtResource("6_hvw4r")
+
+[node name="Cube_002" parent="." index="10" unique_id=671876098]
+material_override = ExtResource("6_hvw4r")
+
+[node name="Cube_003" parent="." index="11" unique_id=1040700743]
+material_override = ExtResource("6_hvw4r")
+
+[node name="Circle_005" parent="." index="12" unique_id=1320366844]
+material_override = ExtResource("7_dbvl6")
+
+[node name="Circle_006" parent="." index="13" unique_id=1528686145]
+material_override = ExtResource("7_dbvl6")
+
+[node name="Cube_004" parent="." index="14" unique_id=816377034]
+material_override = ExtResource("4_ktj6b")
+
+[node name="Circle_007" parent="." index="15" unique_id=1221893194]
+material_override = ExtResource("2_qkeux")
+
+[node name="Circle_008" parent="." index="16" unique_id=1542405751]
+material_override = ExtResource("2_w7ycu")
+
+[node name="Circle_011" parent="." index="17" unique_id=663009919]
+material_override = ExtResource("7_dbvl6")
+
+[node name="SpotLight3D" type="SpotLight3D" parent="." index="18" unique_id=913818066]
+transform = Transform3D(1, 0, 0, 0, -4.371139e-08, 1, 0, -1, -4.371139e-08, 0, 0, -0.5344186)
+light_color = Color(1, 1, 0.8980392, 1)
+light_energy = 5.0
+spot_range = 35.250156
+spot_angle = 68.48203
