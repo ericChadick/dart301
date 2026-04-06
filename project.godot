@@ -70,6 +70,10 @@ collect=""
 character=""
 player=""
 blueprint=""
+outletEnemy=""
+playerHitbox=""
+outletTerminal=""
+terminalOutlet=""
 
 [input]
 

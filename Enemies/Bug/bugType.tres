@@ -1,0 +1,11 @@
+[gd_resource type="Resource" script_class="enemyType" format=3 uid="uid://bf8l54yhr7jmd"]
+
+[ext_resource type="Script" uid="uid://cy5jh8nkwopfb" path="res://Enemies/enemyClass.gd" id="1_4gxtx"]
+
+[resource]
+script = ExtResource("1_4gxtx")
+hp = 1.0
+currencyReward = 20.0
+agroRange = 60.0
+runSpeed = 30.0
+metadata/_custom_type_script = "uid://cy5jh8nkwopfb"

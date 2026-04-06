@@ -1,5 +1,25 @@
 [gd_scene format=3 uid="uid://cavcnl6ikh0nv"]
 
 [ext_resource type="PackedScene" uid="uid://8btuefqblh68" path="res://World/Outlet/terminalScreen2.glb" id="1_wlra0"]
+[ext_resource type="PackedScene" uid="uid://bxgwgbkpugt5j" path="res://World/Outlet/outlet.tscn" id="2_k4l30"]
+[ext_resource type="Script" uid="uid://0uaylt3l7jkl" path="res://World/Outlet/Terminal/terminal_screen.gd" id="2_vfi07"]
+[ext_resource type="Shader" uid="uid://oy8k5ac62ni5" path="res://Shaders/static3D.gdshader" id="3_ddyan"]
 
-[node name="terminalScreen2" unique_id=1419796712 instance=ExtResource("1_wlra0")]
+[sub_resource type="ShaderMaterial" id="ShaderMaterial_naj1w"]
+render_priority = 0
+shader = ExtResource("3_ddyan")
+shader_parameter/gridSize = 300.0
+shader_parameter/noiseSpd = 12.0
+
+[node name="terminalScreen" unique_id=1419796712 instance=ExtResource("1_wlra0")]
+script = ExtResource("2_vfi07")
+
+[node name="Cube_006" parent="." index="1" unique_id=781614338]
+material_override = SubResource("ShaderMaterial_naj1w")
+
+[node name="Outlet" parent="." index="10" unique_id=220038749 groups=["outletTerminal"] instance=ExtResource("2_k4l30")]
+transform = Transform3D(0.3, 0, 0, 0, 0.3, 0, 0, 0, 0.3, 0.614434, 1.2026407, 0.00025773048)
+
+[node name="WatchLight" type="OmniLight3D" parent="." index="11" unique_id=489771477]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0.48302054, 3.4756308, 0)
+omni_attenuation = -3.0

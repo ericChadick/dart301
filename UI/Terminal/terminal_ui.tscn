@@ -1,0 +1,546 @@
+[gd_scene format=3 uid="uid://cgfcumjf1i5j0"]
+
+[ext_resource type="Script" uid="uid://bqxhgve6uli0g" path="res://UI/Terminal/terminal_ui.gd" id="1_vo4id"]
+[ext_resource type="FontFile" uid="uid://crmykpi613n0s" path="res://UI/Fonts/Color Basic.otf" id="3_vq36n"]
+[ext_resource type="FontFile" uid="uid://c0lnj4h2i71td" path="res://UI/Fonts/Code 7x5.ttf" id="4_d8vib"]
+[ext_resource type="Shader" uid="uid://cg424xmxljdnp" path="res://Shaders/analogCRT.gdshader" id="4_vq36n"]
+[ext_resource type="Shader" uid="uid://tbt2xjb5kkb" path="res://Shaders/static.gdshader" id="5_vq36n"]
+[ext_resource type="Material" uid="uid://dbxwt332acbnr" path="res://Shaders/glitch.tres" id="6_funa8"]
+
+[sub_resource type="ShaderMaterial" id="ShaderMaterial_ce44d"]
+shader = ExtResource("5_vq36n")
+shader_parameter/gridSize = 300.0
+shader_parameter/noiseSpd = 12.0
+
+[sub_resource type="ShaderMaterial" id="ShaderMaterial_vq36n"]
+shader = ExtResource("4_vq36n")
+shader_parameter/screen_size = Vector2(1920, 1080)
+shader_parameter/viewport_size = Vector2(1920, 1080)
+shader_parameter/hardScan = 0.0
+shader_parameter/hardPix = -3.0
+shader_parameter/warpX = 0.0
+shader_parameter/warpY = 0.0
+shader_parameter/maskDark = 0.5000000074506
+shader_parameter/maskLight = 0.20000000298024
+shader_parameter/scaleInLinearGamma = true
+shader_parameter/shadowMask = 3
+shader_parameter/brightBoost = 1.5000000223518
+shader_parameter/hardBloomPix = -1.5
+shader_parameter/hardBloomScan = -4.0
+shader_parameter/bloomAmount = 0.15
+shader_parameter/shape = 2.0
+shader_parameter/doBloom = true
+shader_parameter/enable_compression = true
+shader_parameter/compression_intensity = 0.5000000074506
+shader_parameter/compression_quantization = 12.0
+shader_parameter/compression_block_size = 8.0
+shader_parameter/compression_blend = 0.20000000298024
+shader_parameter/enable_chromatic_aberration = false
+shader_parameter/red_shift = Vector2(0.003, 0)
+shader_parameter/green_shift = Vector2(0, 0.003)
+shader_parameter/blue_shift = Vector2(-0.003, 0)
+shader_parameter/aberration_bias = 1.0
+shader_parameter/aberration_blend = 0.8
+shader_parameter/enable_lens_distortion = true
+shader_parameter/distortion_intensity = -0.10000004246880012
+shader_parameter/distortion_magnifier = 1.0
+shader_parameter/distortion_invert = false
+shader_parameter/enable_noise = false
+shader_parameter/noise_intensity = 0.749999983236
+shader_parameter/noise_scale = 64.0
+shader_parameter/noise_framerate = 40.0
+shader_parameter/noise_midtones = 0.0
+shader_parameter/noise_shadows = 1.10000001639132
+shader_parameter/noise_highlights = 0.90000001341108
+shader_parameter/enable_halation = true
+shader_parameter/halation_amount = 0.40000000596048
+shader_parameter/halation_threshold = 0.1999999955296
+shader_parameter/halation_size = 2.0000000298024
+shader_parameter/halation_color_filter = Vector3(1, 0.9, 0.8)
+shader_parameter/enable_sharpen = false
+shader_parameter/sharpen_intensity = 1.0
+shader_parameter/sharpen_offset = 1.0
+shader_parameter/enable_soften = false
+shader_parameter/soften_strength = 1.0
+shader_parameter/soften_blend = 0.5
+shader_parameter/enable_vignette = true
+shader_parameter/vignette_intensity = 0.4
+shader_parameter/vignette_size = 0.8
+shader_parameter/vignette_color = Vector3(0, 0, 0)
+
+[sub_resource type="Animation" id="Animation_vq36n"]
+length = 0.001
+tracks/0/type = "value"
+tracks/0/imported = false
+tracks/0/enabled = true
+tracks/0/path = NodePath("Static:modulate")
+tracks/0/interp = 1
+tracks/0/loop_wrap = true
+tracks/0/keys = {
+"times": PackedFloat32Array(0),
+"transitions": PackedFloat32Array(1),
+"update": 0,
+"values": [Color(1, 1, 1, 1)]
+}
+tracks/1/type = "value"
+tracks/1/imported = false
+tracks/1/enabled = true
+tracks/1/path = NodePath("Static:visible")
+tracks/1/interp = 1
+tracks/1/loop_wrap = true
+tracks/1/keys = {
+"times": PackedFloat32Array(0),
+"transitions": PackedFloat32Array(1),
+"update": 1,
+"values": [true]
+}
+tracks/2/type = "value"
+tracks/2/imported = false
+tracks/2/enabled = true
+tracks/2/path = NodePath("UI:visible")
+tracks/2/interp = 1
+tracks/2/loop_wrap = true
+tracks/2/keys = {
+"times": PackedFloat32Array(0),
+"transitions": PackedFloat32Array(1),
+"update": 1,
+"values": [true]
+}
+tracks/3/type = "value"
+tracks/3/imported = false
+tracks/3/enabled = true
+tracks/3/path = NodePath(".:init")
+tracks/3/interp = 1
+tracks/3/loop_wrap = true
+tracks/3/keys = {
+"times": PackedFloat32Array(0),
+"transitions": PackedFloat32Array(1),
+"update": 1,
+"values": [false]
+}
+tracks/4/type = "value"
+tracks/4/imported = false
+tracks/4/enabled = true
+tracks/4/path = NodePath("UI/MarginContainer/VBoxContainer/Description:visible")
+tracks/4/interp = 1
+tracks/4/loop_wrap = true
+tracks/4/keys = {
+"times": PackedFloat32Array(0),
+"transitions": PackedFloat32Array(1),
+"update": 1,
+"values": [true]
+}
+tracks/5/type = "value"
+tracks/5/imported = false
+tracks/5/enabled = true
+tracks/5/path = NodePath("UI/MarginContainer/VBoxContainer/Line:visible_ratio")
+tracks/5/interp = 1
+tracks/5/loop_wrap = true
+tracks/5/keys = {
+"times": PackedFloat32Array(0),
+"transitions": PackedFloat32Array(1),
+"update": 0,
+"values": [1.0]
+}
+tracks/6/type = "value"
+tracks/6/imported = false
+tracks/6/enabled = true
+tracks/6/path = NodePath("UI/MarginContainer/VBoxContainer/Title:visible")
+tracks/6/interp = 1
+tracks/6/loop_wrap = true
+tracks/6/keys = {
+"times": PackedFloat32Array(0),
+"transitions": PackedFloat32Array(1),
+"update": 1,
+"values": [true]
+}
+tracks/7/type = "value"
+tracks/7/imported = false
+tracks/7/enabled = true
+tracks/7/path = NodePath("UI/MarginContainer/VBoxContainer/Description:visible_ratio")
+tracks/7/interp = 1
+tracks/7/loop_wrap = true
+tracks/7/keys = {
+"times": PackedFloat32Array(0),
+"transitions": PackedFloat32Array(1),
+"update": 0,
+"values": [1.0]
+}
+tracks/8/type = "value"
+tracks/8/imported = false
+tracks/8/enabled = true
+tracks/8/path = NodePath("UI/MarginContainer/VBoxContainer/Description/Back:visible")
+tracks/8/interp = 1
+tracks/8/loop_wrap = true
+tracks/8/keys = {
+"times": PackedFloat32Array(0),
+"transitions": PackedFloat32Array(1),
+"update": 1,
+"values": [true]
+}
+tracks/9/type = "value"
+tracks/9/imported = false
+tracks/9/enabled = true
+tracks/9/path = NodePath("Glitch:visible")
+tracks/9/interp = 1
+tracks/9/loop_wrap = true
+tracks/9/keys = {
+"times": PackedFloat32Array(0),
+"transitions": PackedFloat32Array(1),
+"update": 1,
+"values": [true]
+}
+tracks/10/type = "value"
+tracks/10/imported = false
+tracks/10/enabled = true
+tracks/10/path = NodePath("UI/ColorRect:visible")
+tracks/10/interp = 1
+tracks/10/loop_wrap = true
+tracks/10/keys = {
+"times": PackedFloat32Array(0),
+"transitions": PackedFloat32Array(1),
+"update": 1,
+"values": [true]
+}
+tracks/11/type = "value"
+tracks/11/imported = false
+tracks/11/enabled = true
+tracks/11/path = NodePath(".:ended")
+tracks/11/interp = 1
+tracks/11/loop_wrap = true
+tracks/11/keys = {
+"times": PackedFloat32Array(0),
+"transitions": PackedFloat32Array(1),
+"update": 1,
+"values": [false]
+}
+
+[sub_resource type="Animation" id="Animation_ce44d"]
+resource_name = "exit"
+length = 2.5
+tracks/0/type = "value"
+tracks/0/imported = false
+tracks/0/enabled = true
+tracks/0/path = NodePath("Static:modulate")
+tracks/0/interp = 1
+tracks/0/loop_wrap = true
+tracks/0/keys = {
+"times": PackedFloat32Array(1.2666667, 1.6666666, 2.0666666, 2.3),
+"transitions": PackedFloat32Array(1, 1, 1, 1),
+"update": 0,
+"values": [Color(1, 1, 1, 0), Color(1, 1, 1, 1), Color(1, 1, 1, 1), Color(1, 1, 1, 0)]
+}
+tracks/1/type = "value"
+tracks/1/imported = false
+tracks/1/enabled = true
+tracks/1/path = NodePath("Static:visible")
+tracks/1/interp = 1
+tracks/1/loop_wrap = true
+tracks/1/keys = {
+"times": PackedFloat32Array(0),
+"transitions": PackedFloat32Array(1),
+"update": 1,
+"values": [true]
+}
+tracks/2/type = "value"
+tracks/2/imported = false
+tracks/2/enabled = true
+tracks/2/path = NodePath("UI/MarginContainer/VBoxContainer/Description:visible")
+tracks/2/interp = 1
+tracks/2/loop_wrap = true
+tracks/2/keys = {
+"times": PackedFloat32Array(0),
+"transitions": PackedFloat32Array(1),
+"update": 1,
+"values": [true]
+}
+tracks/3/type = "value"
+tracks/3/imported = false
+tracks/3/enabled = true
+tracks/3/path = NodePath("UI/MarginContainer/VBoxContainer/Line:visible_ratio")
+tracks/3/interp = 1
+tracks/3/loop_wrap = true
+tracks/3/keys = {
+"times": PackedFloat32Array(0.53333336, 0.8333333),
+"transitions": PackedFloat32Array(1, 1),
+"update": 0,
+"values": [1.0, 0.0]
+}
+tracks/4/type = "value"
+tracks/4/imported = false
+tracks/4/enabled = true
+tracks/4/path = NodePath("UI/MarginContainer/VBoxContainer/Title:visible")
+tracks/4/interp = 1
+tracks/4/loop_wrap = true
+tracks/4/keys = {
+"times": PackedFloat32Array(0.100000024, 0.93333334),
+"transitions": PackedFloat32Array(1, 1),
+"update": 1,
+"values": [true, false]
+}
+tracks/5/type = "value"
+tracks/5/imported = false
+tracks/5/enabled = true
+tracks/5/path = NodePath("UI/MarginContainer/VBoxContainer/Description:visible_ratio")
+tracks/5/interp = 0
+tracks/5/loop_wrap = true
+tracks/5/keys = {
+"times": PackedFloat32Array(0, 0.13333334, 0.26666668, 0.4, 0.53333336),
+"transitions": PackedFloat32Array(1, 1, 1, 1, 1),
+"update": 0,
+"values": [1.0, 0.75, 0.5, 0.25, 0.0]
+}
+tracks/6/type = "value"
+tracks/6/imported = false
+tracks/6/enabled = true
+tracks/6/path = NodePath("UI/MarginContainer/VBoxContainer/Description/Back:visible")
+tracks/6/interp = 1
+tracks/6/loop_wrap = true
+tracks/6/keys = {
+"times": PackedFloat32Array(0),
+"transitions": PackedFloat32Array(1),
+"update": 1,
+"values": [false]
+}
+tracks/7/type = "value"
+tracks/7/imported = false
+tracks/7/enabled = true
+tracks/7/path = NodePath("Glitch:visible")
+tracks/7/interp = 1
+tracks/7/loop_wrap = true
+tracks/7/keys = {
+"times": PackedFloat32Array(0, 1.7, 2.4666667),
+"transitions": PackedFloat32Array(1, 1, 1),
+"update": 1,
+"values": [false, true, false]
+}
+tracks/8/type = "value"
+tracks/8/imported = false
+tracks/8/enabled = true
+tracks/8/path = NodePath("UI/ColorRect:visible")
+tracks/8/interp = 1
+tracks/8/loop_wrap = true
+tracks/8/keys = {
+"times": PackedFloat32Array(0, 1.9666667),
+"transitions": PackedFloat32Array(1, 1),
+"update": 1,
+"values": [true, false]
+}
+tracks/9/type = "value"
+tracks/9/imported = false
+tracks/9/enabled = true
+tracks/9/path = NodePath(".:ended")
+tracks/9/interp = 1
+tracks/9/loop_wrap = true
+tracks/9/keys = {
+"times": PackedFloat32Array(2.5),
+"transitions": PackedFloat32Array(1),
+"update": 1,
+"values": [true]
+}
+
+[sub_resource type="Animation" id="Animation_funa8"]
+resource_name = "intro"
+length = 2.0
+tracks/0/type = "value"
+tracks/0/imported = false
+tracks/0/enabled = true
+tracks/0/path = NodePath("Static:modulate")
+tracks/0/interp = 1
+tracks/0/loop_wrap = true
+tracks/0/keys = {
+"times": PackedFloat32Array(0.06666667, 1),
+"transitions": PackedFloat32Array(1, 1),
+"update": 0,
+"values": [Color(1, 1, 1, 0), Color(1, 1, 1, 1)]
+}
+tracks/1/type = "value"
+tracks/1/imported = false
+tracks/1/enabled = true
+tracks/1/path = NodePath("UI:visible")
+tracks/1/interp = 1
+tracks/1/loop_wrap = true
+tracks/1/keys = {
+"times": PackedFloat32Array(0.06666667, 1.2),
+"transitions": PackedFloat32Array(1, 1),
+"update": 1,
+"values": [false, true]
+}
+tracks/2/type = "value"
+tracks/2/imported = false
+tracks/2/enabled = true
+tracks/2/path = NodePath("Static:visible")
+tracks/2/interp = 1
+tracks/2/loop_wrap = true
+tracks/2/keys = {
+"times": PackedFloat32Array(0.06666667, 1.2),
+"transitions": PackedFloat32Array(1, 1),
+"update": 1,
+"values": [true, false]
+}
+tracks/3/type = "value"
+tracks/3/imported = false
+tracks/3/enabled = true
+tracks/3/path = NodePath(".:init")
+tracks/3/interp = 1
+tracks/3/loop_wrap = true
+tracks/3/keys = {
+"times": PackedFloat32Array(1.2),
+"transitions": PackedFloat32Array(1),
+"update": 1,
+"values": [true]
+}
+tracks/4/type = "value"
+tracks/4/imported = false
+tracks/4/enabled = true
+tracks/4/path = NodePath("UI/MarginContainer/VBoxContainer/Line:visible_ratio")
+tracks/4/interp = 1
+tracks/4/loop_wrap = true
+tracks/4/keys = {
+"times": PackedFloat32Array(0),
+"transitions": PackedFloat32Array(1),
+"update": 0,
+"values": [1.0]
+}
+tracks/5/type = "value"
+tracks/5/imported = false
+tracks/5/enabled = true
+tracks/5/path = NodePath("UI/ColorRect:visible")
+tracks/5/interp = 1
+tracks/5/loop_wrap = true
+tracks/5/keys = {
+"times": PackedFloat32Array(0),
+"transitions": PackedFloat32Array(1),
+"update": 1,
+"values": [true]
+}
+tracks/6/type = "value"
+tracks/6/imported = false
+tracks/6/enabled = true
+tracks/6/path = NodePath("UI/MarginContainer/VBoxContainer/Title:visible")
+tracks/6/interp = 1
+tracks/6/loop_wrap = true
+tracks/6/keys = {
+"times": PackedFloat32Array(0),
+"transitions": PackedFloat32Array(1),
+"update": 1,
+"values": [true]
+}
+
+[sub_resource type="AnimationLibrary" id="AnimationLibrary_ce44d"]
+_data = {
+&"RESET": SubResource("Animation_vq36n"),
+&"exit": SubResource("Animation_ce44d"),
+&"intro": SubResource("Animation_funa8")
+}
+
+[node name="TerminalUI" type="CanvasLayer" unique_id=2062628]
+process_mode = 3
+layer = 2
+script = ExtResource("1_vo4id")
+terminalTitle = "LOG 2047 ||  ESCAPE"
+terminalText = "Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do eiusmod tempor incididunt ut labore et dolore magna aliqua. Quis ipsum suspendisse ultrices gravida. Risus commodo viverra maecenas accumsan lacus vel facilisis"
+
+[node name="UI" type="MarginContainer" parent="." unique_id=278163202]
+anchors_preset = 15
+anchor_right = 1.0
+anchor_bottom = 1.0
+grow_horizontal = 2
+grow_vertical = 2
+
+[node name="ColorRect" type="ColorRect" parent="UI" unique_id=1205152479]
+layout_mode = 2
+color = Color(0, 0, 0, 1)
+
+[node name="MarginContainer" type="MarginContainer" parent="UI" unique_id=1296114634]
+layout_mode = 2
+theme_override_constants/margin_left = 256
+theme_override_constants/margin_top = 128
+theme_override_constants/margin_right = 256
+theme_override_constants/margin_bottom = 256
+
+[node name="VBoxContainer" type="VBoxContainer" parent="UI/MarginContainer" unique_id=2073532079]
+custom_minimum_size = Vector2(0, 512)
+layout_mode = 2
+size_flags_horizontal = 0
+size_flags_vertical = 4
+
+[node name="Title" type="RichTextLabel" parent="UI/MarginContainer/VBoxContainer" unique_id=1036121257]
+custom_minimum_size = Vector2(800, 64)
+layout_mode = 2
+theme_override_fonts/normal_font = ExtResource("4_d8vib")
+theme_override_font_sizes/normal_font_size = 36
+text = "LOG 2047 ||  ESCAPE"
+fit_content = true
+vertical_alignment = 2
+visible_characters_behavior = 3
+
+[node name="Line" type="RichTextLabel" parent="UI/MarginContainer/VBoxContainer" unique_id=576310746]
+visible = false
+custom_minimum_size = Vector2(800, 32)
+layout_mode = 2
+theme_override_fonts/normal_font = ExtResource("4_d8vib")
+theme_override_font_sizes/normal_font_size = 36
+text = "- - - - - - - - - - - - - -"
+fit_content = true
+vertical_alignment = 1
+
+[node name="Description" type="RichTextLabel" parent="UI/MarginContainer/VBoxContainer" unique_id=1800037094]
+custom_minimum_size = Vector2(800, 256)
+layout_mode = 2
+theme_override_fonts/normal_font = ExtResource("3_vq36n")
+theme_override_font_sizes/normal_font_size = 32
+bbcode_enabled = true
+text = "Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do eiusmod tempor incididunt ut labore et dolore magna aliqua. Quis ipsum suspendisse ultrices gravida. Risus commodo viverra maecenas accumsan lacus vel facilisis"
+fit_content = true
+visible_characters_behavior = 3
+
+[node name="Back" type="RichTextLabel" parent="UI/MarginContainer/VBoxContainer/Description" unique_id=1773008050]
+custom_minimum_size = Vector2(800, 256)
+layout_mode = 1
+anchors_preset = 15
+anchor_right = 1.0
+anchor_bottom = 1.0
+grow_horizontal = 2
+grow_vertical = 2
+theme_override_fonts/normal_font = ExtResource("3_vq36n")
+theme_override_font_sizes/normal_font_size = 32
+bbcode_enabled = true
+text = "Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do eiusmod tempor incididunt ut labore et dolore magna aliqua. Quis ipsum suspendisse ultrices gravida. Risus commodo viverra maecenas accumsan lacus vel facilisis"
+fit_content = true
+visible_characters_behavior = 3
+
+[node name="Static" type="ColorRect" parent="." unique_id=1531500213]
+material = SubResource("ShaderMaterial_ce44d")
+offset_right = 1920.0
+offset_bottom = 1080.0
+grow_horizontal = 2
+grow_vertical = 2
+
+[node name="Screen" type="ColorRect" parent="." unique_id=188265525]
+material = SubResource("ShaderMaterial_vq36n")
+offset_right = 1920.0
+offset_bottom = 1080.0
+grow_horizontal = 2
+grow_vertical = 2
+mouse_filter = 2
+
+[node name="BackBufferCopy" type="BackBufferCopy" parent="." unique_id=238860213]
+copy_mode = 2
+
+[node name="Glitch" type="ColorRect" parent="." unique_id=381165876]
+material = ExtResource("6_funa8")
+anchors_preset = 15
+anchor_right = 1.0
+anchor_bottom = 1.0
+grow_horizontal = 2
+grow_vertical = 2
+
+[node name="StartTimer" type="Timer" parent="." unique_id=518385308]
+one_shot = true
+
+[node name="DelayTimer" type="Timer" parent="." unique_id=1445273612]
+one_shot = true
+
+[node name="AnimationPlayer" type="AnimationPlayer" parent="." unique_id=68613146]
+libraries/ = SubResource("AnimationLibrary_ce44d")

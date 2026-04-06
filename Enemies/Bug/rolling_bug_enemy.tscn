@@ -1,0 +1,49 @@
+[gd_scene format=3 uid="uid://cfd2lbmgfbvle"]
+
+[ext_resource type="Script" uid="uid://cmkufntt14xaf" path="res://Enemies/Bug/rolling_bug_enemy.gd" id="1_yyyd2"]
+[ext_resource type="PackedScene" uid="uid://1roccx2uft4w" path="res://Enemies/Bug/bug_enemyMod.tscn" id="2_aegdh"]
+[ext_resource type="Resource" uid="uid://bf8l54yhr7jmd" path="res://Enemies/Bug/bugType.tres" id="2_ehlc8"]
+[ext_resource type="PackedScene" uid="uid://dcq4u4hsq0jim" path="res://Effects/hit_particles.tscn" id="3_aegdh"]
+
+[sub_resource type="CapsuleShape3D" id="CapsuleShape3D_ehlc8"]
+radius = 0.8
+height = 1.6
+
+[node name="RollingBugEnemy" type="CharacterBody3D" unique_id=179304425 groups=["character", "enemy"]]
+wall_min_slide_angle = 0.08726646
+script = ExtResource("1_yyyd2")
+enemyClass = ExtResource("2_ehlc8")
+
+[node name="CollisionShape3D" type="CollisionShape3D" parent="." unique_id=1699214733]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 0.8, 0)
+shape = SubResource("CapsuleShape3D_ehlc8")
+
+[node name="NavigationAgent3D" type="NavigationAgent3D" parent="." unique_id=460740743]
+
+[node name="bugEnemy" parent="." unique_id=1362602178 instance=ExtResource("2_aegdh")]
+
+[node name="HitParticles" parent="." unique_id=1875539030 instance=ExtResource("3_aegdh")]
+
+[node name="FloorRay" type="RayCast3D" parent="." unique_id=2076457555]
+transform = Transform3D(0.99997383, 0.0072021317, 0.00066711544, -0.007196716, 0.99994373, -0.007790803, -0.0007232055, 0.007785796, 0.9999695, 0, 0, 0)
+
+[node name="WallBumpRay" type="RayCast3D" parent="." unique_id=1245163848]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 0.5, 0)
+target_position = Vector3(0, 0.5, -1.2)
+
+[node name="Head" type="Node3D" parent="." unique_id=1521962436]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 0.7126925, -0.7723761)
+
+[node name="SightRay" type="RayCast3D" parent="Head" unique_id=634705118]
+target_position = Vector3(0, 0, -1)
+
+[node name="PlugIntoTimer" type="Timer" parent="." unique_id=1520198837]
+wait_time = 2.0
+one_shot = true
+
+[node name="RollTimer" type="Timer" parent="." unique_id=977186788]
+wait_time = 3.0
+one_shot = true
+
+[connection signal="timeout" from="PlugIntoTimer" to="." method="_on_plug_into_timer_timeout"]
+[connection signal="timeout" from="RollTimer" to="." method="_on_roll_timer_timeout"]

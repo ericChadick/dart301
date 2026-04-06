@@ -1,0 +1,21 @@
+[gd_scene format=3 uid="uid://b64eofdeds1tk"]
+
+[node name="ArmsViewport" type="SubViewportContainer" unique_id=1496050423]
+anchors_preset = 15
+anchor_right = 1.0
+anchor_bottom = 1.0
+grow_horizontal = 2
+grow_vertical = 2
+stretch = true
+stretch_shrink = 2
+
+[node name="SubViewport" type="SubViewport" parent="." unique_id=1977323684]
+transparent_bg = true
+handle_input_locally = false
+msaa_3d = 2
+mesh_lod_threshold = 0.0
+size = Vector2i(960, 540)
+render_target_update_mode = 4
+
+[node name="Camera3D" type="Camera3D" parent="SubViewport" unique_id=231466081]
+cull_mask = 1048560

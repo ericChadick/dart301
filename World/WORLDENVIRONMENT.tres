@@ -1,0 +1,18 @@
+[gd_resource type="Environment" format=3 uid="uid://xxpobkobhad2"]
+
+[resource]
+background_mode = 1
+background_energy_multiplier = 0.5
+tonemap_mode = 3
+sdfgi_enabled = true
+sdfgi_use_occlusion = true
+sdfgi_read_sky_light = false
+glow_enabled = true
+glow_normalized = true
+fog_enabled = true
+fog_light_color = Color(0, 0, 0, 1)
+volumetric_fog_enabled = true
+volumetric_fog_density = 0.002
+volumetric_fog_albedo = Color(0.8, 0.78800005, 0.75200003, 1)
+volumetric_fog_emission = Color(0.41, 0.25597665, 0.008199992, 1)
+volumetric_fog_length = 86.0
