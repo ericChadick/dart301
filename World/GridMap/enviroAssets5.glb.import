@@ -42,12 +42,12 @@ _subresources={
 "Concrete.001": {
 "use_external/enabled": true,
 "use_external/fallback_path": "res://World/GridMap/Concrete1.material",
-"use_external/path": "uid://d1o4kdb54s685"
+"use_external/path": "uid://cd3rael1gqw2v"
 },
 "Metal1": {
 "use_external/enabled": true,
 "use_external/fallback_path": "res://World/GridMap/Metal1.material",
-"use_external/path": "uid://3p4sxakjhhcs"
+"use_external/path": "uid://ddr3ekb0ti3jc"
 }
 }
 }
