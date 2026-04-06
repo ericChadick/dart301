@@ -12,12 +12,15 @@
 [ext_resource type="AudioStream" uid="uid://bl1krkd6lbdyy" path="res://Audio/Player/player_cord_out.wav" id="8_od3ui"]
 [ext_resource type="AudioStream" uid="uid://d0l2hd54fphx0" path="res://Audio/Player/cordPull.wav" id="10_x3vf3"]
 [ext_resource type="AudioStream" uid="uid://bfhnnbj2mxum0" path="res://Audio/Player/groundSlide.wav" id="11_apopc"]
-[ext_resource type="AudioStream" uid="uid://2s3bfvs0fusv" path="res://Audio/Player/robotPunch.wav" id="12_5htga"]
 [ext_resource type="AudioStream" uid="uid://33q7i74dhbfn" path="res://Audio/Player/robotJump.wav" id="13_gu6f8"]
 [ext_resource type="AudioStream" uid="uid://dhh1c2ig825e7" path="res://Audio/Player/robotLand.wav" id="14_dkpta"]
 [ext_resource type="AudioStream" uid="uid://bbtm1c2dalc6f" path="res://Audio/Player/glasscrack.wav" id="16_lfmf2"]
+[ext_resource type="PackedScene" uid="uid://wdjkscqfsxc5" path="res://Player/testPlayer.glb" id="17_pisgm"]
 
 [sub_resource type="CapsuleShape3D" id="CapsuleShape3D_4ntmi"]
+height = 1.0
+
+[sub_resource type="CapsuleShape3D" id="CapsuleShape3D_pisgm"]
 
 [sub_resource type="CapsuleMesh" id="CapsuleMesh_l8h54"]
 radial_segments = 8
@@ -53,7 +56,26 @@ rings = 0
 top_radius = 0.2
 bottom_radius = 0.1
 
+[sub_resource type="Gradient" id="Gradient_pisgm"]
+offsets = PackedFloat32Array(0.49723756, 0.5828729, 0.71823204)
+colors = PackedColorArray(0.56393313, 0.89746255, 0.8888235, 1, 0.5019608, 0.5019608, 1, 1, 0.58000004, 1, 0.86, 1)
+
+[sub_resource type="GradientTexture2D" id="GradientTexture2D_b1ygp"]
+gradient = SubResource("Gradient_pisgm")
+fill_from = Vector2(1, 1)
+
+[sub_resource type="StandardMaterial3D" id="StandardMaterial3D_o28un"]
+albedo_color = Color(0.1, 0.089999996, 0.089999996, 1)
+metallic = 0.5
+metallic_specular = 0.75
+roughness = 0.6
+normal_enabled = true
+normal_texture = SubResource("GradientTexture2D_b1ygp")
+uv1_scale = Vector3(1, 40, 1)
+uv1_triplanar = true
+
 [sub_resource type="CapsuleMesh" id="CapsuleMesh_4ntmi"]
+material = SubResource("StandardMaterial3D_o28un")
 radius = 0.1
 height = 1.0
 
@@ -66,12 +88,6 @@ random_volume_offset_db = 0.1
 streams_count = 2
 stream_0/stream = ExtResource("4_vtle1")
 stream_1/stream = ExtResource("5_od3ui")
-
-[sub_resource type="AudioStreamRandomizer" id="AudioStreamRandomizer_p5o4e"]
-random_pitch = 1.0028923
-random_volume_offset_db = 0.05
-streams_count = 1
-stream_0/stream = ExtResource("12_5htga")
 
 [sub_resource type="AudioStreamRandomizer" id="AudioStreamRandomizer_od3ui"]
 random_pitch = 1.0028923
@@ -154,30 +170,43 @@ floor_snap_length = 0.5
 script = ExtResource("1_l8h54")
 
 [node name="CollisionShape3D" type="CollisionShape3D" parent="." unique_id=2095073883]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, -0.5, 0)
 shape = SubResource("CapsuleShape3D_4ntmi")
 
+[node name="Hitbox" type="Area3D" parent="." unique_id=1037150468 groups=["playerHitbox"]]
+
+[node name="CollisionShape3D" type="CollisionShape3D" parent="Hitbox" unique_id=1665768076]
+shape = SubResource("CapsuleShape3D_pisgm")
+
 [node name="MeshInstance3D" type="MeshInstance3D" parent="." unique_id=266665977]
+visible = false
 mesh = SubResource("CapsuleMesh_l8h54")
 
 [node name="ceilingRay" type="RayCast3D" parent="." unique_id=448533729]
 target_position = Vector3(0, 1, 0)
 
-[node name="Torso" type="Node3D" parent="." unique_id=544929067]
+[node name="floorDistanceRay" type="RayCast3D" parent="." unique_id=534604148]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, -1, 0)
+target_position = Vector3(0, -3, 0)
 
-[node name="rightwallRay" type="RayCast3D" parent="Torso" unique_id=1009828370]
-transform = Transform3D(0.99999994, 0, 0, 0, 0.99999994, 0, 0, 0, 1, 0.5, 0, 0)
-target_position = Vector3(0.3, 0, 0)
-hit_from_inside = true
-
-[node name="leftwallRay" type="RayCast3D" parent="Torso" unique_id=1629569162]
-transform = Transform3D(0.99999994, 0, 0, 0, 0.99999994, 0, 0, 0, 1, -0.5, 0, 0)
-target_position = Vector3(-0.3, 0, 0)
-hit_from_inside = true
+[node name="GPUParticlesAttractorSphere3D" type="GPUParticlesAttractorSphere3D" parent="." unique_id=1136871175]
+strength = 128.0
+attenuation = 0.05
+cull_mask = 4294967266
+radius = 100.0
 
 [node name="Head" type="Node3D" parent="." unique_id=365589558]
-transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 0.5, 0)
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 1, 0)
+
+[node name="testPlayer" parent="Head" unique_id=1988512523 instance=ExtResource("17_pisgm")]
+transform = Transform3D(0.09, 0, 0, 0, 0.09, 0, 0, 0, 0.09, 0, -2, 0.1)
 
 [node name="Camera3D" type="Camera3D" parent="Head" unique_id=1876147184]
+cull_mask = 1048047
+
+[node name="ArmsCamera" type="Camera3D" parent="Head" unique_id=501167186]
+visible = false
+cull_mask = 1047568
 
 [node name="shootPoint" type="Marker3D" parent="Head" unique_id=33418163]
 transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, -0.29121658, -0.80566555)
@@ -229,6 +258,7 @@ skeleton = NodePath("../../../CordHandAnimations")
 transform = Transform3D(-0.25, 0, -3.774895e-08, 0, 0.25, 0, 3.774895e-08, 0, -0.25, 0.1368101, -0.7773359, 0.4642597)
 
 [node name="Cord" type="MeshInstance3D" parent="." unique_id=1405577659]
+visible = false
 mesh = SubResource("CapsuleMesh_4ntmi")
 
 [node name="HitParticles" parent="." unique_id=1875539030 instance=ExtResource("2_gwnis")]
@@ -250,9 +280,6 @@ stream = ExtResource("3_fhl08")
 
 [node name="ShootSound" type="AudioStreamPlayer" parent="Sounds" unique_id=589736813]
 stream = ExtResource("3_btcbx")
-
-[node name="PunchSound" type="AudioStreamPlayer" parent="Sounds" unique_id=1033034647]
-stream = SubResource("AudioStreamRandomizer_p5o4e")
 
 [node name="SelfDestructSound" type="AudioStreamPlayer" parent="Sounds" unique_id=1349448854]
 stream = ExtResource("7_vtle1")
@@ -296,10 +323,6 @@ wait_time = 0.5
 one_shot = true
 
 [node name="SlideCooldownTimer" type="Timer" parent="Timers" unique_id=146185733]
-one_shot = true
-
-[node name="PunchTimer" type="Timer" parent="Timers" unique_id=1432460702]
-wait_time = 0.2
 one_shot = true
 
 [node name="HitCooldownTimer" type="Timer" parent="Timers" unique_id=394302669]

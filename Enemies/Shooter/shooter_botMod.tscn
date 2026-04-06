@@ -1,97 +1,91 @@
-[gd_scene format=3 uid="uid://dk7ntspwc4iau"]
+[gd_scene format=3 uid="uid://d2ljx50puyksu"]
 
-[ext_resource type="PackedScene" uid="uid://d2vn3aklwuy2r" path="res://Enemies/Shooter/shooterBot.glb" id="1_4v4da"]
+[ext_resource type="PackedScene" uid="uid://3lkrsu3ofjh3" path="res://Enemies/Shooter/shooterEnemy.glb" id="1_igjq5"]
 [ext_resource type="Script" uid="uid://dgd7scixqdth2" path="res://Enemies/Shooter/shooter_botMod.gd" id="2_mc4su"]
 [ext_resource type="PackedScene" uid="uid://h8nfngcoc7cq" path="res://Player/bullet.tscn" id="3_6ptyu"]
 
-[sub_resource type="Curve" id="Curve_mc4su"]
-_data = [Vector2(0, 1), 0.0, 0.0, 0, 0, Vector2(1, 0), -1.7314893, 0.0, 0, 0]
-point_count = 2
+[sub_resource type="ParticleProcessMaterial" id="ParticleProcessMaterial_ohfo8"]
 
-[sub_resource type="CurveTexture" id="CurveTexture_i753c"]
-curve = SubResource("Curve_mc4su")
+[sub_resource type="BoxMesh" id="BoxMesh_6ptyu"]
 
-[sub_resource type="ParticleProcessMaterial" id="ParticleProcessMaterial_qy0nu"]
-particle_flag_align_y = true
-direction = Vector3(0, 1, 0)
-spread = 10.0
-initial_velocity_min = 25.0
-initial_velocity_max = 35.0
-gravity = Vector3(0, 0, 0)
-scale_min = 0.5
-scale_curve = SubResource("CurveTexture_i753c")
+[sub_resource type="SphereShape3D" id="SphereShape3D_6ptyu"]
+radius = 2.0
 
-[sub_resource type="StandardMaterial3D" id="StandardMaterial3D_rj0hd"]
+[sub_resource type="StandardMaterial3D" id="StandardMaterial3D_6ptyu"]
 emission_enabled = true
-emission = Color(1, 0.5833334, 0, 1)
+emission = Color(1, 1, 1, 1)
 emission_energy_multiplier = 3.0
 
-[sub_resource type="CapsuleMesh" id="CapsuleMesh_rigru"]
-material = SubResource("StandardMaterial3D_rj0hd")
-radius = 0.01
-height = 0.2
-radial_segments = 4
-rings = 0
+[sub_resource type="SphereMesh" id="SphereMesh_oy1io"]
+material = SubResource("StandardMaterial3D_6ptyu")
+radius = 0.25
+height = 0.5
+radial_segments = 12
+rings = 6
 
-[node name="shooterBot" unique_id=1414694198 instance=ExtResource("1_4v4da")]
+[sub_resource type="CylinderMesh" id="CylinderMesh_q2ig4"]
+top_radius = 0.1
+bottom_radius = 0.1
+height = 1.0
+
+[node name="shooterEnemy" unique_id=1863729314 instance=ExtResource("1_igjq5")]
 script = ExtResource("2_mc4su")
 shot = true
 projectileInst = ExtResource("3_6ptyu")
 
-[node name="ShooterArmature" parent="." index="0" unique_id=657118288]
-transform = Transform3D(0.4, 0, 0, 0, 0.4, 0, 0, 0, 0.4, 0, 0, 0)
+[node name="Skeleton3D" parent="ShooterArmature" parent_id_path=PackedInt32Array(1576278487) index="0" unique_id=1676112632]
+bones/4/rotation = Quaternion(-0.70678866, -0.02120228, 0.706789, -0.021202313)
+bones/6/rotation = Quaternion(-1.198819e-08, -1.9372703e-08, -0.7392597, 0.6734204)
+bones/7/scale = Vector3(0.9999999, 0.9999998, 1)
+bones/8/rotation = Quaternion(0.70678866, -0.02120228, 0.706789, 0.021202313)
 
-[node name="Skeleton3D" parent="ShooterArmature" index="0" unique_id=1386596297]
-bones/0/position = Vector3(0, 5.8657274, 2.1175824e-22)
-bones/0/rotation = Quaternion(-0.1183534, 1.3805066e-30, 1.8128488e-31, 0.99297154)
-bones/2/rotation = Quaternion(-0.05242376, -0.06257654, 0.5961375, 0.79872155)
-bones/4/rotation = Quaternion(0.7897214, 0.03957626, -0.6120404, 0.013428284)
-bones/6/rotation = Quaternion(-1.13856146e-07, -8.17285e-08, -0.7392597, 0.6734204)
-bones/7/rotation = Quaternion(0.06304107, 0.20259632, -0.5824344, 0.78469795)
-bones/7/scale = Vector3(1, 1, 0.9999999)
-bones/8/rotation = Quaternion(0.60777026, -0.0055351555, 0.7933762, 0.033749014)
+[node name="leg_l" parent="ShooterArmature/Skeleton3D" index="2" unique_id=900470731]
+transform = Transform3D(-4.7683864e-07, 0.05994217, -0.9982018, -6.146748e-08, -0.9982016, -0.059942182, -1.0000031, 3.166496e-08, 4.7683713e-07, -0.8052337, 4.549759, 8.5355225e-08)
 
-[node name="arm_l_001" parent="ShooterArmature/Skeleton3D" index="0" unique_id=1968850303]
-transform = Transform3D(-0.980874, -0.19455083, 0.006014514, 0.19445871, -0.9781266, 0.07385493, -0.008485583, 0.073612, 0.9972506, -1.4222748, 7.679031, -0.50992393)
+[node name="arm_r" parent="ShooterArmature/Skeleton3D" index="4" unique_id=1427405275]
+transform = Transform3D(-0.96690714, 0.25512815, -3.9376536e-07, -0.25512818, -0.9669071, 3.045988e-08, -3.7296334e-07, 1.2991251e-07, 1, 1.1023709, 7.9130497, 1.38360186e-08)
 
-[node name="arm_l" parent="ShooterArmature/Skeleton3D" index="1" unique_id=1583715236]
-transform = Transform3D(-0.98087394, -0.19455107, 0.0060149613, 0.194459, -0.9781264, 0.073854834, -0.008485146, 0.073611975, 0.9972507, -1.1023707, 8.11635, -0.5442406)
+[node name="MuzzleFlash" type="OmniLight3D" parent="ShooterArmature/Skeleton3D/arm_r" index="1" unique_id=1006825484]
+transform = Transform3D(1.0000002, -4.8452616e-14, -1.1368684e-13, -4.8452612e-14, 1.0000002, 1.4210855e-14, 1.4210855e-13, -4.2632564e-14, 1, -0.20576167, 5.1540956, -7.4632305e-07)
+light_color = Color(1, 0.648, 0.36, 1)
+omni_range = 8.0
+omni_attenuation = -0.25
 
-[node name="leg_l" parent="ShooterArmature/Skeleton3D" index="2" unique_id=285760791]
-transform = Transform3D(0.24768043, 0.078945726, -0.96561944, -0.18268153, -0.9749911, -0.12656948, -0.951463, 0.20774972, -0.22706442, -0.8052337, 4.847285, 0.24627745)
-
-[node name="sidePanel_l" parent="ShooterArmature/Skeleton3D" index="3" unique_id=2040943004]
-transform = Transform3D(1, 3.9704666e-23, -1.571643e-22, -1.6519505e-24, 0.97198486, 0.23504308, 1.6209365e-22, -0.23504308, 0.97198486, -0.7430605, 6.078397, -0.051427256)
-
-[node name="arm_r" parent="ShooterArmature/Skeleton3D" index="4" unique_id=777771297]
-transform = Transform3D(-0.90694594, 0.22483931, -0.35622522, -0.2433995, -0.9698969, 0.007521048, -0.34381074, 0.09352629, 0.9343696, 1.1023709, 8.11635, -0.54424065)
-
-[node name="ShootParticle" type="GPUParticles3D" parent="ShooterArmature/Skeleton3D/arm_r" index="1" unique_id=1511154824]
-transform = Transform3D(1, 2.0679491e-25, -3.725289e-09, 0, 1, 5.5511105e-17, 3.725289e-09, -5.5511105e-17, 1, -0.20080024, 5.141733, 0.0040016174)
+[node name="ShootParticle" type="GPUParticles3D" parent="ShooterArmature/Skeleton3D/arm_r" index="2" unique_id=1559705679]
+transform = Transform3D(1.0000001, -4.8452622e-14, 0, -4.845262e-14, 1.0000001, -1.4210855e-14, 5.684342e-14, -1.4210855e-14, 1, -0.2827227, 5.326604, -7.974377e-07)
 emitting = false
-amount = 12
-lifetime = 0.25
+lifetime = 0.5
 one_shot = true
-explosiveness = 1.0
-process_material = SubResource("ParticleProcessMaterial_qy0nu")
-draw_pass_1 = SubResource("CapsuleMesh_rigru")
+process_material = SubResource("ParticleProcessMaterial_ohfo8")
+draw_pass_1 = SubResource("BoxMesh_6ptyu")
 
-[node name="MuzzleFlash" type="OmniLight3D" parent="ShooterArmature/Skeleton3D/arm_r" index="2" unique_id=1617963901]
-transform = Transform3D(1, 4.2351635e-25, 2.980232e-09, 0, 1, -1.4210852e-16, -2.980232e-09, 1.4210852e-16, 1, -0.20080048, 5.3143797, 0.0032014847)
-light_color = Color(1, 0.48333335, 0, 1)
-light_energy = 2.0
+[node name="ShootPoint" type="Marker3D" parent="ShooterArmature/Skeleton3D/arm_r" index="3" unique_id=6517313]
+transform = Transform3D(1.0000002, -4.8452622e-14, 0, -4.845262e-14, 1.0000002, -2.842171e-14, 8.526513e-14, -2.842171e-14, 1, -0.15609694, 5.3019485, -7.470078e-07)
 
-[node name="ShootPoint" type="Marker3D" parent="ShooterArmature/Skeleton3D/arm_r" index="3" unique_id=1156293860]
-transform = Transform3D(1, 0, -3.725289e-09, 0, 1, 0, 3.725289e-09, 0, 1, -0.20080072, 5.334256, 0.00493145)
+[node name="ConnectPoint" type="Marker3D" parent="ShooterArmature/Skeleton3D/arm_r" index="4" unique_id=2014496381]
+transform = Transform3D(1.0000002, -4.8452622e-14, 0, -4.845262e-14, 1.0000002, -2.842171e-14, 8.526513e-14, -2.842171e-14, 1, -0.15609694, 5.3019485, -7.470078e-07)
 
-[node name="leg_r_001" parent="ShooterArmature/Skeleton3D" index="5" unique_id=1148879113]
-transform = Transform3D(-0.25895253, -0.06027965, 0.96400666, 0.27227056, -0.96213317, 0.012975095, 0.9267212, 0.26583076, 0.26555905, 1.0149812, 4.534784, 0.39670017)
+[node name="ConnectArea" type="Area3D" parent="ShooterArmature/Skeleton3D/arm_r" index="5" unique_id=1932515033 groups=["outletEnemy"]]
+transform = Transform3D(1.0000001, -4.8452622e-14, 0, -4.845262e-14, 1.0000001, -1.4210855e-14, 5.684342e-14, -1.4210855e-14, 1, -0.18035197, 5.3854175, -7.6689764e-07)
+collision_layer = 4
+collision_mask = 4
 
-[node name="leg_r" parent="ShooterArmature/Skeleton3D" index="6" unique_id=132037044]
-transform = Transform3D(-0.25895274, -0.060279522, 0.9640066, 0.27227023, -0.9621333, 0.012975182, 0.9267213, 0.26583043, 0.2655592, 0.8052337, 4.8472853, 0.24627745)
+[node name="CollisionShape3D" type="CollisionShape3D" parent="ShooterArmature/Skeleton3D/arm_r/ConnectArea" index="0" unique_id=518225129]
+shape = SubResource("SphereShape3D_6ptyu")
 
-[node name="sidePanel_r" parent="ShooterArmature/Skeleton3D" index="7" unique_id=732825175]
-transform = Transform3D(1, 3.9704666e-23, -1.571643e-22, -1.6519505e-24, 0.97198486, 0.23504308, 1.6209365e-22, -0.23504308, 0.97198486, 0.7430605, 6.078397, -0.05142726)
+[node name="leg_r_001" parent="ShooterArmature/Skeleton3D" index="5" unique_id=1074769464]
+transform = Transform3D(-5.724356e-07, -0.05994209, 0.9982018, 6.721411e-08, -0.9982016, -0.0599421, 1.0000031, 3.167101e-08, 5.7260695e-07, 1.0232333, 4.208065, 9.3981114e-08)
 
-[node name="body_2" parent="ShooterArmature/Skeleton3D" index="8" unique_id=1320074484]
-transform = Transform3D(1, -6.8679677e-31, 2.6986962e-30, 3.3246154e-32, 0.9719849, 0.23504311, -2.784519e-30, -0.23504311, 0.9719849, 0, 5.8657274, 2.1175824e-22)
+[node name="leg_r" parent="ShooterArmature/Skeleton3D" index="6" unique_id=1374096792]
+transform = Transform3D(-4.7683864e-07, -0.05994217, 0.9982018, 6.146748e-08, -0.9982016, -0.059942182, 1.0000031, 3.166496e-08, 4.7683713e-07, 0.8052337, 4.549759, 8.5355225e-08)
+
+[node name="body" parent="ShooterArmature/Skeleton3D/body_2" parent_id_path=PackedInt32Array(257199315) index="0" unique_id=563770550]
+transform = Transform3D(1, 1.9387046e-27, 0, -3.2311743e-27, 0.6, 0, 0, 0, 1, 0, 1.46, 0)
+
+[node name="Eye" type="MeshInstance3D" parent="ShooterArmature/Skeleton3D/body_2" parent_id_path=PackedInt32Array(257199315) index="1" unique_id=1864483143]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 3.7897277, 0)
+mesh = SubResource("SphereMesh_oy1io")
+
+[node name="Stem" type="MeshInstance3D" parent="ShooterArmature/Skeleton3D/body_2" parent_id_path=PackedInt32Array(257199315) index="2" unique_id=1887609578]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 3.1483302, 0)
+mesh = SubResource("CylinderMesh_q2ig4")

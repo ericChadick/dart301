@@ -7,8 +7,9 @@ class_name enemyType;
 
 @export_category("Sight")
 @export var eyeNode : NodePath;
-@export var sightRange := 15.0;
-@export var agroRange := 25.0;
+@export var sightRange := 25.0;
+@export var agroRange := 50.0;
+@export var distanceKeepRange := 20.0;
 @export var sightAngle := 60.0;
 @export var angleVision := false;
 @export var sightRaycastNode : NodePath;

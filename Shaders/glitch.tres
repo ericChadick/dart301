@@ -1,0 +1,11 @@
+[gd_resource type="ShaderMaterial" format=3 uid="uid://dbxwt332acbnr"]
+
+[ext_resource type="Shader" uid="uid://dvp31qmvkfe0v" path="res://Shaders/glitch.gdshader" id="1_7jan0"]
+
+[resource]
+shader = ExtResource("1_7jan0")
+shader_parameter/shake_power = 0.01
+shader_parameter/shake_rate = 1.0
+shader_parameter/shake_speed = 30.0
+shader_parameter/shake_block_size = 64.0
+shader_parameter/shake_color_rate = 0.0030000001425

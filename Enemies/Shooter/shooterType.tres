@@ -6,5 +6,7 @@
 script = ExtResource("1_1p2ca")
 eyeNode = NodePath("Head")
 sightRange = 35.0
-agroRange = 40.0
+agroRange = 60.0
+runSpeed = 40.0
+gravity = 25.0
 metadata/_custom_type_script = "uid://cy5jh8nkwopfb"

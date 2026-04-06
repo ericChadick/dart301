@@ -1,7 +1,7 @@
 [gd_scene format=3 uid="uid://wekr65kd82ky"]
 
 [ext_resource type="Script" uid="uid://cva4a1spk4wog" path="res://Enemies/Shooter/shooter_bot_enemy.gd" id="1_4cib8"]
-[ext_resource type="PackedScene" uid="uid://dk7ntspwc4iau" path="res://Enemies/Shooter/shooter_botMod.tscn" id="1_70lhc"]
+[ext_resource type="PackedScene" uid="uid://d2ljx50puyksu" path="res://Enemies/Shooter/shooter_botMod.tscn" id="1_70lhc"]
 [ext_resource type="Resource" uid="uid://cmyyygkipgxjf" path="res://Enemies/Shooter/shooterType.tres" id="2_528an"]
 [ext_resource type="PackedScene" uid="uid://dcq4u4hsq0jim" path="res://Effects/hit_particles.tscn" id="3_dd47s"]
 
@@ -17,14 +17,28 @@ enemyClass = ExtResource("2_528an")
 transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 1.8447328, 0)
 shape = SubResource("CapsuleShape3D_70lhc")
 
-[node name="shooterBot" parent="." unique_id=1414694198 instance=ExtResource("1_70lhc")]
+[node name="NavigationAgent3D" type="NavigationAgent3D" parent="." unique_id=973243757]
+avoidance_enabled = true
+
+[node name="shooterBot" parent="." unique_id=410846519 instance=ExtResource("1_70lhc")]
+transform = Transform3D(0.4, 0, 0, 0, 0.4, 0, 0, 0, 0.4, 0, 0, 0)
 
 [node name="HitParticles" parent="." unique_id=1875539030 instance=ExtResource("3_dd47s")]
 
 [node name="Head" type="Node3D" parent="." unique_id=2061910860]
-transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 0.7617731, 0)
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 2.8798723, 0)
 
 [node name="SightRay" type="RayCast3D" parent="Head" unique_id=485431092]
 target_position = Vector3(0, 0, -1)
 
 [node name="GroundRay" type="RayCast3D" parent="." unique_id=1680120518]
+
+[node name="PlugIntoTimer" type="Timer" parent="." unique_id=1727076113]
+wait_time = 2.0
+one_shot = true
+
+[node name="RunAwayTimer" type="Timer" parent="." unique_id=1877217337]
+one_shot = true
+
+[connection signal="timeout" from="PlugIntoTimer" to="." method="_on_plug_into_timer_timeout"]
+[connection signal="timeout" from="RunAwayTimer" to="." method="_on_run_away_timer_timeout"]

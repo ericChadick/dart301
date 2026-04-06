@@ -7,6 +7,8 @@ enum PlayerWeapon {FIST, GUN, FLAME}
 enum PlayerParts {EMPTY, WALLASCEND, WALLSTICK, WALLTIMEINCREASE, DOUBLEJUMP, CORDLENGTHEN, CORDFLOAT, 
 PROJECTILEBOUNCE, AIRSLIDE, SCREENCRACKREMOVE}
 
+var terminalView := false;
+
 var weaponSlots := 2;
 var partSlots := 4;
 
@@ -36,7 +38,7 @@ var spdMax := 15.0;
 var spdLevel := 0;
 var spdLevelMax := 8;
 
-var jumpSpdMin := 15.0;
+var jumpSpdMin := 16.0;
 var jumpSpdMax := 25.0;
 var jumpSpdLevel := 0;
 var jumpSpdLevelMax := 8;

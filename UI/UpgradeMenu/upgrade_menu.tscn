@@ -762,7 +762,6 @@ stream = SubResource("AudioStreamRandomizer_6mccb")
 stream = SubResource("AudioStreamRandomizer_dqcmg")
 
 [node name="Screen" type="ColorRect" parent="." unique_id=139744653]
-visible = false
 material = SubResource("ShaderMaterial_g2q6n")
 anchors_preset = 15
 anchor_right = 1.0

@@ -11,7 +11,7 @@ const BOT_METAL = preload("uid://dan8p38whate8")
 
 # Called when the nod1e enters the scene tree for the first time.
 func _ready() -> void:
-	apply_material_to_children(self, BOT_METAL);
+	apply_material_to_children(self, BOT_METAL, 1);#5
 	if Global.flipHands:
 		scale.x *= -1;
 		position.x *= -1;
@@ -20,7 +20,7 @@ func _ready() -> void:
 func _process(delta: float) -> void:
 	pass;
 
-func apply_material_to_children(root_node: Node, mat:Material):
+func apply_material_to_children(root_node: Node, mat:Material, layer : int = 1):
 	var stack = [root_node]
 	while stack.size() > 0:
 		var node = stack.pop_back()
@@ -28,6 +28,8 @@ func apply_material_to_children(root_node: Node, mat:Material):
 		# Apply to MeshInstance3D nodes
 		if node is MeshInstance3D:
 			node.get_active_material(0).next_pass = mat;
+			node.set_layer_mask_value(1, false);
+			node.set_layer_mask_value(layer, true);
 			
 		# Continue searching children
 		for child in node.get_children():

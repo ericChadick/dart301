@@ -50,6 +50,7 @@ folder_colors={
 "res://UI/": "green",
 "res://World/": "yellow",
 "res://World/Blockout/": "gray",
+"res://World/Doors/": "pink",
 "res://World/JunkHole/": "green",
 "res://World/Lighting/": "red",
 "res://World/Materials/": "blue",
@@ -69,6 +70,10 @@ collect=""
 character=""
 player=""
 blueprint=""
+outletEnemy=""
+playerHitbox=""
+outletTerminal=""
+terminalOutlet=""
 
 [input]
 

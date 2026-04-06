@@ -13,6 +13,11 @@ var flashTimer := 0.0;
 @onready var side_panel_l: MeshInstance3D = $ShooterArmature/Skeleton3D/sidePanel_l/sidePanel_l
 @onready var leg_panel_r: MeshInstance3D = $ShooterArmature/Skeleton3D/leg_r_001/legPanel_r
 @onready var side_panel_r: MeshInstance3D = $ShooterArmature/Skeleton3D/sidePanel_r/sidePanel_r
+
+@onready var arm_r: BoneAttachment3D = $ShooterArmature/Skeleton3D/arm_r
+@onready var connect_area: Area3D = $ShooterArmature/Skeleton3D/arm_r/ConnectArea
+@onready var connect_point: Marker3D = $ShooterArmature/Skeleton3D/arm_r/ConnectPoint
+
 var partsBreak : Array[Node3D];
 
 # Called when the node enters the scene tree for the first time.
@@ -30,11 +35,11 @@ func _ready() -> void:
 func _process(delta: float) -> void:
 	flashTimer -= delta;
 	
-	if shot:
+	if shot and get_parent().canShoot:
 		var hitInst = projectileInst.instantiate();
 		get_parent().get_parent().add_child(hitInst);
 		hitInst.position = shoot_point.global_position;
-		hitInst.direction = (get_parent().target.global_position-shoot_point.global_position).normalized();
+		hitInst.direction = (get_parent().target.head.global_position-shoot_point.global_position).normalized();
 		hitInst.creator = get_parent();
 		
 		#hitInst.direction = -holder.head.transform.basis.z;

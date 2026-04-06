@@ -1,22 +1,32 @@
 [gd_scene format=3 uid="uid://dckfnquaidfil"]
 
 [ext_resource type="Script" uid="uid://dieaed47d8eul" path="res://UI/Gameplay/player_ui.gd" id="1_8x6xp"]
-[ext_resource type="Texture2D" uid="uid://fcmbc0c6wtwk" path="res://UI/Gameplay/power.png" id="1_kwigr"]
 [ext_resource type="Material" uid="uid://f4lyx4wwc4mt" path="res://Shaders/circleBar.tres" id="2_b8q8m"]
+[ext_resource type="PackedScene" uid="uid://b64eofdeds1tk" path="res://Player/arms_viewport.tscn" id="2_dbfo8"]
 [ext_resource type="Material" uid="uid://b4twqiatupndb" path="res://Shaders/circleBarSegment.tres" id="2_qb4e8"]
 [ext_resource type="Shader" uid="uid://nxgas4tlbxqo" path="res://Shaders/progressBarSegment.gdshader" id="3_16ylj"]
+[ext_resource type="Texture2D" uid="uid://yqgk7x7720ak" path="res://UI/Gameplay/batteryBarGradient.tres" id="3_nmeci"]
 [ext_resource type="Texture2D" uid="uid://dw8uyl4ug2yen" path="res://UI/UpgradeMenu/Icons/bulletIcon.png" id="4_2s0w1"]
 [ext_resource type="Texture2D" uid="uid://d1qoe4pt0ko7u" path="res://UI/UpgradeMenu/Icons/arrows.png" id="5_63kgm"]
 [ext_resource type="FontFile" uid="uid://b5iu436di81lx" path="res://UI/Gameplay/propaganda.ttf" id="5_qf5vc"]
 [ext_resource type="Shader" uid="uid://5vmrpeqx5scg" path="res://Shaders/circleBarSegment.gdshader" id="6_dnxry"]
-[ext_resource type="Texture2D" uid="uid://sx4l0hvsdhfg" path="res://Player/EquipWeapons/Icons/gunIcon.png" id="8_1bgqv"]
-[ext_resource type="Shader" uid="uid://dvp31qmvkfe0v" path="res://Shaders/glitch.gdshader" id="10_qb4e8"]
+[ext_resource type="Texture2D" uid="uid://dxo87ctx1s615" path="res://UI/Gameplay/crosshair.png" id="6_rdoqj"]
+[ext_resource type="Texture2D" uid="uid://cgniq0gu268p0" path="res://UI/Gameplay/nailGunIcon2.png" id="10_m4574"]
 [ext_resource type="PackedScene" uid="uid://c4yothiowxlh0" path="res://UI/MainMenu/menu_button.tscn" id="11_63kgm"]
 [ext_resource type="Material" uid="uid://g0eihtw4spff" path="res://Shaders/screenMat.tres" id="11_fwocb"]
-[ext_resource type="Texture2D" uid="uid://6i55omlplija" path="res://UI/Gameplay/skullIcon.png" id="12_rdoqj"]
+[ext_resource type="Texture2D" uid="uid://cn4ii6ace6t6" path="res://UI/Gameplay/buzzSawIcon3.png" id="11_m4574"]
 [ext_resource type="Texture2D" uid="uid://dlxfdu00bcus5" path="res://UI/UpgradeMenu/Icons/plugIcon.png" id="12_rvkn8"]
+[ext_resource type="FontFile" uid="uid://cixfa7yfwcj3d" path="res://UI/Fonts/Camcode Free.ttf" id="12_v8w1e"]
+[ext_resource type="FontFile" uid="uid://crmykpi613n0s" path="res://UI/Fonts/Color Basic.otf" id="12_ywnah"]
 [ext_resource type="Shader" uid="uid://cwnx73hbxifrt" path="res://Shaders/outlineDotted.gdshader" id="13_1bgqv"]
-[ext_resource type="Texture2D" uid="uid://db6po26ywpgg1" path="res://UI/UpgradeMenu/EquipParts/gridSelect.png" id="13_8x6xp"]
+[ext_resource type="FontFile" uid="uid://b1q7x05ymj82p" path="res://UI/Fonts/Cubixcode.ttf" id="13_ywnah"]
+[ext_resource type="Texture2D" uid="uid://b6qp35xiir5qj" path="res://UI/Gameplay/crosshairContainerIcon1.png" id="17_onej3"]
+[ext_resource type="Texture2D" uid="uid://dkxcx1x5ivprq" path="res://UI/Gameplay/bossIcon.png" id="18_dbfo8"]
+[ext_resource type="Shader" uid="uid://vg70uuunus48" path="res://Shaders/jitter.gdshader" id="20_nmeci"]
+[ext_resource type="Material" uid="uid://dbxwt332acbnr" path="res://Shaders/glitch.tres" id="20_o6p4t"]
+[ext_resource type="PackedScene" uid="uid://cgfcumjf1i5j0" path="res://UI/Terminal/terminal_ui.tscn" id="21_2ixty"]
+
+[sub_resource type="ViewportTexture" id="ViewportTexture_dbfo8"]
 
 [sub_resource type="Gradient" id="Gradient_dnxry"]
 colors = PackedColorArray(1, 0.26666665, 0, 0.47058824, 1, 0.48333335, 0, 0)
@@ -44,7 +54,7 @@ shader_parameter/alpha = 1.0
 
 [sub_resource type="Gradient" id="Gradient_v8w1e"]
 offsets = PackedFloat32Array(0)
-colors = PackedColorArray(1, 0, 0, 1)
+colors = PackedColorArray(1, 0.2, 0, 1)
 
 [sub_resource type="GradientTexture1D" id="GradientTexture1D_ywnah"]
 gradient = SubResource("Gradient_v8w1e")
@@ -76,13 +86,6 @@ expand_margin_bottom = 6.0
 
 [sub_resource type="StyleBoxEmpty" id="StyleBoxEmpty_16ylj"]
 
-[sub_resource type="Gradient" id="Gradient_1bgqv"]
-offsets = PackedFloat32Array(0)
-colors = PackedColorArray(1, 0.925, 0.75, 1)
-
-[sub_resource type="GradientTexture1D" id="GradientTexture1D_8x6xp"]
-gradient = SubResource("Gradient_1bgqv")
-
 [sub_resource type="ShaderMaterial" id="ShaderMaterial_2s0w1"]
 shader = ExtResource("3_16ylj")
 shader_parameter/stepify = false
@@ -90,14 +93,14 @@ shader_parameter/value = 0.800000038
 shader_parameter/count = 2
 shader_parameter/margin = Vector2(0.05, 0.3)
 shader_parameter/shear_angle = -0.04999995487499997
-shader_parameter/gradient_y = SubResource("GradientTexture1D_8x6xp")
+shader_parameter/gradient_y = ExtResource("3_nmeci")
 shader_parameter/use_value_gradient = true
 shader_parameter/invert = false
 shader_parameter/alpha = 1.0
 
 [sub_resource type="Gradient" id="Gradient_ywnah"]
 offsets = PackedFloat32Array(0)
-colors = PackedColorArray(1, 0.11764706, 0, 1)
+colors = PackedColorArray(1, 0.2, 0, 1)
 
 [sub_resource type="GradientTexture1D" id="GradientTexture1D_onej3"]
 gradient = SubResource("Gradient_ywnah")
@@ -153,22 +156,29 @@ shader_parameter/gradient = SubResource("GradientTexture2D_1bgqv")
 shader_parameter/use_value_gradient = true
 shader_parameter/alpha = 1.0
 
+[sub_resource type="Gradient" id="Gradient_nmeci"]
+offsets = PackedFloat32Array(1)
+colors = PackedColorArray(0, 0, 0, 1)
+
+[sub_resource type="GradientTexture2D" id="GradientTexture2D_m4574"]
+gradient = SubResource("Gradient_nmeci")
+
 [sub_resource type="ShaderMaterial" id="ShaderMaterial_16ylj"]
 shader = ExtResource("6_dnxry")
 shader_parameter/value = 1.0
-shader_parameter/segments = 4
-shader_parameter/radius = 0.32
+shader_parameter/segments = 5
+shader_parameter/radius = 0.42
 shader_parameter/hollow_radius = 0.29
 shader_parameter/margin = 0.2570000122075
 shader_parameter/rotation = 0.5030000713925
 shader_parameter/progress_rotation = 0.3330000633174999
-shader_parameter/gradient = SubResource("GradientTexture2D_1bgqv")
+shader_parameter/gradient = SubResource("GradientTexture2D_m4574")
 shader_parameter/use_value_gradient = true
-shader_parameter/alpha = 1.0
+shader_parameter/alpha = 0.400000019
 
 [sub_resource type="Gradient" id="Gradient_2s0w1"]
 offsets = PackedFloat32Array(0)
-colors = PackedColorArray(1, 0.896, 0.76, 1)
+colors = PackedColorArray(1, 0.2, 0, 1)
 
 [sub_resource type="GradientTexture2D" id="GradientTexture2D_63kgm"]
 gradient = SubResource("Gradient_2s0w1")
@@ -187,8 +197,8 @@ shader_parameter/use_value_gradient = true
 shader_parameter/alpha = 1.0
 
 [sub_resource type="Gradient" id="Gradient_8x6xp"]
-offsets = PackedFloat32Array(1)
-colors = PackedColorArray(1, 0, 0, 1)
+offsets = PackedFloat32Array(0.99264705)
+colors = PackedColorArray(1, 0.2, 0, 1)
 
 [sub_resource type="GradientTexture2D" id="GradientTexture2D_rdoqj"]
 gradient = SubResource("Gradient_8x6xp")
@@ -274,17 +284,32 @@ gradient = SubResource("Gradient_onej3")
 fill = 2
 fill_from = Vector2(0.5, 0.5)
 
-[sub_resource type="ShaderMaterial" id="ShaderMaterial_dnxry"]
-shader = ExtResource("10_qb4e8")
-shader_parameter/shake_power = 0.03
-shader_parameter/shake_rate = 0.2
-shader_parameter/shake_speed = 5.0
-shader_parameter/shake_block_size = 30.5
-shader_parameter/shake_color_rate = 0.01
+[sub_resource type="FastNoiseLite" id="FastNoiseLite_o6p4t"]
+
+[sub_resource type="NoiseTexture2D" id="NoiseTexture2D_nmeci"]
+noise = SubResource("FastNoiseLite_o6p4t")
+
+[sub_resource type="ShaderMaterial" id="ShaderMaterial_dbfo8"]
+shader = ExtResource("20_nmeci")
+shader_parameter/noise_texture = SubResource("NoiseTexture2D_nmeci")
+shader_parameter/strength = 0.002000000095
+shader_parameter/speed = Vector2(0, 0)
 
 [node name="PlayerUI" type="CanvasLayer" unique_id=883918654]
 process_mode = 3
 script = ExtResource("1_8x6xp")
+
+[node name="ArmsViewport" parent="." unique_id=1496050423 instance=ExtResource("2_dbfo8")]
+visible = false
+
+[node name="ArmsView" type="TextureRect" parent="." unique_id=2085886692]
+visible = false
+anchors_preset = 15
+anchor_right = 1.0
+anchor_bottom = 1.0
+grow_horizontal = 2
+grow_vertical = 2
+texture = SubResource("ViewportTexture_dbfo8")
 
 [node name="Control" type="Control" parent="." unique_id=1080771731]
 layout_mode = 3
@@ -458,11 +483,12 @@ custom_minimum_size = Vector2(86, 86)
 layout_mode = 2
 size_flags_horizontal = 4
 size_flags_vertical = 4
-texture = ExtResource("1_kwigr")
+texture = ExtResource("6_rdoqj")
 expand_mode = 1
 stretch_mode = 5
 
 [node name="CircleBar" type="ColorRect" parent="Control/MarginContainer/Crosshair" unique_id=1707341552]
+visible = false
 material = ExtResource("2_b8q8m")
 layout_mode = 1
 anchors_preset = 15
@@ -522,7 +548,7 @@ custom_minimum_size = Vector2(64, 64)
 layout_mode = 2
 size_flags_horizontal = 0
 size_flags_vertical = 0
-texture = ExtResource("8_1bgqv")
+texture = ExtResource("10_m4574")
 expand_mode = 1
 stretch_mode = 5
 
@@ -532,7 +558,7 @@ custom_minimum_size = Vector2(48, 48)
 layout_mode = 2
 size_flags_horizontal = 0
 size_flags_vertical = 0
-texture = ExtResource("8_1bgqv")
+texture = ExtResource("11_m4574")
 expand_mode = 1
 stretch_mode = 5
 
@@ -542,7 +568,7 @@ custom_minimum_size = Vector2(48, 48)
 layout_mode = 2
 size_flags_horizontal = 0
 size_flags_vertical = 0
-texture = ExtResource("8_1bgqv")
+texture = ExtResource("10_m4574")
 expand_mode = 1
 stretch_mode = 5
 
@@ -566,8 +592,8 @@ size_flags_horizontal = 0
 size_flags_vertical = 4
 mouse_filter = 1
 
-[node name="Back2" type="ColorRect" parent="Control/MarginContainer/WeaponInfo/AmmoBar/Back" unique_id=338538420]
-visible = false
+[node name="Back2" type="ColorRect" parent="Control/MarginContainer/WeaponInfo/AmmoBar" unique_id=338538420]
+z_index = -1
 material = SubResource("ShaderMaterial_16ylj")
 custom_minimum_size = Vector2(186, 186)
 layout_mode = 0
@@ -601,21 +627,19 @@ mouse_filter = 1
 
 [node name="MarginContainer" type="MarginContainer" parent="Control/MarginContainer/WeaponInfo/AmmoBar" unique_id=1756285781]
 layout_mode = 1
-anchors_preset = 15
-anchor_right = 1.0
-anchor_bottom = 1.0
-grow_horizontal = 2
-grow_vertical = 2
-theme_override_constants/margin_left = 48
-theme_override_constants/margin_top = 48
-theme_override_constants/margin_right = 48
-theme_override_constants/margin_bottom = 48
+offset_right = 182.0
+offset_bottom = 182.0
+theme_override_constants/margin_left = 60
+theme_override_constants/margin_top = 60
+theme_override_constants/margin_right = 40
+theme_override_constants/margin_bottom = 40
 
 [node name="CurrAmmo" type="RichTextLabel" parent="Control/MarginContainer/WeaponInfo/AmmoBar/MarginContainer" unique_id=591896536]
 custom_minimum_size = Vector2(86, 86)
 layout_mode = 2
-size_flags_horizontal = 0
-size_flags_vertical = 0
+size_flags_horizontal = 8
+size_flags_vertical = 8
+theme_override_fonts/normal_font = ExtResource("12_v8w1e")
 theme_override_font_sizes/normal_font_size = 48
 bbcode_enabled = true
 text = "3"
@@ -624,8 +648,9 @@ text = "3"
 modulate = Color(1, 1, 1, 0.5882353)
 custom_minimum_size = Vector2(64, 64)
 layout_mode = 2
-size_flags_horizontal = 4
-size_flags_vertical = 4
+size_flags_horizontal = 0
+size_flags_vertical = 0
+theme_override_fonts/normal_font = ExtResource("12_v8w1e")
 theme_override_font_sizes/normal_font_size = 36
 bbcode_enabled = true
 text = "/"
@@ -636,8 +661,9 @@ vertical_alignment = 1
 modulate = Color(1, 1, 1, 0.5882353)
 custom_minimum_size = Vector2(64, 64)
 layout_mode = 2
-size_flags_horizontal = 8
-size_flags_vertical = 8
+size_flags_horizontal = 0
+size_flags_vertical = 0
+theme_override_fonts/normal_font = ExtResource("12_v8w1e")
 theme_override_font_sizes/normal_font_size = 36
 bbcode_enabled = true
 text = "3"
@@ -656,8 +682,8 @@ size_flags_horizontal = 8
 custom_minimum_size = Vector2(512, 24)
 layout_mode = 2
 size_flags_horizontal = 0
-theme_override_fonts/normal_font = ExtResource("5_qf5vc")
-theme_override_font_sizes/normal_font_size = 48
+theme_override_fonts/normal_font = ExtResource("12_ywnah")
+theme_override_font_sizes/normal_font_size = 24
 bbcode_enabled = true
 text = "100000"
 fit_content = true
@@ -671,7 +697,7 @@ size_flags_horizontal = 0
 theme_override_fonts/normal_font = ExtResource("5_qf5vc")
 theme_override_font_sizes/normal_font_size = 24
 bbcode_enabled = true
-text = " - - - - - - - - - - - - - - - - - "
+text = " - - - - - - - - - - - - - - - - - -"
 horizontal_alignment = 2
 
 [node name="BlueprintContainer" type="MarginContainer" parent="Control/MarginContainer/CurrencyContainer/VBoxContainer" unique_id=1155938574]
@@ -683,17 +709,26 @@ layout_mode = 2
 size_flags_horizontal = 8
 theme_override_constants/separation = 6
 
-[node name="BlueprintText" type="RichTextLabel" parent="Control/MarginContainer/CurrencyContainer/VBoxContainer/BlueprintContainer/VBoxContainer" unique_id=1726145664]
-custom_minimum_size = Vector2(512, 64)
+[node name="Line" type="RichTextLabel" parent="Control/MarginContainer/CurrencyContainer/VBoxContainer/BlueprintContainer/VBoxContainer" unique_id=1726145664]
+custom_minimum_size = Vector2(512, 24)
 layout_mode = 2
 size_flags_horizontal = 0
 theme_override_fonts/normal_font = ExtResource("5_qf5vc")
 theme_override_font_sizes/normal_font_size = 24
-text = "- - - - - - - - - - - - - - - - - 
-Uploading blast.wpn...
-Uploading wallbst.prt..."
+text = " - - - - - - - - - - - - - - - - - -"
 horizontal_alignment = 2
 vertical_alignment = 2
+
+[node name="BlueprintText" type="RichTextLabel" parent="Control/MarginContainer/CurrencyContainer/VBoxContainer/BlueprintContainer/VBoxContainer" unique_id=1335127743]
+custom_minimum_size = Vector2(512, 72)
+layout_mode = 2
+size_flags_horizontal = 0
+theme_override_fonts/normal_font = ExtResource("13_ywnah")
+theme_override_font_sizes/normal_font_size = 36
+text = "uploading blast.wpn...
+uploading wallbst.prt..."
+horizontal_alignment = 2
+vertical_alignment = 1
 
 [node name="BlueprintBar" type="ColorRect" parent="Control/MarginContainer/CurrencyContainer/VBoxContainer/BlueprintContainer/VBoxContainer" unique_id=1400962827]
 material = SubResource("ShaderMaterial_8x6xp")
@@ -708,7 +743,7 @@ size_flags_horizontal = 0
 theme_override_fonts/normal_font = ExtResource("5_qf5vc")
 theme_override_font_sizes/normal_font_size = 24
 bbcode_enabled = true
-text = " - - - - - - - - - - - - - - - - - "
+text = " - - - - - - - - - - - - - - - - - -"
 horizontal_alignment = 2
 
 [node name="BossContainer" type="HBoxContainer" parent="Control/MarginContainer" unique_id=411404004]
@@ -716,20 +751,20 @@ modulate = Color(1, 0.2, 0, 1)
 layout_mode = 2
 size_flags_horizontal = 4
 size_flags_vertical = 8
-theme_override_constants/separation = 4
+theme_override_constants/separation = 8
 
 [node name="MarginContainer" type="MarginContainer" parent="Control/MarginContainer/BossContainer" unique_id=367358814]
 custom_minimum_size = Vector2(64, 64)
 layout_mode = 2
 size_flags_vertical = 0
-theme_override_constants/margin_left = 6
-theme_override_constants/margin_top = 6
-theme_override_constants/margin_right = 6
-theme_override_constants/margin_bottom = 6
+theme_override_constants/margin_left = 2
+theme_override_constants/margin_top = 2
+theme_override_constants/margin_right = 2
+theme_override_constants/margin_bottom = 2
 
 [node name="SkullIcon" type="TextureRect" parent="Control/MarginContainer/BossContainer/MarginContainer" unique_id=1499870349]
 layout_mode = 2
-texture = ExtResource("12_rdoqj")
+texture = ExtResource("18_dbfo8")
 expand_mode = 1
 
 [node name="BossBar" type="ColorRect" parent="Control/MarginContainer/BossContainer" unique_id=36031445]
@@ -813,9 +848,8 @@ custom_minimum_size = Vector2(96, 96)
 layout_mode = 1
 offset_right = 96.0
 offset_bottom = 96.0
-rotation = 0.7853982
 pivot_offset_ratio = Vector2(0.5, 0.5)
-texture = ExtResource("13_8x6xp")
+texture = ExtResource("17_onej3")
 expand_mode = 1
 
 [node name="ButtonSelect" type="NinePatchRect" parent="Control" unique_id=2073546254]
@@ -830,8 +864,17 @@ patch_margin_top = 12
 patch_margin_right = 12
 patch_margin_bottom = 12
 
-[node name="Screen" type="ColorRect" parent="." unique_id=1373793926]
+[node name="Jitter" type="ColorRect" parent="." unique_id=1181854014]
 visible = false
+z_index = 1
+material = SubResource("ShaderMaterial_dbfo8")
+anchors_preset = 15
+anchor_right = 1.0
+anchor_bottom = 1.0
+grow_horizontal = 2
+grow_vertical = 2
+
+[node name="Screen" type="ColorRect" parent="." unique_id=1373793926]
 material = ExtResource("11_fwocb")
 anchors_preset = 15
 anchor_right = 1.0
@@ -839,14 +882,20 @@ anchor_bottom = 1.0
 grow_horizontal = 2
 grow_vertical = 2
 
+[node name="BackBufferCopy" type="BackBufferCopy" parent="." unique_id=1528007971]
+copy_mode = 2
+
 [node name="Glitch" type="ColorRect" parent="." unique_id=1231459365]
 visible = false
-material = SubResource("ShaderMaterial_dnxry")
+material = ExtResource("20_o6p4t")
 anchors_preset = 15
 anchor_right = 1.0
 anchor_bottom = 1.0
 grow_horizontal = 2
 grow_vertical = 2
+
+[node name="TerminalUI" parent="." unique_id=2062628 instance=ExtResource("21_2ixty")]
+visible = false
 
 [connection signal="pressed" from="Control/PauseMenu/ListContainer/ButtonContainer/ResumeButton" to="." method="_on_resume_button_pressed"]
 [connection signal="pressed" from="Control/PauseMenu/ListContainer/ButtonContainer/ExitButton" to="." method="_on_exit_button_pressed"]

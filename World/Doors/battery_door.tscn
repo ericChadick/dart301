@@ -1,0 +1,47 @@
+[gd_scene format=3 uid="uid://cfu1yj6h7b7hk"]
+
+[ext_resource type="Script" uid="uid://dh1s0qwnf6aq1" path="res://World/Doors/battery_door.gd" id="1_uw48s"]
+[ext_resource type="PackedScene" uid="uid://bxgwgbkpugt5j" path="res://World/Outlet/outlet.tscn" id="2_hccva"]
+[ext_resource type="Material" uid="uid://be3aj8qgi7tn7" path="res://World/Props/rustySheetMetal.material" id="2_xnl1e"]
+[ext_resource type="Material" uid="uid://dan8p38whate8" path="res://Player/botMetal.material" id="2_xro31"]
+
+[sub_resource type="BoxMesh" id="BoxMesh_uw48s"]
+size = Vector3(3.5, 5, 0.5)
+
+[sub_resource type="BoxShape3D" id="BoxShape3D_uw48s"]
+size = Vector3(3.5, 5, 0.5)
+
+[node name="BatteryDoor" type="Node3D" unique_id=1133012801]
+script = ExtResource("1_uw48s")
+doorSize = Vector2(3.5, 4.5)
+doorFrameWidth = 1.0
+frameMaterial = ExtResource("2_xro31")
+doorMaterial = ExtResource("2_xnl1e")
+
+[node name="DoorFrame" type="CSGBox3D" parent="." unique_id=648432756]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 2.75, 0)
+material_override = ExtResource("2_xro31")
+use_collision = true
+size = Vector3(4.5, 5.5, 0.5)
+
+[node name="DoorFrameCutout" type="CSGBox3D" parent="DoorFrame" unique_id=818525705]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, -0.25, 0)
+operation = 2
+size = Vector3(3.5, 5, 0.5)
+
+[node name="Door" type="Node3D" parent="." unique_id=1304331140]
+
+[node name="DoorMesh" type="MeshInstance3D" parent="Door" unique_id=535733505]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 2.5, 0)
+material_override = ExtResource("2_xnl1e")
+mesh = SubResource("BoxMesh_uw48s")
+skeleton = NodePath("../StaticBody3D")
+
+[node name="StaticBody3D" type="StaticBody3D" parent="Door" unique_id=1335936292]
+
+[node name="CollisionShape3D" type="CollisionShape3D" parent="Door/StaticBody3D" unique_id=1996301755]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 2.5, 0)
+shape = SubResource("BoxShape3D_uw48s")
+
+[node name="Outlet" parent="Door" unique_id=220038749 instance=ExtResource("2_hccva")]
+transform = Transform3D(-2.1855694e-08, 0, -0.5, 0, 0.5, 0, 0.5, 0, -2.1855694e-08, 0, 2.5, 0.35)

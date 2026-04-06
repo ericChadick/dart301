@@ -4,6 +4,8 @@
 [ext_resource type="Script" uid="uid://lvljd7l44e2y" path="res://Player/EquipWeapons/Models/GunTest/gun_hand_test.gd" id="2_i753c"]
 [ext_resource type="PackedScene" uid="uid://h8nfngcoc7cq" path="res://Player/bullet.tscn" id="3_byyo1"]
 [ext_resource type="PackedScene" uid="uid://bblhd55d2lha5" path="res://Player/EquipWeapons/Models/NailGun/nailgun.glb" id="4_k1gum"]
+[ext_resource type="Material" uid="uid://dan8p38whate8" path="res://Player/botMetal.material" id="4_os6fq"]
+[ext_resource type="AudioStream" uid="uid://cckkey6se7c0o" path="res://Audio/Player/robotShoot1.wav" id="5_n1tho"]
 
 [sub_resource type="Curve" id="Curve_rj0hd"]
 _data = [Vector2(0, 1), 0.0, 0.0, 0, 0, Vector2(1, 0), -1.7314893, 0.0, 0, 0]
@@ -34,8 +36,15 @@ height = 0.2
 radial_segments = 4
 rings = 0
 
+[sub_resource type="AudioStreamRandomizer" id="AudioStreamRandomizer_n1tho"]
+random_pitch = 1.0028923
+random_volume_offset_db = 0.05
+streams_count = 1
+stream_0/stream = ExtResource("5_n1tho")
+
 [node name="gunHandTest" unique_id=737188982 instance=ExtResource("1_rj0hd")]
 script = ExtResource("2_i753c")
+shot = true
 projectileInst = ExtResource("3_byyo1")
 
 [node name="Armature" parent="." index="0" unique_id=1852164944]
@@ -92,6 +101,9 @@ bones/43/position = Vector3(-1.5930196e-09, -0.008918155, -0.006681625)
 bones/43/rotation = Quaternion(-0.012926474, -1.1919941e-07, 4.6228656e-09, 0.99991643)
 bones/44/position = Vector3(-4.312747e-09, 0.09845429, -0.009044435)
 
+[node name="arm" parent="Armature/Skeleton3D" index="0" unique_id=1067373743]
+material_override = ExtResource("4_os6fq")
+
 [node name="pistol" parent="Armature/Skeleton3D" index="1" unique_id=1691001930]
 visible = false
 
@@ -102,6 +114,7 @@ bone_idx = 44
 
 [node name="ShootParticle" type="GPUParticles3D" parent="Armature/Skeleton3D/GunBone" index="0" unique_id=723865680]
 transform = Transform3D(1, 0, 2.2331269e-13, 0, 1.0000002, 9.313226e-10, -4.1060905e-15, -9.313226e-10, 1.0000002, -1.1877717e-09, 0.20029071, -0.0009291023)
+layers = 17
 emitting = false
 amount = 12
 lifetime = 0.25
@@ -112,6 +125,7 @@ draw_pass_1 = SubResource("CapsuleMesh_i753c")
 
 [node name="MuzzleFlash" type="OmniLight3D" parent="Armature/Skeleton3D/GunBone" index="1" unique_id=1552447719]
 transform = Transform3D(1, -6.838974e-14, 2.235833e-13, 0, 1.0000004, -4.4703484e-08, -4.1060905e-15, -4.656613e-10, 1.0000002, -2.2115785e-09, 0.3729371, -0.0017299801)
+layers = 17
 light_color = Color(1, 0.48333335, 0, 1)
 light_energy = 2.0
 
@@ -120,6 +134,10 @@ transform = Transform3D(1, 0, 1.1368696e-13, 0, 1, 0, -1.1368673e-13, 1.4210855e
 
 [node name="nailgun" parent="Armature/Skeleton3D/GunBone" index="3" unique_id=1723218850 instance=ExtResource("4_k1gum")]
 transform = Transform3D(-0.60370165, -8.1047943e-07, 0.010453315, -0.010453315, 1.0797053e-07, -0.6037019, 8.0848855e-07, -0.60379225, -1.4897765e-07, 0.00245364, 0.04549174, 0.01188539)
+
+[node name="ShootSound" type="AudioStreamPlayer3D" parent="Armature/Skeleton3D/GunBone" index="4" unique_id=1940067616]
+transform = Transform3D(1, -1.3430888e-06, 4.7073413e-13, -1.3713556e-13, 2.68221e-07, 1.0000002, -1.3430888e-06, -1.0000001, 2.235175e-07, 0, 0.40480453, 8.940697e-08)
+stream = SubResource("AudioStreamRandomizer_n1tho")
 
 [node name="AnimationPlayer" parent="." index="1" unique_id=2106950465]
 speed_scale = 2.0

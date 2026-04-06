@@ -11,7 +11,7 @@ const VFX_HIT_01 = preload("uid://ri1dspbxt43r")
 
 # Called when the node enters the scene tree for the first time.
 func _ready() -> void:
-	pass;
+	pass;#print("BULLET");
 
 # Called every frame. 'delta' is the elapsed time since the previous frame.
 func _process(delta: float) -> void:
@@ -21,10 +21,6 @@ func _on_body_entered(body: Node3D) -> void:
 	if body != creator and body.is_in_group("character"):
 		#print(body.name);
 		#body.get_node("HitSound").play();
-		
-		if body.is_in_group("player"): #add camera screenshake
-			body.getHit(damage, Vector3.ZERO, .1, Global.ScreenCracks.MED);
-			
 		if body.is_in_group("enemy"): #collect currency from enemies
 			#body.enemyInd.hp -= damage;
 			body.getHit(damage, Vector3.ZERO);
@@ -32,15 +28,18 @@ func _on_body_entered(body: Node3D) -> void:
 			#body.impact_fx.play();
 		destroy();
 		
-	destroy();
+	#destroy();
 
 #timer node connected signal to destroy self on timeout
 func _on_timer_timeout() -> void:
 	destroy();
 
 func _on_area_entered(area: Area3D) -> void:
-	if !area.is_in_group("collect"):
-		destroy();
+	if area.get_parent() != creator and area.is_in_group("playerHitbox"): 
+		area.get_parent().getHit(damage, Vector3.ZERO, .1, Global.ScreenCracks.MED);
+			
+	#if !area.is_in_group("collect"):
+	#	destroy();
 		
 func destroy() -> void:
 	
