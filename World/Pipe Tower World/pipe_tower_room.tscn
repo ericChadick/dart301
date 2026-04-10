@@ -10,6 +10,7 @@ ambient_light_color = Color(1, 1, 1, 1)
 ambient_light_energy = 0.2
 fog_enabled = true
 fog_light_color = Color(0, 0, 0, 1)
+fog_density = 0.1
 volumetric_fog_enabled = true
 volumetric_fog_density = 0.0
 
@@ -39,6 +40,12 @@ density = 0.005
 [node name="Tower 4" parent="." unique_id=1992658320 instance=ExtResource("1_6gm73")]
 transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0.025790691, -0.8625016, 8.839702)
 
+[node name="Tower 5" parent="." unique_id=200213646 instance=ExtResource("1_6gm73")]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 14.441296, -0.8625016, 22.757664)
+
+[node name="Tower 6" parent="." unique_id=2025478077 instance=ExtResource("1_6gm73")]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, -28.069633, -0.8625016, 18.314518)
+
 [node name="WorldEnvironment" type="WorldEnvironment" parent="." unique_id=52923527]
 environment = SubResource("Environment_6gm73")
 
@@ -57,6 +64,24 @@ data = ExtResource("4_rqwp7")
 
 [node name="SpotLight3D" type="SpotLight3D" parent="." unique_id=513122261]
 transform = Transform3D(0.9999999, -2.8226947e-11, 0.0006457418, -0.0006457418, -4.371138e-08, 0.9999999, -6.7708383e-16, -1, -4.3711395e-08, 0.0864774, 9.597321, 0.018809617)
+light_energy = 3.451
+light_volumetric_fog_energy = 20.0
+distance_fade_enabled = true
+distance_fade_length = 100000000.0
+spot_range = 7.599344
+spot_angle = 35.232914
+
+[node name="SpotLight3D2" type="SpotLight3D" parent="." unique_id=93918559]
+transform = Transform3D(0.9999999, -2.8226947e-11, 0.0006457418, -0.0006457418, -4.371138e-08, 0.9999999, -6.7708383e-16, -1, -4.3711395e-08, 14.232732, 9.597321, 13.556145)
+light_energy = 3.451
+light_volumetric_fog_energy = 20.0
+distance_fade_enabled = true
+distance_fade_length = 100000000.0
+spot_range = 7.599344
+spot_angle = 35.232914
+
+[node name="SpotLight3D3" type="SpotLight3D" parent="." unique_id=668822690]
+transform = Transform3D(0.9999999, -2.8226947e-11, 0.0006457418, -0.0006457418, -4.371138e-08, 0.9999999, -6.7708383e-16, -1, -4.3711395e-08, -27.988758, 9.597321, 9.198541)
 light_energy = 3.451
 light_volumetric_fog_energy = 20.0
 distance_fade_enabled = true
