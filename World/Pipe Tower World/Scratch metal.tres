@@ -1,0 +1,11 @@
+[gd_resource type="StandardMaterial3D" format=3 uid="uid://c7aphdafsoe"]
+
+[ext_resource type="Texture2D" uid="uid://blrpk36wxs2qa" path="res://World/Pipe Tower World/an-intriguing-background-of-metal-displaying-a-heavily-scratched-and-used-surface-texture-design-photo.jpg" id="1_0o6x4"]
+
+[resource]
+albedo_texture = ExtResource("1_0o6x4")
+metallic = 1.0
+metallic_specular = 1.0
+roughness = 0.3
+clearcoat_enabled = true
+clearcoat_roughness = 0.0

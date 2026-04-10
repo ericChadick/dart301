@@ -1,0 +1,31 @@
+[gd_scene format=3 uid="uid://cmqmcj2t1frni"]
+
+[ext_resource type="PackedScene" uid="uid://bamqwlm5w6sg" path="res://World/Pipe Tower World/Tower 4.glb" id="1_iyu4t"]
+[ext_resource type="Material" uid="uid://bgjojy7rg5ncx" path="res://World/Props/MainLareg pillar texture/Bridge/ConcreateNew.tres" id="2_w87me"]
+[ext_resource type="Material" uid="uid://yuwc74komv7s" path="res://World/Lighting/Lights/Siren light_metal.material" id="3_jaj0k"]
+[ext_resource type="Material" uid="uid://ex8yovc4b54u" path="res://World/Pipe Tower World/Grate.tres" id="4_3u28q"]
+[ext_resource type="Material" uid="uid://c7aphdafsoe" path="res://World/Pipe Tower World/Scratch metal.tres" id="5_rrlbl"]
+[ext_resource type="Material" uid="uid://be3aj8qgi7tn7" path="res://World/Props/rustySheetMetal.material" id="6_ced2j"]
+
+[node name="Tower 4" unique_id=1992658320 instance=ExtResource("1_iyu4t")]
+
+[node name="Cylinder_056" parent="." index="0" unique_id=327875959]
+material_override = ExtResource("2_w87me")
+
+[node name="Cylinder_060" parent="." index="1" unique_id=1634607949]
+material_override = ExtResource("3_jaj0k")
+
+[node name="Cylinder_062" parent="." index="2" unique_id=1539077064]
+material_override = ExtResource("4_3u28q")
+
+[node name="Cylinder_059" parent="." index="3" unique_id=1109465551]
+material_override = ExtResource("5_rrlbl")
+
+[node name="Cylinder_086" parent="." index="4" unique_id=2110857601]
+material_override = ExtResource("6_ced2j")
+
+[node name="Cylinder_085" parent="." index="5" unique_id=389344598]
+material_override = ExtResource("6_ced2j")
+
+[node name="Cylinder_087" parent="." index="6" unique_id=1907609656]
+material_override = ExtResource("5_rrlbl")

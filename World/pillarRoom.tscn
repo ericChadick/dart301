@@ -769,11 +769,11 @@ data = ExtResource("4_eliei")
 
 [node name="FlickerLight7" parent="Lights" unique_id=2129196640 instance=ExtResource("5_wlewv")]
 transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, -93.73205, -28.213238, 3.2673397)
-light_energy = 1.9435749
+light_energy = 1.9992527
 
 [node name="FlickerLight8" parent="Lights" unique_id=1557074308 instance=ExtResource("5_wlewv")]
 transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, -56.714783, -28.213238, 3.2673397)
-light_energy = 1.3502108
+light_energy = 1.5179498
 
 [node name="Outlets" type="Node3D" parent="." unique_id=1793653263]
 
@@ -852,7 +852,7 @@ transform = Transform3D(-0.059610438, -4.9496408, 0, 4.9496408, -0.059610438, 0,
 [node name="Square_Pipe2" parent="Pipes2" unique_id=392368231 instance=ExtResource("10_dgp27")]
 transform = Transform3D(2.715, 0, 0, 0, 2.715, 0, 0, 0, 2.715, 136.01755, -28.368261, -13.557479)
 
-[node name="Ceiling Light" parent="Pipes2" unique_id=1554048021 instance=ExtResource("11_dgp27")]
+[node name="Ceiling Light" parent="Pipes2" unique_id=172087358 instance=ExtResource("11_dgp27")]
 transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, -10.874329, -29.081385, 1.9061613)
 visible = false
 

@@ -3,14 +3,6 @@
 [ext_resource type="Material" uid="uid://c2c3tjim2m2bg" path="res://World/Props/MainLareg pillar texture/Bridge/Metal.material" id="1_8b3tx"]
 [ext_resource type="Material" uid="uid://bgjojy7rg5ncx" path="res://World/Props/MainLareg pillar texture/Bridge/ConcreateNew.tres" id="2_c446b"]
 
-[sub_resource type="StandardMaterial3D" id="StandardMaterial3D_3o4n8"]
-metallic = 1.0
-metallic_specular = 0.0
-roughness = 0.0
-emission_enabled = true
-emission = Color(1, 1, 1, 1)
-emission_energy_multiplier = 0.8
-
 [sub_resource type="StandardMaterial3D" id="StandardMaterial3D_1nqbs"]
 
 [sub_resource type="ArrayMesh" id="ArrayMesh_cevvm"]
@@ -115,15 +107,9 @@ shadow_mesh = SubResource("ArrayMesh_ath2k")
 
 [node name="Bridge" type="Node3D" unique_id=295333083]
 
-[node name="Plane_008" type="MeshInstance3D" parent="." unique_id=1937526246]
-transform = Transform3D(100, 0, 0, 0, -1.2739573e-05, 100.000015, 0, -291.44745, -4.3711393e-06, 5.075, 4.770988, 0)
-material_override = SubResource("StandardMaterial3D_3o4n8")
-mesh = SubResource("ArrayMesh_oklrr")
-skeleton = NodePath("")
-
 [node name="Plane_009" type="MeshInstance3D" parent="." unique_id=326782903]
-transform = Transform3D(100, 0, 0, 0, -1.2739573e-05, 100.000015, 0, -291.44745, -4.3711393e-06, 5.075, 4.770988, 0)
-material_override = SubResource("StandardMaterial3D_3o4n8")
+transform = Transform3D(100, 0, 0, 0, -1.2739573e-05, 100.000015, 0, -291.44745, -4.3711393e-06, 5.075, 4.961855, 0)
+material_override = ExtResource("2_c446b")
 mesh = SubResource("ArrayMesh_oklrr")
 skeleton = NodePath("")
 

@@ -1,0 +1,15 @@
+[gd_resource type="StandardMaterial3D" format=3 uid="uid://ex8yovc4b54u"]
+
+[ext_resource type="Texture2D" uid="uid://dfqnvxspdrttd" path="res://World/Pipes/360_F_322064579_PaFNFr9MH77f3cqlKWXUPyyET0CCJaiZ.jpg" id="1_qyjnq"]
+
+[resource]
+transparency = 1
+blend_mode = 3
+albedo_texture = ExtResource("1_qyjnq")
+metallic = 0.8
+roughness = 0.6
+emission = Color(0.38170326, 0.38170323, 0.38170323, 1)
+uv1_scale = Vector3(6.165, 6.165, 6.165)
+uv1_triplanar = true
+uv1_triplanar_sharpness = 0.001244691
+uv1_world_triplanar = true

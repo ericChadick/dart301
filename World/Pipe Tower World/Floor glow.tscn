@@ -1,0 +1,16 @@
+[gd_scene format=3 uid="uid://cjoap0m5gdt28"]
+
+[ext_resource type="PackedScene" uid="uid://bfqb1g0gpj3rp" path="res://World/Pipe Tower World/Cube.glb" id="1_ls0o6"]
+
+[sub_resource type="StandardMaterial3D" id="StandardMaterial3D_ls0o6"]
+albedo_color = Color(0, 0, 0, 1)
+metallic_specular = 0.2
+emission_enabled = true
+emission = Color(0.40784314, 0.8784314, 1, 1)
+emission_energy_multiplier = 0.15
+
+[node name="Cube" unique_id=362076436 instance=ExtResource("1_ls0o6")]
+
+[node name="Cube_038" parent="." index="0" unique_id=718947660]
+transform = Transform3D(50, 0, 0, 0, 0.27, 0, 0, 0, 50, 0, 0, 0)
+material_override = SubResource("StandardMaterial3D_ls0o6")

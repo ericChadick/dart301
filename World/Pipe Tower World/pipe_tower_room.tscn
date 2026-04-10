@@ -1,0 +1,74 @@
+[gd_scene format=3 uid="uid://cskskj71nl6im"]
+
+[ext_resource type="PackedScene" uid="uid://cmqmcj2t1frni" path="res://World/Pipe Tower World/tower_4.tscn" id="1_6gm73"]
+[ext_resource type="Shader" uid="uid://cwr2tb4m6ld54" path="res://World/Pipe Tower World/pipe_tower_room2.gdshader" id="2_tdoo6"]
+[ext_resource type="PackedScene" uid="uid://cjoap0m5gdt28" path="res://World/Pipe Tower World/Floor glow.tscn" id="3_ieupa"]
+[ext_resource type="VoxelGIData" uid="uid://b8tqty8ja4gmd" path="res://World/Pipe Tower World/pipe_tower_room.VoxelGI_data.res" id="4_rqwp7"]
+
+[sub_resource type="Environment" id="Environment_6gm73"]
+ambient_light_color = Color(1, 1, 1, 1)
+ambient_light_energy = 0.2
+fog_enabled = true
+fog_light_color = Color(0, 0, 0, 1)
+volumetric_fog_enabled = true
+volumetric_fog_density = 0.0
+
+[sub_resource type="Gradient" id="Gradient_tdoo6"]
+
+[sub_resource type="GradientTexture2D" id="GradientTexture2D_ieupa"]
+gradient = SubResource("Gradient_tdoo6")
+
+[sub_resource type="FastNoiseLite" id="FastNoiseLite_ieupa"]
+
+[sub_resource type="NoiseTexture2D" id="NoiseTexture2D_rqwp7"]
+noise = SubResource("FastNoiseLite_ieupa")
+
+[sub_resource type="ShaderMaterial" id="ShaderMaterial_tdoo6"]
+shader = ExtResource("2_tdoo6")
+shader_parameter/noise_tex = SubResource("NoiseTexture2D_rqwp7")
+shader_parameter/noise_scale = 0.002
+shader_parameter/flatness = 4.96
+shader_parameter/density = 15.01
+shader_parameter/grad_tex = SubResource("GradientTexture2D_ieupa")
+
+[sub_resource type="FogMaterial" id="FogMaterial_1oygq"]
+density = 0.005
+
+[node name="Pipe Tower Room" type="Node3D" unique_id=1217790422]
+
+[node name="Tower 4" parent="." unique_id=1992658320 instance=ExtResource("1_6gm73")]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0.025790691, -0.8625016, 8.839702)
+
+[node name="WorldEnvironment" type="WorldEnvironment" parent="." unique_id=52923527]
+environment = SubResource("Environment_6gm73")
+
+[node name="FogVolume" type="FogVolume" parent="." unique_id=1543680262]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, -0.29509354, 1.5002699, 0.4404049)
+size = Vector3(100, 8.542089, 100)
+material = SubResource("ShaderMaterial_tdoo6")
+
+[node name="Cube" parent="." unique_id=362076436 instance=ExtResource("3_ieupa")]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, -7.0666504, 0)
+
+[node name="VoxelGI" type="VoxelGI" parent="Cube" unique_id=145582650]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, -2.1532288, 2.1380982, 0.97595215)
+size = Vector3(113.75006, 10.894803, 101.78735)
+data = ExtResource("4_rqwp7")
+
+[node name="SpotLight3D" type="SpotLight3D" parent="." unique_id=513122261]
+transform = Transform3D(0.9999999, -2.8226947e-11, 0.0006457418, -0.0006457418, -4.371138e-08, 0.9999999, -6.7708383e-16, -1, -4.3711395e-08, 0.0864774, 9.597321, 0.018809617)
+light_energy = 3.451
+light_volumetric_fog_energy = 20.0
+distance_fade_enabled = true
+distance_fade_length = 100000000.0
+spot_range = 7.599344
+spot_angle = 35.232914
+
+[node name="FogVolume2" type="FogVolume" parent="." unique_id=2129838740]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 1.469902, 8.166077, 3.8410034)
+size = Vector3(93.82, 4.9308395, 100.11)
+material = SubResource("FogMaterial_1oygq")
+
+[node name="DirectionalLight3D" type="DirectionalLight3D" parent="." unique_id=1468713464]
+transform = Transform3D(1, 0, 0, 0, 0.73451203, 0.67859566, 0, -0.67859566, 0.73451203, 0, 8.859144, 0)
+light_energy = 0.1
